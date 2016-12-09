@@ -1,4 +1,4 @@
-package test;
+package kachelung.test;
 
 import static org.junit.Assert.*;
 
@@ -8,7 +8,6 @@ import edu.kit.informatik.kachelung.LineType;
 import edu.kit.informatik.kachelung.Tile;
 
 public class TileTest {
-
     @Test
     public void testSetLineTypes() {
         fail("Not yet implemented");
@@ -22,7 +21,7 @@ public class TileTest {
     @Test
     public void testTile() {
         Tile firstTest = new Tile();
-        
+
         assertTrue(firstTest != null);
         assertTrue(firstTest.isEmpty() == true);
     }
@@ -89,16 +88,14 @@ public class TileTest {
 
     @Test
     public void testFitsTo() {
-        Tile firstElement = new Tile(new LineType[] {
-                 LineType.RED, LineType.RED, LineType.GREEN,
-                 LineType.NONE, LineType.GREEN, LineType.NONE });
-        Tile secondElement = new Tile(new LineType[] {
-                 LineType.RED, LineType.NONE, LineType.GREEN,
-                 LineType.GREEN, LineType.RED, LineType.NONE });
-        
-        assertTrue(firstElement.fitsTo(secondElement , 0) == false);
-        assertTrue(firstElement.fitsTo(secondElement , 1) == true);
-        assertTrue(firstElement.fitsTo(secondElement , 2) == true);
+        Tile firstElement = new Tile(new LineType[] { LineType.RED, LineType.RED, LineType.GREEN, LineType.NONE,
+                LineType.GREEN, LineType.NONE });
+        Tile secondElement = new Tile(new LineType[] { LineType.RED, LineType.NONE, LineType.GREEN, LineType.GREEN,
+                LineType.RED, LineType.NONE });
+
+        assertTrue(firstElement.fitsTo(secondElement, 0) == false);
+        assertTrue(firstElement.fitsTo(secondElement, 1) == true);
+        assertTrue(firstElement.fitsTo(secondElement, 2) == true);
     }
 
 }
