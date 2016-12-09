@@ -21,7 +21,10 @@ public class TileTest {
 
     @Test
     public void testTile() {
-        fail("Not yet implemented");
+        Tile firstTest = new Tile();
+        
+        assertTrue(firstTest != null);
+        assertTrue(firstTest.isEmpty() == true);
     }
 
     @Test
