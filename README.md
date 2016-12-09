@@ -1,6 +1,6 @@
 # Programmieren-WS16-17
 
-Third assignment for the lecture "Programmieren" during the winter semester 2016-2017
+Different assignments for the lecture "Programmieren" during the winter semester 2016-2017
 
 --------------------------------
 
