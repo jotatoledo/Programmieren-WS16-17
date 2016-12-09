@@ -1,6 +1,5 @@
 package edu.kit.informatik.kachelung;
 
-
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class Tile {
@@ -199,7 +198,7 @@ public class Tile {
     }
 
     private int reflectPosition(int position) {
-        return position + 1 + NUMBER_ELEMENTS / 2;
+        return position + NUMBER_ELEMENTS / 2;
     }
 
     //==================================================================================================================

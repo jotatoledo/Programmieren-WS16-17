@@ -1,7 +1,5 @@
 package edu.kit.informatik.kachelung;
 
-
-
 public class Board {
     /**
      * Represents the number of tiles in the game board.

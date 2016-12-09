@@ -1,6 +1,5 @@
 package edu.kit.informatik.kachelung;
 
-
 /**
  * Represents all possible types of lines that can be present on
  * tiles.
