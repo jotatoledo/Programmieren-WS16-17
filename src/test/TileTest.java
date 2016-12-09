@@ -4,6 +4,9 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import edu.kit.informatik.kachelung.LineType;
+import edu.kit.informatik.kachelung.Tile;
+
 public class TileTest {
 
     @Test
@@ -83,7 +86,16 @@ public class TileTest {
 
     @Test
     public void testFitsTo() {
-        fail("Not yet implemented");
+        Tile firstElement = new Tile(new LineType[] {
+                 LineType.RED, LineType.RED, LineType.GREEN,
+                 LineType.NONE, LineType.GREEN, LineType.NONE });
+        Tile secondElement = new Tile(new LineType[] {
+                 LineType.RED, LineType.NONE, LineType.GREEN,
+                 LineType.GREEN, LineType.RED, LineType.NONE });
+        
+        assertTrue(firstElement.fitsTo(secondElement , 0) == false);
+        assertTrue(firstElement.fitsTo(secondElement , 1) == true);
+        assertTrue(firstElement.fitsTo(secondElement , 2) == true);
     }
 
 }
