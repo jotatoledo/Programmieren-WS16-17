@@ -197,8 +197,14 @@ public class Tile {
         return lineTypes[position].fitsTo(otherTile.getLineTypeAtIndex(reflectedPosition));
     }
 
+    /**
+     * Calculates a mirrored position inside a tile
+     * Support method for {@linkplain Tile#fitsTo(Tile, int)}
+     * @param position A value between {@code 0} and {@linkplain #NUMBER_ELEMENTS}{@code -1}
+     * @return The mirrored position in relation to the given value
+     */
     private int reflectPosition(int position) {
-        return position + NUMBER_ELEMENTS / 2;
+        return (position + NUMBER_ELEMENTS / 2 ) % NUMBER_ELEMENTS;
     }
 
     //==================================================================================================================
