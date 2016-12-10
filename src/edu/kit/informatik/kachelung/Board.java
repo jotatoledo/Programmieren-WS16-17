@@ -159,6 +159,10 @@ public class Board {
         throw new NotImplementedException();
     }
     
+    private boolean areConnected(int indexIni, int indexEnd) {
+        throw new NotImplementedException();
+    }
+    
     //A.4.11
     /**
      * 
