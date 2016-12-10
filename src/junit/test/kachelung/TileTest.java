@@ -1,5 +1,6 @@
 package junit.test.kachelung;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
@@ -58,7 +59,12 @@ public class TileTest {
 
     @Test
     public void testIsEmpty() {
-        fail("Not yet implemented");
+        Tile firstTest = new Tile(new LineType[] {LineType.RED, LineType.RED, LineType.GREEN, 
+                LineType.NONE, LineType.GREEN, LineType.NONE });
+        Tile secondTest = new Tile();
+        
+        assertTrue(firstTest.isEmpty() == false);
+        assertTrue(secondTest.isEmpty() == true);
     }
 
     @Test
@@ -83,19 +89,32 @@ public class TileTest {
 
     @Test
     public void testToString() {
-        fail("Not yet implemented");
+        Tile firstTest = new Tile(new LineType[] {LineType.RED, LineType.RED, LineType.GREEN, 
+                LineType.NONE, LineType.GREEN, LineType.NONE });
+        String actualResult = firstTest.toString();
+        String expectedResult = "RRG-G-";
+        
+        assertThat(actualResult, is(expectedResult));
+        
+        Tile secondTest = new Tile(new LineType[] {LineType.RED, LineType.NONE, LineType.GREEN,
+                LineType.GREEN, LineType.RED, LineType.NONE });
+        
+        actualResult = secondTest.toString();
+        expectedResult = "R-GGR-";
+        assertThat(actualResult, is(expectedResult));
     }
 
     @Test
     public void testFitsTo() {
-        Tile firstElement = new Tile(new LineType[] { LineType.RED, LineType.RED, LineType.GREEN, LineType.NONE,
-                LineType.GREEN, LineType.NONE });
-        Tile secondElement = new Tile(new LineType[] { LineType.RED, LineType.NONE, LineType.GREEN, LineType.GREEN,
-                LineType.RED, LineType.NONE });
+        Tile firstElement = new Tile(new LineType[] {LineType.RED, LineType.RED, LineType.GREEN, 
+                LineType.NONE, LineType.GREEN, LineType.NONE });
+        Tile secondElement = new Tile(new LineType[] {LineType.RED, LineType.NONE, LineType.GREEN,
+                LineType.GREEN, LineType.RED, LineType.NONE });
 
         assertTrue(firstElement.fitsTo(secondElement, 0) == false);
         assertTrue(firstElement.fitsTo(secondElement, 1) == true);
         assertTrue(firstElement.fitsTo(secondElement, 2) == true);
+        assertTrue(firstElement.fitsTo(secondElement, 5) == true);
     }
 
 }

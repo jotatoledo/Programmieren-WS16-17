@@ -154,14 +154,12 @@ public final class Date {
         } else {
             dayRepresentation  =  String.valueOf(day);
         }
-
         if (month < 10) {
             monthRepresentation  =  "0" + String.valueOf(month);
         } else { 
             monthRepresentation  =  String.valueOf(month);
         }
-
-        return dayRepresentation + "-" + monthRepresentation + "-" + yearRepresentation;
+        return dayRepresentation.concat("-").concat(monthRepresentation).concat("-").concat(yearRepresentation);
     }
 
     //endregion
