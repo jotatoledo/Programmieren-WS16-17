@@ -1,15 +1,15 @@
 package edu.kit.informatik.kachelung;
 
 public enum PositionInBoard {
-    UPPER_RIGHT_CORNER(3, 4, 5),
-    DOWN_RIGH_CORNER(0, 4, 5),
-    UPPER_LEFT_CORNER(2, 3),
-    DOWN_LEFT_CORNER(0, 1, 2),
-    INTERNAL(0, 1, 2, 3, 4, 5),
-    UPPER_SIDE(2, 3, 4, 5),
-    DOWN_SIDE(0, 1, 2, 5),
-    LEFT_SIDE(0, 1, 2, 3),
-    RIGHT_SIDE(0, 3, 4, 5);  
+    UPPER_RIGHT_CORNER("UPPER_RIGHT_CORNER", 3, 4, 5),
+    DOWN_RIGH_CORNER("DOWN_RIGH_CORNER", 0, 4, 5),
+    UPPER_LEFT_CORNER("UPPER_LEFT_CORNER", 2, 3),
+    DOWN_LEFT_CORNER("DOWN_LEFT_CORNER", 0, 1, 2),
+    INTERNAL("INTERNAL", 0, 1, 2, 3, 4, 5),
+    UPPER_SIDE("UPPER_SIDE", 2, 3, 4, 5),
+    DOWN_SIDE("DOWN_SIDE", 0, 1, 2, 5),
+    LEFT_SIDE("LEFT_SIDE", 0, 1, 2, 3),
+    RIGHT_SIDE("RIGHT_SIDE", 0, 3, 4, 5);  
     
     public static final int UPPER_LEFT_CORNER_VALUE = 0;
     public static final int DOWN_LEFT_CORNER_VALUE = Board.ELEMENTS_IN_COLUMN - 1;
@@ -17,9 +17,14 @@ public enum PositionInBoard {
     public static final int DOWN_RIGHT_CORNER_VALUE = (Board.ELEMENTS_IN_ROW * Board.ELEMENTS_IN_COLUMN) - 1;
     
     private final int[] positions;
+    private final String representation;
     
-    PositionInBoard(int... positions) {
-        this.positions = new int[positions.length];        
+    PositionInBoard(String representation, int... positions) {
+        this.positions = new int[positions.length];    
+        for (int i = 0; i < positions.length; i++) {
+            this.positions[i] = positions[i];
+        }
+        this.representation = representation;
     }
     
     public int[] getPositions() {
@@ -62,5 +67,9 @@ public enum PositionInBoard {
                  }
          }
          return boardPositon;
+    }
+    
+    public String toString() {
+        return representation;
     }
 }
