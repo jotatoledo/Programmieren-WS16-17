@@ -11,7 +11,6 @@ import edu.kit.informatik.calendar.Time;
 import static org.hamcrest.CoreMatchers.*;
 
 public class DateTest {
-
     @Test
     public void testDate() {
         Date test = new Date(2012, 11, 25);

@@ -9,7 +9,6 @@ import edu.kit.informatik.calendar.DateTime;
 import edu.kit.informatik.calendar.Time;
 
 public class DateTimeTest {
-
     @Test
     public void testDateTime() {
         fail("Not yet implemented");
