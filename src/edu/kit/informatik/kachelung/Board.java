@@ -1,5 +1,7 @@
 package edu.kit.informatik.kachelung;
 
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 public class Board {
     /**
      * Represents the number of tiles in the game board.
@@ -84,6 +86,10 @@ public class Board {
     }
 
     //A.4.8
+    /**
+     * 
+     * @return
+     */
     public int getNumberOfColors() {
         int numberColors = 0;
 
@@ -94,13 +100,26 @@ public class Board {
         return numberColors;
     }
 
+    //A.4.9 
+    public boolean isValid() {
+        throw new NotImplementedException();
+    }
+    
+    //A.4.10
+    public LineType getConnectedPathColor(int[] positions) {
+        throw new NotImplementedException();
+    }
+    
     //A.4.11
+    /**
+     * 
+     */
     public String toString() {
         StringBuilder builder = new StringBuilder();
 
         for (int index = 0; index < TABLE_ELEMENTS; index++) {
-            if (index != 0 && index % 3 !=  0) {
-                builder.append('\t');
+            if (index != 0 && index % 3 ==  0) {
+                builder.append('\n');
             }
             builder.append(table[index].toString()).append(';');
         }
