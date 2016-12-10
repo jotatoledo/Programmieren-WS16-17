@@ -131,22 +131,22 @@ public class Board {
     //==================================================================================================================
     //endregion A.4
     
-    //region Extra methods
-    //==================================================================================================================
-    
-    public Board(Tile[] table) {
-        this.table = table;
-    }
-    
-    public Board copy() {
-        Tile[] elements = new Tile[TABLE_ELEMENTS];
-        
-        for (int i = 0; i < TABLE_ELEMENTS; i++) {
-           elements[i] = table[i].copy(); 
-        }        
-        return new Board(elements);
-    }
-    
-    //==================================================================================================================
-    //endregion Extra methods
+//    //region Extra methods
+//    //==================================================================================================================
+//    
+//    public Board(Tile[] table) {
+//        this.table = table;
+//    }
+//    
+//    public Board copy() {
+//        Tile[] elements = new Tile[TABLE_ELEMENTS];
+//        
+//        for (int i = 0; i < TABLE_ELEMENTS; i++) {
+//           elements[i] = table[i].copy(); 
+//        }        
+//        return new Board(elements);
+//    }
+//    
+//    //==================================================================================================================
+//    //endregion Extra methods
 }
