@@ -82,12 +82,49 @@ public class BoardTest {
 
     @Test
     public void testRotateTileClockwise() {
-        fail("Not yet implemented");
+        Board test = new Board();
+        
+        test.setTile(1, new Tile(new LineType[] {
+                 LineType.GREEN, LineType.GREEN, LineType.YELLOW, 
+                 LineType.NONE, LineType.YELLOW, LineType.NONE }));
+        test.setTile(4, new Tile(new LineType[] {
+                LineType.RED, LineType.GREEN, LineType.RED, 
+                LineType.GREEN, LineType.YELLOW, LineType.YELLOW }));
+        
+        test.rotateTileClockwise(1);
+        
+        StringBuilder builder = new StringBuilder();
+        
+        builder.append("------;-GGY-Y;------;").append('\n');
+        builder.append("------;RGRGYY;------;").append('\n');
+        builder.append("------;------;------;").append('\n');
+        builder.append("------;------;------;");
+        String actualResult = test.toString();
+        String expectedResult = builder.toString();   
+        
+        assertThat(actualResult, is(expectedResult));
     }
 
     @Test
     public void testRotateTileCounterClockwise() {
-        fail("Not yet implemented");
+        Board test = new Board();
+        StringBuilder builder = new StringBuilder();
+        
+        test.setTile(1, new Tile(new LineType[] {
+                 LineType.GREEN, LineType.GREEN, LineType.YELLOW, 
+                 LineType.NONE, LineType.YELLOW, LineType.NONE }));
+        test.setTile(4, new Tile(new LineType[] {
+                LineType.RED, LineType.GREEN, LineType.RED, 
+                LineType.GREEN, LineType.YELLOW, LineType.YELLOW }));
+        
+        test.rotateTileCounterClockwise(1);
+        builder.append("------;GY-Y-G;------;").append('\n');
+        builder.append("------;RGRGYY;------;").append('\n');
+        builder.append("------;------;------;").append('\n');
+        builder.append("------;------;------;");
+        String actualResult = test.toString();
+        String expectedResult = builder.toString();   
+        assertThat(actualResult, is(expectedResult));
     }
 
     @Test
