@@ -115,7 +115,7 @@ public class Tile {
      */
     public void rotateCounterClockwise() {
         LineType firstElement = lineTypes[0];
-        for (int i = 0; i < NUMBER_ELEMENTS - 2; i++) {
+        for (int i = 0; i <= NUMBER_ELEMENTS - 2; i++) {
             lineTypes[i] = lineTypes[i + 1];
         }
         lineTypes[NUMBER_ELEMENTS - 1] = firstElement;
