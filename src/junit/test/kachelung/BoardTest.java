@@ -41,9 +41,9 @@ public class BoardTest {
                 LineType.GREEN, LineType.GREEN, LineType.YELLOW, 
                 LineType.NONE, LineType.YELLOW, LineType.NONE }));
         
-        builder.append("------;GGY-Y-;------;").append("\n");
-        builder.append("------;------;------;").append("\n");
-        builder.append("------;------;------;").append("\n");
+        builder.append("------;GGY-Y-;------;").append('\n');
+        builder.append("------;------;------;").append('\n');
+        builder.append("------;------;------;").append('\n');
         builder.append("------;------;------;");
         actualResult = test.toString();
         expectedResult = builder.toString();
@@ -54,9 +54,9 @@ public class BoardTest {
                 LineType.GREEN, LineType.YELLOW, LineType.YELLOW }));
     
         builder.setLength(0);
-        builder.append("------;GGY-Y-;------;").append("\n");
-        builder.append("------;RGRGYY;------;").append("\n");
-        builder.append("------;------;------;").append("\n");
+        builder.append("------;GGY-Y-;------;").append('\n');
+        builder.append("------;RGRGYY;------;").append('\n');
+        builder.append("------;------;------;").append('\n');
         builder.append("------;------;------;");        
         actualResult = test.toString();
         expectedResult = builder.toString();        
@@ -97,7 +97,22 @@ public class BoardTest {
 
     @Test
     public void testIsValid() {
-        fail("Not yet implemented");
+        Board test = new Board();
+        
+        assertTrue(test.isValid() == true);
+        
+        test.setTile(1, new Tile(new LineType[] {
+                 LineType.GREEN, LineType.GREEN, LineType.YELLOW, 
+                 LineType.NONE, LineType.YELLOW, LineType.NONE }));
+        test.setTile(4, new Tile(new LineType[] {
+                LineType.RED, LineType.GREEN, LineType.RED, 
+                LineType.GREEN, LineType.YELLOW, LineType.YELLOW }));
+        
+        assertTrue(test.isValid() == true);
+        
+        test.rotateTileClockwise(1);
+        
+        assertTrue(test.isValid() == false);
     }
 
     @Test
@@ -110,12 +125,12 @@ public class BoardTest {
         Board firstTest = new Board();
         StringBuilder builder = new StringBuilder();
         
-        builder.append("------;------;------;").append("\n");
-        builder.append("------;------;------;").append("\n");
-        builder.append("------;------;------;").append("\n");
+        builder.append("------;------;------;").append('\n');
+        builder.append("------;------;------;").append('\n');
+        builder.append("------;------;------;").append('\n');
         builder.append("------;------;------;");
         String actualResult = firstTest.toString();
-        String expectedResult = builder.toString();
+        String expectedResult = builder.toString();        
         
         assertThat(actualResult, is(expectedResult));
     }
