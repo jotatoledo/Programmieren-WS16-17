@@ -3,11 +3,13 @@ package edu.kit.informatik.kachelung;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class Board {
+   
+    public static final int NUMBER_ELEMENTS_IN_COLUMN = 3;
+    public static final int NUMBER_ELEMENTS_IN_ROW = 4;
     /**
      * Represents the number of tiles in the game board.
-     * A factor of {@code 3}
      */
-    public static final int TABLE_ELEMENTS = 12;
+    public static final int TABLE_ELEMENTS = NUMBER_ELEMENTS_IN_ROW * NUMBER_ELEMENTS_IN_COLUMN;
     private Tile[] table;
 
     //region A.4
@@ -118,7 +120,7 @@ public class Board {
         StringBuilder builder = new StringBuilder();
 
         for (int index = 0; index < TABLE_ELEMENTS; index++) {
-            if (index != 0 && index % 3 ==  0) {
+            if (index != 0 && index % NUMBER_ELEMENTS_IN_COLUMN ==  0) {
                 builder.append('\n');
             }
             builder.append(table[index].toString()).append(';');
@@ -128,4 +130,23 @@ public class Board {
 
     //==================================================================================================================
     //endregion A.4
+    
+    //region Extra methods
+    //==================================================================================================================
+    
+    public Board(Tile[] table) {
+        this.table = table;
+    }
+    
+    public Board copy() {
+        Tile[] elements = new Tile[TABLE_ELEMENTS];
+        
+        for (int i = 0; i < TABLE_ELEMENTS; i++) {
+           elements[i] = table[i].copy(); 
+        }        
+        return new Board(elements);
+    }
+    
+    //==================================================================================================================
+    //endregion Extra methods
 }
