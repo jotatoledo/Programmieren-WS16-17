@@ -26,7 +26,7 @@ public enum PositionInBoard {
         return positions;
     }
     
-    public PositionInBoard calculatePosition(int position) {
+    public static PositionInBoard calculatePosition(int position) {
         PositionInBoard boardPositon = null;
         
         switch(position) {
