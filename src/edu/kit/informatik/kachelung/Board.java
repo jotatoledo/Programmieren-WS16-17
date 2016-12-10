@@ -4,12 +4,12 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class Board {
    
-    public static final int NUMBER_ELEMENTS_IN_COLUMN = 3;
-    public static final int NUMBER_ELEMENTS_IN_ROW = 4;
+    public static final int ELEMENTS_IN_COLUMN = 3;
+    public static final int ELEMENTS_IN_ROW = 4;
     /**
      * Represents the number of tiles in the game board.
      */
-    public static final int TABLE_ELEMENTS = NUMBER_ELEMENTS_IN_ROW * NUMBER_ELEMENTS_IN_COLUMN;
+    public static final int TABLE_ELEMENTS = ELEMENTS_IN_ROW * ELEMENTS_IN_COLUMN;
     private Tile[] table;
 
     //region A.4
@@ -120,7 +120,7 @@ public class Board {
         StringBuilder builder = new StringBuilder();
 
         for (int index = 0; index < TABLE_ELEMENTS; index++) {
-            if (index != 0 && index % NUMBER_ELEMENTS_IN_COLUMN ==  0) {
+            if (index != 0 && index % ELEMENTS_IN_COLUMN ==  0) {
                 builder.append('\n');
             }
             builder.append(table[index].toString()).append(';');
@@ -130,23 +130,4 @@ public class Board {
 
     //==================================================================================================================
     //endregion A.4
-    
-//    //region Extra methods
-//    //==================================================================================================================
-//    
-//    public Board(Tile[] table) {
-//        this.table = table;
-//    }
-//    
-//    public Board copy() {
-//        Tile[] elements = new Tile[TABLE_ELEMENTS];
-//        
-//        for (int i = 0; i < TABLE_ELEMENTS; i++) {
-//           elements[i] = table[i].copy(); 
-//        }        
-//        return new Board(elements);
-//    }
-//    
-//    //==================================================================================================================
-//    //endregion Extra methods
 }
