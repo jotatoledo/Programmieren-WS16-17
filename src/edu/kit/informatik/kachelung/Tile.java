@@ -16,13 +16,6 @@ public class Tile {
         this.lineTypes = lineTypes;
     }
 
-//    @Override
-//    public Object clone() throws CloneNotSupportedException {
-//        Tile clone = (Tile) super.clone();
-//        clone.setLineTypes((LineType[]) lineTypes.clone());
-//        return clone;
-//    }
-
     //region A.2
     //==================================================================================================================
 
@@ -57,8 +50,18 @@ public class Tile {
     }
 
     //A.2.4
+    /**
+     * Counts the different colors of the connection lines in the tile
+     * @return A number between 0 and 3
+     */
     public int getNumberOfColors() {
+        return getColors().length;
+    }
+    
+    private LineType[] getColors() {
+        LineType[] colors = new LineType[2];
         throw new NotImplementedException();
+//        return colors;
     }
 
     //A.2.5
@@ -198,8 +201,8 @@ public class Tile {
     }
 
     /**
-     * Calculates a mirrored position inside a tile
-     * Support method for {@linkplain Tile#fitsTo(Tile, int)}
+     * Calculates a mirrored position inside a tile.
+     * Support method for {@linkplain Tile#fitsTo(Tile, int)}.
      * @param position A value between {@code 0} and {@linkplain #NUMBER_ELEMENTS}{@code -1}
      * @return The mirrored position in relation to the given value
      */
