@@ -104,7 +104,47 @@ public class Board {
 
     //A.4.9 
     public boolean isValid() {
-        throw new NotImplementedException();
+        boolean isValid = true;
+        
+        for (int i = 0; i < Board.TABLE_ELEMENTS; i++) {
+            PositionInBoard tablePosition = table[i].getPosition();
+            int[] positions = tablePosition.getPositions();
+            for (int position : positions) {
+                Tile otherTile = getTile(calculateIndex(i, position));
+                if (!table[i].getTile().fitsTo(otherTile, position)) {
+                    isValid = false;
+                    break;
+                }
+            }
+            if (!isValid)break;
+        }
+        return isValid;
+    }
+    
+    private int calculateIndex(int index, int position) {
+        int calculatedIndex = 0;
+        
+        switch(position) {
+            case(0):
+                calculatedIndex = index - 1;
+                break;
+            case(1):
+                calculatedIndex = index + Board.ELEMENTS_IN_COLUMN - 1;
+                break;
+            case(2):
+                calculatedIndex = index + Board.ELEMENTS_IN_COLUMN;
+                break;
+            case(3):
+                calculatedIndex = index + 1;
+                break;
+            case(4):
+                calculatedIndex = index - Board.ELEMENTS_IN_COLUMN + 1;
+                break;
+            case(5):
+                calculatedIndex = index - Board.ELEMENTS_IN_COLUMN;
+                break;
+        }
+        return calculatedIndex;
     }
     
     //A.4.10
