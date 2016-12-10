@@ -1,7 +1,5 @@
 package edu.kit.informatik.kachelung;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 public enum PositionInBoard {
     UPPER_RIGHT_CORNER(3, 4, 5),
     DOWN_RIGH_CORNER(0, 4, 5),
