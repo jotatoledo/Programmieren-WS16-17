@@ -40,4 +40,12 @@ public class BoardTile {
     public int getNumberOfColors() {
         return tile.getNumberOfColors();
     }
+    
+    public String tileToString() {
+        return tile.toString();
+    }
+    
+    public String toString() {
+        return position.toString().concat("\n").concat(tile.toString());
+    }
 }
