@@ -10,16 +10,16 @@ public class Board {
      * Represents the number of tiles in the game board.
      */
     public static final int TABLE_ELEMENTS = ELEMENTS_IN_ROW * ELEMENTS_IN_COLUMN;
-    private Tile[] table;
+    private BoardTile[] table;
 
     //region A.4
     //==================================================================================================================
 
     //A.4.1
     public Board() {
-        table = new Tile[TABLE_ELEMENTS];
+        table = new BoardTile[TABLE_ELEMENTS];
         for (int index = 0; index < TABLE_ELEMENTS; index++) {
-            table[index] = new Tile();
+            table[index] = new BoardTile(new Tile(), PositionInBoard.calculatePosition(index));
         }
     }
 
@@ -30,7 +30,7 @@ public class Board {
      * @return
      */
     public Tile getTile(int position) {
-        return table[position];
+        return table[position].getTile();
     }
 
     //A.4.3
@@ -40,7 +40,7 @@ public class Board {
      * @param newTile An instance of {@linkplain Tile}
      */
     public void setTile(int position, Tile newTile) {
-        table[position] = newTile;
+        table[position].setTile(newTile);
     }
 
     //A.4.4
@@ -49,7 +49,7 @@ public class Board {
      * @param position A value between {@code 0} and {@linkplain #TABLE_ELEMENTS}{@code -1}
      */
     public void removeTile(int position) {
-        table[position] = new Tile();
+        table[position].setTile(new Tile());
     }
 
     //A.4.5
@@ -60,7 +60,7 @@ public class Board {
     public boolean isEmpty() {
         boolean isEmpty = true;
 
-        for (Tile element : table) {
+        for (BoardTile element : table) {
             if (!element.isEmpty()) {
                 isEmpty = false;
                 break;
@@ -95,7 +95,7 @@ public class Board {
     public int getNumberOfColors() {
         int numberColors = 0;
 
-        for (Tile element : table) {
+        for (BoardTile element : table) {
             numberColors = element.getNumberOfColors() > numberColors ? element.getNumberOfColors() : numberColors;
             if (numberColors == 3)break;
         }
