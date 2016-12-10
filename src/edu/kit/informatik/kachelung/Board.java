@@ -121,6 +121,13 @@ public class Board {
         return isValid;
     }
     
+    /**
+     * 
+     * Support function for {@linkplain #isValid()}.
+     * @param index A position of the codification array of the board
+     * @param position A position of the codification array of a tile
+     * @return
+     */
     private int calculateIndex(int index, int position) {
         int calculatedIndex = 0;
         
@@ -163,7 +170,7 @@ public class Board {
             if (index != 0 && index % ELEMENTS_IN_COLUMN ==  0) {
                 builder.append('\n');
             }
-            builder.append(table[index].toString()).append(';');
+            builder.append(table[index].tileToString()).append(';');
         }
         return builder.toString();
     }
