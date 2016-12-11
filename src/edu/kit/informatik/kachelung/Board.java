@@ -156,10 +156,6 @@ public class Board {
     
     //A.4.10
     public LineType getConnectedPathColor(int[] positions) {
-        LineType pathColor = null;
-        for (int i = 0; i < positions.length - 1; i++) {
-            
-        }
         throw new NotImplementedException();
     }
     
