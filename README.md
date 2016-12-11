@@ -4,7 +4,7 @@ Different assignments for the lecture "Programmieren" during the winter semester
 
 ## Table of Contents
 
-1. [Currently in src](#API)
+1. [API](#API)
 1. [License](#license)
 
 ## API:
