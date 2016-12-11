@@ -4,8 +4,8 @@ Different assignments for the lecture "Programmieren" during the winter semester
 
 ## Currently in src:
 
-* [First assigment]
-* [Second assigment]
+* [Second assigment : Calendar functions](https://github.com/jotatoledo/Programmieren-WS16-17/blob/develop/assignment02.pdf)
+* [Third assigment : Board game](https://github.com/jotatoledo/Programmieren-WS16-17/blob/develop/assignment03.pdf)
 
 --------------------------------
 
