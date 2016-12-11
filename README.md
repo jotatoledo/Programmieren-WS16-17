@@ -9,17 +9,17 @@ Different assignments for the lecture "Programmieren" during the winter semester
 
 ## API:
 
-* [Second assigment : Calendar functions](https://github.com/jotatoledo/Programmieren-WS16-17/blob/develop/assignment02.pdf)
-* [Third assigment : Board game](https://github.com/jotatoledo/Programmieren-WS16-17/blob/develop/assignment03.pdf)
+* [Second assignment : Calendar functions](https://github.com/jotatoledo/Programmieren-WS16-17/blob/master/assignment02.pdf)
+* [Third assignment : Board game](https://github.com/jotatoledo/Programmieren-WS16-17/blob/master/assignment03.pdf)
 
 **[Back to top](#table-of-contents)**
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE.md file for details
+This project is licensed under the MIT License - see [LICENSE.md](https://github.com/jotatoledo/Programmieren-WS16-17/blob/master/assignment02.pdf) for details
 
 **[Back to top](#table-of-contents)**
 
 --------------------------------
 
-[Lecture website] (https://sdqweb.ipd.kit.edu/wiki/Vorlesung_Programmieren_WS16/17)
+[Lecture web site] (https://sdqweb.ipd.kit.edu/wiki/Vorlesung_Programmieren_WS16/17)
