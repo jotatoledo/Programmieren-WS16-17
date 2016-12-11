@@ -1,5 +1,11 @@
 package edu.kit.informatik.kachelung;
 
+/**
+ * Represents a {@linkplain Tile tile} in the {@linkplain Board game board}
+ * in a specific {@linkplain PositionInBoard position}
+ * @author JoseNote
+ * @version 1.00
+ */
 public class BoardTile {
     /**
      * The representation of a tile in a board represented by an instance of {@linkplain board}
