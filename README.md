@@ -4,13 +4,13 @@ Different assignments for the lecture "Programmieren" during the winter semester
 
 ## Table of Contents
 
-1. [API](#API)
+1. [API](#api)
 1. [License](#license)
 
-## API:
+## API
 
-* [Second assignment : Calendar functions](https://github.com/jotatoledo/Programmieren-WS16-17/blob/master/assignment02.pdf)
-* [Third assignment : Board game](https://github.com/jotatoledo/Programmieren-WS16-17/blob/master/assignment03.pdf)
+* Second assignment : [Calendar functions](https://github.com/jotatoledo/Programmieren-WS16-17/blob/master/assignment02.pdf)
+* Third assignment : [Board game](https://github.com/jotatoledo/Programmieren-WS16-17/blob/master/assignment03.pdf)
 
 **[Back to top](#table-of-contents)**
 
