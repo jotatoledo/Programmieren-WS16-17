@@ -52,7 +52,7 @@ public enum LineType {
      * Checks if the current instance fits a given instance.
      * Two {@linkplain LineType} instances don't fit, only if they are both
      * not {@link #NONE} and different.
-     * @param otherColor
+     * @param otherColor The other instance to fit
      * @return {@code True} if the current instance first
      */
     public boolean fitsTo(LineType otherColor) {
