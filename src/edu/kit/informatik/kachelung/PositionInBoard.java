@@ -27,6 +27,10 @@ public enum PositionInBoard {
         this.representation = representation;
     }
     
+    public String getRepresentation() {
+        return representation;
+    }
+    
     public int[] getPositions() {
         return positions;
     }
