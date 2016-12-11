@@ -42,19 +42,30 @@ public enum LineType {
 
     /**
      * Returns whether this is a color.
-     * 
      * @return {@code true} if this is a color, {@code false} if this is {@link #NONE}
      */
     public boolean isColor() {
         return this != NONE;
     }
 
+    /**
+     * Checks if the current instance fits a given instance.
+     * Two {@linkplain LineType} instances don't fit, only if they are both
+     * not {@link #NONE} and different.
+     * @param otherColor
+     * @return {@code True} if the current instance first
+     */
     public boolean fitsTo(LineType otherColor) {
         boolean fits = true;
 
         if (this.isColor() && otherColor.isColor()) {
+            //true: only when to colors are being compared, they could not match
             if (this != otherColor)fits = false;
         }
         return fits;
+    }
+    
+    public String toString() {
+        return String.valueOf(abbreviation);
     }
 }
