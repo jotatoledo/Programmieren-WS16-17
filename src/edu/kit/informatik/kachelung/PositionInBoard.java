@@ -17,22 +17,22 @@ public enum PositionInBoard {
     RIGHT_SIDE("RIGHT_SIDE", 0, 3, 4, 5);  
     
     /**
-     * The value of the index in the codification array in {@linkplain Board}
+     * The value of the index in the codification list in {@linkplain Board}
      * related to the tile located in the upper left corner of the game board
      */
     public static final int UPPER_LEFT_CORNER_VALUE = 0;
     /**
-     * The value of the index in the codification array in {@linkplain Board}
+     * The value of the index in the codification list in {@linkplain Board}
      * related to the tile located in the down left corner of the game board
      */
     public static final int DOWN_LEFT_CORNER_VALUE = Board.ELEMENTS_IN_COLUMN - 1;
     /**
-     * The value of the index in the codification array in {@linkplain Board}
+     * The value of the index in the codification list in {@linkplain Board}
      * related to the tile located in the upper left corner of the game board
      */
     public static final int UPPER_RIGHT_CORNER_VALUE = (Board.ELEMENTS_IN_ROW - 1) * Board.ELEMENTS_IN_COLUMN;
     /**
-     * The value of the index in the codification array in {@linkplain Board}
+     * The value of the index in the codification list in {@linkplain Board}
      * related to the tile located in the down right corner of the game board
      */
     public static final int DOWN_RIGHT_CORNER_VALUE = (Board.ELEMENTS_IN_ROW * Board.ELEMENTS_IN_COLUMN) - 1;
@@ -73,8 +73,8 @@ public enum PositionInBoard {
     
     /**
      * Calculates the {@linkplain PositionInBoard} 
-     * associated to a given index of the table codification in [{@linkplain Board}
-     * @param position A index of the table codification in [{@linkplain Board}
+     * associated to a given index of the codification list in [{@linkplain Board}
+     * @param position A index of the codification list in [{@linkplain Board}
      * @return The value associated to the index
      */
     public static PositionInBoard calculateTablePosition(int position) {
