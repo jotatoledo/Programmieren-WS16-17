@@ -23,7 +23,7 @@ public class BoardTile {
     
     /**
      * Getter for {@link #tile}
-     * @return
+     * @return The value of {@link #tile}
      */
     public Tile getTile() {
         return tile;
@@ -38,8 +38,8 @@ public class BoardTile {
     }
 
     /**
-     * Getter for {@link #tile}
-     * @return
+     * Getter for {@link #position}
+     * @return The value of {@link #position}
      */
     public PositionInBoard getPosition() {
         return position;
@@ -86,6 +86,10 @@ public class BoardTile {
         return tile.getNumberOfColors();
     }
     
+    /**
+     * Generates the {@linkplain String} representation of the {@linkplain Tile} component of the instance
+     * @return The {@linkplain String} representation of the {@linkplain Tile} component of the instance
+     */
     public String tileToString() {
         return tile.toString();
     }
