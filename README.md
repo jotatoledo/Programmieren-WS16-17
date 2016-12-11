@@ -16,7 +16,7 @@ Different assignments for the lecture "Programmieren" during the winter semester
 
 ## License
 
-This project is licensed under the MIT License - see [LICENSE.md](https://github.com/jotatoledo/Programmieren-WS16-17/blob/master/assignment02.pdf) for details
+This project is licensed under the MIT License - see [LICENSE.md](https://github.com/jotatoledo/Programmieren-WS16-17/blob/master/LICENSE) for details
 
 **[Back to top](#table-of-contents)**
 
