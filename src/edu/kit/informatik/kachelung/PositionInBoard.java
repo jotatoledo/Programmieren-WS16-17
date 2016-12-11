@@ -55,10 +55,18 @@ public enum PositionInBoard {
         this.representation = representation;
     }
     
+    /**
+     * Getter method for {@link #representation}
+     * @return The value of {@link #representation}
+     */
     public String getRepresentation() {
         return representation;
     }
     
+    /**
+     * Getter method for {@link #positions}
+     * @return The value of {@link #positions}
+     */
     public int[] getPositions() {
         return positions;
     }
