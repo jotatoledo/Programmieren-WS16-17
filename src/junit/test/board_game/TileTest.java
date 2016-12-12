@@ -190,7 +190,16 @@ public class TileTest {
 
     @Test
     public void testDominates() {
-        fail("Not yet implemented");
+        //The tiles do not dominate themselves
+        assertTrue(EMPTY_TILE.dominates(EMPTY_TILE) == false);
+        assertTrue(K0.dominates(K0) == false);
+        assertTrue(K1.dominates(K1) == false);
+        assertTrue(TEST_TRIO.dominates(TEST_TRIO) == false);
+        
+        //Every tile except the empty one dominates the empty one
+        assertTrue(K0.dominates(EMPTY_TILE) == true);
+        assertTrue(K1.dominates(EMPTY_TILE) == true);
+        assertTrue(TEST_TRIO.dominates(EMPTY_TILE) == true);
     }
 
     @Test
