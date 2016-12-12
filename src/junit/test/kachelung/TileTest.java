@@ -50,16 +50,6 @@ public class TileTest {
     }
 
     @Test
-    public void testSetLineTypes() {
-        fail("Not yet implemented");
-    }
-
-    @Test
-    public void testTileLineTypeArray() {
-        fail("Not yet implemented");
-    }
-
-    @Test
     public void testTile() {
         Tile firstTest = new Tile();
 
@@ -70,7 +60,10 @@ public class TileTest {
 
     @Test
     public void testGetLineTypeAtIndex() {
-        fail("Not yet implemented");
+        assertTrue(EMPTY_TILE.getLineTypeAtIndex(0) == LineType.NONE);
+        assertTrue(TEST_TRIO.getLineTypeAtIndex(0) == LineType.RED);
+        assertTrue(TEST_TRIO.getLineTypeAtIndex(1) == LineType.YELLOW);
+        assertTrue(TEST_TRIO.getLineTypeAtIndex(5) == LineType.GREEN);
     }
 
     @Test
@@ -119,12 +112,34 @@ public class TileTest {
 
     @Test
     public void testRotateClockwise() {
-        fail("Not yet implemented");
+        //RYRYGG
+        Tile copyTrio = TEST_TRIO.copy();
+        
+        copyTrio.rotateClockwise();
+        assertThat(copyTrio.toString(), is("GRYRYG"));
+        copyTrio.rotateClockwise();
+        copyTrio.rotateClockwise();
+        assertThat(copyTrio.toString(), is("YGGRYR"));
+        copyTrio.rotateClockwise();
+        copyTrio.rotateClockwise();
+        copyTrio.rotateClockwise();
+        assertThat(copyTrio.toString(), is(TEST_TRIO.toString()));
     }
 
     @Test
     public void testRotateCounterClockwise() {
-        fail("Not yet implemented");
+        //RYRYGG
+        Tile copyTrio = TEST_TRIO.copy();
+        
+        copyTrio.rotateCounterClockwise();
+        assertThat(copyTrio.toString(), is("YRYGGR"));
+        copyTrio.rotateCounterClockwise();
+        copyTrio.rotateCounterClockwise();
+        assertThat(copyTrio.toString(), is("YGGRYR"));
+        copyTrio.rotateCounterClockwise();
+        copyTrio.rotateCounterClockwise();
+        copyTrio.rotateCounterClockwise();
+        assertThat(copyTrio.toString(), is(TEST_TRIO.toString()));
     }
 
     @Test
@@ -139,7 +154,16 @@ public class TileTest {
 
     @Test
     public void testIsRotationEqualTo() {
-        fail("Not yet implemented");
+        Tile copyTrio = TEST_TRIO.copy();
+        
+        copyTrio.rotateClockwise();
+        copyTrio.rotateClockwise();
+        
+        assertTrue(copyTrio.isRotationEqualTo(TEST_TRIO) == true);
+        assertTrue(EMPTY_TILE.isRotationEqualTo(EMPTY_TILE) == true);
+        assertTrue(TEST_TRIO.isRotationEqualTo(TEST_TRIO) == true);
+        assertTrue(TEST_TRIO.isRotationEqualTo(EMPTY_TILE) == false);
+        assertTrue(EMPTY_TILE.isRotationEqualTo(TEST_TRIO) == false);
     }
 
     @Test
