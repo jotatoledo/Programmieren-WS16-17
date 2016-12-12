@@ -154,8 +154,15 @@ public class Tile {
 
     //A.2.11 
     public boolean canBeRecoloredTo(Tile otherTile) {
-        return false;
-//        throw new NotImplementedException();
+        boolean canBeRecolored = true;
+        
+        for (int i = 0; i < NUMBER_ELEMENTS; i++) {
+            if (getLineTypeAtIndex(i).isColor() != otherTile.getLineTypeAtIndex(i).isColor()) {
+                canBeRecolored = false;
+                break;
+            }
+        }        
+        return canBeRecolored;
     }
 
     //A.2.12 
