@@ -9,6 +9,24 @@ import edu.kit.informatik.kachelung.LineType;
 import edu.kit.informatik.kachelung.Tile;
 
 public class TileTest {
+    private static final Tile EMPTY_TILE = new Tile();
+    /**
+     * Example in picture 6
+     */
+    private static final Tile K0 = new Tile(new LineType[] {
+            LineType.RED, LineType.RED, LineType.GREEN, 
+            LineType.NONE, LineType.GREEN, LineType.NONE }); 
+    /**
+     * Example in picture 6
+     */
+    private static final Tile K1 = new Tile(new LineType[] {
+            LineType.RED, LineType.NONE, LineType.GREEN,
+            LineType.GREEN, LineType.RED, LineType.NONE });
+    
+    public TileTest() {
+        
+    }
+    
     @Test
     public void testSetLineTypes() {
         fail("Not yet implemented");
@@ -25,6 +43,7 @@ public class TileTest {
 
         assertTrue(firstTest != null);
         assertTrue(firstTest.isEmpty() == true);
+        assertTrue(EMPTY_TILE.isEmpty() == true);
     }
 
     @Test
@@ -39,12 +58,21 @@ public class TileTest {
 
     @Test
     public void testIsExactlyEqualTo() {
-        fail("Not yet implemented");
+        assertTrue(EMPTY_TILE.isExactlyEqualTo(EMPTY_TILE) == true);
+        assertTrue(K1.isExactlyEqualTo(K1) == true);
+        assertTrue(K0.isExactlyEqualTo(K0) == true);
+        
+        assertTrue(EMPTY_TILE.isExactlyEqualTo(K1) == false);
+        assertTrue(K1.isExactlyEqualTo(K0) == false);
+        assertTrue(K0.isExactlyEqualTo(EMPTY_TILE) == false);
     }
 
     @Test
     public void testCopy() {
-        fail("Not yet implemented");
+        Tile copyEmpty = EMPTY_TILE.copy();
+        
+        assertTrue(copyEmpty != EMPTY_TILE);
+        assertTrue(copyEmpty.isExactlyEqualTo(EMPTY_TILE));
     }
 
     @Test
@@ -89,32 +117,30 @@ public class TileTest {
 
     @Test
     public void testToString() {
-        Tile firstTest = new Tile(new LineType[] {LineType.RED, LineType.RED, LineType.GREEN, 
-                LineType.NONE, LineType.GREEN, LineType.NONE });
-        String actualResult = firstTest.toString();
-        String expectedResult = "RRG-G-";
+        String actualResult = null;
+        String expectedResult = null;
         
+        actualResult = EMPTY_TILE.toString();
+        expectedResult = "------";
         assertThat(actualResult, is(expectedResult));
         
-        Tile secondTest = new Tile(new LineType[] {LineType.RED, LineType.NONE, LineType.GREEN,
-                LineType.GREEN, LineType.RED, LineType.NONE });
+        actualResult = K0.toString();
+        expectedResult = "RRG-G-";        
+        assertThat(actualResult, is(expectedResult));
         
-        actualResult = secondTest.toString();
+        actualResult = K1.toString();
         expectedResult = "R-GGR-";
         assertThat(actualResult, is(expectedResult));
     }
 
     @Test
     public void testFitsTo() {
-        Tile firstElement = new Tile(new LineType[] {LineType.RED, LineType.RED, LineType.GREEN, 
-                LineType.NONE, LineType.GREEN, LineType.NONE });
-        Tile secondElement = new Tile(new LineType[] {LineType.RED, LineType.NONE, LineType.GREEN,
-                LineType.GREEN, LineType.RED, LineType.NONE });
-
-        assertTrue(firstElement.fitsTo(secondElement, 0) == false);
-        assertTrue(firstElement.fitsTo(secondElement, 1) == true);
-        assertTrue(firstElement.fitsTo(secondElement, 2) == true);
-        assertTrue(firstElement.fitsTo(secondElement, 5) == true);
+        assertTrue(K0.fitsTo(K1, 0) == false);
+        assertTrue(K0.fitsTo(K1, 1) == true);
+        assertTrue(K0.fitsTo(K1, 2) == true);
+        assertTrue(K0.fitsTo(K1, 3) == true);
+        assertTrue(K0.fitsTo(K1, 4) == true);
+        assertTrue(K0.fitsTo(K1, 5) == true);
     }
 
 }
