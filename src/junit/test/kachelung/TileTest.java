@@ -35,6 +35,16 @@ public class TileTest {
             LineType.RED, LineType.NONE, LineType.GREEN,
             LineType.GREEN, LineType.RED, LineType.NONE });
 
+    /**
+     * <pre>
+     * Example in picture 4
+     * RYRYGG
+     * </pre>
+     */
+    private static final Tile TEST_TRIO =  new Tile(new LineType[] {
+            LineType.RED, LineType.YELLOW, LineType.RED,
+            LineType.YELLOW, LineType.GREEN, LineType.GREEN });
+    
     public TileTest() {
 
     }
@@ -70,16 +80,12 @@ public class TileTest {
                 LineType.RED, LineType.RED, LineType.NONE,
                 LineType.NONE, LineType.NONE, LineType.NONE });
 
-        Tile testTrio =  new Tile(new LineType[] {
-                LineType.RED, LineType.YELLOW, LineType.RED,
-                LineType.YELLOW, LineType.GREEN, LineType.GREEN });
-
         Tile testDuo = new Tile(new LineType[] {
                 LineType.NONE, LineType.YELLOW, LineType.RED,
                 LineType.NONE, LineType.RED, LineType.YELLOW });
 
         assertTrue(testDuo.getNumberOfColors() == 2);
-        assertTrue(testTrio.getNumberOfColors() == 3);     
+        assertTrue(TEST_TRIO.getNumberOfColors() == 3);     
         assertTrue(testSingular.getNumberOfColors() == 1);        
         assertTrue(EMPTY_TILE.getNumberOfColors() == 0);
         assertTrue(K1.getNumberOfColors() == 2);
@@ -148,7 +154,18 @@ public class TileTest {
 
     @Test
     public void testHasSameColorsAs() {
-        fail("Not yet implemented");
+        assertTrue(EMPTY_TILE.hasSameColorsAs(EMPTY_TILE) == true);
+        assertTrue(K0.hasSameColorsAs(K0) == true);
+        assertTrue(K1.hasSameColorsAs(K1) == true);
+        assertTrue(TEST_TRIO.hasSameColorsAs(TEST_TRIO) == true);
+        
+        assertTrue(EMPTY_TILE.hasSameColorsAs(K0) == false);
+        assertTrue(K0.hasSameColorsAs(EMPTY_TILE) == false);
+        assertTrue(K1.hasSameColorsAs(K0) == true);
+        assertTrue(K0.hasSameColorsAs(K0) == true);
+        assertTrue(TEST_TRIO.hasSameColorsAs(EMPTY_TILE) == false);
+        assertTrue(TEST_TRIO.hasSameColorsAs(K0) == false);
+        assertTrue(TEST_TRIO.hasSameColorsAs(K1) == false);
     }
 
     @Test
