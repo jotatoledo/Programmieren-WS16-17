@@ -28,11 +28,11 @@ public class TileTest {
     private static final Tile K1 = new Tile(new LineType[] {
             LineType.RED, LineType.NONE, LineType.GREEN,
             LineType.GREEN, LineType.RED, LineType.NONE });
-    
+
     public TileTest() {
-        
+
     }
-    
+
     @Test
     public void testSetLineTypes() {
         fail("Not yet implemented");
@@ -59,14 +59,20 @@ public class TileTest {
 
     @Test
     public void testGetNumberOfColors() {
+        //Examples in picture 4
         Tile testSingular = new Tile(new LineType[] {
                 LineType.RED, LineType.RED, LineType.NONE,
                 LineType.NONE, LineType.NONE, LineType.NONE });
-        
+
         Tile testTrio =  new Tile(new LineType[] {
                 LineType.RED, LineType.YELLOW, LineType.RED,
                 LineType.YELLOW, LineType.GREEN, LineType.GREEN });
-        
+
+        Tile testDuo = new Tile(new LineType[] {
+                LineType.NONE, LineType.YELLOW, LineType.RED,
+                LineType.NONE, LineType.RED, LineType.YELLOW });
+
+        assertTrue(testDuo.getNumberOfColors() == 2);
         assertTrue(testTrio.getNumberOfColors() == 3);     
         assertTrue(testSingular.getNumberOfColors() == 1);        
         assertTrue(EMPTY_TILE.getNumberOfColors() == 0);
@@ -79,7 +85,7 @@ public class TileTest {
         assertTrue(EMPTY_TILE.isExactlyEqualTo(EMPTY_TILE) == true);
         assertTrue(K1.isExactlyEqualTo(K1) == true);
         assertTrue(K0.isExactlyEqualTo(K0) == true);
-        
+
         assertTrue(EMPTY_TILE.isExactlyEqualTo(K1) == false);
         assertTrue(K1.isExactlyEqualTo(K0) == false);
         assertTrue(K0.isExactlyEqualTo(EMPTY_TILE) == false);
@@ -90,7 +96,7 @@ public class TileTest {
         Tile copyEmpty = EMPTY_TILE.copy();
         Tile copyK1 = K1.copy();
         Tile copyK0 = K0.copy();
-        
+
         assertTrue(copyEmpty != EMPTY_TILE);
         assertTrue(copyEmpty.isExactlyEqualTo(EMPTY_TILE) == true);        
         assertTrue(copyK1 != K1);
@@ -114,7 +120,7 @@ public class TileTest {
         Tile firstTest = new Tile(new LineType[] {LineType.RED, LineType.RED, LineType.GREEN, 
                 LineType.NONE, LineType.GREEN, LineType.NONE });
         Tile secondTest = new Tile();
-        
+
         assertTrue(firstTest.isEmpty() == false);
         assertTrue(secondTest.isEmpty() == true);
     }
@@ -143,15 +149,15 @@ public class TileTest {
     public void testToString() {
         String actualResult = null;
         String expectedResult = null;
-        
+
         actualResult = EMPTY_TILE.toString();
         expectedResult = "------";
         assertThat(actualResult, is(expectedResult));
-        
+
         actualResult = K0.toString();
         expectedResult = "RRG-G-";        
         assertThat(actualResult, is(expectedResult));
-        
+
         actualResult = K1.toString();
         expectedResult = "R-GGR-";
         assertThat(actualResult, is(expectedResult));
