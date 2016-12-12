@@ -11,10 +11,6 @@ public class Tile {
      */
     private LineType[] lineTypes;
 
-    public void setLineTypes(LineType[] lineTypes) {
-        this.lineTypes = lineTypes;
-    }
-
     //region A.2
     //==================================================================================================================
 
@@ -145,10 +141,12 @@ public class Tile {
         Tile clone = this.copy();
         boolean rotationIsEqualToOther = false;
 
-        for (int i = 0; i <= NUMBER_ELEMENTS - 2; i++) {
+        for (int i = 0; i < NUMBER_ELEMENTS - 1; i++) {
             if (clone.isExactlyEqualTo(otherTile)) {
                 rotationIsEqualToOther = true;
                 break;
+            } else {
+                clone.rotateClockwise();
             }
         }
         return rotationIsEqualToOther;
