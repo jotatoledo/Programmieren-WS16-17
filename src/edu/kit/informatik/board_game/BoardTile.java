@@ -1,4 +1,4 @@
-package edu.kit.informatik.kachelung;
+package edu.kit.informatik.board_game;
 
 /**
  * Represents a {@linkplain Tile tile} in the {@linkplain Board game board}

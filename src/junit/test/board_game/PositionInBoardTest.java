@@ -1,4 +1,4 @@
-package junit.test.kachelung;
+package junit.test.board_game;
 
 import static org.junit.Assert.*;
 

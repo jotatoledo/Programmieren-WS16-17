@@ -1,12 +1,12 @@
-package junit.test.kachelung;
+package junit.test.board_game;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import edu.kit.informatik.kachelung.LineType;
-import edu.kit.informatik.kachelung.Tile;
+import edu.kit.informatik.board_game.LineType;
+import edu.kit.informatik.board_game.Tile;
 
 public class TileTest {
     /**

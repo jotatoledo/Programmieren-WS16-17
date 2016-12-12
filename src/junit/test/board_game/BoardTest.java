@@ -1,13 +1,14 @@
-package junit.test.kachelung;
+package junit.test.board_game;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
-import static org.hamcrest.CoreMatchers.*;
 
-import edu.kit.informatik.kachelung.Board;
-import edu.kit.informatik.kachelung.LineType;
-import edu.kit.informatik.kachelung.Tile;
+import edu.kit.informatik.board_game.Board;
+import edu.kit.informatik.board_game.LineType;
+import edu.kit.informatik.board_game.Tile;
+
+import static org.hamcrest.CoreMatchers.*;
 
 public class BoardTest {
     /**

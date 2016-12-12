@@ -1,4 +1,4 @@
-package edu.kit.informatik.kachelung;
+package edu.kit.informatik.board_game;
 
 public class Board {
     /**
