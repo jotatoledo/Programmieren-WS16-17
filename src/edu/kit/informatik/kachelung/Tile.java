@@ -59,9 +59,7 @@ public class Tile {
     }
     
     private LineType[] getColors() {
-        LineType[] colors = new LineType[2];
         throw new NotImplementedException();
-//        return colors;
     }
 
     //A.2.5

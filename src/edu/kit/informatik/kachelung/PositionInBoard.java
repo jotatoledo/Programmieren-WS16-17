@@ -1,7 +1,7 @@
 package edu.kit.informatik.kachelung;
 
 /**
- * Represents a position of a tile in the game board represented by the class {@linkplain Board}
+ * Represents a position of a {@linkplain Tile tile} in the {@linkplain Board game board}
  * @author JoseNote
  * @version 1.00
  */
