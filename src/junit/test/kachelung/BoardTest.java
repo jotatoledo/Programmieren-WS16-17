@@ -154,7 +154,26 @@ public class BoardTest {
 
     @Test
     public void testGetConnectedPathColor() {
-        fail("Not yet implemented");
+        Board test = new Board();
+        LineType actualResult = null;
+        LineType expectedResult = null;
+        
+        test.setTile(1, new Tile(new LineType[] {
+                LineType.GREEN, LineType.GREEN, LineType.YELLOW, 
+                LineType.NONE, LineType.YELLOW, LineType.NONE }));
+        test.setTile(4, new Tile(new LineType[] {
+               LineType.RED, LineType.GREEN, LineType.RED, 
+               LineType.GREEN, LineType.YELLOW, LineType.YELLOW }));
+        
+        actualResult = test.getConnectedPathColor(new int[]{1, 4});
+        expectedResult = LineType.YELLOW;
+        assertTrue(actualResult == expectedResult);
+        
+        test.rotateTileClockwise(1);
+        
+        actualResult = test.getConnectedPathColor(new int[] {1, 4});
+        expectedResult = LineType.NONE;
+        assertTrue(actualResult == expectedResult);
     }
 
     @Test
