@@ -11,33 +11,36 @@ import edu.kit.informatik.kachelung.Tile;
 
 public class BoardTest {
     /**
+     * <pre>
      * Empty board
      * 
      * ------;------;------;
      * ------;------;------;
      * ------;------;------;
      * ------;------;------;
-     * 
+     * </pre>
      */
     private static final Board EMPTY_BOARD = new Board();
     /**
+     * <pre>
      * Example in picture 9
      * 
      * ------;GGY-Y-;----RR;
      * ------;RGRGYY;GG----;
      * --YGGY;G--RGR;-YY---;
      * ------;---YY-;Y----Y;
-     * 
+     * </pre>
      */
     private static final Board VALID_BOARD = new Board();
     /**
+     * <pre>
      * Example in picture 10
      * 
      * ------;-GGY-Y;RR----;
      * ------;RGRGYY;GG----;
      * Y--YGG;G--RGR;-YY---;
      * ------;---YY-;YY----;
-     * 
+     * </pre> 
      */
     private static final Board INVALID_BOARD = new Board();
     

@@ -10,20 +10,26 @@ import edu.kit.informatik.kachelung.Tile;
 
 public class TileTest {
     /**
+     * <pre>
      * Empty tile
      * ------
+     * </pre>
      */
     private static final Tile EMPTY_TILE = new Tile();
     /**
+     * <pre>
      * Example in picture 6
      * RRG-G-
+     * </pre>
      */
     private static final Tile K0 = new Tile(new LineType[] {
             LineType.RED, LineType.RED, LineType.GREEN, 
             LineType.NONE, LineType.GREEN, LineType.NONE }); 
     /**
+     * <pre>
      * Example in picture 6
      * R-GGR-
+     * </pre>
      */
     private static final Tile K1 = new Tile(new LineType[] {
             LineType.RED, LineType.NONE, LineType.GREEN,
