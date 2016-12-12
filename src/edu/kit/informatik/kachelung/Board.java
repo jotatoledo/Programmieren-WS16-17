@@ -1,8 +1,5 @@
 package edu.kit.informatik.kachelung;
 
-import javafx.scene.shape.Line;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 public class Board {
     
     public static final int ELEMENTS_IN_COLUMN = 3;
@@ -163,13 +160,15 @@ public class Board {
     
     //A.4.10
     public LineType getConnectedPathColor(int[] positions) {
-        LineType pathColor = null;
+        LineType pathColor = LineType.NONE;
         
         for (int i = 0; i < positions.length - 1; i++) {
-            int calculatedTileIndex = calculateTileCodificationdIndex(positions[i], positions[i + 1]);
+            int predecessor = positions[i];
+            int sucessor = positions[i + 1];
+            int calculatedTileIndex = calculateTileCodificationdIndex(predecessor, sucessor);
             
-            if (isPairColorConnected(calculatedTileIndex, positions[i], positions[i + 1])) {
-                pathColor = table[positions[i]].getConnectedColor(calculatedTileIndex, table[positions[i + 1]]);
+            if (isPairColorConnected(calculatedTileIndex, predecessor, sucessor)) {
+                pathColor = table[predecessor].getConnectedColor(calculatedTileIndex, table[sucessor]);
             } else {
                 pathColor = LineType.NONE;
                 break;
