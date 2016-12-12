@@ -167,8 +167,20 @@ public class Tile {
 
     //A.2.12 
     public boolean dominates(Tile otherTile) {
-        return false;
-//        throw new NotImplementedException();
+        boolean dominates = true;
+        
+        if (isExactlyEqualTo(otherTile)) {
+            dominates = false;
+        } else {
+            for (int i = 0; i < NUMBER_ELEMENTS; i++) {
+                if (otherTile.getLineTypeAtIndex(i).isColor()
+                        && !getLineTypeAtIndex(i).isColor()) {
+                    dominates = false;
+                    break;
+                }
+            }
+        }        
+        return dominates;
     }
 
     //A.2.13 
