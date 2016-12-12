@@ -70,9 +70,15 @@ public class TileTest {
     @Test
     public void testCopy() {
         Tile copyEmpty = EMPTY_TILE.copy();
+        Tile copyK1 = K1.copy();
+        Tile copyK0 = K0.copy();
         
         assertTrue(copyEmpty != EMPTY_TILE);
-        assertTrue(copyEmpty.isExactlyEqualTo(EMPTY_TILE));
+        assertTrue(copyEmpty.isExactlyEqualTo(EMPTY_TILE));        
+        assertTrue(copyK1 != K1);
+        assertTrue(copyK1.isExactlyEqualTo(K1));        
+        assertTrue(copyK0 != K0);
+        assertTrue(copyK0.isExactlyEqualTo(K0));
     }
 
     @Test
