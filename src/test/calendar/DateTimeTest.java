@@ -1,12 +1,13 @@
-package junit.test.calendar;
+package test.calendar;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import edu.kit.informatik.calendar.Date;
-import edu.kit.informatik.calendar.DateTime;
-import edu.kit.informatik.calendar.Time;
+import main.java.calendar.Date;
+import main.java.calendar.DateTime;
+import main.java.calendar.Time;
 
 public class DateTimeTest {
     public DateTimeTest() {
