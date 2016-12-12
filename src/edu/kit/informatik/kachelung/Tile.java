@@ -56,11 +56,11 @@ public class Tile {
      * @return A number between 0 and 3
      */
     public int getNumberOfColors() {
-        return getColors().length;
-    }
-    
-    private LineType[] getColors() {
-        throw new NotImplementedException();
+        int countColors = 0;
+        for (LineType element : lineTypes) {
+            if (element.isColor())countColors++;
+        }
+        return countColors / 2;
     }
 
     //A.2.5
