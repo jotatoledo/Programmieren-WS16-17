@@ -74,13 +74,13 @@ public enum PositionInBoard {
     /**
      * Calculates the {@linkplain PositionInBoard} 
      * associated to a given index of the codification list in [{@linkplain Board}
-     * @param position A index of the codification list in [{@linkplain Board}
+     * @param index A index of the codification list in [{@linkplain Board}
      * @return The value associated to the index
      */
-    public static PositionInBoard calculateBoardPosition(int position) {
+    public static PositionInBoard calculateBoardPosition(int index) {
         PositionInBoard boardPositon = null;
         
-        switch(position) {
+        switch(index) {
              case(UPPER_LEFT_CORNER_VALUE):
                  boardPositon = PositionInBoard.UPPER_LEFT_CORNER;
                  break;
@@ -94,13 +94,13 @@ public enum PositionInBoard {
                  boardPositon = PositionInBoard.DOWN_RIGH_CORNER;
                  break;
              default:
-                 if (position % Board.ELEMENTS_IN_COLUMN == 0) {
+                 if (index % Board.ELEMENTS_IN_COLUMN == 0) {
                      boardPositon = PositionInBoard.UPPER_SIDE;
-                 } else if (position % Board.ELEMENTS_IN_COLUMN == DOWN_LEFT_CORNER_VALUE) {
+                 } else if (index % Board.ELEMENTS_IN_COLUMN == DOWN_LEFT_CORNER_VALUE) {
                      boardPositon = PositionInBoard.DOWN_SIDE;
-                 } else if (position > UPPER_RIGHT_CORNER_VALUE) {
+                 } else if (index > UPPER_RIGHT_CORNER_VALUE) {
                      boardPositon = PositionInBoard.RIGHT_SIDE;
-                 } else if ( position < DOWN_LEFT_CORNER_VALUE) {
+                 } else if ( index < DOWN_LEFT_CORNER_VALUE) {
                      boardPositon = PositionInBoard.LEFT_SIDE;
                  } else {
                      boardPositon = PositionInBoard.INTERNAL;
