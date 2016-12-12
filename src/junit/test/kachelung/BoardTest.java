@@ -293,6 +293,8 @@ public class BoardTest {
         assertTrue(EMPTY_BOARD.getConnectedPathColor(new int[] {1, 4}) == LineType.NONE);
         assertTrue(EMPTY_BOARD.getConnectedPathColor(new int[] {1, 2, 4}) == LineType.NONE);
         assertTrue(EMPTY_BOARD.getConnectedPathColor(new int[] {4, 5, 7}) == LineType.NONE);
+        assertTrue(EMPTY_BOARD.getConnectedPathColor(new int[] {4, 5, 7, 6}) == LineType.NONE);
+        assertTrue(EMPTY_BOARD.getConnectedPathColor(new int[] {4, 5, 7, 6, 4}) == LineType.NONE);
         assertTrue(EMPTY_BOARD.getConnectedPathColor(new int[] {4, 5, 7, 6, 4, 5, 7}) == LineType.NONE);
         assertTrue(EMPTY_BOARD.getConnectedPathColor(new int[] {8, 10, 11}) == LineType.NONE);
         assertTrue(EMPTY_BOARD.getConnectedPathColor(new int[] {8, 10, 11, 8}) == LineType.NONE);
@@ -301,6 +303,8 @@ public class BoardTest {
         assertTrue(VALID_BOARD.getConnectedPathColor(new int[] {1, 4}) == LineType.YELLOW);
         assertTrue(VALID_BOARD.getConnectedPathColor(new int[] {1, 2, 4}) == LineType.NONE);
         assertTrue(VALID_BOARD.getConnectedPathColor(new int[] {4, 5, 7}) == LineType.GREEN);
+        assertTrue(VALID_BOARD.getConnectedPathColor(new int[] {4, 5, 7, 6}) == LineType.GREEN);
+        assertTrue(VALID_BOARD.getConnectedPathColor(new int[] {4, 5, 7, 6, 4}) == LineType.GREEN);
         assertTrue(VALID_BOARD.getConnectedPathColor(new int[] {4, 5, 7, 6, 4, 5, 7}) == LineType.GREEN);
         assertTrue(VALID_BOARD.getConnectedPathColor(new int[] {8, 10, 11}) == LineType.YELLOW);
         assertTrue(VALID_BOARD.getConnectedPathColor(new int[] {8, 10, 11, 8}) == LineType.YELLOW);
@@ -309,6 +313,8 @@ public class BoardTest {
         assertTrue(INVALID_BOARD.getConnectedPathColor(new int[] {1, 4}) == LineType.NONE);
         assertTrue(INVALID_BOARD.getConnectedPathColor(new int[] {1, 2, 4}) == LineType.NONE);
         assertTrue(INVALID_BOARD.getConnectedPathColor(new int[] {4, 5, 7}) == LineType.GREEN);
+        assertTrue(INVALID_BOARD.getConnectedPathColor(new int[] {4, 5, 7, 6}) == LineType.NONE);
+        assertTrue(INVALID_BOARD.getConnectedPathColor(new int[] {4, 5, 7, 6, 4}) == LineType.NONE);
         assertTrue(INVALID_BOARD.getConnectedPathColor(new int[] {4, 5, 7, 6, 4, 5, 7}) == LineType.NONE);
         assertTrue(INVALID_BOARD.getConnectedPathColor(new int[] {8, 10, 11}) == LineType.YELLOW);
         assertTrue(INVALID_BOARD.getConnectedPathColor(new int[] {8, 10, 11, 8}) == LineType.NONE);
