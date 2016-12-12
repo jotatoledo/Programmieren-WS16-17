@@ -139,8 +139,6 @@ public class BoardTest {
     public void testSetTile() {
         Board test = new Board();
         StringBuilder builder = new StringBuilder();
-        String actualResult;
-        String expectedResult;
 
         test.setTile(1, new Tile(new LineType[] {
                 LineType.GREEN, LineType.GREEN, LineType.YELLOW, 
@@ -150,30 +148,23 @@ public class BoardTest {
         builder.append("------;------;------;\n");
         builder.append("------;------;------;\n");
         builder.append("------;------;------;");
-        actualResult = test.toString();
-        expectedResult = builder.toString();
-        assertThat(actualResult, is(expectedResult));
+        assertThat(test.toString(), is(builder.toString()));
 
         test.setTile(4, new Tile(new LineType[] {
                 LineType.RED, LineType.GREEN, LineType.RED, 
                 LineType.GREEN, LineType.YELLOW, LineType.YELLOW }));
-
         builder.setLength(0);
         builder.append("------;GGY-Y-;------;\n");
         builder.append("------;RGRGYY;------;\n");
         builder.append("------;------;------;\n");
-        builder.append("------;------;------;");        
-        actualResult = test.toString();
-        expectedResult = builder.toString();        
-        assertThat(actualResult, is(expectedResult));
+        builder.append("------;------;------;");  
+        assertThat(test.toString(), is(builder.toString()));
     }
 
     @Test
     public void testRemoveTile() {
         Board test = new Board(); 
         StringBuilder builder = new StringBuilder();
-        String actualResult = null;
-        String expectedResult = null;
         
         test.setTile(1, new Tile(new LineType[] {
                 LineType.GREEN, LineType.GREEN, LineType.YELLOW, 
@@ -185,20 +176,16 @@ public class BoardTest {
         builder.append("------;GGY-Y-;------;\n");
         builder.append("------;RGRGYY;------;\n");
         builder.append("------;------;------;\n");
-        builder.append("------;------;------;");  
-        expectedResult = builder.toString();        
-        actualResult = test.toString();        
-        assertThat(actualResult, is(expectedResult));
+        builder.append("------;------;------;");   
+        assertThat(test.toString(), is(builder.toString()));
         
         test.removeTile(4);
         builder.setLength(0);
         builder.append("------;GGY-Y-;------;\n");
         builder.append("------;------;------;\n");
         builder.append("------;------;------;\n");
-        builder.append("------;------;------;"); 
-        expectedResult = builder.toString();        
-        actualResult = test.toString();
-        assertThat(actualResult, is(expectedResult));
+        builder.append("------;------;------;");
+        assertThat(test.toString(), is(builder.toString()));
     }
 
     @Test
@@ -211,6 +198,7 @@ public class BoardTest {
     @Test
     public void testRotateTileClockwise() {
         Board test = new Board();
+        StringBuilder builder = new StringBuilder();
 
         test.setTile(1, new Tile(new LineType[] {
                 LineType.GREEN, LineType.GREEN, LineType.YELLOW, 
@@ -218,19 +206,13 @@ public class BoardTest {
         test.setTile(4, new Tile(new LineType[] {
                 LineType.RED, LineType.GREEN, LineType.RED, 
                 LineType.GREEN, LineType.YELLOW, LineType.YELLOW }));
-
-        test.rotateTileClockwise(1);
-
-        StringBuilder builder = new StringBuilder();
-
+        test.rotateTileClockwise(1);  
         builder.append("------;-GGY-Y;------;\n");
         builder.append("------;RGRGYY;------;\n");
         builder.append("------;------;------;\n");
         builder.append("------;------;------;");
-        String actualResult = test.toString();
-        String expectedResult = builder.toString();   
 
-        assertThat(actualResult, is(expectedResult));
+        assertThat(test.toString(), is(builder.toString()));
     }
 
     @Test
@@ -250,9 +232,8 @@ public class BoardTest {
         builder.append("------;RGRGYY;------;\n");
         builder.append("------;------;------;\n");
         builder.append("------;------;------;");
-        String actualResult = test.toString();
-        String expectedResult = builder.toString();   
-        assertThat(actualResult, is(expectedResult));
+        
+        assertThat(test.toString(), is(builder.toString()));
     }
 
     @Test
@@ -296,8 +277,6 @@ public class BoardTest {
     @Test
     public void testGetConnectedPathColor() {
         Board test = new Board();
-        LineType actualResult = null;
-        LineType expectedResult = null;
 
         test.setTile(1, new Tile(new LineType[] {
                 LineType.GREEN, LineType.GREEN, LineType.YELLOW, 
@@ -305,16 +284,10 @@ public class BoardTest {
         test.setTile(4, new Tile(new LineType[] {
                 LineType.RED, LineType.GREEN, LineType.RED, 
                 LineType.GREEN, LineType.YELLOW, LineType.YELLOW }));
-
-        actualResult = test.getConnectedPathColor(new int[]{1, 4});
-        expectedResult = LineType.YELLOW;
-        assertTrue(actualResult == expectedResult);
-
+        
+        assertTrue(test.getConnectedPathColor(new int[]{1, 4}) == LineType.YELLOW);
         test.rotateTileClockwise(1);
-
-        actualResult = test.getConnectedPathColor(new int[] {1, 4});
-        expectedResult = LineType.NONE;
-        assertTrue(actualResult == expectedResult);
+        assertTrue(test.getConnectedPathColor(new int[] {1, 4}) == LineType.NONE);
         
         assertTrue(EMPTY_BOARD.getConnectedPathColor(new int[] {0, 3}) == LineType.NONE);
         assertTrue(EMPTY_BOARD.getConnectedPathColor(new int[] {1, 4}) == LineType.NONE);
@@ -343,37 +316,29 @@ public class BoardTest {
 
     @Test
     public void testToString() {
-        String actualResult = null;
-        String expectedResult = null;
-        StringBuilder builder = new StringBuilder();
+        StringBuilder builder  = new StringBuilder();
 
         builder.append("------;------;------;\n");
         builder.append("------;------;------;\n");
         builder.append("------;------;------;\n");
         builder.append("------;------;------;");
-        actualResult = EMPTY_BOARD.toString();
-        expectedResult = builder.toString();
         
-        assertThat(actualResult, is(expectedResult));
+        assertThat(EMPTY_BOARD.toString(), is(builder.toString()));
         
         builder.setLength(0);
         builder.append("------;-GGY-Y;RR----;\n");
         builder.append("------;RGRGYY;GG----;\n");
         builder.append("Y--YGG;G--RGR;-YY---;\n");
         builder.append("------;---YY-;YY----;");
-        actualResult = INVALID_BOARD.toString();
-        expectedResult = builder.toString();
         
-        assertThat(actualResult, is(expectedResult));
+        assertThat(INVALID_BOARD.toString(), is(builder.toString()));
         
         builder.setLength(0);
         builder.append("------;GGY-Y-;----RR;\n");
         builder.append("------;RGRGYY;GG----;\n");
         builder.append("--YGGY;G--RGR;-YY---;\n");
         builder.append("------;---YY-;Y----Y;");
-        actualResult = VALID_BOARD.toString();
-        expectedResult = builder.toString();
         
-        assertThat(actualResult, is(expectedResult));
+        assertThat(VALID_BOARD.toString(), is(builder.toString()));
     }
 }
