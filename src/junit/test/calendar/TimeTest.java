@@ -7,6 +7,10 @@ import org.junit.Test;
 import edu.kit.informatik.calendar.Time;
 
 public class TimeTest {
+    public TimeTest() {
+        
+    }
+    
     @Test
     public void testTime() {
         fail("Not yet implemented");
