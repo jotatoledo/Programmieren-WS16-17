@@ -166,7 +166,26 @@ public class TileTest {
 
     @Test
     public void testCanBeRecoloredTo() {
-        fail("Not yet implemented");
+        //Praktomat example
+        Tile test = new Tile(new LineType[] {
+                LineType.RED, LineType.NONE, LineType.GREEN,
+                LineType.GREEN, LineType.RED, LineType.NONE });
+        Tile objective = new Tile(new LineType[] {
+                LineType.YELLOW, LineType.NONE, LineType.RED,
+                LineType.RED, LineType.YELLOW, LineType.NONE });
+        
+        assertTrue(test.canBeRecoloredTo(objective) == true);
+        test.rotateClockwise();
+        assertTrue(test.canBeRecoloredTo(objective) == false);
+        
+        assertTrue(EMPTY_TILE.canBeRecoloredTo(EMPTY_TILE) == true);
+        assertTrue(K0.canBeRecoloredTo(K0) == true);
+        assertTrue(K1.canBeRecoloredTo(K1) == true);
+        assertTrue(TEST_TRIO.canBeRecoloredTo(TEST_TRIO) == true);
+        
+        assertTrue(TEST_TRIO.canBeRecoloredTo(EMPTY_TILE) == false);
+        assertTrue(TEST_TRIO.canBeRecoloredTo(K0) == false);
+        assertTrue(TEST_TRIO.canBeRecoloredTo(K1) == false);
     }
 
     @Test
