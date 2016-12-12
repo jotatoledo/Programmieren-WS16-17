@@ -212,4 +212,11 @@ public class Tile {
 
     //==================================================================================================================
     //endregion A.3
+    
+    public LineType getConnectedColor(int index, Tile otherTile) {
+        int reflectedIndex = calculateReflectPosition(index);
+        LineType color = getLineTypeAtIndex(index) == otherTile.getLineTypeAtIndex(reflectedIndex) 
+                ? getLineTypeAtIndex(index) : LineType.NONE;
+        return color;
+    }
 }

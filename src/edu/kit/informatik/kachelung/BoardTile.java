@@ -86,6 +86,10 @@ public class BoardTile {
         return tile.getNumberOfColors();
     }
     
+    public LineType getConnectedColor(int index, BoardTile otherBoardTile) {
+        return tile.getConnectedColor(index, otherBoardTile.getTile());
+    }
+    
     /**
      * Generates the {@linkplain String} representation of the {@linkplain Tile} component of the instance
      * @return The {@linkplain String} representation of the {@linkplain Tile} component of the instance
