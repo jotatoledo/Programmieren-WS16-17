@@ -32,7 +32,7 @@ public class Board {
     public Board() {
         table = new BoardTile[TABLE_ELEMENTS];
         for (int index = 0; index < TABLE_ELEMENTS; index++) {
-            table[index] = new BoardTile(new Tile(), PositionInBoard.calculateTablePosition(index));
+            table[index] = new BoardTile(new Tile(), PositionInBoard.calculateBoardPosition(index));
         }
     }
 

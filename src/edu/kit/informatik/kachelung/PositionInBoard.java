@@ -77,7 +77,7 @@ public enum PositionInBoard {
      * @param position A index of the codification list in [{@linkplain Board}
      * @return The value associated to the index
      */
-    public static PositionInBoard calculateTablePosition(int position) {
+    public static PositionInBoard calculateBoardPosition(int position) {
         PositionInBoard boardPositon = null;
         
         switch(position) {
