@@ -115,7 +115,21 @@ public class BoardTest {
 
     @Test
     public void testGetTile() {
-        fail("Not yet implemented");
+        Tile actualResult = null;
+        Tile expectedResult = null;
+        
+        actualResult = VALID_BOARD.getTile(1);
+        expectedResult = new Tile(new LineType[] {
+                LineType.GREEN, LineType.GREEN, LineType.YELLOW, 
+                LineType.NONE, LineType.YELLOW, LineType.NONE });
+        
+        assertThat(actualResult.toString(), is(expectedResult.toString()));
+        
+        actualResult = EMPTY_BOARD.getTile(5);
+        expectedResult = new Tile(new LineType[] {
+                LineType.NONE, LineType.NONE, LineType.NONE, 
+                LineType.NONE, LineType.NONE, LineType.NONE });
+        assertThat(actualResult.toString(), is(expectedResult.toString()));
     }
 
     @Test
@@ -153,7 +167,35 @@ public class BoardTest {
 
     @Test
     public void testRemoveTile() {
-        fail("Not yet implemented");
+        Board test = new Board(); 
+        StringBuilder builder = new StringBuilder();
+        String actualResult = null;
+        String expectedResult = null;
+        
+        test.setTile(1, new Tile(new LineType[] {
+                LineType.GREEN, LineType.GREEN, LineType.YELLOW, 
+                LineType.NONE, LineType.YELLOW, LineType.NONE }));
+        test.setTile(4, new Tile(new LineType[] {
+                LineType.RED, LineType.GREEN, LineType.RED, 
+                LineType.GREEN, LineType.YELLOW, LineType.YELLOW }));
+        
+        builder.append("------;GGY-Y-;------;\n");
+        builder.append("------;RGRGYY;------;\n");
+        builder.append("------;------;------;\n");
+        builder.append("------;------;------;");  
+        expectedResult = builder.toString();        
+        actualResult = test.toString();        
+        assertThat(actualResult, is(expectedResult));
+        
+        test.removeTile(4);
+        builder.setLength(0);
+        builder.append("------;GGY-Y-;------;\n");
+        builder.append("------;------;------;\n");
+        builder.append("------;------;------;\n");
+        builder.append("------;------;------;"); 
+        expectedResult = builder.toString();        
+        actualResult = test.toString();
+        assertThat(actualResult, is(expectedResult));
     }
 
     @Test
@@ -212,15 +254,27 @@ public class BoardTest {
 
     @Test
     public void testGetNumberOfColors() {
-        fail("Not yet implemented");
+        Board test = new Board(); 
+        
+        test.setTile(1, new Tile(new LineType[] {
+                LineType.GREEN, LineType.GREEN, LineType.YELLOW, 
+                LineType.NONE, LineType.YELLOW, LineType.NONE }));
+        test.setTile(4, new Tile(new LineType[] {
+                LineType.RED, LineType.GREEN, LineType.RED, 
+                LineType.GREEN, LineType.YELLOW, LineType.YELLOW }));
+        
+        assertTrue(test.getNumberOfColors() == 3);
+        test.removeTile(4);
+        assertTrue(test.getNumberOfColors() == 2);
+        assertTrue(EMPTY_BOARD.getNumberOfColors() == 0);
+        assertTrue(INVALID_BOARD.getNumberOfColors() == 3);
+        assertTrue(INVALID_BOARD.getNumberOfColors() == 3);
     }
 
     @Test
     public void testIsValid() {
         Board test = new Board(); 
-
-        assertTrue(test.isValid() == true);
-
+        
         test.setTile(1, new Tile(new LineType[] {
                 LineType.GREEN, LineType.GREEN, LineType.YELLOW, 
                 LineType.NONE, LineType.YELLOW, LineType.NONE }));
@@ -231,6 +285,7 @@ public class BoardTest {
         assertTrue(test.isValid() == true); //Example in code snippet 3
         test.rotateTileClockwise(1);
         assertTrue(test.isValid() == false); //Example in code snippet 3
+        assertTrue(EMPTY_BOARD.isValid() == true);
         assertTrue(VALID_BOARD.isValid() == true);
         assertTrue(INVALID_BOARD.isValid() == false);
     }
