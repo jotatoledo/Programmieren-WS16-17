@@ -153,20 +153,9 @@ public class TileTest {
 
     @Test
     public void testToString() {
-        String actualResult = null;
-        String expectedResult = null;
-
-        actualResult = EMPTY_TILE.toString();
-        expectedResult = "------";
-        assertThat(actualResult, is(expectedResult));
-
-        actualResult = K0.toString();
-        expectedResult = "RRG-G-";        
-        assertThat(actualResult, is(expectedResult));
-
-        actualResult = K1.toString();
-        expectedResult = "R-GGR-";
-        assertThat(actualResult, is(expectedResult));
+        assertThat(EMPTY_TILE.toString(), is("------"));  
+        assertThat(K0.toString(), is("RRG-G-"));
+        assertThat(K1.toString(), is("R-GGR-"));
     }
 
     @Test
