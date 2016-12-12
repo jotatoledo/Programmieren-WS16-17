@@ -144,12 +144,10 @@ public class TileTest {
 
     @Test
     public void testIsEmpty() {
-        Tile firstTest = new Tile(new LineType[] {LineType.RED, LineType.RED, LineType.GREEN, 
-                LineType.NONE, LineType.GREEN, LineType.NONE });
-        Tile secondTest = new Tile();
-
-        assertTrue(firstTest.isEmpty() == false);
-        assertTrue(secondTest.isEmpty() == true);
+        assertTrue(TEST_TRIO.isEmpty() == false);
+        assertTrue(K0.isEmpty() == false);
+        assertTrue(K1.isEmpty() == false);
+        assertTrue(EMPTY_TILE.isEmpty() == true);
     }
 
     @Test
