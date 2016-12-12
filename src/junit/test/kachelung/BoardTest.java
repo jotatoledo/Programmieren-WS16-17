@@ -10,9 +10,36 @@ import edu.kit.informatik.kachelung.LineType;
 import edu.kit.informatik.kachelung.Tile;
 
 public class BoardTest {
-    private static final Board EMPTY_BOARD = new Board(); //Empty board
-    private static final Board VALID_BOARD = new Board(); //Example in picture 9
-    private static final Board INVALID_BOARD = new Board(); //Example in picture 10
+    /**
+     * Empty board
+     * 
+     * ------;------;------;
+     * ------;------;------;
+     * ------;------;------;
+     * ------;------;------;
+     * 
+     */
+    private static final Board EMPTY_BOARD = new Board();
+    /**
+     * Example in picture 9
+     * 
+     * ------;GGY-Y-;----RR;
+     * ------;RGRGYY;GG----;
+     * --YGGY;G--RGR;-YY---;
+     * ------;---YY-;Y----Y;
+     * 
+     */
+    private static final Board VALID_BOARD = new Board();
+    /**
+     * Example in picture 10
+     * 
+     * ------;-GGY-Y;RR----;
+     * ------;RGRGYY;GG----;
+     * Y--YGG;G--RGR;-YY---;
+     * ------;---YY-;YY----;
+     * 
+     */
+    private static final Board INVALID_BOARD = new Board();
     
     public BoardTest() {
         VALID_BOARD.setTile(1, new Tile(new LineType[] {
@@ -77,9 +104,9 @@ public class BoardTest {
         Board firstTest = new Board();
         StringBuilder builder = new StringBuilder();
 
-        builder.append("------;------;------;").append("\n");
-        builder.append("------;------;------;").append("\n");
-        builder.append("------;------;------;").append("\n");
+        builder.append("------;------;------;\n");
+        builder.append("------;------;------;\n");
+        builder.append("------;------;------;\n");
         builder.append("------;------;------;");
         assertTrue(firstTest != null);
         assertTrue(firstTest.isEmpty() == true);
@@ -102,9 +129,9 @@ public class BoardTest {
                 LineType.GREEN, LineType.GREEN, LineType.YELLOW, 
                 LineType.NONE, LineType.YELLOW, LineType.NONE }));
 
-        builder.append("------;GGY-Y-;------;").append('\n');
-        builder.append("------;------;------;").append('\n');
-        builder.append("------;------;------;").append('\n');
+        builder.append("------;GGY-Y-;------;\n");
+        builder.append("------;------;------;\n");
+        builder.append("------;------;------;\n");
         builder.append("------;------;------;");
         actualResult = test.toString();
         expectedResult = builder.toString();
@@ -115,9 +142,9 @@ public class BoardTest {
                 LineType.GREEN, LineType.YELLOW, LineType.YELLOW }));
 
         builder.setLength(0);
-        builder.append("------;GGY-Y-;------;").append('\n');
-        builder.append("------;RGRGYY;------;").append('\n');
-        builder.append("------;------;------;").append('\n');
+        builder.append("------;GGY-Y-;------;\n");
+        builder.append("------;RGRGYY;------;\n");
+        builder.append("------;------;------;\n");
         builder.append("------;------;------;");        
         actualResult = test.toString();
         expectedResult = builder.toString();        
@@ -151,9 +178,9 @@ public class BoardTest {
 
         StringBuilder builder = new StringBuilder();
 
-        builder.append("------;-GGY-Y;------;").append('\n');
-        builder.append("------;RGRGYY;------;").append('\n');
-        builder.append("------;------;------;").append('\n');
+        builder.append("------;-GGY-Y;------;\n");
+        builder.append("------;RGRGYY;------;\n");
+        builder.append("------;------;------;\n");
         builder.append("------;------;------;");
         String actualResult = test.toString();
         String expectedResult = builder.toString();   
@@ -174,9 +201,9 @@ public class BoardTest {
                 LineType.GREEN, LineType.YELLOW, LineType.YELLOW }));
 
         test.rotateTileCounterClockwise(1);
-        builder.append("------;GY-Y-G;------;").append('\n');
-        builder.append("------;RGRGYY;------;").append('\n');
-        builder.append("------;------;------;").append('\n');
+        builder.append("------;GY-Y-G;------;\n");
+        builder.append("------;RGRGYY;------;\n");
+        builder.append("------;------;------;\n");
         builder.append("------;------;------;");
         String actualResult = test.toString();
         String expectedResult = builder.toString();   
