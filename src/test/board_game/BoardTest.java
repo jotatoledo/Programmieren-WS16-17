@@ -4,9 +4,9 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import main.java.board_game.Board;
-import main.java.board_game.LineType;
-import main.java.board_game.Tile;
+import edu.kit.informatik.board_game.Board;
+import edu.kit.informatik.board_game.LineType;
+import edu.kit.informatik.board_game.Tile;
 
 import static org.hamcrest.CoreMatchers.*;
 

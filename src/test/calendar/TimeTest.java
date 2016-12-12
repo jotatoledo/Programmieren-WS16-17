@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import main.java.calendar.Time;
+import edu.kit.informatik.calendar.Time;
 
 public class TimeTest {
     public TimeTest() {

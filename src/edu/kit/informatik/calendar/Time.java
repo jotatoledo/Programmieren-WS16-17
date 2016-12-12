@@ -1,4 +1,4 @@
-package main.java.calendar;
+package edu.kit.informatik.calendar;
 
 /**
  * Represents a specific time in seconds, minutes and hours.

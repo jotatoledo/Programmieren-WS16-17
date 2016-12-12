@@ -1,4 +1,4 @@
-package main.java.board_game;
+package edu.kit.informatik.board_game;
 
 /**
  * Represents a position of a {@linkplain Tile tile} in the {@linkplain Board game board}
