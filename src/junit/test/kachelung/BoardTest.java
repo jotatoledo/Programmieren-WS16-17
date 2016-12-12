@@ -44,6 +44,9 @@ public class BoardTest {
      */
     private static final Board INVALID_BOARD = new Board();
     
+    /**
+     * Used to populate the general test cases
+     */
     public BoardTest() {
         VALID_BOARD.setTile(1, new Tile(new LineType[] {
                 LineType.GREEN, LineType.GREEN, LineType.YELLOW, 
