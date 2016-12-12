@@ -1,4 +1,5 @@
-package junit.test.calendar;
+package test.calendar;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 

@@ -1,4 +1,5 @@
-package junit.test.calendar;
+package test.calendar;
+
 import static org.junit.Assert.*;
 import org.junit.Test;
 

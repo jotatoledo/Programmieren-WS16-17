@@ -1,4 +1,4 @@
-package junit.test.board_game;
+package test.board_game;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
