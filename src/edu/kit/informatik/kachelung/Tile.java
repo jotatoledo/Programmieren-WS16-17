@@ -4,7 +4,8 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class Tile {
     /**
-     * Represents the size of the codification array for the tiles used in the game
+     * Represents the size of the codification array for the tiles used in the game.<br>
+     * <strong>Can not be changed</strong>
      */
     public static final int NUMBER_ELEMENTS = 6;
     /**
