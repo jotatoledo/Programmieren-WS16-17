@@ -1,4 +1,4 @@
-package edu.kit.informatik.kachelung;
+package edu.kit.informatik.board_game;
 
 /**
  * Represents a position of a {@linkplain Tile tile} in the {@linkplain Board game board}
@@ -20,22 +20,22 @@ public enum PositionInBoard {
      * The value of the index in the codification list in {@linkplain Board}
      * related to the tile located in the upper left corner of the game board
      */
-    public static final int UPPER_LEFT_CORNER_VALUE = 0;
+    private static final int UPPER_LEFT_CORNER_VALUE = 0;
     /**
      * The value of the index in the codification list in {@linkplain Board}
      * related to the tile located in the down left corner of the game board
      */
-    public static final int DOWN_LEFT_CORNER_VALUE = Board.ELEMENTS_IN_COLUMN - 1;
+    private static final int DOWN_LEFT_CORNER_VALUE = Board.ELEMENTS_IN_COLUMN - 1;
     /**
      * The value of the index in the codification list in {@linkplain Board}
      * related to the tile located in the upper left corner of the game board
      */
-    public static final int UPPER_RIGHT_CORNER_VALUE = (Board.ELEMENTS_IN_ROW - 1) * Board.ELEMENTS_IN_COLUMN;
+    private static final int UPPER_RIGHT_CORNER_VALUE = (Board.ELEMENTS_IN_ROW - 1) * Board.ELEMENTS_IN_COLUMN;
     /**
      * The value of the index in the codification list in {@linkplain Board}
      * related to the tile located in the down right corner of the game board
      */
-    public static final int DOWN_RIGHT_CORNER_VALUE = (Board.ELEMENTS_IN_ROW * Board.ELEMENTS_IN_COLUMN) - 1;
+    private static final int DOWN_RIGHT_CORNER_VALUE = (Board.ELEMENTS_IN_ROW * Board.ELEMENTS_IN_COLUMN) - 1;
     
     /**
      * Represents the indexes of the codification list in {@linkplain Tile}
