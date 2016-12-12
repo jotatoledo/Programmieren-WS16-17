@@ -9,15 +9,21 @@ import edu.kit.informatik.kachelung.LineType;
 import edu.kit.informatik.kachelung.Tile;
 
 public class TileTest {
+    /**
+     * Empty tile
+     * ------
+     */
     private static final Tile EMPTY_TILE = new Tile();
     /**
      * Example in picture 6
+     * RRG-G-
      */
     private static final Tile K0 = new Tile(new LineType[] {
             LineType.RED, LineType.RED, LineType.GREEN, 
             LineType.NONE, LineType.GREEN, LineType.NONE }); 
     /**
      * Example in picture 6
+     * R-GGR-
      */
     private static final Tile K1 = new Tile(new LineType[] {
             LineType.RED, LineType.NONE, LineType.GREEN,
@@ -53,7 +59,19 @@ public class TileTest {
 
     @Test
     public void testGetNumberOfColors() {
-        fail("Not yet implemented");
+        Tile testSingular = new Tile(new LineType[] {
+                LineType.RED, LineType.RED, LineType.NONE,
+                LineType.NONE, LineType.NONE, LineType.NONE });
+        
+        Tile testTrio =  new Tile(new LineType[] {
+                LineType.RED, LineType.YELLOW, LineType.RED,
+                LineType.YELLOW, LineType.GREEN, LineType.GREEN });
+        
+        assertTrue(testTrio.getNumberOfColors() == 3);     
+        assertTrue(testSingular.getNumberOfColors() == 1);        
+        assertTrue(EMPTY_TILE.getNumberOfColors() == 0);
+        assertTrue(K1.getNumberOfColors() == 2);
+        assertTrue(K0.getNumberOfColors() == 2);
     }
 
     @Test
