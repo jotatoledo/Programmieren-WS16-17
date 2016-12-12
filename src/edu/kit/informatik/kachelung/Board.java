@@ -203,20 +203,25 @@ public class Board {
                 calculatedTileIndex = indexTablePredecessor > indexTableSucessor ? 5 : 2;
                 break;
             case(SECUNDARY_DIAGONAL):
-                calculatedTileIndex = indexTablePredecessor > indexTableSucessor ? 4 : 1;                
+                calculatedTileIndex = indexTablePredecessor > indexTableSucessor ? 4 : 1; 
+                break;
         }
         return calculatedTileIndex;
     }
     
     //A.4.11
     /**
-     * 
+     * The instance is printed in a format similar to a matrix.
+     * Every set of {@link #ELEMENTS_IN_COLUMN n}-elements are represented as a row
+     * There will be {@link #ELEMENTS_IN_ROW} many rows 
      */
+    @Override    
     public String toString() {
         StringBuilder builder = new StringBuilder();
 
         for (int index = 0; index < TABLE_ELEMENTS; index++) {
             if (index != 0 && index % ELEMENTS_IN_COLUMN ==  0) {
+                //true: for every set of n-elements a new line feed must be concatenated
                 builder.append('\n');
             }
             builder.append(table[index].tileToString()).append(';');
