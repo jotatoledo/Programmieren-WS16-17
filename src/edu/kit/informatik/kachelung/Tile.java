@@ -52,7 +52,7 @@ public class Tile {
 
     //A.2.4
     /**
-     * Counts the different colors of the connection lines in the tile
+     * Counts the colors of the connection lines in the tile
      * @return A number between 0 and 3
      */
     public int getNumberOfColors() {
