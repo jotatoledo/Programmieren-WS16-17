@@ -1,10 +1,9 @@
 package edu.kit.informatik.kachelung;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 public class Tile {
     /**
-     * Represents the size of the codification array for the tiles used in the game
+     * Represents the size of the codification array for the tiles used in the game.<br>
+     * <strong>Can not be changed</strong>
      */
     public static final int NUMBER_ELEMENTS = 6;
     /**
@@ -51,15 +50,15 @@ public class Tile {
 
     //A.2.4
     /**
-     * Counts the different colors of the connection lines in the tile
+     * Counts the colors of the connection lines in the tile
      * @return A number between 0 and 3
      */
     public int getNumberOfColors() {
-        return getColors().length;
-    }
-    
-    private LineType[] getColors() {
-        throw new NotImplementedException();
+        int countColors = 0;
+        for (LineType element : lineTypes) {
+            if (element.isColor())countColors++;
+        }
+        return countColors / 2;
     }
 
     //A.2.5
@@ -157,19 +156,74 @@ public class Tile {
 
     //A.2.11 
     public boolean canBeRecoloredTo(Tile otherTile) {
-        throw new NotImplementedException();
+        return false;
+//        throw new NotImplementedException();
     }
 
     //A.2.12 
     public boolean dominates(Tile otherTile) {
-        throw new NotImplementedException();
+        return false;
+//        throw new NotImplementedException();
     }
 
     //A.2.13 
     public boolean hasSameColorsAs(Tile otherTile) {
-        throw new NotImplementedException();
+       return hasGreen() == otherTile.hasGreen() 
+               && hasRed() == otherTile.hasRed()
+               && hasYellow() == otherTile.hasYellow();
     }
 
+    /**
+     * 
+     * Support function for {@link #hasSameColorsAs(Tile)}
+     * @return
+     */
+    private boolean hasRed() {
+        boolean hasRed = false;
+        
+        for (LineType element : lineTypes) {
+            if (element == LineType.RED) {
+                hasRed = true;
+                break;
+            }
+        }
+        return hasRed;
+    }
+    
+    /**
+     * 
+     * Support function for {@link #hasSameColorsAs(Tile)}
+     * @return
+     */
+    private boolean hasGreen() {
+        boolean hasGreen = false;
+        
+        for (LineType element : lineTypes) {
+            if (element == LineType.GREEN) {
+                hasGreen = true;
+                break;
+            }
+        }
+        return hasGreen;
+    }
+    
+    /**
+     * 
+     * Support function for {@link #hasSameColorsAs(Tile)}
+     * @return
+     */
+    private boolean hasYellow() {
+        boolean hasYellow = false;
+        
+        for (LineType element : lineTypes) {
+            if (element == LineType.YELLOW) {
+                hasYellow = true;
+                break;
+            }
+        }
+        return hasYellow;
+    }
+    
     //A.2.14 
     public String toString() {
         StringBuilder builder = new StringBuilder();

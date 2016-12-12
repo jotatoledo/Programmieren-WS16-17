@@ -9,24 +9,46 @@ import edu.kit.informatik.kachelung.LineType;
 import edu.kit.informatik.kachelung.Tile;
 
 public class TileTest {
+    /**
+     * <pre>
+     * Empty tile
+     * ------
+     * </pre>
+     */
     private static final Tile EMPTY_TILE = new Tile();
     /**
+     * <pre>
      * Example in picture 6
+     * RRG-G-
+     * </pre>
      */
     private static final Tile K0 = new Tile(new LineType[] {
             LineType.RED, LineType.RED, LineType.GREEN, 
             LineType.NONE, LineType.GREEN, LineType.NONE }); 
     /**
+     * <pre>
      * Example in picture 6
+     * R-GGR-
+     * </pre>
      */
     private static final Tile K1 = new Tile(new LineType[] {
             LineType.RED, LineType.NONE, LineType.GREEN,
             LineType.GREEN, LineType.RED, LineType.NONE });
+
+    /**
+     * <pre>
+     * Example in picture 4
+     * RYRYGG
+     * </pre>
+     */
+    private static final Tile TEST_TRIO =  new Tile(new LineType[] {
+            LineType.RED, LineType.YELLOW, LineType.RED,
+            LineType.YELLOW, LineType.GREEN, LineType.GREEN });
     
     public TileTest() {
-        
+
     }
-    
+
     @Test
     public void testSetLineTypes() {
         fail("Not yet implemented");
@@ -53,7 +75,21 @@ public class TileTest {
 
     @Test
     public void testGetNumberOfColors() {
-        fail("Not yet implemented");
+        //Examples in picture 4
+        Tile testSingular = new Tile(new LineType[] {
+                LineType.RED, LineType.RED, LineType.NONE,
+                LineType.NONE, LineType.NONE, LineType.NONE });
+
+        Tile testDuo = new Tile(new LineType[] {
+                LineType.NONE, LineType.YELLOW, LineType.RED,
+                LineType.NONE, LineType.RED, LineType.YELLOW });
+
+        assertTrue(testDuo.getNumberOfColors() == 2);
+        assertTrue(TEST_TRIO.getNumberOfColors() == 3);     
+        assertTrue(testSingular.getNumberOfColors() == 1);        
+        assertTrue(EMPTY_TILE.getNumberOfColors() == 0);
+        assertTrue(K1.getNumberOfColors() == 2);
+        assertTrue(K0.getNumberOfColors() == 2);
     }
 
     @Test
@@ -61,7 +97,7 @@ public class TileTest {
         assertTrue(EMPTY_TILE.isExactlyEqualTo(EMPTY_TILE) == true);
         assertTrue(K1.isExactlyEqualTo(K1) == true);
         assertTrue(K0.isExactlyEqualTo(K0) == true);
-        
+
         assertTrue(EMPTY_TILE.isExactlyEqualTo(K1) == false);
         assertTrue(K1.isExactlyEqualTo(K0) == false);
         assertTrue(K0.isExactlyEqualTo(EMPTY_TILE) == false);
@@ -72,7 +108,7 @@ public class TileTest {
         Tile copyEmpty = EMPTY_TILE.copy();
         Tile copyK1 = K1.copy();
         Tile copyK0 = K0.copy();
-        
+
         assertTrue(copyEmpty != EMPTY_TILE);
         assertTrue(copyEmpty.isExactlyEqualTo(EMPTY_TILE) == true);        
         assertTrue(copyK1 != K1);
@@ -96,7 +132,7 @@ public class TileTest {
         Tile firstTest = new Tile(new LineType[] {LineType.RED, LineType.RED, LineType.GREEN, 
                 LineType.NONE, LineType.GREEN, LineType.NONE });
         Tile secondTest = new Tile();
-        
+
         assertTrue(firstTest.isEmpty() == false);
         assertTrue(secondTest.isEmpty() == true);
     }
@@ -118,25 +154,25 @@ public class TileTest {
 
     @Test
     public void testHasSameColorsAs() {
-        fail("Not yet implemented");
+        assertTrue(EMPTY_TILE.hasSameColorsAs(EMPTY_TILE) == true);
+        assertTrue(K0.hasSameColorsAs(K0) == true);
+        assertTrue(K1.hasSameColorsAs(K1) == true);
+        assertTrue(TEST_TRIO.hasSameColorsAs(TEST_TRIO) == true);
+        
+        assertTrue(EMPTY_TILE.hasSameColorsAs(K0) == false);
+        assertTrue(K0.hasSameColorsAs(EMPTY_TILE) == false);
+        assertTrue(K1.hasSameColorsAs(K0) == true);
+        assertTrue(K0.hasSameColorsAs(K0) == true);
+        assertTrue(TEST_TRIO.hasSameColorsAs(EMPTY_TILE) == false);
+        assertTrue(TEST_TRIO.hasSameColorsAs(K0) == false);
+        assertTrue(TEST_TRIO.hasSameColorsAs(K1) == false);
     }
 
     @Test
     public void testToString() {
-        String actualResult = null;
-        String expectedResult = null;
-        
-        actualResult = EMPTY_TILE.toString();
-        expectedResult = "------";
-        assertThat(actualResult, is(expectedResult));
-        
-        actualResult = K0.toString();
-        expectedResult = "RRG-G-";        
-        assertThat(actualResult, is(expectedResult));
-        
-        actualResult = K1.toString();
-        expectedResult = "R-GGR-";
-        assertThat(actualResult, is(expectedResult));
+        assertThat(EMPTY_TILE.toString(), is("------"));  
+        assertThat(K0.toString(), is("RRG-G-"));
+        assertThat(K1.toString(), is("R-GGR-"));
     }
 
     @Test

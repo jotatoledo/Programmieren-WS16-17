@@ -2,15 +2,15 @@ package edu.kit.informatik.kachelung;
 
 public class Board {
     /**
-     * Represents the number of tiles in every column of the game board.
-     * Can be changed.
-     * Has to be > = 2
+     * Represents the number of tiles in every column of the game board.<br>
+     * <strong>Can be changed.</strong><br>
+     * <strong>Has to be > = 2.</strong>
      */
     public static final int ELEMENTS_IN_COLUMN = 3;
     /**
-     * Represents the number of tiles in every row of the game board.
-     * Can be changed.
-     * Has to be > = 2
+     * Represents the number of tiles in every row of the game board.<br>
+     * <strong>Can be changed.</strong><br>
+     * <strong>Has to be > = 2.</strong>
      */
     public static final int ELEMENTS_IN_ROW = 4;
     /**
@@ -211,9 +211,9 @@ public class Board {
     
     //A.4.11
     /**
-     * The instance is printed in a format similar to a matrix.
-     * Every set of {@link #ELEMENTS_IN_COLUMN n}-elements are represented as a row
-     * There will be {@link #ELEMENTS_IN_ROW} many rows 
+     * The instance is printed in a format similar to a matrix.<br>
+     * Every set of {@link #ELEMENTS_IN_COLUMN n}-elements are represented as a row.<br>
+     * There will be {@link #ELEMENTS_IN_ROW m} many rows.<br>
      */
     @Override    
     public String toString() {
