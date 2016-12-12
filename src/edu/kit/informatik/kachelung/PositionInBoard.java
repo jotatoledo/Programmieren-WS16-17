@@ -94,9 +94,9 @@ public enum PositionInBoard {
                  boardPositon = PositionInBoard.DOWN_RIGH_CORNER;
                  break;
              default:
-                 if ( position % DOWN_LEFT_CORNER_VALUE != 0) {
+                 if (position < DOWN_LEFT_CORNER_VALUE && position % DOWN_LEFT_CORNER_VALUE != 0) {
                      boardPositon = PositionInBoard.LEFT_SIDE;
-                 } else if ( position % DOWN_RIGHT_CORNER_VALUE != 0) {
+                 } else if (position > UPPER_RIGHT_CORNER_VALUE && position % DOWN_RIGHT_CORNER_VALUE != 0) {
                      boardPositon = PositionInBoard.RIGHT_SIDE;
                  } else if (position % Board.ELEMENTS_IN_COLUMN == 0) {
                      boardPositon = PositionInBoard.UPPER_SIDE;
@@ -104,7 +104,8 @@ public enum PositionInBoard {
                      boardPositon = PositionInBoard.DOWN_SIDE;
                  } else {
                      boardPositon = PositionInBoard.INTERNAL;
-                 } 
+                 }
+                 break;
          }
          return boardPositon;
     }
