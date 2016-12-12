@@ -1,8 +1,17 @@
 package edu.kit.informatik.kachelung;
 
 public class Board {
-    
+    /**
+     * Represents the number of tiles in every column of the game board.
+     * Can be changed.
+     * Has to be > = 2
+     */
     public static final int ELEMENTS_IN_COLUMN = 3;
+    /**
+     * Represents the number of tiles in every row of the game board.
+     * Can be changed.
+     * Has to be > = 2
+     */
     public static final int ELEMENTS_IN_ROW = 4;
     /**
      * Represents the number of tiles in the game board.
