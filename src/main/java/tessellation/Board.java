@@ -1,4 +1,4 @@
-package main.java.board_game;
+package main.java.tessellation;
 
 /**
  * Represents a game board

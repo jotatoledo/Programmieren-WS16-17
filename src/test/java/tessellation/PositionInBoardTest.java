@@ -1,10 +1,10 @@
-package test.java.board_game;
+package test.java.tessellation;
 
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.is;
 import org.junit.Test;
 
-import main.java.board_game.PositionInBoard;
+import main.java.tessellation.PositionInBoard;
 
 public class PositionInBoardTest {
     public PositionInBoardTest() {

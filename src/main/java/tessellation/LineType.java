@@ -1,4 +1,4 @@
-package main.java.board_game;
+package main.java.tessellation;
 
 /**
  * Represents all possible types of lines that can be present on

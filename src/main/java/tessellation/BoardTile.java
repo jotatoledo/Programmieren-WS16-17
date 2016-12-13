@@ -1,4 +1,4 @@
-package main.java.board_game;
+package main.java.tessellation;
 
 /**
  * Represents a {@linkplain Tile tile} in the {@linkplain Board game board}
