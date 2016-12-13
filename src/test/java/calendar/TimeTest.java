@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import main.java.calendar.Date;
 import main.java.calendar.Time;
 
 public class TimeTest {
@@ -14,27 +15,39 @@ public class TimeTest {
     
     @Test
     public void testTime() {
-        fail("Not yet implemented");
+        Time testTime = new Time(1, 23, 11);
+        
+        assertTrue(testTime != null);
+        assertThat(testTime.toString(), is("01:23:11"));
     }
 
     @Test
     public void testAtDate() {
-        fail("Not yet implemented");
+        Time testTime = new Time(1, 23, 11);
+        Date testDate = new Date(1, 1, 1);
+        
+        assertThat(testTime.atDate(testDate).toString(), is("01-01-1T01:23:11"));
     }
 
     @Test
     public void testGetHour() {
-        fail("Not yet implemented");
+        Time testTime = new Time(1, 23, 11);
+        
+        assertTrue(testTime.getHour() == 1);
     }
 
     @Test
     public void testGetMinute() {
-        fail("Not yet implemented");
+        Time testTime = new Time(1, 23, 11);
+        
+        assertTrue(testTime.getMinute() == 23);
     }
 
     @Test
     public void testGetSecond() {
-        fail("Not yet implemented");
+        Time testTime = new Time(1, 23, 11);
+        
+        assertTrue(testTime.getSecond() == 11);
     }
 
     @Test
@@ -56,12 +69,16 @@ public class TimeTest {
 
     @Test
     public void testPlus() {
-        fail("Not yet implemented");
+        Time result = Time.MIN_VAL.plus(Time.MAX_VAL);
+        
+        assertThat(result.toString(), is(Time.MAX_VAL.toString()));
     }
 
     @Test
     public void testMinus() {
-        fail("Not yet implemented");
+        Time result = Time.MAX_VAL.minus(Time.MIN_VAL);
+        
+        assertThat(result.toString(), is(Time.MAX_VAL.toString()));
     }
 
     @Test
