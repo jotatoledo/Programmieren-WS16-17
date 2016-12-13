@@ -41,16 +41,16 @@ public enum PositionInBoard {
      * Represents the indexes of the codification list in {@linkplain Tile}
      * that have contact to other {@linkplain Tile} instances
      */
-    private final int[] positions;
+    private final int[] tileSides;
     /**
      * A {@linkplain String} representation of every element in this enumeration
      */
     private final String representation;
     
-    PositionInBoard(String representation, int... positions) {
-        this.positions = new int[positions.length];    
-        for (int i = 0; i < positions.length; i++) {
-            this.positions[i] = positions[i];
+    PositionInBoard(String representation, int... tileSides) {
+        this.tileSides = new int[tileSides.length];    
+        for (int i = 0; i < tileSides.length; i++) {
+            this.tileSides[i] = tileSides[i];
         }
         this.representation = representation;
     }
@@ -64,11 +64,11 @@ public enum PositionInBoard {
     }
     
     /**
-     * Getter method for {@link #positions}
-     * @return The value of {@link #positions}
+     * Getter method for {@link #tileSides}
+     * @return The value of {@link #tileSides}
      */
-    public int[] getPositions() {
-        return positions;
+    public int[] getTileSides() {
+        return tileSides;
     }
     
     /**
