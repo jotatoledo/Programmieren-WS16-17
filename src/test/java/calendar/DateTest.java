@@ -231,12 +231,6 @@ public class DateTest {
         assertTrue(thirdResultExpected.getDayOfMonth() == thirdResult.getDayOfMonth());
         assertTrue(thirdResultExpected.getMonthValue() == thirdResult.getMonthValue());
         assertTrue(thirdResultExpected.getYear() == thirdResult.getYear());
-
-        Date fourthTest = new Date(2000, 1, 1);
-        Date fourthResult = fourthTest.plusDays(1111);
-
-        System.out.println(fourthTest);
-        System.out.println(fourthResult);
     }
 
     @Test
