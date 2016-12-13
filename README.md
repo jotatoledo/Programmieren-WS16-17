@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.com/jotatoledo/Programmieren-WS16-17.svg?token=QNwfCBwcyoD8kJ16cY3M&branch=master)](https://travis-ci.com/jotatoledo/Programmieren-WS16-17)
 
-Different assignments for the lecture "Programmieren" during the winter semester 2016-2017
+Different assignments of the lecture "Programmieren" during the winter semester 2016-2017
 
 ## Table of Contents
 
