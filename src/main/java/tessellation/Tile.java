@@ -57,6 +57,7 @@ public class Tile {
      */
     public int getNumberOfColors() {
         int countColors = 0;
+        
         for (LineType element : lineTypes) {
             if (element.isColor())countColors++;
         }

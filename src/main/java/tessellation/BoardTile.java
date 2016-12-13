@@ -2,7 +2,7 @@ package main.java.tessellation;
 
 /**
  * Represents a {@linkplain Tile tile} in the {@linkplain Board game board}
- * in a specific {@linkplain PositionInBoard position}
+ * in a specific {@linkplain BoardPosition position}
  * @author Jose Toledo Navarro
  * @version 1.00
  */
@@ -14,9 +14,9 @@ public class BoardTile {
     /**
      * The position of the tile in a board represented by an instance of {@linkplain board}
      */
-    private PositionInBoard position;
+    private BoardPosition position;
     
-    public BoardTile(Tile tile, PositionInBoard position) {
+    public BoardTile(Tile tile, BoardPosition position) {
         this.tile = tile;
         this.position = position;
     }
@@ -41,7 +41,7 @@ public class BoardTile {
      * Getter for {@link #position}
      * @return The value of {@link #position}
      */
-    public PositionInBoard getPosition() {
+    public BoardPosition getPosition() {
         return position;
     }
 
@@ -49,7 +49,7 @@ public class BoardTile {
      * Setter for {@link position}
      * @param position
      */
-    public void setPosition(PositionInBoard position) {
+    public void setPosition(BoardPosition position) {
         this.position = position;
     }
     

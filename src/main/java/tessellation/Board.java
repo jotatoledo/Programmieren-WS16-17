@@ -11,21 +11,21 @@ public class Board {
      * <strong>Can be changed.</strong><br>
      * <strong>Has to be > = 2.</strong>
      */
-    public static final int ELEMENTS_IN_COLUMN = 3;
+    public static final int ELEMENTS_COLUMN = 3;
     /**
      * Represents the number of tiles in every row of the game board.<br>
      * <strong>Can be changed.</strong><br>
      * <strong>Has to be > = 2.</strong>
      */
-    public static final int ELEMENTS_IN_ROW = 4;
+    public static final int ELEMENTS_ROW = 4;
     /**
      * Represents the number of tiles in the game board.
      */
-    public static final int TABLE_ELEMENTS = ELEMENTS_IN_ROW * ELEMENTS_IN_COLUMN;
+    public static final int TABLE_ELEMENTS = ELEMENTS_ROW * ELEMENTS_COLUMN;
 
-    private static final int MAIN_DIAGONAL = ELEMENTS_IN_COLUMN;
+    private static final int MAIN_DIAGONAL = ELEMENTS_COLUMN;
     private static final int VERTICAL = 1;
-    private static final int SECUNDARY_DIAGONAL = ELEMENTS_IN_COLUMN - 1;
+    private static final int SECUNDARY_DIAGONAL = ELEMENTS_COLUMN - 1;
 
     /**
      * Represents the tiles in the board surface
@@ -41,9 +41,9 @@ public class Board {
      */
     public Board() {
         table = new BoardTile[TABLE_ELEMENTS];
-        for (int index = 0; index < TABLE_ELEMENTS; index++) {
+        for (int i = 0; i < TABLE_ELEMENTS; i++) {
             //Sets every individual element of the codification array as an empty tile with an specific position
-            table[index] = new BoardTile(new Tile(), PositionInBoard.calculateBoardPosition(index));
+            table[i] = new BoardTile(new Tile(), BoardPosition.calculatePosition(i, ELEMENTS_COLUMN, ELEMENTS_ROW));
         }
     }
 
@@ -176,19 +176,19 @@ public class Board {
                 calculatedBoardIndex = tilePosition - 1;
                 break;
             case(1):
-                calculatedBoardIndex = tilePosition + Board.ELEMENTS_IN_COLUMN - 1;
+                calculatedBoardIndex = tilePosition + Board.ELEMENTS_COLUMN - 1;
                 break;
             case(2):
-                calculatedBoardIndex = tilePosition + Board.ELEMENTS_IN_COLUMN;
+                calculatedBoardIndex = tilePosition + Board.ELEMENTS_COLUMN;
                 break;
             case(3):
                 calculatedBoardIndex = tilePosition + 1;
                 break;
             case(4):
-                calculatedBoardIndex = tilePosition - Board.ELEMENTS_IN_COLUMN + 1;
+                calculatedBoardIndex = tilePosition - Board.ELEMENTS_COLUMN + 1;
                 break;
             case(5):
-                calculatedBoardIndex = tilePosition - Board.ELEMENTS_IN_COLUMN;
+                calculatedBoardIndex = tilePosition - Board.ELEMENTS_COLUMN;
                 break;
         }
         return calculatedBoardIndex;
@@ -253,15 +253,15 @@ public class Board {
     //A.4.11
     /**
      * The instance is printed in a format similar to a matrix.<br>
-     * Every set of {@link #ELEMENTS_IN_COLUMN n}-elements are represented as a row.<br>
-     * There will be {@link #ELEMENTS_IN_ROW m} many rows.<br>
+     * Every set of {@link #ELEMENTS_COLUMN n}-elements are represented as a row.<br>
+     * There will be {@link #ELEMENTS_ROW m} many rows.<br>
      */
     @Override    
     public String toString() {
         StringBuilder builder = new StringBuilder();
 
         for (int index = 0; index < TABLE_ELEMENTS; index++) {
-            if (index != 0 && index % ELEMENTS_IN_COLUMN ==  0) {
+            if (index != 0 && index % ELEMENTS_COLUMN ==  0) {
                 //true: for every set of n-elements a new line feed must be concatenated
                 builder.append('\n');
             }
