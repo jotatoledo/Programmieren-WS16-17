@@ -10,11 +10,6 @@ import main.java.tessellation.Tile;
 
 import static org.hamcrest.CoreMatchers.*;
 
-/**
- * Unit test for {@linkplain Board}
- * @author Jose Toledo Navarro
- * @version 1.00
- */
 public class BoardTest {
     /**
      * <pre>

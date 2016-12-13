@@ -3,7 +3,7 @@ package main.java.tessellation;
 /**
  * Represents a {@linkplain Tile tile} in the {@linkplain Board game board}
  * in a specific {@linkplain PositionInBoard position}
- * @author Jose Toledo Navarro
+ * @author JoseNote
  * @version 1.00
  */
 public class BoardTile {
