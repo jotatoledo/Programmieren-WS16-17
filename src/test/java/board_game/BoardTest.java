@@ -305,6 +305,7 @@ public class BoardTest {
         
         assertTrue(VALID_BOARD.getConnectedPathColor(new int[] {0, 3}) == LineType.NONE);
         assertTrue(VALID_BOARD.getConnectedPathColor(new int[] {1, 4}) == LineType.YELLOW);
+        assertTrue(VALID_BOARD.getConnectedPathColor(new int[] {1, 4, 5}) == LineType.NONE);
         assertTrue(VALID_BOARD.getConnectedPathColor(new int[] {1, 2, 4}) == LineType.NONE);
         assertTrue(VALID_BOARD.getConnectedPathColor(new int[] {4, 5, 7}) == LineType.GREEN);
         assertTrue(VALID_BOARD.getConnectedPathColor(new int[] {4, 5, 7, 6}) == LineType.GREEN);
