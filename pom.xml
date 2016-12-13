@@ -54,6 +54,7 @@
 				<version>3.2</version>
 				<configuration>
 				    <source>${jdkVersion}</source>
+				    <target>${jdkVersion}</target>
 				    <showWarnings>true</showWarnings>
 				</configuration>
 			</plugin>
