@@ -204,7 +204,10 @@ public class Board {
             
             currentPairPath = table[predecessor].getConnectedColor(calculatedTileSide, table[sucessor]);
         	if (actualPath != null) {
-        		if(currentPairPath != actualPath){
+        		//True: currently there is a path being followed
+        		if(currentPairPath == LineType.NONE || currentPairPath != actualPath){
+        			//True: the connection color of the current pair is NONE or
+        			//the actual path color is different to the one of the current pair
         			actualPath = LineType.NONE;
         			break;
         		}
