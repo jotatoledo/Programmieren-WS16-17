@@ -6,13 +6,21 @@ Different assignments for the lecture "Programmieren" during the winter semester
 
 ## Table of Contents
 
+1. [Dependencies](#dependencies)
 1. [API](#api)
 1. [License](#license)
+
+## Dependencies
+
+This repository uses:
+
+* [Junit4 v4.12](https://github.com/junit-team/junit4)
+* [Maven v3.3.9](https://maven.apache.org/)
 
 ## API
 
 * Second assignment : [Calendar functions](https://github.com/jotatoledo/Programmieren-WS16-17/blob/master/assignment02.pdf)
-* Third assignment (Expanded to allow game boards of different sizes) : [Board game](https://github.com/jotatoledo/Programmieren-WS16-17/blob/master/assignment03.pdf)
+* Third assignment (Expanded to allow surfaces of different sizes) : [Tessellation](https://github.com/jotatoledo/Programmieren-WS16-17/blob/master/assignment03.pdf)
 
 **[Back to top](#table-of-contents)**
 

@@ -1,12 +1,12 @@
-package test.java.board_game;
+package test.java.tessellation;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import main.java.board_game.LineType;
-import main.java.board_game.Tile;
+import main.java.tessellation.LineType;
+import main.java.tessellation.Tile;
 
 public class TileTest {
     /**
@@ -178,11 +178,13 @@ public class TileTest {
         test.rotateClockwise();
         assertTrue(test.canBeRecoloredTo(objective) == false);
         
+        //Every tile can be recolored to itself
         assertTrue(EMPTY_TILE.canBeRecoloredTo(EMPTY_TILE) == true);
         assertTrue(K0.canBeRecoloredTo(K0) == true);
         assertTrue(K1.canBeRecoloredTo(K1) == true);
         assertTrue(TEST_TRIO.canBeRecoloredTo(TEST_TRIO) == true);
         
+        //Recoloring requires adding one or more connection lines
         assertTrue(TEST_TRIO.canBeRecoloredTo(EMPTY_TILE) == false);
         assertTrue(TEST_TRIO.canBeRecoloredTo(K0) == false);
         assertTrue(TEST_TRIO.canBeRecoloredTo(K1) == false);
