@@ -14,8 +14,8 @@ Different assignments for the lecture "Programmieren" during the winter semester
 
 This repository uses:
 
-* [Junit4 v4.12](https://github.com/junit-team/junit4)
-* [Maven v3.3.9](https://maven.apache.org/)
+* [Junit4](https://github.com/junit-team/junit4) v4.12
+* [Maven](https://maven.apache.org/) v3.3.9
 
 ## API
 
