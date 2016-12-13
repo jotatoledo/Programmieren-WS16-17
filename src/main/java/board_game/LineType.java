@@ -1,4 +1,4 @@
-package edu.kit.informatik.board_game;
+package main.java.board_game;
 
 /**
  * Represents all possible types of lines that can be present on

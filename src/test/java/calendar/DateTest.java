@@ -1,13 +1,13 @@
-package test.calendar;
+package test.java.calendar;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
 
-import edu.kit.informatik.calendar.Date;
-import edu.kit.informatik.calendar.DateTime;
-import edu.kit.informatik.calendar.DayOfWeek;
-import edu.kit.informatik.calendar.Month;
-import edu.kit.informatik.calendar.Time;
+import main.java.calendar.Date;
+import main.java.calendar.DateTime;
+import main.java.calendar.DayOfWeek;
+import main.java.calendar.Month;
+import main.java.calendar.Time;
 
 import static org.hamcrest.CoreMatchers.*;
 
@@ -231,12 +231,6 @@ public class DateTest {
         assertTrue(thirdResultExpected.getDayOfMonth() == thirdResult.getDayOfMonth());
         assertTrue(thirdResultExpected.getMonthValue() == thirdResult.getMonthValue());
         assertTrue(thirdResultExpected.getYear() == thirdResult.getYear());
-
-        Date fourthTest = new Date(2000, 1, 1);
-        Date fourthResult = fourthTest.plusDays(1111);
-
-        System.out.println(fourthTest);
-        System.out.println(fourthResult);
     }
 
     @Test
