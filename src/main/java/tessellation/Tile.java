@@ -97,7 +97,7 @@ public class Tile {
 
     //A.2.7 
     /**
-     * 
+     * Rotates the instance 60° clockwise
      */
     public void rotateClockwise() {
         LineType lastElement = lineTypes[NUMBER_SIDES - 1];
@@ -111,10 +111,11 @@ public class Tile {
 
     //A.2.8
     /**
-     * 
+     * Rotates the instance 60° counterclockwise
      */
     public void rotateCounterClockwise() {
         LineType firstElement = lineTypes[0];
+        
         for (int i = 0; i <= NUMBER_SIDES - 2; i++) {
             lineTypes[i] = lineTypes[i + 1];
         }
@@ -181,7 +182,7 @@ public class Tile {
     /**
      * 
      * @param otherTile
-     * @return
+     * @return {@code True} if the current instance dominates the given instance. {@code False} otherwise
      */
     public boolean dominates(Tile otherTile) {
         boolean dominates = true;
@@ -213,9 +214,9 @@ public class Tile {
     }
 
     /**
-     * 
+     * Checks if the instance contains the {@linkplain LineType#RED} color.<br>
      * Support function for {@link #hasSameColorsAs(Tile)}
-     * @return
+     * @return {@code True} if the tile contains the color {@linkplain LineType#RED}. {@code False} otherwise.
      */
     private boolean hasRed() {
         boolean hasRed = false;
@@ -230,9 +231,9 @@ public class Tile {
     }
     
     /**
-     * 
+     * Checks if the instance contains the {@linkplain LineType#GREEN} color.<br>
      * Support function for {@link #hasSameColorsAs(Tile)}
-     * @return
+     * @return {@code True} if the tile contains the color {@linkplain LineType#GREEN}. {@code False} otherwise.
      */
     private boolean hasGreen() {
         boolean hasGreen = false;
@@ -247,9 +248,9 @@ public class Tile {
     }
     
     /**
-     * 
+     * Checks if the instance contains the {@linkplain LineType#YELLOW} color.<br>
      * Support function for {@link #hasSameColorsAs(Tile)}
-     * @return
+     * @return {@code True} if the tile contains the color {@linkplain LineType#YELLOW}. {@code False} otherwise.
      */
     private boolean hasYellow() {
         boolean hasYellow = false;
@@ -265,7 +266,8 @@ public class Tile {
     
     //A.2.14
     /**
-     * 
+     * Returns the text representation of the tile.<br>
+     * The text representations of the colors in the codification array of the sides of the tile will be concatenated
      */
     public String toString() {
         StringBuilder builder = new StringBuilder();
@@ -289,18 +291,18 @@ public class Tile {
      * @return
      */
     public boolean fitsTo(Tile otherTile, int position) {
-        int reflectedPosition = calculateReflectPosition(position);
+        int reflectedPosition = calculateReflectedSide(position);
 
         return lineTypes[position].fitsTo(otherTile.getLineTypeAtIndex(reflectedPosition));
     }
 
     /**
-     * Calculates a mirrored position inside a tile.
+     * Calculates the mirrored side of a tile.<br>
      * Support method for {@linkplain Tile#fitsTo(Tile, int)}.
      * @param position A value between {@code 0} and {@linkplain #NUMBER_SIDES}{@code -1}
      * @return The mirrored position in relation to the given value
      */
-    private int calculateReflectPosition(int position) {
+    private int calculateReflectedSide(int position) {
         return (position + NUMBER_SIDES / 2 ) % NUMBER_SIDES;
     }
 
@@ -308,13 +310,14 @@ public class Tile {
     //endregion A.3
     
     /**
-     * 
+     * <br>
+     * Support method for {@linkplain Board#getConnectedPathColor(int[])}
      * @param index
      * @param otherTile
      * @return
      */
     public LineType getConnectedColor(int index, Tile otherTile) {
-        int reflectedIndex = calculateReflectPosition(index);
+        int reflectedIndex = calculateReflectedSide(index);
         LineType color = getLineTypeAtIndex(index) == otherTile.getLineTypeAtIndex(reflectedIndex) 
                 ? getLineTypeAtIndex(index) : LineType.NONE;
         return color;

@@ -1,7 +1,7 @@
 package main.java.tessellation;
 
 /**
- * Represents a game board
+ * Represents a game board made of {@linkplain Tile}
  * @author Jose Toledo Navarro
  * @version 1.00
  */
@@ -27,7 +27,9 @@ public class Board {
     private static final int VERTICAL = 1;
     private static final int SECUNDARY_DIAGONAL = ELEMENTS_IN_COLUMN - 1;
 
-
+    /**
+     * Represents the tiles in the board surface
+     */
     private BoardTile[] table;
 
     //region A.4
@@ -77,15 +79,16 @@ public class Board {
 
     //A.4.5
     /**
-     * 
-     * @return {@code True} if all the {@linkplain Tile} instances in the codification array 
-     * of this instance are {@code empty}. {@code False} otherwise.
+     * Checks if the instance represents an empty board
+     * @return {@code True} if the board is empty. {@code False} otherwise.
      */
     public boolean isEmpty() {
         boolean isEmpty = true;
 
         for (BoardTile element : table) {
             if (!element.isEmpty()) {
+                //True: A tile in the board isn't empty.
+                //This means that the board isn't empty.
                 isEmpty = false;
                 break;
             }
@@ -128,7 +131,7 @@ public class Board {
             if (numberColors == 3)break;
             //True: a tile had 3 colors. 
             //This is the maximum possible amount of colors
-            //There is no reason to keep loking for a bigger number, cause there isnt
+            //There is no reason to keep looking for a bigger number, cause there isn't
         }
         return numberColors;
     }
@@ -146,7 +149,7 @@ public class Board {
             //Depending on the position in the board of every tile, there is a set of sides of if
             //that have contact with another tile in the board
             for (int position : table[i].getPosition().getTileSides()) {
-                Tile otherTile = getTile(calculateBoardIndexFromTileCodificationIndex(i, position));
+                Tile otherTile = getTile(calculatePositionNeighbourTile(i, position));
                 if (!table[i].getTile().fitsTo(otherTile, position)) {
                     isValid = false;
                     break;
@@ -158,34 +161,34 @@ public class Board {
     }
 
     /**
-     * 
+     * Calculates the position in the board of a tile, that is neighbor to a reference one 
+     * and contacts it in a specific side of the reference one<br>
      * Support function for {@linkplain #isValid()}.
-     * @param boardIndex A position of the codification array of the board
-     * @param tileSideIndex A position of the codification array of a tile
-     * @return
+     * @param tilePosition The position of the reference tile
+     * @param tileSide The side of the reference tile
+     * @return The position of the neighbor tile
      */
-    private int calculateBoardIndexFromTileCodificationIndex(int boardIndex, int tileSideIndex) {
+    private int calculatePositionNeighbourTile(int tilePosition, int tileSide) {
         int calculatedBoardIndex = 0;
-
-        //Depending 
-        switch(tileSideIndex) {
+        
+        switch(tileSide) {
             case(0):
-                calculatedBoardIndex = boardIndex - 1;
+                calculatedBoardIndex = tilePosition - 1;
                 break;
             case(1):
-                calculatedBoardIndex = boardIndex + Board.ELEMENTS_IN_COLUMN - 1;
+                calculatedBoardIndex = tilePosition + Board.ELEMENTS_IN_COLUMN - 1;
                 break;
             case(2):
-                calculatedBoardIndex = boardIndex + Board.ELEMENTS_IN_COLUMN;
+                calculatedBoardIndex = tilePosition + Board.ELEMENTS_IN_COLUMN;
                 break;
             case(3):
-                calculatedBoardIndex = boardIndex + 1;
+                calculatedBoardIndex = tilePosition + 1;
                 break;
             case(4):
-                calculatedBoardIndex = boardIndex - Board.ELEMENTS_IN_COLUMN + 1;
+                calculatedBoardIndex = tilePosition - Board.ELEMENTS_IN_COLUMN + 1;
                 break;
             case(5):
-                calculatedBoardIndex = boardIndex - Board.ELEMENTS_IN_COLUMN;
+                calculatedBoardIndex = tilePosition - Board.ELEMENTS_IN_COLUMN;
                 break;
         }
         return calculatedBoardIndex;
@@ -193,7 +196,7 @@ public class Board {
 
     //A.4.10
     /**
-     * Checks if there is a color path crossing multiple positions in the game board represented by this instance
+     * Checks if there is a color path crossing multiple positions in the game board represented by this instance.
      * @param positions An array with multiple positions in the game board
      * @return {@linkplain LineType.NONE} if there is no path in the given positions.
      * Another value of the {@linkplain LineType} enumeration otherwise.
@@ -205,7 +208,7 @@ public class Board {
         for (int i = 0; i < positions.length - 1; i++) {
             int predecessor = positions[i];
             int sucessor = positions[i + 1];
-            int calculatedTileSide = calculateTileSide(predecessor, sucessor);
+            int calculatedTileSide = calculateContactSideOfTileToOther(predecessor, sucessor);
 
             currentPairPath = table[predecessor].getConnectedColor(calculatedTileSide, table[sucessor]);
             if (actualPath != null) {
@@ -223,28 +226,28 @@ public class Board {
     }
 
     /**
-     * 
+     * Calculates the contact side of a tile to a neighbor one in the board.<br>
      * Support function for {@link #getConnectedPathColor(int[])}
-     * @param indexTablePredecessor
-     * @param indexTableSucessor
-     * @return
+     * @param referenceTile The position of the main tile in the board
+     * @param neighborTile The position of the neighboring tile in the board 
+     * @return A number between {@code 0} and {@linkplain Tile #NUMBER_SIDES n}-1
      */
-    private int calculateTileSide(int indexTablePredecessor, int indexTableSucessor) {
-        int diff = Math.abs(indexTableSucessor - indexTablePredecessor);
-        int calculatedTileIndex = -1;
+    private int calculateContactSideOfTileToOther(int referenceTile, int neighborTile) {
+        int diff = Math.abs(neighborTile - referenceTile);
+        int calculatedContactSide = -1;
 
         switch(diff) {
-        case(VERTICAL):
-            calculatedTileIndex = indexTablePredecessor > indexTableSucessor ? 0 : 3;
-            break;
-        case(MAIN_DIAGONAL):
-            calculatedTileIndex = indexTablePredecessor > indexTableSucessor ? 5 : 2;
-            break;
-        case(SECUNDARY_DIAGONAL):
-            calculatedTileIndex = indexTablePredecessor > indexTableSucessor ? 4 : 1; 
-            break;
+            case(VERTICAL):
+                calculatedContactSide = referenceTile > neighborTile ? 0 : 3;
+                break;
+            case(MAIN_DIAGONAL):
+                calculatedContactSide = referenceTile > neighborTile ? 5 : 2;
+                break;
+            case(SECUNDARY_DIAGONAL):
+                calculatedContactSide = referenceTile > neighborTile ? 4 : 1; 
+                break;
         }
-        return calculatedTileIndex;
+        return calculatedContactSide;
     }
 
     //A.4.11
