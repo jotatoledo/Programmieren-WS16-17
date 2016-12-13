@@ -1,7 +1,7 @@
 package main.java.tessellation;
 
 /**
- * Represents a game board
+ * Represents a game board made of {@linkplain Tile}
  * @author Jose Toledo Navarro
  * @version 1.00
  */
