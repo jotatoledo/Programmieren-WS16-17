@@ -194,34 +194,24 @@ public class Board {
      * @return
      */
     public LineType getConnectedPathColor(int[] positions) {
-        LineType pathColor = LineType.NONE;
+        LineType actualPath = null;
+        LineType currentPairPath = null;
         
         for (int i = 0; i < positions.length - 1; i++) {
             int predecessor = positions[i];
             int sucessor = positions[i + 1];
-            int calculatedTileIndex = calculateTileCodificationdIndex(predecessor, sucessor);
+            int calculatedTileSide = calculateTileSide(predecessor, sucessor);
             
-            if (isPairColorConnected(calculatedTileIndex, predecessor, sucessor)) {
-                pathColor = table[predecessor].getConnectedColor(calculatedTileIndex, table[sucessor]);
-            } else {
-                pathColor = LineType.NONE;
-                break;
-            }
+            currentPairPath = table[predecessor].getConnectedColor(calculatedTileSide, table[sucessor]);
+        	if (actualPath != null) {
+        		if(currentPairPath != actualPath){
+        			actualPath = LineType.NONE;
+        			break;
+        		}
+        	}
+        	actualPath = currentPairPath;
         }
-        return pathColor;
-    }
-    
-    /**
-     * 
-     * Support function for {@link #getConnectedPathColor(int[])}
-     * @param index
-     * @param predecessor
-     * @param sucessor
-     * @return
-     */
-    private boolean isPairColorConnected(int index, int predecessor, int sucessor) {
-        boolean flag = table[predecessor].getConnectedColor(index, table[sucessor]).isColor();
-        return flag;
+        return actualPath;
     }
     
     /**
@@ -231,7 +221,7 @@ public class Board {
      * @param indexTableSucessor
      * @return
      */
-    private int calculateTileCodificationdIndex(int indexTablePredecessor, int indexTableSucessor) {
+    private int calculateTileSide(int indexTablePredecessor, int indexTableSucessor) {
         int diff = Math.abs(indexTableSucessor - indexTablePredecessor);
         int calculatedTileIndex = -1;
         
