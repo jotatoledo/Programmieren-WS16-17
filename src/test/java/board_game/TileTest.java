@@ -1,12 +1,12 @@
-package test.board_game;
+package test.java.board_game;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import edu.kit.informatik.board_game.LineType;
-import edu.kit.informatik.board_game.Tile;
+import main.java.board_game.LineType;
+import main.java.board_game.Tile;
 
 public class TileTest {
     /**

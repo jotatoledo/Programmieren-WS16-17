@@ -1,4 +1,4 @@
-package edu.kit.informatik.board_game;
+package main.java.board_game;
 
 public class Tile {
     /**

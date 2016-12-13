@@ -1,4 +1,4 @@
-package test.board_game;
+package test.java.board_game;
 
 import static org.junit.Assert.*;
 

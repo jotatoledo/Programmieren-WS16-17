@@ -1,4 +1,4 @@
-package edu.kit.informatik.calendar;
+package main.java.calendar;
 
 /**
  * Represents a date consisting of a year, a {@linkplain Month month} and a day.

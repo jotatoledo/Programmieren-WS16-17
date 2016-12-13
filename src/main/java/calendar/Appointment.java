@@ -1,4 +1,4 @@
-package edu.kit.informatik.calendar;
+package main.java.calendar;
 
 /**
  * 
