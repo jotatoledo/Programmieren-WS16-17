@@ -44,8 +44,8 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-	
-	
+
+
 	<build>
 		<plugins>
 			<plugin>
@@ -53,9 +53,9 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.2</version>
 				<configuration>
-				    <source>${jdkVersion}</source>
-				    <target>${jdkVersion}</target>
-				    <showWarnings>true</showWarnings>
+					<source>${jdkVersion}</source>
+					<target>${jdkVersion}</target>
+					<showWarnings>true</showWarnings>
 				</configuration>
 			</plugin>
 		</plugins>
