@@ -1,5 +1,10 @@
 package main.java.board_game;
 
+/**
+ * 
+ * @author JoseNote
+ * @version 1.00
+ */
 public class Board {
     /**
      * Represents the number of tiles in every column of the game board.<br>
