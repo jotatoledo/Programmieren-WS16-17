@@ -29,18 +29,22 @@ public class Board {
     //==================================================================================================================
 
     //A.4.1
+    /**
+     * Creates a new empty board
+     */
     public Board() {
         table = new BoardTile[TABLE_ELEMENTS];
         for (int index = 0; index < TABLE_ELEMENTS; index++) {
+            //Sets every individual element of the codification array as an empty tile with an specific position
             table[index] = new BoardTile(new Tile(), PositionInBoard.calculateBoardPosition(index));
         }
     }
 
     //A.4.2
     /**
-     * 
+     * Getts the {@linkplain Tile} instance at a given index in the codification array
      * @param position A value between {@code 0} and {@linkplain #TABLE_ELEMENTS}{@code -1}
-     * @return
+     * @return A {@linkplain Tile} instance
      */
     public Tile getTile(int position) {
         return table[position].getTile();
@@ -48,7 +52,7 @@ public class Board {
 
     //A.4.3
     /**
-     * 
+     * Sets a {@linkplain Tile} instance at a given position in the codification array
      * @param position A value between {@code 0} and {@linkplain #TABLE_ELEMENTS}{@code -1}
      * @param newTile An instance of {@linkplain Tile}
      */
@@ -58,7 +62,8 @@ public class Board {
 
     //A.4.4
     /**
-     * 
+     * Replaces the {@linkplain Tile} instance at a given position in the codification arary
+     * with a new instance of an empty {@linkplain Tile}
      * @param position A value between {@code 0} and {@linkplain #TABLE_ELEMENTS}{@code -1}
      */
     public void removeTile(int position) {
@@ -68,7 +73,8 @@ public class Board {
     //A.4.5
     /**
      * 
-     * @return
+     * @return {@code True} if all the {@linkplain Tile} instances in the codification array 
+     * of this instance are {@code empty}. {@code False} otherwise.
      */
     public boolean isEmpty() {
         boolean isEmpty = true;
@@ -84,7 +90,7 @@ public class Board {
 
     //A.4.6
     /**
-     * 
+     * Rotates the tile at a given index in the codification array 60° clockwise
      * @param position A value between {@code 0} and {@linkplain #TABLE_ELEMENTS}{@code -1}
      */
     public void rotateTileClockwise(int position) {
@@ -93,7 +99,7 @@ public class Board {
 
     //A.4.7
     /**
-     * 
+     * Rotates the tile at a given index in the codification array 60° counterclockwise
      * @param position
      */
     public void rotateTileCounterClockwise(int position) {
@@ -102,20 +108,29 @@ public class Board {
 
     //A.4.8
     /**
-     * 
-     * @return
+     * Gets the number of colors in the game board
+     * @return A value between {@code 0} and {@code 3}
      */
     public int getNumberOfColors() {
         int numberColors = 0;
 
         for (BoardTile element : table) {
+            //To get the number of colors in the board, we search
+            //for the tile with the biggest number of colors
             numberColors = element.getNumberOfColors() > numberColors ? element.getNumberOfColors() : numberColors;
             if (numberColors == 3)break;
+            //True: a tile had 3 colors. 
+            //This is the maximum possible amount of colors
+            //There is no reason to keep loking for a bigger number, cause there isnt
         }
         return numberColors;
     }
 
-    //A.4.9 
+    //A.4.9
+    /**
+     * 
+     * @return {@code True} if the instance represents a valid game board. {@code False} otherwise.
+     */
     public boolean isValid() {
         boolean isValid = true;
         
@@ -168,6 +183,11 @@ public class Board {
     }
     
     //A.4.10
+    /**
+     * 
+     * @param positions
+     * @return
+     */
     public LineType getConnectedPathColor(int[] positions) {
         LineType pathColor = LineType.NONE;
         
@@ -186,11 +206,26 @@ public class Board {
         return pathColor;
     }
     
+    /**
+     * 
+     * Support function for {@link #getConnectedPathColor(int[])}
+     * @param index
+     * @param predecessor
+     * @param sucessor
+     * @return
+     */
     private boolean isPairColorConnected(int index, int predecessor, int sucessor) {
         boolean flag = table[predecessor].getConnectedColor(index, table[sucessor]).isColor();
         return flag;
     }
     
+    /**
+     * 
+     * Support function for {@link #getConnectedPathColor(int[])}
+     * @param indexTablePredecessor
+     * @param indexTableSucessor
+     * @return
+     */
     private int calculateTileCodificationdIndex(int indexTablePredecessor, int indexTableSucessor) {
         int diff = Math.abs(indexTableSucessor - indexTablePredecessor);
         int calculatedTileIndex = -1;

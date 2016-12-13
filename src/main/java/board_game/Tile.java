@@ -1,11 +1,17 @@
 package main.java.board_game;
 
+/**
+ * Represents a tile with {@linkplain Tile #NUMBER_SIDES n}-sides
+ * @author JoseNote
+ * @version 1.00
+ */
 public class Tile {
     /**
-     * Represents the size of the codification array for the tiles used in the game.<br>
+     * Represents the numnber of sides of the tile and the size 
+     * of the codification array for the tiles used in the game.<br>
      * <strong>Can not be changed</strong>
      */
-    public static final int NUMBER_ELEMENTS = 6;
+    public static final int NUMBER_SIDES = 6;
     /**
      * Represents the codification of the connection lines in the tile
      */
@@ -18,7 +24,7 @@ public class Tile {
     /**
      * Initializes a new instance of {@linkplain Tile} using a specific codification of connection lines
      * @param lineTypes The codification of the connection lines to use.
-     * {@code LineTypes.length} is {@linkplain #NUMBER_ELEMENTS}
+     * {@code LineTypes.length} is {@linkplain #NUMBER_SIDES}
      */
     public Tile(LineType[] lineTypes) {
         this.lineTypes = lineTypes;
@@ -29,15 +35,15 @@ public class Tile {
      * Initializes a new instance of {@linkplain Tile} that doesn't contains any connection lines
      */
     public Tile() {
-        lineTypes = new LineType[NUMBER_ELEMENTS];
-        for (int i = 0; i < NUMBER_ELEMENTS; i++) {
+        lineTypes = new LineType[NUMBER_SIDES];
+        for (int i = 0; i < NUMBER_SIDES; i++) {
             lineTypes[i] = LineType.NONE;
         }
     }
 
     /**
      * 
-     * @param index A number between {@code 0} and {@linkplain #NUMBER_ELEMENTS}{@code -1}
+     * @param index A number between {@code 0} and {@linkplain #NUMBER_SIDES}{@code -1}
      * @return The value of {@link #lineTypes} at the given index
      */
     public LineType getLineTypeAtIndex(int index) {
@@ -66,7 +72,7 @@ public class Tile {
     public boolean isExactlyEqualTo(Tile otherTile) {
         boolean isEqual = true;
 
-        for (int i = 0; i < NUMBER_ELEMENTS; i++) {
+        for (int i = 0; i < NUMBER_SIDES; i++) {
             if (this.lineTypes[i] != otherTile.getLineTypeAtIndex(i)) {
                 isEqual = false;
                 break;
@@ -81,8 +87,9 @@ public class Tile {
      * @return
      */
     public Tile copy() {
-        LineType[] copyArray = new LineType[NUMBER_ELEMENTS];
-        for (int i = 0; i < NUMBER_ELEMENTS; i++) {
+        LineType[] copyArray = new LineType[NUMBER_SIDES];
+        
+        for (int i = 0; i < NUMBER_SIDES; i++) {
             copyArray[i] = lineTypes[i];
         }
         return new Tile(copyArray);
@@ -93,9 +100,9 @@ public class Tile {
      * 
      */
     public void rotateClockwise() {
-        LineType lastElement = lineTypes[NUMBER_ELEMENTS - 1];
+        LineType lastElement = lineTypes[NUMBER_SIDES - 1];
 
-        for (int i = NUMBER_ELEMENTS - 1; i > 0; i--) {
+        for (int i = NUMBER_SIDES - 1; i > 0; i--) {
             //copy the content in the "i"-cell to the previous one
             lineTypes[i] = lineTypes[i - 1];
         }
@@ -108,10 +115,10 @@ public class Tile {
      */
     public void rotateCounterClockwise() {
         LineType firstElement = lineTypes[0];
-        for (int i = 0; i <= NUMBER_ELEMENTS - 2; i++) {
+        for (int i = 0; i <= NUMBER_SIDES - 2; i++) {
             lineTypes[i] = lineTypes[i + 1];
         }
-        lineTypes[NUMBER_ELEMENTS - 1] = firstElement;
+        lineTypes[NUMBER_SIDES - 1] = firstElement;
     }
 
     //A.2.9
@@ -122,7 +129,7 @@ public class Tile {
     public boolean isEmpty() {
         boolean isEmpty = true;
 
-        for (int i = 0; i < NUMBER_ELEMENTS; i++) {
+        for (int i = 0; i < NUMBER_SIDES; i++) {
             if (this.lineTypes[i] != LineType.NONE) {
                 isEmpty = false;
                 break;
@@ -141,7 +148,7 @@ public class Tile {
         Tile clone = this.copy();
         boolean rotationIsEqualToOther = false;
 
-        for (int i = 0; i < NUMBER_ELEMENTS - 1; i++) {
+        for (int i = 0; i < NUMBER_SIDES - 1; i++) {
             if (clone.isExactlyEqualTo(otherTile)) {
                 rotationIsEqualToOther = true;
                 break;
@@ -152,11 +159,16 @@ public class Tile {
         return rotationIsEqualToOther;
     }
 
-    //A.2.11 
+    //A.2.11
+    /**
+     * 
+     * @param otherTile
+     * @return
+     */
     public boolean canBeRecoloredTo(Tile otherTile) {
         boolean canBeRecolored = true;
         
-        for (int i = 0; i < NUMBER_ELEMENTS; i++) {
+        for (int i = 0; i < NUMBER_SIDES; i++) {
             if (getLineTypeAtIndex(i).isColor() != otherTile.getLineTypeAtIndex(i).isColor()) {
                 canBeRecolored = false;
                 break;
@@ -165,14 +177,19 @@ public class Tile {
         return canBeRecolored;
     }
 
-    //A.2.12 
+    //A.2.12
+    /**
+     * 
+     * @param otherTile
+     * @return
+     */
     public boolean dominates(Tile otherTile) {
         boolean dominates = true;
         
         if (isExactlyEqualTo(otherTile)) {
             dominates = false;
         } else {
-            for (int i = 0; i < NUMBER_ELEMENTS; i++) {
+            for (int i = 0; i < NUMBER_SIDES; i++) {
                 if (otherTile.getLineTypeAtIndex(i).isColor()
                         && !getLineTypeAtIndex(i).isColor()) {
                     dominates = false;
@@ -184,6 +201,11 @@ public class Tile {
     }
 
     //A.2.13 
+    /**
+     * 
+     * @param otherTile
+     * @return
+     */
     public boolean hasSameColorsAs(Tile otherTile) {
        return hasGreen() == otherTile.hasGreen() 
                && hasRed() == otherTile.hasRed()
@@ -241,7 +263,10 @@ public class Tile {
         return hasYellow;
     }
     
-    //A.2.14 
+    //A.2.14
+    /**
+     * 
+     */
     public String toString() {
         StringBuilder builder = new StringBuilder();
 
@@ -260,7 +285,7 @@ public class Tile {
     /**
      * 
      * @param otherTile 
-     * @param position A value between {@code 0} and {@linkplain #NUMBER_ELEMENTS}{@code -1}
+     * @param position A value between {@code 0} and {@linkplain #NUMBER_SIDES}{@code -1}
      * @return
      */
     public boolean fitsTo(Tile otherTile, int position) {
@@ -272,16 +297,22 @@ public class Tile {
     /**
      * Calculates a mirrored position inside a tile.
      * Support method for {@linkplain Tile#fitsTo(Tile, int)}.
-     * @param position A value between {@code 0} and {@linkplain #NUMBER_ELEMENTS}{@code -1}
+     * @param position A value between {@code 0} and {@linkplain #NUMBER_SIDES}{@code -1}
      * @return The mirrored position in relation to the given value
      */
     private int calculateReflectPosition(int position) {
-        return (position + NUMBER_ELEMENTS / 2 ) % NUMBER_ELEMENTS;
+        return (position + NUMBER_SIDES / 2 ) % NUMBER_SIDES;
     }
 
     //==================================================================================================================
     //endregion A.3
     
+    /**
+     * 
+     * @param index
+     * @param otherTile
+     * @return
+     */
     public LineType getConnectedColor(int index, Tile otherTile) {
         int reflectedIndex = calculateReflectPosition(index);
         LineType color = getLineTypeAtIndex(index) == otherTile.getLineTypeAtIndex(reflectedIndex) 
