@@ -2,7 +2,7 @@ package main.java.tessellation;
 
 /**
  * Represents a position of a {@linkplain Tile tile} in the {@linkplain Board game board}
- * @author JoseNote
+ * @author Jose Toledo Navarro
  * @version 1.00
  */
 public enum PositionInBoard {

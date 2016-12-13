@@ -2,7 +2,7 @@ package main.java.tessellation;
 
 /**
  * Represents a game board
- * @author JoseNote
+ * @author Jose Toledo Navarro
  * @version 1.00
  */
 public class Board {
