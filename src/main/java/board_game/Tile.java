@@ -7,7 +7,7 @@ package main.java.board_game;
  */
 public class Tile {
     /**
-     * Represents the numnber of sides of the tile and the size 
+     * Represents the number of sides of the tile and the size 
      * of the codification array for the tiles used in the game.<br>
      * <strong>Can not be changed</strong>
      */
