@@ -8,6 +8,11 @@ import org.junit.Test;
 import main.java.tessellation.LineType;
 import main.java.tessellation.Tile;
 
+/**
+ * Unit test for {@linkplain Tile}
+ * @author Jose Toledo Navarro
+ * @version 1.00
+ */
 public class TileTest {
     /**
      * <pre>

@@ -6,6 +6,11 @@ import org.junit.Test;
 
 import main.java.tessellation.PositionInBoard;
 
+/**
+ * Unit test for {@linkplain PositionInBoard}
+ * @author JoseNote
+ * @version 1.00
+ */
 public class PositionInBoardTest {
     public PositionInBoardTest() {
         
