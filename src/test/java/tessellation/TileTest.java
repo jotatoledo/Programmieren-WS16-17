@@ -59,8 +59,6 @@ public class TileTest {
         Tile firstTest = new Tile();
 
         assertTrue(firstTest != null);
-        assertTrue(firstTest.isEmpty() == true);
-        assertTrue(EMPTY_TILE.isEmpty() == true);
     }
 
     @Test
