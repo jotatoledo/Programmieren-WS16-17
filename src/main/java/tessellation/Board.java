@@ -2,6 +2,9 @@ package main.java.tessellation;
 
 /**
  * Represents a game board made of {@linkplain Tile}
+ * The current version allows the reconfiguration of the board surface, this means that the rows and columns
+ * can have any number of elements (represented in the class by te static constants {@link #ELEMENTS_COLUMN} and {@link #ELEMENTS_ROW})
+ * as long as they both are >=2
  * @author Jose Toledo Navarro
  * @version 1.00
  */
