@@ -197,7 +197,7 @@ public class Board {
     /**
      * Checks if there is a color path crossing multiple positions in the game board represented by this instance.
      * @param positions An array with multiple positions in the game board
-     * @return {@linkplain LineType.NONE} if there is no path in the given positions.
+     * @return {@linkplain LineType #NONE} if there is no path in the given positions.
      * Another value of the {@linkplain LineType} enumeration otherwise.
      */
     public LineType getConnectedPathColor(int[] positions) {
