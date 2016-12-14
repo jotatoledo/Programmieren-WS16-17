@@ -20,9 +20,9 @@ public class BoardTile extends Tile {
     public Tile getTile() {
         return new Tile(getLineTypes());
     }
-
-    public void setTile(Tile tile) {
-        setLineTypes(tile.getLineTypes());
+    
+    public void setLineTypes(LineType[] lineTypes) {
+        super.setLineTypes(lineTypes);
     }
     
     /**

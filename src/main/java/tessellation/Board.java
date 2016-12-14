@@ -64,7 +64,7 @@ public class Board {
      * @param newTile An instance of {@linkplain Tile}
      */
     public void setTile(int position, Tile newTile) {
-        table[position].setTile(newTile);
+        table[position].setLineTypes(newTile.getLineTypes());
     }
 
     //A.4.4
