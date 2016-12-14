@@ -28,7 +28,7 @@ public class BoardTileTest {
     public void testBoardTile() {
         BoardTile test = new BoardTile(BoardPosition.UPPER_LEFT_CORNER);
         
-        assertTrue(EMPTY_TILE != null);
+        assertTrue(test != null);
     }
 
     @Test
