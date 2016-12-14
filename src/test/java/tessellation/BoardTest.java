@@ -112,15 +112,8 @@ public class BoardTest {
     @Test
     public void testBoard() {
         Board firstTest = new Board();
-        StringBuilder builder = new StringBuilder();
-
-        builder.append("------;------;------;\n");
-        builder.append("------;------;------;\n");
-        builder.append("------;------;------;\n");
-        builder.append("------;------;------;");
+        
         assertTrue(firstTest != null);
-        assertTrue(firstTest.isEmpty() == true);
-        assertThat(firstTest.toString(), is(builder.toString()));
     }
 
     @Test
@@ -150,7 +143,6 @@ public class BoardTest {
         test.setTile(1, new Tile(new LineType[] {
                 LineType.GREEN, LineType.GREEN, LineType.YELLOW, 
                 LineType.NONE, LineType.YELLOW, LineType.NONE }));
-
         builder.append("------;GGY-Y-;------;\n");
         builder.append("------;------;------;\n");
         builder.append("------;------;------;\n");
