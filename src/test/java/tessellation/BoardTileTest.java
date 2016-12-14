@@ -14,7 +14,7 @@ public class BoardTileTest {
     private static final BoardTile TRIO_TILE = new BoardTile(BoardPosition.UPPER_LEFT_CORNER);
     
     public BoardTileTest() {
-        TRIO_TILE.setTile(new LineType[] {
+        TRIO_TILE.setLineTypes(new LineType[] {
                 LineType.RED, LineType.GREEN, LineType.RED, 
                 LineType.GREEN, LineType.YELLOW, LineType.YELLOW });
     }
@@ -45,7 +45,7 @@ public class BoardTileTest {
     public void testSetTile() {
         BoardTile test = new BoardTile(BoardPosition.INTERNAL);
         
-        test.setTile(new LineType[] {
+        test.setLineTypes(new LineType[] {
                 LineType.RED, LineType.GREEN, LineType.RED, 
                 LineType.GREEN, LineType.YELLOW, LineType.YELLOW });
         assertTrue(test.getTile() != null);
