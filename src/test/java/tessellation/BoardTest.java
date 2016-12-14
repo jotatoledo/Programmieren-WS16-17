@@ -1,15 +1,18 @@
-package test.java.board_game;
+package test.java.tessellation;
 
 import static org.junit.Assert.*;
-
+import static org.hamcrest.CoreMatchers.*;
 import org.junit.Test;
 
-import main.java.board_game.Board;
-import main.java.board_game.LineType;
-import main.java.board_game.Tile;
+import main.java.tessellation.Board;
+import main.java.tessellation.LineType;
+import main.java.tessellation.Tile;
 
-import static org.hamcrest.CoreMatchers.*;
-
+/**
+ * Unit test for {@linkplain Board}
+ * @author Jose Toledo Navarro
+ * @version 1.00
+ */
 public class BoardTest {
     /**
      * <pre>
@@ -109,15 +112,8 @@ public class BoardTest {
     @Test
     public void testBoard() {
         Board firstTest = new Board();
-        StringBuilder builder = new StringBuilder();
-
-        builder.append("------;------;------;\n");
-        builder.append("------;------;------;\n");
-        builder.append("------;------;------;\n");
-        builder.append("------;------;------;");
+        
         assertTrue(firstTest != null);
-        assertTrue(firstTest.isEmpty() == true);
-        assertThat(firstTest.toString(), is(builder.toString()));
     }
 
     @Test
@@ -147,7 +143,6 @@ public class BoardTest {
         test.setTile(1, new Tile(new LineType[] {
                 LineType.GREEN, LineType.GREEN, LineType.YELLOW, 
                 LineType.NONE, LineType.YELLOW, LineType.NONE }));
-
         builder.append("------;GGY-Y-;------;\n");
         builder.append("------;------;------;\n");
         builder.append("------;------;------;\n");
@@ -305,6 +300,7 @@ public class BoardTest {
         
         assertTrue(VALID_BOARD.getConnectedPathColor(new int[] {0, 3}) == LineType.NONE);
         assertTrue(VALID_BOARD.getConnectedPathColor(new int[] {1, 4}) == LineType.YELLOW);
+        assertTrue(VALID_BOARD.getConnectedPathColor(new int[] {1, 4, 5}) == LineType.NONE);
         assertTrue(VALID_BOARD.getConnectedPathColor(new int[] {1, 2, 4}) == LineType.NONE);
         assertTrue(VALID_BOARD.getConnectedPathColor(new int[] {4, 5, 7}) == LineType.GREEN);
         assertTrue(VALID_BOARD.getConnectedPathColor(new int[] {4, 5, 7, 6}) == LineType.GREEN);
