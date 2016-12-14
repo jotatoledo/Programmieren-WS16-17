@@ -7,6 +7,7 @@ import org.junit.Test;
 import main.java.tessellation.Board;
 import main.java.tessellation.LineType;
 import main.java.tessellation.Tile;
+
 /**
  * Unit test for {@linkplain Board}
  * @author Jose Toledo Navarro
