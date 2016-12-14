@@ -16,13 +16,13 @@ public class Tile {
      * Represents the codification of the connection lines in the tile
      */
     private LineType[] lineTypes;
-    
+
     protected LineType[] getLineTypes() {
         return lineTypes;
     }
 
     protected void setLineTypes(LineType[] lineTypes) {
-    	for (int i = 0; i < NUMBER_SIDES; i++) {
+        for (int i = 0; i < NUMBER_SIDES; i++) {
             this.lineTypes[i] = lineTypes[i];
         }
     }
@@ -37,7 +37,7 @@ public class Tile {
      * {@code LineTypes.length} is {@linkplain #NUMBER_SIDES}
      */
     public Tile(LineType[] lineTypes) {
-    	this.lineTypes = new LineType[NUMBER_SIDES];
+        this.lineTypes = new LineType[NUMBER_SIDES];
         for (int i = 0; i < NUMBER_SIDES; i++) {
             this.lineTypes[i] = lineTypes[i];
         }
@@ -70,7 +70,7 @@ public class Tile {
      */
     public int getNumberOfColors() {
         int countColors = 0;
-        
+
         for (LineType element : lineTypes) {
             if (element.isColor())countColors++;
         }
@@ -88,7 +88,7 @@ public class Tile {
 
         for (int i = 0; i < NUMBER_SIDES; i++) {
             if (this.lineTypes[i] != otherTile.getLineTypeAtIndex(i)) {
-            	//True: At a common index, the tiles have different values in their codification arrays
+                //True: At a common index, the tiles have different values in their codification arrays
                 isEqual = false;
                 break;
             }
@@ -125,7 +125,7 @@ public class Tile {
      */
     public void rotateCounterClockwise() {
         LineType firstElement = lineTypes[0];
-        
+
         for (int i = 0; i <= NUMBER_SIDES - 2; i++) {
             lineTypes[i] = lineTypes[i + 1];
         }
@@ -144,7 +144,7 @@ public class Tile {
 
         for (int i = 0; i < NUMBER_SIDES; i++) {
             if (this.lineTypes[i].isColor()) {
-            	//True ; an element in the codification array is a color
+                //True ; an element in the codification array is a color
                 isEmpty = false;
                 break;
             }
@@ -167,13 +167,13 @@ public class Tile {
         //that it cannot be converted to the original state of the copy instance through rotation
         for (int i = 0; i < NUMBER_SIDES - 1; i++) {
             if (clone.isExactlyEqualTo(otherTile)) {
-            	//True: the current copy matches the given objective instance
-            	//In this case doesn't make sense to keep checking for matches of other rotation states of the copy
+                //True: the current copy matches the given objective instance
+                //In this case doesn't make sense to keep checking for matches of other rotation states of the copy
                 rotationIsEqualToOther = true;
                 break;
             } else {
-            	//False: it doesn't match.
-            	//Rotate the copy clockwise
+                //False: it doesn't match.
+                //Rotate the copy clockwise
                 clone.rotateClockwise();
             }
         }
@@ -182,19 +182,20 @@ public class Tile {
 
     //A.2.11
     /**
-     * Checks if the current instance can be transformer to a given objective instance of {@linkplain Tile} through the recoloring of its
-     * non {@linkplain LineType #NONE}-colored sides
+     * Checks if the current instance can be transformer to a given objective instance of {@linkplain Tile} 
+     * through the recolor of its non {@linkplain LineType #NONE}-colored sides
      * @param otherTile The objective instance
      * @return {@code True} if the instance can be recolored into the objective instance.
      * {@code False} otherwise.
      */
     public boolean canBeRecoloredTo(Tile otherTile) {
         boolean canBeRecolored = true;
-        
+
         for (int i = 0; i < NUMBER_SIDES; i++) {
             if (getLineTypeAtIndex(i).isColor() != otherTile.getLineTypeAtIndex(i).isColor()) {
-            	//True: At a common index, the instances have values that arent either colors or NONE at the same time
-            	//This means that a connection line should be added or removed to be transformer into the objective instance
+                //True: At a common index, the instances have values that arent either colors or NONE at the same time
+                //This means that a connection line should be added or 
+                //removed to be transformer into the objective instance
                 canBeRecolored = false;
                 break;
             }
@@ -210,16 +211,16 @@ public class Tile {
      */
     public boolean dominates(Tile otherTile) {
         boolean dominates = true;
-        
+
         if (isExactlyEqualTo(otherTile)) {
-        	//True: both instances are equal
-        	//In this case, the instance doesn't dominates the given one
+            //True: both instances are equal
+            //In this case, the instance doesn't dominates the given one
             dominates = false;
         } else {
             for (int i = 0; i < NUMBER_SIDES; i++) {
                 if (otherTile.getLineTypeAtIndex(i).isColor() && !getLineTypeAtIndex(i).isColor()) {
-                	//True: At a common index, the given instance has a color but the current instance doesn't
-                	//This hinders that the current instance could dominate the given one
+                    //True: At a common index, the given instance has a color but the current instance doesn't
+                    //This hinders that the current instance could dominate the given one
                     dominates = false;
                     break;
                 }
@@ -235,9 +236,9 @@ public class Tile {
      * @return {@code True} if both instances have the same colors. {@code Falsa} otherwise.
      */
     public boolean hasSameColorsAs(Tile otherTile) {
-       return hasGreen() == otherTile.hasGreen() 
-               && hasRed() == otherTile.hasRed()
-               && hasYellow() == otherTile.hasYellow();
+        return hasGreen() == otherTile.hasGreen() 
+                && hasRed() == otherTile.hasRed()
+                && hasYellow() == otherTile.hasYellow();
     }
 
     /**
@@ -247,7 +248,7 @@ public class Tile {
      */
     private boolean hasRed() {
         boolean hasRed = false;
-        
+
         for (LineType element : lineTypes) {
             if (element == LineType.RED) {
                 hasRed = true;
@@ -256,7 +257,7 @@ public class Tile {
         }
         return hasRed;
     }
-    
+
     /**
      * Checks if the instance contains the {@linkplain LineType#GREEN} color.<br>
      * Support function for {@link #hasSameColorsAs(Tile)}
@@ -264,7 +265,7 @@ public class Tile {
      */
     private boolean hasGreen() {
         boolean hasGreen = false;
-        
+
         for (LineType element : lineTypes) {
             if (element == LineType.GREEN) {
                 hasGreen = true;
@@ -273,7 +274,7 @@ public class Tile {
         }
         return hasGreen;
     }
-    
+
     /**
      * Checks if the instance contains the {@linkplain LineType#YELLOW} color.<br>
      * Support function for {@link #hasSameColorsAs(Tile)}
@@ -281,7 +282,7 @@ public class Tile {
      */
     private boolean hasYellow() {
         boolean hasYellow = false;
-        
+
         for (LineType element : lineTypes) {
             if (element == LineType.YELLOW) {
                 hasYellow = true;
@@ -290,7 +291,7 @@ public class Tile {
         }
         return hasYellow;
     }
-    
+
     //A.2.14
     /**
      * Returns the text representation of the tile.<br>
@@ -321,7 +322,7 @@ public class Tile {
         boolean fits = true;
         LineType instanceColor = lineTypes[position];
         LineType objectiveTileColor = otherTile.getLineTypeAtIndex(calculateReflectedSide(position));
-        
+
         if (instanceColor.isColor() && objectiveTileColor.isColor()) {
             //true: only when to colors are being compared, they could not match
             if (instanceColor != objectiveTileColor)fits = false;
@@ -341,28 +342,29 @@ public class Tile {
 
     //==================================================================================================================
     //endregion A.3
-    
+
     //region Extra methods
     //==================================================================================================================
-    
+
     /**
      * <br>
      * Support method for {@linkplain Board #getConnectedPathColor(int[])}
      * @param sideIndex An index of the codification array of the current instance
      * @param otherTile A {@linkplain Tile} instance
-     * @return A color, if the colors in the contact sides of the tiles represented by the instances match. {@linkplain LineType #NONE} otherwise.
+     * @return A color, if the colors in the contact sides of the tiles represented by the instances match. 
+     * {@linkplain LineType #NONE} otherwise.
      */
     protected LineType getSidesContactColor(int sideIndex, Tile otherTile) {
         LineType sidesContactColor = LineType.NONE;
         LineType instanceSideColor = lineTypes[sideIndex];
         LineType otherTileSideColor = otherTile.getLineTypeAtIndex(calculateReflectedSide(sideIndex));
-        
-        if(instanceSideColor.isColor()&&otherTileSideColor.isColor()){
-        	if(instanceSideColor == otherTileSideColor)sidesContactColor = instanceSideColor;        	
+
+        if (instanceSideColor.isColor() && otherTileSideColor.isColor()) {
+            if (instanceSideColor == otherTileSideColor)sidesContactColor = instanceSideColor;
         }
         return sidesContactColor;
     }
-    
+
     //==================================================================================================================
     //endregion Extra methods
 }
