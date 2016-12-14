@@ -55,7 +55,7 @@ public class Tile {
     }
 
     /**
-     * 
+     * Get the {@linkplain LineType} reference at a given index of the sides codification array of the instance
      * @param index A number between {@code 0} and {@linkplain #NUMBER_SIDES}{@code -1}
      * @return The value of {@link #lineTypes} at the given index
      */
@@ -79,15 +79,16 @@ public class Tile {
 
     //A.2.5
     /**
-     * 
-     * @param otherTile
-     * @return
+     * Checks if the given instance is exactly equal to a given {@linkplain Tile} instance
+     * @param otherTile The {@linkplain Tile} instance to match
+     * @return {@code True} if the instance has the same values as the given instance. {@code False} otherwise.
      */
     public boolean isExactlyEqualTo(Tile otherTile) {
         boolean isEqual = true;
 
         for (int i = 0; i < NUMBER_SIDES; i++) {
             if (this.lineTypes[i] != otherTile.getLineTypeAtIndex(i)) {
+            	//True: At a common index, the tiles have different values in their codification arrays
                 isEqual = false;
                 break;
             }
@@ -97,8 +98,8 @@ public class Tile {
 
     //A.2.6
     /**
-     * 
-     * @return
+     * Copies the instance values into a new {@linkplain Tile} instance.
+     * @return A new {@linkplain Tile} instance with copied values of the current instance
      */
     public Tile copy() {
         return new Tile(lineTypes);
@@ -311,10 +312,10 @@ public class Tile {
 
     //A.3.1
     /**
-     * 
-     * @param otherTile 
+     * Checks if the instance fits to a given {@linkplain Tile} instance
+     * @param otherTile The {@linkplain Tile} instance to fit against
      * @param position A value between {@code 0} and {@linkplain #NUMBER_SIDES}{@code -1}
-     * @return
+     * @return {@code True} if the instance fits to the given instance. {@code False} otherwise
      */
     public boolean fitsTo(Tile otherTile, int position) {
         int reflectedPosition = calculateReflectedSide(position);
