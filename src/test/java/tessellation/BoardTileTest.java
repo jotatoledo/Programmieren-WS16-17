@@ -29,7 +29,6 @@ public class BoardTileTest {
         BoardTile test = new BoardTile(BoardPosition.UPPER_LEFT_CORNER);
         
         assertTrue(EMPTY_TILE != null);
-        assertThat(test.toString(), is("UPPER_LEFT_CORNER\n------"));
     }
 
     @Test
