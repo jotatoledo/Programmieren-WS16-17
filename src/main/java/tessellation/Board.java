@@ -3,8 +3,8 @@ package main.java.tessellation;
 /**
  * Represents a game board made of {@linkplain Tile}
  * The current version allows the reconfiguration of the board surface, this means that the rows and columns
- * can have any number of elements (represented in the class by te static constants {@link #ELEMENTS_COLUMN} and {@link #ELEMENTS_ROW})
- * as long as they both are >=2
+ * can have any number of elements (represented in the class by the static constants 
+ * {@link #ELEMENTS_COLUMN} and {@link #ELEMENTS_ROW}) as long as they both are >=2
  * @author Jose Toledo Navarro
  * @version 1.00
  */
@@ -172,26 +172,26 @@ public class Board {
      */
     private int calculatePositionNeighbourTile(int tilePosition, int tileSide) {
         int calculatedBoardIndex = 0;
-        
+
         switch(tileSide) {
-            case(0):
-                calculatedBoardIndex = tilePosition - 1;
-                break;
-            case(1):
-                calculatedBoardIndex = tilePosition + Board.ELEMENTS_COLUMN - 1;
-                break;
-            case(2):
-                calculatedBoardIndex = tilePosition + Board.ELEMENTS_COLUMN;
-                break;
-            case(3):
-                calculatedBoardIndex = tilePosition + 1;
-                break;
-            case(4):
-                calculatedBoardIndex = tilePosition - Board.ELEMENTS_COLUMN + 1;
-                break;
-            case(5):
-                calculatedBoardIndex = tilePosition - Board.ELEMENTS_COLUMN;
-                break;
+        case(0):
+            calculatedBoardIndex = tilePosition - 1;
+        break;
+        case(1):
+            calculatedBoardIndex = tilePosition + Board.ELEMENTS_COLUMN - 1;
+        break;
+        case(2):
+            calculatedBoardIndex = tilePosition + Board.ELEMENTS_COLUMN;
+        break;
+        case(3):
+            calculatedBoardIndex = tilePosition + 1;
+        break;
+        case(4):
+            calculatedBoardIndex = tilePosition - Board.ELEMENTS_COLUMN + 1;
+        break;
+        case(5):
+            calculatedBoardIndex = tilePosition - Board.ELEMENTS_COLUMN;
+        break;
         }
         return calculatedBoardIndex;
     }
@@ -212,7 +212,7 @@ public class Board {
             int sucessor = positions[i + 1];
             int calculatedTileSide = calculateContactSideOfTileToOther(predecessor, sucessor);
 
-            currentPairPath = table[predecessor].getConnectedColor(calculatedTileSide, table[sucessor]);
+            currentPairPath = table[predecessor].getSidesContactColor(calculatedTileSide, table[sucessor]);
             if (actualPath != null) {
                 //True: currently there is a path being followed
                 if (currentPairPath == LineType.NONE || currentPairPath != actualPath) {
@@ -239,15 +239,15 @@ public class Board {
         int calculatedContactSide = -1;
 
         switch(diff) {
-            case(VERTICAL):
-                calculatedContactSide = referenceTile > neighborTile ? 0 : 3;
-                break;
-            case(MAIN_DIAGONAL):
-                calculatedContactSide = referenceTile > neighborTile ? 5 : 2;
-                break;
-            case(SECUNDARY_DIAGONAL):
-                calculatedContactSide = referenceTile > neighborTile ? 4 : 1; 
-                break;
+        case(VERTICAL):
+            calculatedContactSide = referenceTile > neighborTile ? 0 : 3;
+            break;
+        case(MAIN_DIAGONAL):
+            calculatedContactSide = referenceTile > neighborTile ? 5 : 2;
+            break;
+        case(SECUNDARY_DIAGONAL):
+            calculatedContactSide = referenceTile > neighborTile ? 4 : 1; 
+            break;
         }
         return calculatedContactSide;
     }
