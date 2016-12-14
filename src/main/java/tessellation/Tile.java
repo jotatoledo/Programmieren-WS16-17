@@ -1,5 +1,7 @@
 package main.java.tessellation;
 
+import javafx.scene.shape.Line;
+
 /**
  * Represents a tile with {@linkplain Tile #NUMBER_SIDES n}-sides
  * @author Jose Toledo Navarro
@@ -317,10 +319,16 @@ public class Tile {
      * @param position A value between {@code 0} and {@linkplain #NUMBER_SIDES}{@code -1}
      * @return {@code True} if the instance fits to the given instance. {@code False} otherwise
      */
-    public boolean fitsTo(Tile otherTile, int position) {
-        int reflectedPosition = calculateReflectedSide(position);
-
-        return lineTypes[position].fitsTo(otherTile.getLineTypeAtIndex(reflectedPosition));
+    public boolean fitsTo(Tile otherTile, int position) {     
+        boolean fits = true;
+        LineType instanceColor = lineTypes[position];
+        LineType objectiveTileColor = otherTile.getLineTypeAtIndex(calculateReflectedSide(position));
+        
+        if (instanceColor.isColor() && objectiveTileColor.isColor()) {
+            //true: only when to colors are being compared, they could not match
+            if (instanceColor != objectiveTileColor)fits = false;
+        }
+        return fits;
     }
 
     /**

@@ -10,6 +10,8 @@ package main.java.tessellation;
  * 
  * <p>Each value has an <em>abbreviation</em> that can be
  * obtained using the {@link LineType#getAbbreviation()} method.
+ * @author Jose Toledo Navarro (added methods, not original author)
+ * @version 1.01
  */
 public enum LineType {
     /** Non-existent line. */
@@ -47,24 +49,10 @@ public enum LineType {
     public boolean isColor() {
         return this != NONE;
     }
-
-    /**
-     * Checks if the current instance fits a given instance.
-     * Two {@linkplain LineType} instances don't fit, only if they are both
-     * not {@link #NONE} and different.
-     * @param otherColor The other instance to fit
-     * @return {@code True} if the current instance first
-     */
-    public boolean fitsTo(LineType otherColor) {
-        boolean fits = true;
-
-        if (this.isColor() && otherColor.isColor()) {
-            //true: only when to colors are being compared, they could not match
-            if (this != otherColor)fits = false;
-        }
-        return fits;
-    }
     
+    /**
+     * String representation of a enumeration element
+     */
     public String toString() {
         return String.valueOf(abbreviation);
     }
