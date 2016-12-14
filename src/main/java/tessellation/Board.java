@@ -212,7 +212,7 @@ public class Board {
             int sucessor = positions[i + 1];
             int calculatedTileSide = calculateContactSideOfTileToOther(predecessor, sucessor);
 
-            currentPairPath = table[predecessor].getConnectedColor(calculatedTileSide, table[sucessor]);
+            currentPairPath = table[predecessor].getSidesContactColor(calculatedTileSide, table[sucessor]);
             if (actualPath != null) {
                 //True: currently there is a path being followed
                 if (currentPairPath == LineType.NONE || currentPairPath != actualPath) {

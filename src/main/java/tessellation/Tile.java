@@ -1,7 +1,5 @@
 package main.java.tessellation;
 
-import javafx.scene.shape.Line;
-
 /**
  * Represents a tile with {@linkplain Tile #NUMBER_SIDES n}-sides
  * @author Jose Toledo Navarro
@@ -344,17 +342,27 @@ public class Tile {
     //==================================================================================================================
     //endregion A.3
     
+    //region Extra methods
+    //==================================================================================================================
+    
     /**
      * <br>
-     * Support method for {@linkplain Board#getConnectedPathColor(int[])}
-     * @param index
-     * @param otherTile
-     * @return
+     * Support method for {@linkplain Board #getConnectedPathColor(int[])}
+     * @param sideIndex An index of the codification array of the current instance
+     * @param otherTile A {@linkplain Tile} instance
+     * @return A color, if the colors in the contact sides of the tiles represented by the instances match. {@linkplain LineType #NONE} otherwise.
      */
-    protected LineType getConnectedColor(int index, Tile otherTile) {
-        int reflectedIndex = calculateReflectedSide(index);
-        LineType color = getLineTypeAtIndex(index) == otherTile.getLineTypeAtIndex(reflectedIndex) 
-                ? getLineTypeAtIndex(index) : LineType.NONE;
-        return color;
+    protected LineType getSidesContactColor(int sideIndex, Tile otherTile) {
+        LineType sidesContactColor = LineType.NONE;
+        LineType instanceSideColor = lineTypes[sideIndex];
+        LineType otherTileSideColor = otherTile.getLineTypeAtIndex(calculateReflectedSide(sideIndex));
+        
+        if(instanceSideColor.isColor()&&otherTileSideColor.isColor()){
+        	if(instanceSideColor == otherTileSideColor)sidesContactColor = instanceSideColor;        	
+        }
+        return sidesContactColor;
     }
+    
+    //==================================================================================================================
+    //endregion Extra methods
 }
