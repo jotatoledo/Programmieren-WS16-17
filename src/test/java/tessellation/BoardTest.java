@@ -1,15 +1,12 @@
 package test.java.tessellation;
 
 import static org.junit.Assert.*;
-
+import static org.hamcrest.CoreMatchers.*;
 import org.junit.Test;
 
 import main.java.tessellation.Board;
 import main.java.tessellation.LineType;
 import main.java.tessellation.Tile;
-
-import static org.hamcrest.CoreMatchers.*;
-
 /**
  * Unit test for {@linkplain Board}
  * @author Jose Toledo Navarro
