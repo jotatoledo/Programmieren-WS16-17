@@ -16,6 +16,14 @@ public class Tile {
      * Represents the codification of the connection lines in the tile
      */
     private LineType[] lineTypes;
+    
+    protected LineType[] getLineTypes() {
+        return lineTypes;
+    }
+
+    protected void setLineTypes(LineType[] lineTypes) {
+        this.lineTypes = lineTypes;
+    }
 
     //region A.2
     //==================================================================================================================
@@ -53,7 +61,7 @@ public class Tile {
     //A.2.4
     /**
      * Counts the colors of the connection lines in the tile
-     * @return A number between 0 and 3
+     * @return A number between {@code 0} and {@code 3}
      */
     public int getNumberOfColors() {
         int countColors = 0;
@@ -125,7 +133,9 @@ public class Tile {
 
     //A.2.9
     /**
-     * 
+     * Checks if the instance has no colors.
+     * A tile has no colors when the codification array of the sides
+     * contains only references to {@linkplain LineType #NONE NONE}
      * @return {@code True} if the object contains no connection lines. {@code False} otherwise
      */
     public boolean isEmpty() {
@@ -317,7 +327,7 @@ public class Tile {
      * @param otherTile
      * @return
      */
-    public LineType getConnectedColor(int index, Tile otherTile) {
+    protected LineType getConnectedColor(int index, Tile otherTile) {
         int reflectedIndex = calculateReflectedSide(index);
         LineType color = getLineTypeAtIndex(index) == otherTile.getLineTypeAtIndex(reflectedIndex) 
                 ? getLineTypeAtIndex(index) : LineType.NONE;

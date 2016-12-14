@@ -43,13 +43,13 @@ public class Board {
         table = new BoardTile[TABLE_ELEMENTS];
         for (int i = 0; i < TABLE_ELEMENTS; i++) {
             //Sets every individual element of the codification array as an empty tile with an specific position
-            table[i] = new BoardTile(new Tile(), BoardPosition.calculatePosition(i, ELEMENTS_COLUMN, ELEMENTS_ROW));
+            table[i] = new BoardTile(BoardPosition.calculatePosition(i, ELEMENTS_COLUMN, ELEMENTS_ROW));
         }
     }
 
     //A.4.2
     /**
-     * Getts the {@linkplain Tile} instance at a given index in the codification array
+     * Gets the {@linkplain Tile} instance at a given index in the codification array
      * @param position A value between {@code 0} and {@linkplain #TABLE_ELEMENTS}{@code -1}
      * @return A {@linkplain Tile} instance
      */
@@ -69,12 +69,12 @@ public class Board {
 
     //A.4.4
     /**
-     * Replaces the {@linkplain Tile} instance at a given position in the codification arary
-     * with a new instance of an empty {@linkplain Tile}
+     * Replaces the {@linkplain BoardTile} instance at a given position in the codification array
+     * with a new instance of an empty {@linkplain BoardTile}
      * @param position A value between {@code 0} and {@linkplain #TABLE_ELEMENTS}{@code -1}
      */
     public void removeTile(int position) {
-        table[position].setTile(new Tile());
+        table[position] = new BoardTile(BoardPosition.calculatePosition(position, ELEMENTS_COLUMN, ELEMENTS_ROW));
     }
 
     //A.4.5
@@ -148,9 +148,8 @@ public class Board {
         for (int i = 0; i < Board.TABLE_ELEMENTS; i++) {
             //Depending on the position in the board of every tile, there is a set of sides of if
             //that have contact with another tile in the board
-            for (int position : table[i].getPosition().getTileSides()) {
-                Tile otherTile = getTile(calculatePositionNeighbourTile(i, position));
-                if (!table[i].getTile().fitsTo(otherTile, position)) {
+            for (int tileSide : table[i].getPosition().getTileSidesInContact()) {
+                if (!table[i].fitsTo(table[calculatePositionNeighbourTile(i, tileSide)], tileSide)) {
                     isValid = false;
                     break;
                 }
@@ -265,7 +264,7 @@ public class Board {
                 //true: for every set of n-elements a new line feed must be concatenated
                 builder.append('\n');
             }
-            builder.append(table[index].tileToString()).append(';');
+            builder.append(table[index].superToString()).append(';');
         }
         return builder.toString();
     }
