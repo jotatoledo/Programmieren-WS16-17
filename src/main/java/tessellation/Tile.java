@@ -22,7 +22,9 @@ public class Tile {
     }
 
     protected void setLineTypes(LineType[] lineTypes) {
-        this.lineTypes = lineTypes;
+    	for (int i = 0; i < NUMBER_SIDES; i++) {
+            this.lineTypes[i] = lineTypes[i];
+        }
     }
 
     //region A.2
@@ -35,7 +37,10 @@ public class Tile {
      * {@code LineTypes.length} is {@linkplain #NUMBER_SIDES}
      */
     public Tile(LineType[] lineTypes) {
-        this.lineTypes = lineTypes;
+    	this.lineTypes = new LineType[NUMBER_SIDES];
+        for (int i = 0; i < NUMBER_SIDES; i++) {
+            this.lineTypes[i] = lineTypes[i];
+        }
     }
 
     //A.2.2
@@ -96,12 +101,7 @@ public class Tile {
      * @return
      */
     public Tile copy() {
-        LineType[] copyArray = new LineType[NUMBER_SIDES];
-        
-        for (int i = 0; i < NUMBER_SIDES; i++) {
-            copyArray[i] = lineTypes[i];
-        }
-        return new Tile(copyArray);
+        return new Tile(lineTypes);
     }
 
     //A.2.7 
@@ -142,7 +142,8 @@ public class Tile {
         boolean isEmpty = true;
 
         for (int i = 0; i < NUMBER_SIDES; i++) {
-            if (this.lineTypes[i] != LineType.NONE) {
+            if (this.lineTypes[i].isColor()) {
+            	//True ; an element in the codification array is a color
                 isEmpty = false;
                 break;
             }
@@ -152,19 +153,26 @@ public class Tile {
 
     //A.2.10
     /**
-     * 
-     * @param otherTile
-     * @return
+     * Checks if the current instance can be rotated to be equal to another {@linkplain Tile} instance
+     * @param otherTile The objective {@linkplain Tile} instance
+     * @return {@code True} if the actual instance can be converted to the objective one through rotation.
+     * {@code False} otherwise.
      */
     public boolean isRotationEqualTo(Tile otherTile) {
-        Tile clone = this.copy();
+        Tile clone = copy();
         boolean rotationIsEqualToOther = false;
 
+        //The copy of the current instance will be rotated in a way
+        //that it cannot be converted to the original state of the copy instance through rotation
         for (int i = 0; i < NUMBER_SIDES - 1; i++) {
             if (clone.isExactlyEqualTo(otherTile)) {
+            	//True: the current copy matches the given objective instance
+            	//In this case doesn't make sense to keep checking for matches of other rotation states of the copy
                 rotationIsEqualToOther = true;
                 break;
             } else {
+            	//False: it doesn't match.
+            	//Rotate the copy clockwise
                 clone.rotateClockwise();
             }
         }
@@ -173,15 +181,19 @@ public class Tile {
 
     //A.2.11
     /**
-     * 
-     * @param otherTile
-     * @return
+     * Checks if the current instance can be transformer to a given objective instance of {@linkplain Tile} through the recoloring of its
+     * non {@linkplain LineType #NONE}-colored sides
+     * @param otherTile The objective instance
+     * @return {@code True} if the instance can be recolored into the objective instance.
+     * {@code False} otherwise.
      */
     public boolean canBeRecoloredTo(Tile otherTile) {
         boolean canBeRecolored = true;
         
         for (int i = 0; i < NUMBER_SIDES; i++) {
             if (getLineTypeAtIndex(i).isColor() != otherTile.getLineTypeAtIndex(i).isColor()) {
+            	//True: At a common index, the instances have values that arent either colors or NONE at the same time
+            	//This means that a connection line should be added or removed to be transformer into the objective instance
                 canBeRecolored = false;
                 break;
             }
@@ -191,19 +203,22 @@ public class Tile {
 
     //A.2.12
     /**
-     * 
-     * @param otherTile
+     * Checks if the current instance dominates a given instance
+     * @param otherTile An instance of {@linkplain Tile}
      * @return {@code True} if the current instance dominates the given instance. {@code False} otherwise
      */
     public boolean dominates(Tile otherTile) {
         boolean dominates = true;
         
         if (isExactlyEqualTo(otherTile)) {
+        	//True: both instances are equal
+        	//In this case, the instance doesn't dominates the given one
             dominates = false;
         } else {
             for (int i = 0; i < NUMBER_SIDES; i++) {
-                if (otherTile.getLineTypeAtIndex(i).isColor()
-                        && !getLineTypeAtIndex(i).isColor()) {
+                if (otherTile.getLineTypeAtIndex(i).isColor() && !getLineTypeAtIndex(i).isColor()) {
+                	//True: At a common index, the given instance has a color but the current instance doesn't
+                	//This hinders that the current instance could dominate the given one
                     dominates = false;
                     break;
                 }
@@ -214,9 +229,9 @@ public class Tile {
 
     //A.2.13 
     /**
-     * 
-     * @param otherTile
-     * @return
+     * Checks if the instance has the same colors as a given {@linkplain Tile} instance.
+     * @param otherTile An instance of {@linkplain Tile}
+     * @return {@code True} if both instances have the same colors. {@code Falsa} otherwise.
      */
     public boolean hasSameColorsAs(Tile otherTile) {
        return hasGreen() == otherTile.hasGreen() 
