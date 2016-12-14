@@ -1,6 +1,7 @@
 package main.java.tessellation;
 
 /**
+ * An extension of {@linkplain Tile}<br>
  * Represents a {@linkplain Tile tile} in the {@linkplain Board game board}
  * in a specific {@linkplain BoardPosition position}
  * @author Jose Toledo Navarro
@@ -8,15 +9,23 @@ package main.java.tessellation;
  */
 public class BoardTile extends Tile {
     /**
-     * The position of the tile in a board represented by an instance of {@linkplain board}
+     * The position of the tile in a board surface represented by {@linkplain Board}
      */
     private final BoardPosition position;
     
+    /**
+     * Creates a new empty tile associated to a given {@linkplain BoardPosition}
+     * @param position The {@linkplain BoardPosition} associated to the new object
+     */
     public BoardTile(BoardPosition position) {
         super();
         this.position = position;
     }
     
+    /**
+     * Generates a new {@linkplain Tile} instance from the current object
+     * @return A new {@linkplain Tile} instance with copies values of the current object
+     */
     public Tile getTile() {
         return new Tile(getLineTypes());
     }
@@ -33,10 +42,17 @@ public class BoardTile extends Tile {
         return position;
     }
     
+    /**
+     * A forwarding method for {@linkplain Tile#toString()}
+     * @return The result of {@linkplain Tile#toString()}
+     */
     public String superToString() {
         return super.toString();
     }
     
+    /**
+     * The string representation of this class
+     */
     public String toString() {
         return position.toString().concat("\n").concat(super.toString());
     }
