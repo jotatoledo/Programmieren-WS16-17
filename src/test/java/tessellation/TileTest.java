@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import javafx.scene.shape.Line;
 import main.java.tessellation.LineType;
 import main.java.tessellation.Tile;
 
@@ -165,6 +166,12 @@ public class TileTest {
         assertTrue(TEST_TRIO.isRotationEqualTo(TEST_TRIO) == true);
         assertTrue(TEST_TRIO.isRotationEqualTo(EMPTY_TILE) == false);
         assertTrue(EMPTY_TILE.isRotationEqualTo(TEST_TRIO) == false);
+        
+        Tile test = new Tile(new LineType[]{LineType.RED, LineType.RED, LineType.GREEN,
+                LineType.GREEN, LineType.YELLOW, LineType.YELLOW});
+        
+        assertTrue(test.isRotationEqualTo(new Tile(new LineType[]{LineType.RED, LineType.GREEN, LineType.GREEN,
+                LineType.YELLOW, LineType.YELLOW, LineType.RED})) == true);
     }
 
     @Test
@@ -205,6 +212,16 @@ public class TileTest {
         assertTrue(K0.dominates(EMPTY_TILE) == true);
         assertTrue(K1.dominates(EMPTY_TILE) == true);
         assertTrue(TEST_TRIO.dominates(EMPTY_TILE) == true);
+        
+        Tile test = new Tile(new LineType[] {
+                LineType.GREEN, LineType.NONE, LineType.RED,
+                LineType.RED, LineType.NONE, LineType.GREEN });
+        
+        Tile objective = new Tile(new LineType[] {
+                LineType.NONE, LineType.NONE, LineType.GREEN,
+                LineType.GREEN, LineType.NONE, LineType.NONE });
+        
+        assertTrue(test.dominates(objective) == false);
     }
 
     @Test
