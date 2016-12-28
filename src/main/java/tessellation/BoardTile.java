@@ -38,7 +38,7 @@ public class BoardTile extends Tile {
      * Getter for {@link #position}
      * @return The value of {@link #position}
      */
-    public BoardPosition getPosition() {
+    public BoardPosition getPosition() {        
         return position;
     }
     

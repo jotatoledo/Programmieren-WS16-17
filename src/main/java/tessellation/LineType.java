@@ -49,11 +49,4 @@ public enum LineType {
     public boolean isColor() {
         return this != NONE;
     }
-    
-    /**
-     * String representation of a enumeration element
-     */
-    public String toString() {
-        return String.valueOf(abbreviation);
-    }
 }
