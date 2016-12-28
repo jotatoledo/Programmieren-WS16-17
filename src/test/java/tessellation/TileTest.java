@@ -188,6 +188,15 @@ public class TileTest {
         test.rotateClockwise();
         assertTrue(test.canBeRecoloredTo(objective) == false);
         
+        test = new Tile(new LineType[] {
+                LineType.RED, LineType.GREEN, LineType.YELLOW,
+                LineType.RED, LineType.GREEN, LineType.YELLOW });
+        objective = new Tile(new LineType[] {
+                LineType.YELLOW, LineType.GREEN, LineType.RED,
+                LineType.YELLOW, LineType.RED, LineType.GREEN });
+        
+        assertTrue(test.canBeRecoloredTo(objective) == false);
+        
         //Every tile can be recolored to itself
         assertTrue(EMPTY_TILE.canBeRecoloredTo(EMPTY_TILE) == true);
         assertTrue(K0.canBeRecoloredTo(K0) == true);
@@ -198,6 +207,8 @@ public class TileTest {
         assertTrue(TEST_TRIO.canBeRecoloredTo(EMPTY_TILE) == false);
         assertTrue(TEST_TRIO.canBeRecoloredTo(K0) == false);
         assertTrue(TEST_TRIO.canBeRecoloredTo(K1) == false);
+        
+        
     }
 
     @Test
