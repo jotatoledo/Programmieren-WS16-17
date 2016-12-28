@@ -198,11 +198,34 @@ public class Tile {
                 //removed to be transformer into the objective instance
                 canBeRecolored = false;
                 break;
+            } else {
+                if (getLineTypeAtIndex(i).isColor() && otherTile.getLineTypeAtIndex(i).isColor()
+                        && otherTile.getLineTypeAtIndex(i) != otherTile.getLineTypeAtIndex(getLineEnd(i))) {
+                    canBeRecolored = false;
+                    break;
+                }
             }
         }        
         return canBeRecolored;
     }
-
+    
+    /**
+     * 
+     * Support method for {@link #canBeRecoloredTo(Tile)}
+     * @param lineStartSide
+     * @return
+     */
+    private int getLineEnd(int lineStartSide) {
+        int i = 0;
+        for (i = 0; i < NUMBER_SIDES; i++) {
+            if (i == lineStartSide)continue;
+            if (getLineTypeAtIndex(i) == getLineTypeAtIndex(lineStartSide)) {
+                break;
+            }
+        }
+        return i;
+    }
+    
     //A.2.12
     /**
      * Checks if the current instance dominates a given instance
