@@ -165,7 +165,7 @@ public class Tile {
 
         //The copy of the current instance will be rotated in a way
         //that it cannot be converted to the original state of the copy instance through rotation
-        for (int i = 0; i < NUMBER_SIDES - 1; i++) {
+        for (int i = 0; i < NUMBER_SIDES; i++) {
             if (clone.isExactlyEqualTo(otherTile)) {
                 //True: the current copy matches the given objective instance
                 //In this case doesn't make sense to keep checking for matches of other rotation states of the copy
@@ -221,6 +221,13 @@ public class Tile {
                 if (otherTile.getLineTypeAtIndex(i).isColor() && !getLineTypeAtIndex(i).isColor()) {
                     //True: At a common index, the given instance has a color but the current instance doesn't
                     //This hinders that the current instance could dominate the given one
+                    dominates = false;
+                    break;
+                } 
+                if (getLineTypeAtIndex(i).isColor() && otherTile.getLineTypeAtIndex(i).isColor()
+                        && getLineTypeAtIndex(i) != otherTile.getLineTypeAtIndex(i)) {
+                    //True: at a common index, the given instance and the current one 
+                    //have colors, but they are different
                     dominates = false;
                     break;
                 }
