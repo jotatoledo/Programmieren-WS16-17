@@ -5,7 +5,6 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import javafx.scene.shape.Line;
 import main.java.tessellation.LineType;
 import main.java.tessellation.Tile;
 
