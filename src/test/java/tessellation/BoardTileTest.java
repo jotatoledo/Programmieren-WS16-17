@@ -7,7 +7,6 @@ import org.junit.Test;
 import main.java.tessellation.BoardPosition;
 import main.java.tessellation.BoardTile;
 import main.java.tessellation.LineType;
-import main.java.tessellation.Tile;
 
 public class BoardTileTest {
 
