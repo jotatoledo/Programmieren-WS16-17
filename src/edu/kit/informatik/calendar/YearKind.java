@@ -1,8 +1,8 @@
 
-package main.java.solution.calendar;
+package edu.kit.informatik.calendar;
 
-import static main.java.solution.calendar.Month.DECEMBER;
-import static main.java.solution.calendar.Month.JANUARY;
+import static edu.kit.informatik.calendar.Month.DECEMBER;
+import static edu.kit.informatik.calendar.Month.JANUARY;
 
 /**
  * Represents the kind of a year. A year can be either a leap year or not a leap year.

@@ -1,5 +1,5 @@
 
-package main.java.solution.calendar;
+package edu.kit.informatik.calendar;
 
 /**
  * Represents a specific time of a day in seconds, minutes and hours.

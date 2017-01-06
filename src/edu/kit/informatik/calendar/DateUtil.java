@@ -1,5 +1,9 @@
+package edu.kit.informatik.calendar;
 
-package main.java.solution.calendar;
+import static java.lang.Integer.parseInt;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Utility class for date classes.
@@ -8,7 +12,6 @@ package main.java.solution.calendar;
  * @version 1.03, 2016/11/15
  */
 final class DateUtil {
-    
     private DateUtil() {
         ////
     }
@@ -152,6 +155,118 @@ final class DateUtil {
         return mod < 0 ? mod + Math.abs(m) : mod;
     }
     
+    //==================================================================================================================
+    
+    /**
+     * Returns the appointment represented by the specified argument.
+     *
+     * <p>The specified argument has to match the format:
+     * <blockquote><pre>
+     * &lt;from&gt; &lt;to&gt; &lt;name&gt;</pre>
+     * </blockquote>
+     *
+     * @param  charSequence the input argument
+     * @return the appointment
+     * @throws NullPointerException if {@code charSequence} is {@code null}
+     * 
+     * @see    #parseDateTime(CharSequence)
+     */
+    public static Appointment parseAppointment(
+            final CharSequence charSequence) {
+        ////
+        final Matcher m = PatternHolder.APPOINTMENT_RE.matcher(charSequence);
+        if (!m.matches())
+            throw new IllegalArgumentException("Not a valid appointment");
+        return new Appointment(m.group(13), dateTime(m, 0), dateTime(m, 6));
+    }
+    
+    /**
+     * Returns the datetime represented by the specified argument.
+     *
+     * <p>The specified argument has to match the format:
+     * <blockquote><pre>
+     * &lt;date&gt;T&lt;time&gt;</pre>
+     * </blockquote>
+     *
+     * @param  charSequence the input argument
+     * @return the datetime
+     * @throws NullPointerException if {@code charSequence} is {@code null}
+     * 
+     * @see    #parseDate(CharSequence)
+     * @see    #parseTime(CharSequence)
+     */
+    public static DateTime parseDateTime(
+            final CharSequence charSequence) {
+        ////
+        final Matcher m = PatternHolder.DATEIME_RE.matcher(charSequence);
+        if (!m.matches())
+            throw new IllegalArgumentException("Not a valid datetime");
+        return dateTime(m, 0);
+    }
+    
+    /**
+     * Returns the date represented by the specified argument.
+     *
+     * <p>The specified argument has to match the format:
+     * <blockquote><pre>
+     * &lt;day&gt;-&lt;month&gt;-&lt;year&gt;</pre>
+     * </blockquote>
+     *
+     * @param  charSequence the input argument
+     * @return the date
+     * @throws NullPointerException if {@code charSequence} is {@code null}
+     */
+    public static Date parseDate(
+            final CharSequence charSequence) {
+        ////
+        final Matcher m = PatternHolder.DATE_RE.matcher(charSequence);
+        if (!m.matches())
+            throw new IllegalArgumentException("Not a valid date");
+        return date(m, 0);
+    }
+    
+    /**
+     * Returns the time represented by the specified argument.
+     *
+     * <p>The specified argument has to match the format:
+     * <blockquote><pre>
+     * &lt;hour&gt;:&lt;minute&gt;:&lt;second&gt;</pre>
+     * </blockquote>
+     *
+     * @param  charSequence the input argument
+     * @return the time
+     * @throws NullPointerException if {@code charSequence} is {@code null}
+     */
+    public static Time parseTime(
+            final CharSequence charSequence) {
+        ////
+        final Matcher m = PatternHolder.TIME_RE.matcher(charSequence);
+        if (!m.matches())
+            throw new IllegalArgumentException("Not a valid time");
+        return time(m, 0);
+    }
+    
+    private static DateTime dateTime(
+            final Matcher m,
+            final int off) {
+        ////
+        return new DateTime(date(m, 0 + off), time(m, 3 + off));
+    }
+    
+    private static Date date(
+            final Matcher m,
+            final int off) {
+        ////
+        return new Date(parseInt(m.group(3 + off)), parseInt(m.group(2 + off)), parseInt(m.group(1 + off)));
+    }
+    
+    private static Time time(
+            final Matcher m,
+            final int off) {
+        ////
+        return new Time(parseInt(m.group(1 + off)), parseInt(m.group(2 + off)), parseInt(m.group(3 + off)));
+    }
+    
     /**
      * Represents a char sequence consisting of a single repeated character.
      * 
@@ -164,7 +279,7 @@ final class DateUtil {
         private final int length;
         
         /**
-         * Constructs a {@code RepeatedCharacter}.
+         * Constructs a new {@code RepeatedCharacter}.
          * 
          * @param ch the character to repeat
          * @param length the count of repetitions
@@ -195,7 +310,7 @@ final class DateUtil {
                 final int start,
                 final int end) {
             ////
-            return nTimes(ch, end - start);
+            return end - start == length ? this : nTimes(ch, end - start);
         }
         
         @Override
@@ -203,5 +318,19 @@ final class DateUtil {
             ////
             return new StringBuilder(length).append(this).toString();
         }
+    }
+    
+    private static final class PatternHolder {
+        private static final String DATE = "(\\d{1,2})-(\\d{1,2})-(-?\\d{1,6})";
+        private static final String TIME = "(\\d{1,2}):(\\d{1,2}):(\\d{1,2})";
+        private static final String DATETIME = DATE + 'T' + TIME;
+        private static final String APPOINTMENT = DATETIME + ' ' + DATETIME + ' ' + "(.*)";
+        
+        static final Pattern DATE_RE = Pattern.compile(DATE);
+        static final Pattern TIME_RE = Pattern.compile(TIME);
+        static final Pattern DATEIME_RE = Pattern.compile(DATETIME);
+        static final Pattern APPOINTMENT_RE = Pattern.compile(APPOINTMENT);
+        
+        private PatternHolder() { /**/ }
     }
 }
