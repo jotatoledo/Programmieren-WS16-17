@@ -7,7 +7,7 @@ package main.java.solution.calendar;
  * @author  Tobias Bachert
  * @version 1.00, 2016/10/26
  */
-public final class Appointment {
+public final class Appointment implements Comparable<Appointment> {
     
     private       String   name;
     private final DateTime from;
@@ -152,5 +152,26 @@ public final class Appointment {
             final DateTime to) {
         ////
         this.to = to;
+    }
+
+    public int compareTo(Appointment o) {
+        int fromComparision = from.compareTo(o.getFrom());
+        
+        if (fromComparision < 0) return -1;
+        else if (fromComparision == 0) {
+            int toComparision = to.compareTo(o.getTo());
+            
+            if (toComparision < 0) return -1;
+            else if (toComparision > 0) return 1;
+            else {
+                int nameComparision = name.compareTo(o.getName());
+                
+                if (nameComparision < 0) return -1;
+                else if (nameComparision > 0) return 1;
+                else return 0;
+            }
+        } else {
+            return 1;
+        }
     }
 }
