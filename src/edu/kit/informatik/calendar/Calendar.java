@@ -1,9 +1,6 @@
-package main.java.calendar.management;
+package edu.kit.informatik.calendar;
 
-import edu.kit.informatik.calendar.Appointment;
-import edu.kit.informatik.calendar.Date;
-import edu.kit.informatik.calendar.DateTime;
-import edu.kit.informatik.calendar.Time;
+
 import main.java.sortedList.LinkedSortedAppendList;
 import main.java.sortedList.SortedIterator;
 

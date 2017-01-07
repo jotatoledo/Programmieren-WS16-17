@@ -1,4 +1,4 @@
-package main.java.calendar.management;
+package edu.kit.informatik.calendar;
 
 public enum CommandPrefix {
     QUIT("quit"),
