@@ -6,6 +6,7 @@ package edu.kit.informatik.list;
  * @author JoseNote
  *
  * @param <T> A class that implements the interface {@linkplain Comparable}
+ * @version 1.00
  */
 public interface SortedIterator<T extends Comparable<T>> {
     /**
