@@ -2,6 +2,11 @@ package main.java.sortedList;
 
 import edu.kit.informatik.calendar.Date;
 
+/**
+ * 
+ * @author JoseNote
+ * @version 1.00
+ */
 public class FixedDeltaDateIterator implements SortedIterator<Date> {
     private Date currentValue;
     private final Date endDate;

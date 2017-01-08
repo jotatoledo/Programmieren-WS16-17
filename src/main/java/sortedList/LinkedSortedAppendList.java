@@ -5,36 +5,58 @@ package main.java.sortedList;
  * 
  * @author JoseNote
  *
- * @param <T>
+ * @param <T> A class that implements the interface {@linkplain Comparable}
  * @version 1.00
  */
 public class LinkedSortedAppendList<T extends Comparable<T>> implements SortedAppendList<T> {
+    /**
+     * An inner class used to represent the nodes contained in the double connected list
+     *
+     * @author JoseNote
+     *
+     * @param <T> A class that implements the interface {@linkplain Comparable}.
+     */
     private class ListCell<T> {
         private ListCell<T> previous;
         private ListCell<T> next;
         private T value;
         
+        /**
+         * 
+         * @param value
+         */
         private ListCell(T value) {
             this.value = value;
             previous = next = null;
         }
         
+        /**
+         * 
+         * @param value
+         * @param previous
+         * @param next
+         */
         private ListCell(T value, ListCell<T> previous, ListCell<T> next) {
             this.value = value;
             this.previous = previous;
             this.next = next;
         }
         
-        public String toString() {
-            StringBuilder builder = new StringBuilder();
-            
-            builder.append(previous == null ? "null" : previous.value)
-            .append("<-").append(value).append("->")
-            .append(next == null ? "null" : next.value);
-            return builder.toString();
-        }
+//        public String toString() {
+//            StringBuilder builder = new StringBuilder();
+//            
+//            builder.append(previous == null ? "null" : previous.value)
+//            .append("<-").append(value).append("->")
+//            .append(next == null ? "null" : next.value);
+//            return builder.toString();
+//        }
     }
     
+    /**
+     * 
+     * @author JoseNote
+     *
+     */
     private class Iterator implements SortedIterator<T> {
         private ListCell<T> cursor;
         
@@ -52,28 +74,38 @@ public class LinkedSortedAppendList<T extends Comparable<T>> implements SortedAp
             return currentContent;
         }
         
-        public String toString() {
-            StringBuilder builder = new StringBuilder();
-            
-            if (cursor == null) return "null";
-            else {
-                builder.append(cursor.previous == null ? "null" : cursor.previous.value)
-                .append("<-").append(cursor.value).append("->")
-                .append(cursor.next == null ? "null" : cursor.next.value);
-                return builder.toString();
-            }
-        }
+//        public String toString() {
+//            StringBuilder builder = new StringBuilder();
+//            
+//            if (cursor == null) return "null";
+//            else {
+//                builder.append(cursor.previous == null ? "null" : cursor.previous.value)
+//                .append("<-").append(cursor.value).append("->")
+//                .append(cursor.next == null ? "null" : cursor.next.value);
+//                return builder.toString();
+//            }
+//        }
     }  
     
+    /**
+     * Represents the start of the list, the first element
+     */
     private ListCell<T> first; 
+    /**
+     * Represents the end of the list, the last element
+     */
     private ListCell<T> last;
     
+    /**
+     * Creates a new empty list
+     */
     public LinkedSortedAppendList() {
         first = last = null;        
     }
     
     public void addSorted(T element) {
         if (first == null) {
+            //true: the list is empty
             first = last = new ListCell<T>(element);
         } else {
             ListCell<T> cursor = first;
@@ -105,15 +137,15 @@ public class LinkedSortedAppendList<T extends Comparable<T>> implements SortedAp
         return new Iterator(first);
     }
     
-    public String toString() {
-        StringBuilder builder = new StringBuilder();
-        
-        SortedIterator<T> it = iterator();
-        while (it.hasNext()) {
-            T element = it.next();
-            builder.append(element);
-            if (it.hasNext())builder.append("-");
-        }
-        return builder.toString();
-    }
+//    public String toString() {
+//        StringBuilder builder = new StringBuilder();
+//        
+//        SortedIterator<T> it = iterator();
+//        while (it.hasNext()) {
+//            T element = it.next();
+//            builder.append(element);
+//            if (it.hasNext())builder.append("-");
+//        }
+//        return builder.toString();
+//    }
 }
