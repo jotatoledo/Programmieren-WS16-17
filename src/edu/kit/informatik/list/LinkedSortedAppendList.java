@@ -22,13 +22,15 @@ public class LinkedSortedAppendList<T extends Comparable<T>> implements SortedAp
      * Creates a new empty list
      */
     public LinkedSortedAppendList() {
-        first = last = null;        
+        first = null;
+        last = null;        
     }
     
     public void addSorted(T element) {
         if (first == null) {
             //true: the list is empty
-            first = last = new ListCell<T>(element);
+            first = new ListCell<T>(element);
+            last = first;
         } else {
             ListCell<T> cursor = first;
             while (element.compareTo(cursor.value) > 0 
@@ -89,7 +91,8 @@ public class LinkedSortedAppendList<T extends Comparable<T>> implements SortedAp
          */
         private ListCell(T value) {
             this.value = value;
-            previous = next = null;
+            previous =  null;
+            next = null;
         }
         
         /**
