@@ -2,9 +2,10 @@ package main.java.sortedList;
 
 /**
  * Interface of a sorted iterator
+ * 
  * @author JoseNote
  *
- * @param <T>
+ * @param <T> A class that implements the interface {@linkplain Comparable}
  */
 public interface SortedIterator<T extends Comparable<T>> {
     /**
