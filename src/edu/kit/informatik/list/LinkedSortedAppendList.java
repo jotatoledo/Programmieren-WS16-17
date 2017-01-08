@@ -12,11 +12,11 @@ public class LinkedSortedAppendList<T extends Comparable<T>> implements SortedAp
     /**
      * Represents the start of the list, the first element
      */
-    private ListCell<T> first; 
+    private ListCell first; 
     /**
      * Represents the end of the list, the last element
      */
-    private ListCell<T> last;
+    private ListCell last;
     
     /**
      * Creates a new empty list
@@ -26,18 +26,22 @@ public class LinkedSortedAppendList<T extends Comparable<T>> implements SortedAp
         last = null;        
     }
     
+    /**
+     * Implementation of {@linkplain SortedAppendList#addSorted(Comparable) SortedAppendList#addSorted}
+     * @param element The new element to add
+     */
     public void addSorted(T element) {
         if (first == null) {
             //true: the list is empty
-            first = new ListCell<T>(element);
+            first = new ListCell(element);
             last = first;
         } else {
-            ListCell<T> cursor = first;
+            ListCell cursor = first;
             while (element.compareTo(cursor.value) > 0 
                     && cursor != last) cursor = cursor.next;
             if (element.compareTo(cursor.value) < 0) {
                 //true: the new element is smaller than the current cursor element
-                ListCell<T> newNode = new ListCell<T>(element, cursor.previous, cursor);
+                ListCell newNode = new ListCell(element, cursor.previous, cursor);
                 cursor.previous = newNode;
                 if (newNode.previous != null)newNode.previous.next = newNode;
                 if (cursor == first) {
@@ -46,7 +50,7 @@ public class LinkedSortedAppendList<T extends Comparable<T>> implements SortedAp
                 }
             } else {
                 //the new element is bigger than or equal to the current cursor element
-                ListCell<T> newNode = new ListCell<T>(element, cursor, cursor.next);
+                ListCell newNode = new ListCell(element, cursor, cursor.next);
                 cursor.next = newNode;
                 if (newNode.next != null)newNode.next.previous = newNode;
                 if (cursor == last) {
@@ -57,6 +61,10 @@ public class LinkedSortedAppendList<T extends Comparable<T>> implements SortedAp
         }
     }
 
+    /**
+     * Implementation of {@linkplain SortedAppendList#iterator() SortedAppendList#iterator}
+     * @return An instance of {@linkplain Iterator}
+     */
     public SortedIterator<T> iterator() {
         return new Iterator(first);
     }
@@ -80,9 +88,9 @@ public class LinkedSortedAppendList<T extends Comparable<T>> implements SortedAp
      *
      * @param <T> A class that implements the interface {@linkplain Comparable}.
      */
-    private final class ListCell<T> {
-        private ListCell<T> previous;
-        private ListCell<T> next;
+    private final class ListCell {
+        private ListCell previous;
+        private ListCell next;
         private T value;
         
         /**
@@ -101,7 +109,7 @@ public class LinkedSortedAppendList<T extends Comparable<T>> implements SortedAp
          * @param previous A pointer to another instance
          * @param next A pointer to another instance
          */
-        private ListCell(T value, ListCell<T> previous, ListCell<T> next) {
+        private ListCell(T value, ListCell previous, ListCell next) {
             this.value = value;
             this.previous = previous;
             this.next = next;
@@ -126,13 +134,13 @@ public class LinkedSortedAppendList<T extends Comparable<T>> implements SortedAp
         /**
          * A pointer to the current element of the iterator
          */
-        private ListCell<T> cursor;
+        private ListCell cursor;
         
         /**
          * Creates a new iterator associated to a list
          * @param start The start element of a list
          */
-        private Iterator(ListCell<T> start) {
+        private Iterator(ListCell start) {
             cursor = start;
         }
         
