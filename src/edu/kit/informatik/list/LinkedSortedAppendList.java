@@ -84,8 +84,8 @@ public class LinkedSortedAppendList<T extends Comparable<T>> implements SortedAp
         private T value;
         
         /**
-         * 
-         * @param value
+         * Creates a new instance
+         * @param value The value for this instance
          */
         private ListCell(T value) {
             this.value = value;
@@ -93,10 +93,10 @@ public class LinkedSortedAppendList<T extends Comparable<T>> implements SortedAp
         }
         
         /**
-         * 
-         * @param value
-         * @param previous
-         * @param next
+         * Creates a new instance associated to two other instances
+         * @param value The value for this instance
+         * @param previous A pointer to another instance
+         * @param next A pointer to another instance
          */
         private ListCell(T value, ListCell<T> previous, ListCell<T> next) {
             this.value = value;
@@ -115,13 +115,20 @@ public class LinkedSortedAppendList<T extends Comparable<T>> implements SortedAp
     }
     
     /**
-     * 
+     * An inner class used to represent an iterator associated to {@linkplain LinkedSortedAppendList}
      * @author JoseNote
      * @version 1.00
      */
     private final class Iterator implements SortedIterator<T> {
+        /**
+         * A pointer to the current element of the iterator
+         */
         private ListCell<T> cursor;
         
+        /**
+         * Creates a new iterator associated to a list
+         * @param start The start element of a list
+         */
         private Iterator(ListCell<T> start) {
             cursor = start;
         }
