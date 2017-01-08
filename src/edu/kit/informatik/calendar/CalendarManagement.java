@@ -1,7 +1,7 @@
 package edu.kit.informatik.calendar;
 
 import edu.kit.informatik.Terminal;
-import main.java.sortedList.SortedIterator;
+import edu.kit.informatik.list.SortedIterator;
 
 public class CalendarManagement {
     private Calendar information;

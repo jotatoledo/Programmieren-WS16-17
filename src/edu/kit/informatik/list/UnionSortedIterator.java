@@ -1,4 +1,4 @@
-package main.java.sortedList;
+package edu.kit.informatik.list;
 
 public class UnionSortedIterator<T extends Comparable<T>> implements SortedIterator<T> {
     private final SortedIterator<T> iteratorA;

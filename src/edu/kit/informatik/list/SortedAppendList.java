@@ -1,4 +1,4 @@
-package main.java.sortedList;
+package edu.kit.informatik.list;
 
 /**
  * Interface for a sorted list

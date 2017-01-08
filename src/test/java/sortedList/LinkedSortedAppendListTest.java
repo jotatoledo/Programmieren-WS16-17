@@ -5,8 +5,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import main.java.sortedList.LinkedSortedAppendList;
-import main.java.sortedList.SortedIterator;
+import edu.kit.informatik.list.LinkedSortedAppendList;
+import edu.kit.informatik.list.SortedIterator;
 
 public class LinkedSortedAppendListTest {
 

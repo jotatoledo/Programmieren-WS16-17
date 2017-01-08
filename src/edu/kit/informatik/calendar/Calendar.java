@@ -1,7 +1,7 @@
 package edu.kit.informatik.calendar;
 
-import main.java.sortedList.LinkedSortedAppendList;
-import main.java.sortedList.SortedIterator;
+import edu.kit.informatik.list.LinkedSortedAppendList;
+import edu.kit.informatik.list.SortedIterator;
 
 /**
  * 

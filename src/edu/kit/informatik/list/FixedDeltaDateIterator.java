@@ -1,4 +1,4 @@
-package main.java.sortedList;
+package edu.kit.informatik.list;
 
 import edu.kit.informatik.calendar.Date;
 

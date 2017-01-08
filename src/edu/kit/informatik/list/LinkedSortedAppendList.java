@@ -1,4 +1,4 @@
-package main.java.sortedList;
+package edu.kit.informatik.list;
 
 /**
  * Implements a sorted double connected list

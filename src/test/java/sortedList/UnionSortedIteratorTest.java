@@ -6,8 +6,8 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import edu.kit.informatik.calendar.Date;
-import main.java.sortedList.FixedDeltaDateIterator;
-import main.java.sortedList.UnionSortedIterator;
+import edu.kit.informatik.list.FixedDeltaDateIterator;
+import edu.kit.informatik.list.UnionSortedIterator;
 
 public class UnionSortedIteratorTest {
     private final FixedDeltaDateIterator first;
