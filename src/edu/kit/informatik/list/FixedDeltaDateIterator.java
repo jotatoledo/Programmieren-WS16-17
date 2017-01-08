@@ -7,13 +7,21 @@ import edu.kit.informatik.calendar.Date;
  * @author JoseNote
  * @version 1.00
  */
-public class FixedDeltaDateIterator implements SortedIterator<Date> {
+public final class FixedDeltaDateIterator implements SortedIterator<Date> {
     private Date currentValue;
     private final Date endDate;
     private final int deltaYear;
     private final int deltaMonth;
     private final int deltaDay;
     
+    /**
+     * 
+     * @param startDate
+     * @param endDate
+     * @param deltaYear
+     * @param deltaMonth
+     * @param deltaDay
+     */
     public FixedDeltaDateIterator(Date startDate, Date endDate,
             int deltaYear, int deltaMonth, int deltaDay) {
         currentValue = startDate;
@@ -22,7 +30,7 @@ public class FixedDeltaDateIterator implements SortedIterator<Date> {
         this.deltaMonth = deltaMonth;
         this.deltaYear = deltaYear;
     }
-
+    
     public boolean hasNext() {
         if (endDate == null) return true;
         return currentValue.compareTo(endDate) <= 0;

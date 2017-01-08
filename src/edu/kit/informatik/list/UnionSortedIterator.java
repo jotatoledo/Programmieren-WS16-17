@@ -1,11 +1,23 @@
 package edu.kit.informatik.list;
 
-public class UnionSortedIterator<T extends Comparable<T>> implements SortedIterator<T> {
+/**
+ * 
+ * @author JoseNote
+ *
+ * @param <T>
+ * @version 1.00
+ */
+public final class UnionSortedIterator<T extends Comparable<T>> implements SortedIterator<T> {
     private final SortedIterator<T> iteratorA;
     private final SortedIterator<T> iteratorB;
     private T currentValueIteratorA;
     private T currentValueIteratorB;
     
+    /**
+     * 
+     * @param iteratorA
+     * @param iteratorB
+     */
     public UnionSortedIterator(SortedIterator<T> iteratorA, SortedIterator<T> iteratorB) {
         this.iteratorA = iteratorA;
         this.iteratorB = iteratorB;
@@ -24,9 +36,11 @@ public class UnionSortedIterator<T extends Comparable<T>> implements SortedItera
             if (iteratorB.hasNext()) 
                 currentValueIteratorB = iteratorB.next();
         
-        if (currentValueIteratorA == null && currentValueIteratorB == null) 
+        if (currentValueIteratorA == null && currentValueIteratorB == null)
+            //true: both iterators are empty
             return null;
         else {
+            //At least one of the iterators had a value
             T value = null;
             if (currentValueIteratorA == null) {
                 value = currentValueIteratorB;
