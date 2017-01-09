@@ -1,6 +1,7 @@
-package edu.kit.informatik.list;
+package edu.kit.informatik.iterator.fixed_delta_iterator;
 
 import edu.kit.informatik.calendar.Date;
+import edu.kit.informatik.iterator.SortedIterator;
 
 /**
  * Implements a dynamically generated list of {@linkplain Date} instances

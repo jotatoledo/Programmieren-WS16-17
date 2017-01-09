@@ -1,4 +1,6 @@
-package edu.kit.informatik.list;
+package edu.kit.informatik.iterator.union_sorted_iterator;
+
+import edu.kit.informatik.iterator.SortedIterator;
 
 /**
  * 

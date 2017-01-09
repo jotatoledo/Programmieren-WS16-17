@@ -1,4 +1,4 @@
-package edu.kit.informatik.list;
+package edu.kit.informatik.iterator;
 
 /**
  * Interface of a sorted iterator

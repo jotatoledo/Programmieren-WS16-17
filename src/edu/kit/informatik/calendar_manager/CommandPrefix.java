@@ -1,4 +1,4 @@
-package edu.kit.informatik.calendar;
+package edu.kit.informatik.calendar_manager;
 
 /**
  * An enumeration for the possible console commands used in {@linkplain CalendarManagement}

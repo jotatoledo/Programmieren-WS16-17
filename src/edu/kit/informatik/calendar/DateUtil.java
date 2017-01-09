@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
  * @author  Tobias Bachert
  * @version 1.03, 2016/11/15
  */
-final class DateUtil {
+public final class DateUtil {
     private DateUtil() {
         ////
     }
