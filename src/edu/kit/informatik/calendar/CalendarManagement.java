@@ -9,11 +9,11 @@ import edu.kit.informatik.list.SortedIterator;
  * @author s_toledonavarro
  * @version 1.00
  */
-public class CalendarManagement {
+public final class CalendarManagement {
 	/**
 	 * Represents the information from a set of appointments
 	 */
-    private Calendar information;
+    private final Calendar information;
     
     /**
      * Creates a new instance
@@ -27,7 +27,7 @@ public class CalendarManagement {
      * @param args execution arguments
      */
     public static void main(String[] args) {
-        CalendarManagement calManag = new CalendarManagement();
+        final CalendarManagement calManag = new CalendarManagement();
         String input;
         
         //The while loop goes on until the user executes the quit command
@@ -58,7 +58,7 @@ public class CalendarManagement {
      * Adds a new {@linkplain Appointment} instance by processing the user input when the command {@linkplain CommandPrefix#ADD_APPOINTMENT "add appointment"} is invoked
      * @param input The users input through the console
      */
-    private void addAppointment(String input) {        
+    private void addAppointment(final String input) {        
         String sub = input.substring(CommandPrefix.ADD_APPOINTMENT.getRepresentation().length() + 1);
         
         information.add(DateUtil.parseAppointment(sub));
@@ -79,7 +79,7 @@ public class CalendarManagement {
      * Processes the users input and displays a set of {@linkplain Appointment} instances located before a given point in time
      * @param input The users input through the console. Contains the {@code String} representation of a {@linkplain DateTime} instance
      */
-    private void printAppointmentsBefore(String input) {
+    private void printAppointmentsBefore(final String input) {
         String sub = input.substring(CommandPrefix.PRINT_APPOINTMENTS_BEFORE.getRepresentation().length() + 1);        
         SortedIterator<Appointment> it = information.get(DateUtil.parseDateTime(sub));
         
@@ -92,7 +92,7 @@ public class CalendarManagement {
      * Displays a set of stored {@linkplain Appointment} instances which start and end at a specific day
      * @param input The users input through the console. Contains the {@code String} representation of a {@linkplain Date} instance
      */
-    private void printAppointmentsOn(String input) {
+    private void printAppointmentsOn(final String input) {
         String sub = input.substring(CommandPrefix.PRINT_APPOINTMENTS_ON.getRepresentation().length() + 1);        
         SortedIterator<Appointment> it = information.get(DateUtil.parseDate(sub));
         
@@ -105,7 +105,7 @@ public class CalendarManagement {
      * Displays a set of stored {@linkplain Appointment} instances which are contained in a specific time interval
      * @param input The users input through the console. Contains the {@code String} representation of two {@linkplain DateTime} instances
      */
-    private void printAppointmentsInInterval(String input) {
+    private void printAppointmentsInInterval(final String input) {
         String sub = input.substring(CommandPrefix.PRINT_APPOINTMENTS_INTERVAL.getRepresentation().length() + 1);
         String[] splited = sub.split(" ");        
         SortedIterator<Appointment> it = information
@@ -120,7 +120,7 @@ public class CalendarManagement {
      * Displays a set of {@linkplain Appointment} instances which are in conflict to another {@linkplain Appointment}
      * @param input The users input through the console. Contains the name of a {@linkplain Appointment} instance
      */
-    private void printAppointmentsConflict(String input) {
+    private void printAppointmentsConflict(final String input) {
         String sub = input.substring(CommandPrefix.PRINT_APPOINTMENTS_CONFLICT.getRepresentation().length() + 1);
         Appointment app = information.get(sub);
         
