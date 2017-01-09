@@ -4,7 +4,7 @@ package edu.kit.informatik.list;
  * 
  * @author JoseNote
  *
- * @param <T>
+ * @param <T> A class that implements the interface {@linkplain Comparable}
  * @version 1.00
  */
 public final class UnionSortedIterator<T extends Comparable<T>> implements SortedIterator<T> {
@@ -14,17 +14,19 @@ public final class UnionSortedIterator<T extends Comparable<T>> implements Sorte
     private T currentValueIteratorB;
     
     /**
-     * 
+     * Creates a new class instance
      * @param iteratorA
      * @param iteratorB
      */
     public UnionSortedIterator(SortedIterator<T> iteratorA, SortedIterator<T> iteratorB) {
         this.iteratorA = iteratorA;
         this.iteratorB = iteratorB;
-        currentValueIteratorA = currentValueIteratorB = null;
+        currentValueIteratorA = null;
+        currentValueIteratorB = null;
     }
     
     public boolean hasNext() {
+    	//At least one of the two iterators has an element
         return iteratorA.hasNext() || iteratorB.hasNext();
     }
 
@@ -52,6 +54,7 @@ public final class UnionSortedIterator<T extends Comparable<T>> implements Sorte
                 currentValueIteratorA = null;
                 return value;
             }
+            //At this point both current iterator values aren't null
             if (currentValueIteratorA.compareTo(currentValueIteratorB) < 0) {
                 value = currentValueIteratorA;
                 currentValueIteratorA = null;
