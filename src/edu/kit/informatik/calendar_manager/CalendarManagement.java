@@ -2,8 +2,6 @@ package edu.kit.informatik.calendar_manager;
 
 import edu.kit.informatik.Terminal;
 import edu.kit.informatik.calendar.Appointment;
-import edu.kit.informatik.calendar.Date;
-import edu.kit.informatik.calendar.DateTime;
 import edu.kit.informatik.calendar.DateUtil;
 import edu.kit.informatik.iterator.SortedIterator;
 

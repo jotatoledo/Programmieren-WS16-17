@@ -35,17 +35,21 @@ public enum CommandPrefix {
      */
     PRINT_APPOINTMENTS_CONFLICT("print appointments that conflict with");
     
-    private final String representation;
+    private final String prefix;
         
+    /**
+     * Creates a new item
+     * @param representation The command line prefix associated to the new element
+     */
     CommandPrefix(String representation) {
-        this.representation = representation;
+        this.prefix = representation;
     }
     
     /**
      * The string representation of this
-     * @return The value of the string {@linkplain CommandPrefix#representation representation} of this
+     * @return The value of the string {@linkplain CommandPrefix#prefix representation} of this
      */
     public String getRepresentation() {
-        return representation;
+        return prefix;
     }
 }

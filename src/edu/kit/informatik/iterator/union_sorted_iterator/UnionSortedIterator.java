@@ -3,7 +3,7 @@ package edu.kit.informatik.iterator.union_sorted_iterator;
 import edu.kit.informatik.iterator.SortedIterator;
 
 /**
- * 
+ * Implements a dynamically generated list using 2 iterators
  * @author JoseNote
  *
  * @param <T> A class that implements the interface {@linkplain Comparable}
@@ -17,8 +17,8 @@ public final class UnionSortedIterator<T extends Comparable<T>> implements Sorte
 
     /**
      * Creates a new class instance
-     * @param iteratorA
-     * @param iteratorB
+     * @param iteratorA An iterator
+     * @param iteratorB An iterator
      */
     public UnionSortedIterator(SortedIterator<T> iteratorA, SortedIterator<T> iteratorB) {
         this.iteratorA = iteratorA;

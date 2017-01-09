@@ -32,7 +32,7 @@ public final class Calendar {
 
     /**
      * Get all the {@linkplain Appointment} instances stored in this
-     * @return 
+     * @return An iterator associated to the instances stored in this
      */
     public SortedIterator<Appointment> get() {
         return list.iterator();
