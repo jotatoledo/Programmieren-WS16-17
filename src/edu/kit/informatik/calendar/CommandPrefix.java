@@ -36,6 +36,10 @@ public enum CommandPrefix {
         this.representation = representation;
     }
     
+    /**
+     * The string representation of this
+     * @return The value of the string {@linkplain CommandPrefix#representation representation} of this
+     */
     public String getRepresentation() {
         return representation;
     }
