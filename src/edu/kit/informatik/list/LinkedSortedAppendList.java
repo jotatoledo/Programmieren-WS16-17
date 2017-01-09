@@ -1,7 +1,7 @@
 package edu.kit.informatik.list;
 
 /**
- * Implements a sorted double connected list
+ * Implements a sorted double connected generic list
  * 
  * @author JoseNote
  *
