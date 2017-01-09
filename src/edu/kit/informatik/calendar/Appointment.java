@@ -8,11 +8,11 @@ package edu.kit.informatik.calendar;
  * @version 1.00, 2016/10/26
  */
 public final class Appointment implements Comparable<Appointment> {
-    
+
     private       String   name;
     private final DateTime from;
     private       DateTime to;
-    
+
     /**
      * Constructs an {@code Appointment} with the specified arguments.
      * 
@@ -29,7 +29,7 @@ public final class Appointment implements Comparable<Appointment> {
         this.from = from;
         this.to   = to;
     }
-    
+
     /**
      * Constructs an {@code Appointment} with the specified arguments.
      * 
@@ -44,7 +44,7 @@ public final class Appointment implements Comparable<Appointment> {
         ////
         this(name, from, from.plus(duration));
     }
-    
+
     @Override
     public boolean equals(
             final Object obj) {
@@ -57,15 +57,15 @@ public final class Appointment implements Comparable<Appointment> {
         }
         return false;
     }
-    
+
     @Override
     public int hashCode() {
         ////
         return ((31 + name.hashCode())
-               * 31 + from.hashCode())
-               * 31 + to.hashCode();
+                * 31 + from.hashCode())
+                * 31 + to.hashCode();
     }
-    
+
     /**
      * Returns a string representation of this appointment.
      * 
@@ -79,7 +79,7 @@ public final class Appointment implements Comparable<Appointment> {
         ////
         return appendTo(new StringBuilder(40 + name.length())).toString();
     }
-    
+
     /**
      * Appends the string representation of this to the specified string builder.
      * 
@@ -99,9 +99,9 @@ public final class Appointment implements Comparable<Appointment> {
         to   .appendTo(sb);
         return sb;
     }
-    
+
     //==================================================================================================================
-    
+
     /**
      * Returns the name of this.
      * 
@@ -111,7 +111,7 @@ public final class Appointment implements Comparable<Appointment> {
         ////
         return name;
     }
-    
+
     /**
      * Returns the start time of this.
      * 
@@ -121,7 +121,7 @@ public final class Appointment implements Comparable<Appointment> {
         ////
         return from;
     }
-    
+
     /**
      * Returns the end time of this.
      * 
@@ -131,7 +131,7 @@ public final class Appointment implements Comparable<Appointment> {
         ////
         return to;
     }
-    
+
     /**
      * Sets the name of this appointment to the specified name.
      * 
@@ -142,7 +142,7 @@ public final class Appointment implements Comparable<Appointment> {
         ////
         this.name = name;
     }
-    
+
     /**
      * Sets the end time of this appointment to the specified datetime.
      * 
@@ -156,25 +156,25 @@ public final class Appointment implements Comparable<Appointment> {
 
     public int compareTo(Appointment o) {
         int fromComparision = from.compareTo(o.getFrom());
-        
+
         if (fromComparision < 0) 
-        	return -1;
+            return -1;
         else if (fromComparision == 0) {
             int toComparision = to.compareTo(o.getTo());
-            
+
             if (toComparision < 0) 
-            	return -1;
+                return -1;
             else if (toComparision > 0) 
-        		return 1;
+                return 1;
             else {
                 int nameComparision = name.compareTo(o.getName());
-                
+
                 if (nameComparision < 0) 
-                	return -1;
+                    return -1;
                 else if (nameComparision > 0) 
-                	return 1;
+                    return 1;
                 else 
-                	return 0;
+                    return 0;
             }
         } else {
             return 1;

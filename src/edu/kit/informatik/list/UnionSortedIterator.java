@@ -12,7 +12,7 @@ public final class UnionSortedIterator<T extends Comparable<T>> implements Sorte
     private final SortedIterator<T> iteratorB;
     private T currentValueIteratorA;
     private T currentValueIteratorB;
-    
+
     /**
      * Creates a new class instance
      * @param iteratorA
@@ -24,9 +24,9 @@ public final class UnionSortedIterator<T extends Comparable<T>> implements Sorte
         currentValueIteratorA = null;
         currentValueIteratorB = null;
     }
-    
+
     public boolean hasNext() {
-    	//At least one of the two iterators has an element
+        //At least one of the two iterators has an element
         return iteratorA.hasNext() || iteratorB.hasNext();
     }
 
@@ -37,7 +37,7 @@ public final class UnionSortedIterator<T extends Comparable<T>> implements Sorte
         if (currentValueIteratorB == null) 
             if (iteratorB.hasNext()) 
                 currentValueIteratorB = iteratorB.next();
-        
+
         if (currentValueIteratorA == null && currentValueIteratorB == null)
             //true: both iterators are empty
             return null;
