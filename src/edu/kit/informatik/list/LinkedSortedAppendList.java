@@ -69,18 +69,6 @@ public class LinkedSortedAppendList<T extends Comparable<T>> implements SortedAp
         return new Iterator(first);
     }
     
-//    public String toString() {
-//        StringBuilder builder = new StringBuilder();
-//        
-//        SortedIterator<T> it = iterator();
-//        while (it.hasNext()) {
-//            T element = it.next();
-//            builder.append(element);
-//            if (it.hasNext())builder.append("-");
-//        }
-//        return builder.toString();
-//    }
-    
     /**
      * An inner class used to represent the nodes contained in the double connected list
      *
@@ -114,15 +102,6 @@ public class LinkedSortedAppendList<T extends Comparable<T>> implements SortedAp
             this.previous = previous;
             this.next = next;
         }
-        
-//        public String toString() {
-//            StringBuilder builder = new StringBuilder();
-//            
-//            builder.append(previous == null ? "null" : previous.value)
-//            .append("<-").append(value).append("->")
-//            .append(next == null ? "null" : next.value);
-//            return builder.toString();
-//        }
     }
     
     /**
@@ -153,17 +132,5 @@ public class LinkedSortedAppendList<T extends Comparable<T>> implements SortedAp
             cursor = cursor.next;
             return currentContent;
         }
-        
-//        public String toString() {
-//            StringBuilder builder = new StringBuilder();
-//            
-//            if (cursor == null) return "null";
-//            else {
-//                builder.append(cursor.previous == null ? "null" : cursor.previous.value)
-//                .append("<-").append(cursor.value).append("->")
-//                .append(cursor.next == null ? "null" : cursor.next.value);
-//                return builder.toString();
-//            }
-//        }
     }  
 }
