@@ -1,5 +1,10 @@
 package edu.kit.informatik.calendar;
 
+/**
+ * An enumeration for the possible console commands used in {@linkplain CalendarManagement}
+ * @author s_toledonavarro
+ * @version 1.00
+ */
 public enum CommandPrefix {
     /**
      * Prefix for the quit command
