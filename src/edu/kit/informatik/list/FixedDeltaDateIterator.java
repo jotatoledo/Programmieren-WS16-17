@@ -15,24 +15,25 @@ public final class FixedDeltaDateIterator implements SortedIterator<Date> {
     private final int deltaDay;
     
     /**
-     * 
-     * @param startDate
-     * @param endDate
-     * @param deltaYear
-     * @param deltaMonth
-     * @param deltaDay
+     * Creates a new iterator
+     * @param startDate The starting date
+     * @param endDate The maximum date
+     * @param deltaYear The displacement value for years
+     * @param deltaMonth The displacement value for months
+     * @param deltaDay The displacement value for days
      */
     public FixedDeltaDateIterator(Date startDate, Date endDate,
             int deltaYear, int deltaMonth, int deltaDay) {
-        currentValue = startDate;
-        this.endDate = endDate;
+        currentValue = new Date(startDate.getYear(), startDate.getMonthValue(), startDate.getDayOfMonth());
+        this.endDate = new Date(endDate.getYear(), endDate.getMonthValue(), endDate.getDayOfMonth());;
         this.deltaDay = deltaDay;
         this.deltaMonth = deltaMonth;
         this.deltaYear = deltaYear;
     }
     
     public boolean hasNext() {
-        if (endDate == null) return true;
+        if (endDate == null) 
+        	return true;
         return currentValue.compareTo(endDate) <= 0;
     }
 
