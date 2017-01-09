@@ -25,7 +25,7 @@ public final class FixedDeltaDateIterator implements SortedIterator<Date> {
     public FixedDeltaDateIterator(Date startDate, Date endDate,
             int deltaYear, int deltaMonth, int deltaDay) {
         currentValue = new Date(startDate.getYear(), startDate.getMonthValue(), startDate.getDayOfMonth());
-        this.endDate = new Date(endDate.getYear(), endDate.getMonthValue(), endDate.getDayOfMonth());;
+        this.endDate = endDate != null ? new Date(endDate.getYear(), endDate.getMonthValue(), endDate.getDayOfMonth()) : null;
         this.deltaDay = deltaDay;
         this.deltaMonth = deltaMonth;
         this.deltaYear = deltaYear;
