@@ -28,10 +28,6 @@ public class LinkedSortedAppendList<T extends Comparable<T>> implements SortedAp
         last = null;        
     }
     
-    /**
-     * Implementation of {@linkplain SortedAppendList#addSorted(Comparable) SortedAppendList#addSorted}
-     * @param element The new element to add
-     */
     public void addSorted(T element) {
         if (first == null) {
             //true: the list is empty
@@ -63,10 +59,6 @@ public class LinkedSortedAppendList<T extends Comparable<T>> implements SortedAp
         }
     }
 
-    /**
-     * Implementation of {@linkplain SortedAppendList#iterator() SortedAppendList#iterator}
-     * @return An instance of {@linkplain Iterator}
-     */
     public SortedIterator<T> iterator() {
         return new Iterator(first);
     }
