@@ -3,7 +3,7 @@ package edu.kit.informatik.list;
 import edu.kit.informatik.calendar.Date;
 
 /**
- * 
+ * Implements a dynamically generated list of {@linkplain Date} instances
  * @author JoseNote
  * @version 1.00
  */
