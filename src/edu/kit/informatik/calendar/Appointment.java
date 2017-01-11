@@ -154,6 +154,7 @@ public final class Appointment implements Comparable<Appointment> {
         this.to = to;
     }
 
+    @Override
     public int compareTo(Appointment o) {
         int fromComparision = from.compareTo(o.getFrom());
 
