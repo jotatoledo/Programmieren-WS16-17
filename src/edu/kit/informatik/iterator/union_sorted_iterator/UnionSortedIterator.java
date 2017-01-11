@@ -27,11 +27,13 @@ public final class UnionSortedIterator<T extends Comparable<T>> implements Sorte
         currentValueIteratorB = null;
     }
 
+    @Override
     public boolean hasNext() {
         //At least one of the two iterators has an element
         return iteratorA.hasNext() || iteratorB.hasNext();
     }
 
+    @Override
     public T next() {
         if (currentValueIteratorA == null) 
             if (iteratorA.hasNext()) 

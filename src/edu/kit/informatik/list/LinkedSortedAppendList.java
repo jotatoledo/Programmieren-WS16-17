@@ -28,6 +28,7 @@ public class LinkedSortedAppendList<T extends Comparable<T>> implements SortedAp
         last = null;        
     }
     
+    @Override
     public void addSorted(T element) {
         if (first == null) {
             //true: the list is empty
@@ -59,6 +60,7 @@ public class LinkedSortedAppendList<T extends Comparable<T>> implements SortedAp
         }
     }
 
+    @Override
     public SortedIterator<T> iterator() {
         return new Iterator(first);
     }
@@ -117,10 +119,12 @@ public class LinkedSortedAppendList<T extends Comparable<T>> implements SortedAp
             cursor = start;
         }
         
+        @Override
         public boolean hasNext() {
             return cursor != null;
         }
 
+        @Override
         public T next() {
             T currentContent = cursor.value;
             cursor = cursor.next;
