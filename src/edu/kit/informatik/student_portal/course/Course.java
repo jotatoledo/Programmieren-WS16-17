@@ -1,6 +1,6 @@
 package edu.kit.informatik.student_portal.course;
 
-public class Course {
+public class Course implements Comparable<Course> {
     private static int counter = 1;
     private final int id;
     private final String name;
@@ -8,9 +8,9 @@ public class Course {
     
     /**
      * 
-     * @param credits
-     * @param name
-     * @throws IllegalArgumentException 
+     * @param credits TODO
+     * @param name TODO
+     * @throws IllegalArgumentException TODO
      */
     public Course(final int credits, final String name) throws IllegalArgumentException {
         this(name);
@@ -22,8 +22,8 @@ public class Course {
     
     /**
      * 
-     * @param name
-     * @throws IllegalArgumentException 
+     * @param name TODO
+     * @throws IllegalArgumentException TODO
      */
     public Course(final String name) throws IllegalArgumentException {
         if (!name.matches("\\p{javaLowerCase}*"))
@@ -31,5 +31,27 @@ public class Course {
             throw new IllegalArgumentException();
         this.name = name;
         id = counter++;
+    }
+
+    @Override
+    public int hashCode() {
+        //TODO implement
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + credits;
+        result = prime * result + id;
+        result = prime * result + ((name == null) ? 0 : name.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof Course 
+                && compareTo((Course) obj) == 0;
+    }
+
+    @Override
+    public int compareTo(Course o) {
+        return Integer.compare(id, o.id);
     }
 }
