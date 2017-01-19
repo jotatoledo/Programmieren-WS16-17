@@ -2,32 +2,50 @@ package edu.kit.informatik.student_portal.course;
 
 import edu.kit.informatik.student_portal.user.Professor;
 
-public final class Lecture extends Course implements Comparable<Lecture> {
+public final class Lecture extends Course {
     private final Module module;
     private final Professor professor;
     
     /**
      * 
-     * @param professor
-     * @param module
-     * @param credits
-     * @param name
-     * @throws IllegalArgumentException
+     * @param professor TODO
+     * @param module TODO
+     * @param credits TODO
+     * @param name TODO
+     * @throws IllegalArgumentException TODO
      */
     public Lecture(final Professor professor, final Module module, 
             final int credits, final String name) throws IllegalArgumentException {
         super(credits, name);
         this.professor = professor;
-        if (!professor.addLecture(this))
-            //TODO add exception text
-            throw new IllegalArgumentException();
+        professor.addLecture(this);
         this.module = module; 
         module.addLecture(this);
     }
 
-    @Override
+    /**
+     * 
+     * @param o TODO
+     * @return TODO
+     */
     public int compareTo(Lecture o) {
-        // TODO Auto-generated method stub
-        return 0;
+        return super.compareTo(o);
+    }
+
+    @Override
+    public int hashCode() {
+        //TODO implement
+        final int prime = 31;
+        int result = super.hashCode();
+        result = prime * result + ((module == null) ? 0 : module.hashCode());
+        result = prime * result + ((professor == null) ? 0 : professor.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof Lecture
+                && super.equals(obj)
+                && module.equals(((Lecture) obj).module);
     }
 }

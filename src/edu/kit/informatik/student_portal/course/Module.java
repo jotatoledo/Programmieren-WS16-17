@@ -3,29 +3,63 @@ package edu.kit.informatik.student_portal.course;
 import java.util.Set;
 import java.util.TreeSet;
 
-public final class Module extends Course implements Comparable<Module> {
+public final class Module extends Course {
     private final Set<Lecture> lectures;
     
     /**
-     * 
-     * @param name
-     * @throws IllegalArgumentException 
+     * TODO
+     * @param name TODO
+     * @throws IllegalArgumentException TODO
      */
     public Module(final String name) throws IllegalArgumentException {
         super(name);
         lectures = new TreeSet<Lecture>();
     }
 
-    @Override
+    /**
+     * 
+     * @param o TODO
+     * @return TODO
+     */
     public int compareTo(Module o) {
-        // TODO Auto-generated method stub
-        return 0;
+        return super.compareTo(o);
     }
     
+    /**
+     * TODO
+     * @param lecture TODO
+     */
     public void addLecture(final Lecture lecture) {
         //TODO check number of credits before adding
         if (!lectures.add(lecture))
             //TODO add exception text
             throw new IllegalArgumentException();
+    }
+
+    @Override
+    public int hashCode() {
+        //TODO implement
+        final int prime = 31;
+        int result = super.hashCode();
+        result = prime * result + ((lectures == null) ? 0 : lectures.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        //TODO implement
+        if (this == obj)
+            return true;
+        if (!super.equals(obj))
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Module other = (Module) obj;
+        if (lectures == null) {
+            if (other.lectures != null)
+                return false;
+        } else if (!lectures.equals(other.lectures))
+            return false;
+        return true;
     }
 }

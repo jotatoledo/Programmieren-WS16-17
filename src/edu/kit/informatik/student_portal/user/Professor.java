@@ -46,8 +46,8 @@ public final class Professor extends User implements Comparable<Professor> {
 
     @Override
     public boolean equals(Object obj) {
-        // TODO Auto-generated method stub
-        return super.equals(obj);
+        return obj instanceof Professor 
+                && compareTo((Professor) obj) == 0;
     }
 
     /**

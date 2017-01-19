@@ -9,9 +9,9 @@ public final class ProfessorialChair implements Comparable<ProfessorialChair> {
     private final Set<Professor> professors;
     
     /**
-     * 
-     * @param name
-     * @throws IllegalArgumentException
+     * TODO
+     * @param name The name for the new instance
+     * @throws IllegalArgumentException TODO
      */
     public ProfessorialChair(final String name) throws IllegalArgumentException {
         if (!name.matches("\\p{javaLowerCase}*"))
@@ -22,8 +22,8 @@ public final class ProfessorialChair implements Comparable<ProfessorialChair> {
     }
     
     /**
-     * 
-     * @param professor 
+     * TODO
+     * @param professor TODO
      */
     public void addProfessor(final Professor professor) {
         if (!professors.add(professor))
@@ -32,7 +32,21 @@ public final class ProfessorialChair implements Comparable<ProfessorialChair> {
 
     @Override
     public int compareTo(ProfessorialChair o) {
-        // TODO Auto-generated method stub
-        return 0;
+        return name.compareTo(o.name);
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((name == null) ? 0 : name.hashCode());
+        result = prime * result + ((professors == null) ? 0 : professors.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof ProfessorialChair
+                && compareTo((ProfessorialChair) obj) == 0;
     }
 }

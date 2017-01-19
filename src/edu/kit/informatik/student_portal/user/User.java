@@ -29,8 +29,8 @@ public class User {
 
     @Override
     public boolean equals(Object obj) {
-        // TODO Auto-generated method stub
-        return super.equals(obj);
+        return obj instanceof User
+                && 
     }
 
     /**
