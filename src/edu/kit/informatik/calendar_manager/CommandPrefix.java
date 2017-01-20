@@ -9,7 +9,7 @@ public enum CommandPrefix {
     /**
      * Prefix for the quit command
      */
-    QUIT("programm_quit","programm_quit".length()),
+    QUIT("quit","quit".length()),
     /**
      * Prefix for the add command
      */
