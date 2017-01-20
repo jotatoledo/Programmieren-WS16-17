@@ -2,6 +2,7 @@ package edu.kit.informatik.calendar_manager;
 
 import edu.kit.informatik.Terminal;
 import edu.kit.informatik.calendar.Appointment;
+import edu.kit.informatik.calendar.Date;
 import edu.kit.informatik.calendar.DateUtil;
 import edu.kit.informatik.iterator.SortedIterator;
 
@@ -16,12 +17,17 @@ public final class CalendarManagement {
      * Represents the information from a set of appointments
      */
     private final Calendar information;
-
+    private final CommandPrefix terminateCommand;
+    private final Date objectDate;
+    private static final Date classDate = new Date(1,1,1);
+    
     /**
      * Creates a new instance
      */
     private CalendarManagement() {
         information = new Calendar();
+        terminateCommand = CommandPrefix.QUIT;
+        objectDate = classDate.plusDays(1);
     }
 
     /**
@@ -35,7 +41,7 @@ public final class CalendarManagement {
         //The while loop goes on until the user executes the quit command
         while (true) {
             input = Terminal.readLine();
-            if (input.startsWith(CommandPrefix.QUIT.getRepresentation()))
+            if (input.startsWith(calManag.terminateCommand.getRepresentation()))
                 //true: the user invoked the quit method
                 break;
             if (input.startsWith(CommandPrefix.ADD_APPOINTMENT.getRepresentation()))

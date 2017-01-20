@@ -1,7 +1,7 @@
 package edu.kit.informatik.student_portal.course;
 
 public class Course implements Comparable<Course> {
-    private static int counter = 1;
+    private static int counter = 0;
     private final int id;
     private final String name;
     private int credits;
@@ -12,11 +12,11 @@ public class Course implements Comparable<Course> {
      * @param name TODO
      * @throws IllegalArgumentException TODO
      */
-    public Course(final int credits, final String name) throws IllegalArgumentException {
-        this(name);
-        if (credits <= 0 || credits > 9)
-            //TODO add exception message
-            throw new IllegalArgumentException();
+    public Course(final int credits, 
+    		final String name) throws IllegalArgumentException {
+    	this(name);
+        if (credits < 0 || credits > 9)
+            throw new IllegalArgumentException(credits < 0? "Smaller 0" : "Larger 9");
         this.credits = credits;
     }
     
@@ -27,12 +27,11 @@ public class Course implements Comparable<Course> {
      */
     public Course(final String name) throws IllegalArgumentException {
         if (!name.matches("\\p{javaLowerCase}*"))
-            //TODO add exception message
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Name isnt only lowercase letters");
         this.name = name;
-        id = counter++;
+        id = ++counter;
     }
-
+    
     @Override
     public int hashCode() {
         //TODO implement
