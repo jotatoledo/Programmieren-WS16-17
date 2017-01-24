@@ -4,7 +4,7 @@
   <local-check-config name="Assignment 3" location="https://sdqweb.ipd.kit.edu/lehre/WS1617-Programmieren/checkstyle-assignment03-all.xml" type="remote" description="Optional + mandatory rules">
     <additional-data name="cache-file" value="false"/>
   </local-check-config>
-  <local-check-config name="assignment 5" location="https://sdqweb.ipd.kit.edu/lehre/WS1617-Programmieren/checkstyle-assignment05-all.xml" type="remote" description="">
+  <local-check-config name="assignment 5" location="https://sdqweb.ipd.kit.edu/lehre/WS1617-Programmieren/checkstyle-assignment05-all.xml" type="remote" description="optional+mandatory">
     <additional-data name="cache-file" value="false"/>
   </local-check-config>
   <fileset name="all" enabled="true" check-config-name="assignment 5" local="true">
