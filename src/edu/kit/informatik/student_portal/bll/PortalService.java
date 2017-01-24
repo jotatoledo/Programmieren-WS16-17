@@ -46,21 +46,6 @@ public class PortalService implements IPortalService {
     }
 
     @Override
-    public Collection<Module> getModule() {
-        return Collections.unmodifiableCollection(modules);
-    }
-
-    @Override
-    public Collection<Student> getStudent() {
-        return Collections.unmodifiableCollection(students);
-    }
-
-    @Override
-    public Collection<Professor> getProfessor() {
-        return Collections.unmodifiableCollection(professors);
-    }
-
-    @Override
     public Lecture getLecture(final int id) {
         try {
             Optional<Lecture> result = lectures.stream()
@@ -68,34 +53,86 @@ public class PortalService implements IPortalService {
                     .findFirst();
             return result.get();
         } catch (NoSuchElementException e) {
-            throw new NoSuchElementException("there is no lecture with the given id");
+            throw new IllegalArgumentException("there is no lecture with the given id");
         }  
     }
-
+    
     @Override
-    public Student getStudent(final int enrolmentNumber) {
-        try {
-            Optional<Student> result = students.stream()
-                    .filter(x-> x.getEnrolmentNumber() == enrolmentNumber)
-                    .findFirst();
-            return result.get();
-        } catch (NoSuchElementException e) {
-            throw new NoSuchElementException("there is no student with the given enrolment number");
-        } 
+    public Lecture addLecture(String name, int idModule, 
+            String professorFirstName, String professorLastName,
+            String chairName, int credits) {
+        Professor prof = getProfessor(professorFirstName, professorLastName, getChair(chairName));
+        Module mod = getModule(idModule);
+        Lecture entity = new Lecture(prof, mod, credits, name);
+        lectures.add(entity);
+        return entity;
     }
-
+    
     @Override
-    public Module getModule(final int id) throws NoSuchElementException {
+    public Collection<Module> getModule() {
+        return Collections.unmodifiableCollection(modules);
+    }
+    
+    @Override
+    public Module getModule(final int id) {
+        //TODO validate id input
         try {
             Optional<Module> result = modules.stream()
                     .filter(x-> x.getId() == id)
                     .findFirst();
             return result.get();
         } catch (NoSuchElementException e) {
-            throw new NoSuchElementException("there is no module with the given id");
+            throw new IllegalArgumentException("there is no module with the given id");
         }        
     }
+    
+    @Override
+    public Module addModule(String name) {
+        Module entity = new Module(name);
+        modules.add(entity);
+        return entity;
+    }
 
+    @Override
+    public Collection<Student> getStudent() {
+        return Collections.unmodifiableCollection(students);
+    }
+    
+    @Override
+    public Student getStudent(final int enrolmentNumber) {
+      //TODO validate id input
+        try {
+            Optional<Student> result = students.stream()
+                    .filter(x-> x.getEnrolmentNumber() == enrolmentNumber)
+                    .findFirst();
+            return result.get();
+        } catch (NoSuchElementException e) {
+            throw new IllegalArgumentException("there is no student with the given enrolment number");
+        } 
+    }
+    
+    @Override
+    public boolean existStudent(int enrolmentNumber) {
+        Optional<Student> result = students.stream()
+                .filter(x-> x.getEnrolmentNumber() == enrolmentNumber)
+                .findFirst();        
+        return result.isPresent();
+    }
+    
+    @Override
+    public Student addStudent(String firstName, String lastName, int enrolmentNumber) {
+        if (existStudent(enrolmentNumber))
+            throw new IllegalArgumentException("there is already a student with the given enrolment number");
+        Student entity = new Student(enrolmentNumber, firstName, lastName);
+        students.add(entity);
+        return entity;
+    }
+
+    @Override
+    public Collection<Professor> getProfessor() {
+        return Collections.unmodifiableCollection(professors);
+    }
+    
     @Override
     public Professor getProfessor(final String firstName, 
             final String lastName, final Chair chair) {
@@ -107,8 +144,29 @@ public class PortalService implements IPortalService {
                     .findFirst();
             return result.get();
         } catch (NoSuchElementException e) {
-            throw new NoSuchElementException("there is no professor with the given parameters");
+            throw new IllegalArgumentException("there is no professor with the given parameters");
         }  
+    }
+    
+    @Override
+    public boolean existProfessor(final String firstName, final String lastName, final String chairName) {
+        Optional<Professor> result = professors.stream()
+                .filter(x-> x.getFirstName().equals(firstName)
+                        && x.getLastName().equals(lastName)
+                        && x.getChair().getName().equals(chairName))
+                .findFirst();        
+        return result.isPresent();
+    }
+
+    @Override
+    public Professor addProfesor(String firstName, String lastName, String chairName) {
+        if (!existChair(chairName))
+            chairs.add(new Chair(chairName));
+        if (existProfessor(firstName, lastName, chairName))
+            throw new IllegalArgumentException("there is already a professor with the given values");
+        Professor entity = new Professor(getChair(chairName), firstName, lastName);
+        boolean added = professors.add(entity);
+        return entity;
     }
 
     @Override
@@ -119,22 +177,20 @@ public class PortalService implements IPortalService {
                     .findFirst();
             return result.get();
         } catch (NoSuchElementException e) {
-            throw new NoSuchElementException("there is no mark with the parameters");
+            throw new IllegalArgumentException("there is no mark with the parameters");
         } 
     }
-
+    
     @Override
-    public Chair getChair(final String nameChair) {
-        try {
-            Optional<Chair> result = chairs.stream()
-                    .filter(x-> x.getName().equals(nameChair))
-                    .findFirst();
-            return result.get();
-        } catch (NoSuchElementException e) {
-            throw new NoSuchElementException("there is no chair with the given name");
-        } 
+    public ExaminationMark addMark(Lecture lecture, Student student, double mark) {
+        if (existMark(lecture, student))
+            throw new IllegalArgumentException("there is already a mark for the given "
+                    + "lecture assigned to the given student");
+        ExaminationMark entity = new ExaminationMark(lecture, student, mark);
+        marks.add(entity);
+        return entity;
     }
-
+    
     @Override
     public boolean existMark(Lecture lecture, Student student) {
         Optional<ExaminationMark> result = marks.stream()
@@ -145,38 +201,22 @@ public class PortalService implements IPortalService {
     }
 
     @Override
-    public Lecture addLecture(String name, int idModule, 
-            String professorFirstName, String professorLastName,
-            String chairName, int credtis) {
-        // TODO Auto-generated method stub
-        return null;
+    public Chair getChair(final String chairName) {
+        try {
+            Optional<Chair> result = chairs.stream()
+                    .filter(x-> x.getName().equals(chairName))
+                    .findFirst();
+            return result.get();
+        } catch (NoSuchElementException e) {
+            throw new IllegalArgumentException("there is no chair with the given name");
+        } 
     }
-
+    
     @Override
-    public Module addModule(String name) {
-        //TODO implement exist logic
-        Module newEntity = new Module(name);
-        modules.add(newEntity);
-        return newEntity;
-    }
-
-    @Override
-    public Student addStudent(String firstName, String lastName, int enrolmentNumber) {
-        //TODO implement exist logic
-        Student entity = new Student(enrolmentNumber, firstName, lastName);
-        students.add(entity);
-        return null;
-    }
-
-    @Override
-    public Professor addProfesor(String firstName, String lastName, Chair chair) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public ExaminationMark addMark(Lecture lecture, Student student) {
-        // TODO Auto-generated method stub
-        return null;
-    }
+    public boolean existChair(String chairName) {
+        Optional<Chair> result = chairs.stream()
+                .filter(x-> x.getName().equals(chairName))
+                .findFirst();        
+        return result.isPresent();
+    }  
 }
