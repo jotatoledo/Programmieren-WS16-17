@@ -3,11 +3,12 @@ package edu.kit.informatik.student_portal.user;
 import java.util.Set;
 import java.util.TreeSet;
 
+import edu.kit.informatik.student_portal.chair.Chair;
+import edu.kit.informatik.student_portal.common.ICanEqual;
 import edu.kit.informatik.student_portal.course.Lecture;
-import edu.kit.informatik.student_portal.professorial_chair.ProfessorialChair;
 
-public final class Professor extends User implements Comparable<Professor> {
-    private final ProfessorialChair chair;
+public final class Professor extends User implements ICanEqual {
+    private final Chair chair;
     private final Set<Lecture> lectures;
     
     /**
@@ -17,26 +18,23 @@ public final class Professor extends User implements Comparable<Professor> {
      * @param lastName TODO
      * @throws IllegalArgumentException TODO
      */
-    public Professor(final ProfessorialChair chair, final String firstName, 
+    public Professor(final Chair chair, final String firstName, 
             final String lastName) throws IllegalArgumentException {
         super(firstName, lastName);    
         this.chair = chair;
         chair.addProfessor(this);
-        lectures = new TreeSet<Lecture>();
-        
+        lectures = new TreeSet<Lecture>();        
     }
 
-    @Override
+    /**
+     * 
+     * @param o TODO
+     * @return TODO
+     */
     public int compareTo(Professor o) {
-        if (this == o)
-            return 0;
-        final int compareFirstName = this.getFirstName().compareTo(o.getFirstName());
-        if (compareFirstName != 0)
-            return compareFirstName;
-        final int compareLastName = this.getLastName().compareTo(o.getLastName());
-        if (compareLastName != 0)
-            return compareLastName;
-        return this.chair.compareTo(o.getChair());
+        //TODO Add null-safe
+        final int superComparission = super.compareTo(o);
+        return superComparission == 0 ? superComparission : chair.compareTo(o.getChair());
     }
 
     @Override
@@ -48,14 +46,20 @@ public final class Professor extends User implements Comparable<Professor> {
     @Override
     public boolean equals(Object obj) {
         return obj instanceof Professor 
+                && ((Professor) obj).canEqual(this)
                 && compareTo((Professor) obj) == 0;
     }
 
+    @Override
+    public boolean canEqual(Object obj) {
+        return obj instanceof Professor;
+    }
+    
     /**
      * TODO
      * @return TODO
      */
-    public ProfessorialChair getChair() {
+    public Chair getChair() {
         return chair;
     }
     
@@ -65,7 +69,6 @@ public final class Professor extends User implements Comparable<Professor> {
      */
     public void addLecture(final Lecture lecture) {
         if (!lectures.add(lecture))
-            //TODO add exception text
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("This professor instance already has the given lecture assigned");
     }
 }

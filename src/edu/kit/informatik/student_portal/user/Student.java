@@ -1,13 +1,13 @@
 package edu.kit.informatik.student_portal.user;
 
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.HashSet;
+import java.util.Set;
+import edu.kit.informatik.student_portal.common.ICanEqual;
+import edu.kit.informatik.student_portal.common.ExaminationMark;
 
-import edu.kit.informatik.student_portal.course.Lecture;
-
-public final class Student extends User implements Comparable<Student> {
+public final class Student extends User implements ICanEqual {
     private final int enrolmentNumber;
-    private final Map<Lecture, Double> lectureGrades;
+    private final Set<ExaminationMark> marks;
     
     /**
      * TODO
@@ -19,30 +19,53 @@ public final class Student extends User implements Comparable<Student> {
     public Student(final int enrolmentNumber, 
             final String firstName, final String lastName) throws IllegalArgumentException {
         super(firstName, lastName);
-        if (enrolmentNumber < 0)
-            //TODO add text to exception
-            throw new IllegalArgumentException();
-        if (String.valueOf(enrolmentNumber).length() != 6)
-            throw new IllegalArgumentException();
+        if (enrolmentNumber < 100000 || enrolmentNumber > 999999)
+            throw new IllegalArgumentException("Invalid enrolment number");
         this.enrolmentNumber = enrolmentNumber;
-        lectureGrades = new TreeMap<Lecture, Double>();
+        marks = new HashSet<ExaminationMark>();
     }
 
-    @Override
+    /**
+     * TODO
+     * @param o TODO
+     * @return TODO
+     */
     public int compareTo(Student o) {
-        // TODO Auto-generated method stub
-        return 0;
+        //TODO add null-safe
+        return Integer.compare(enrolmentNumber, o.enrolmentNumber);
     }
 
     @Override
     public int hashCode() {
-        // TODO Auto-generated method stub
-        return super.hashCode();
+        return Integer.hashCode(enrolmentNumber);
     }
 
     @Override
     public boolean equals(Object obj) {
         return obj instanceof Student 
+                && ((Student) obj).canEqual(this)
                 && compareTo((Student) obj) == 0;
+    }
+    
+    @Override
+    public boolean canEqual(Object obj) {
+        return obj instanceof Student;
+    }
+    
+    /**
+     * TODO
+     * @param mark TODO
+     */
+    public void addMark(final ExaminationMark mark) {
+        //TODO check for dupplicate
+        marks.add(mark);
+    }
+
+    /**
+     * 
+     * @return TODO
+     */
+    public int getEnrolmentNumber() {
+        return enrolmentNumber;
     }
 }

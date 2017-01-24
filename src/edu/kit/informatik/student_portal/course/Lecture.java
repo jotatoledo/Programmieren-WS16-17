@@ -1,15 +1,16 @@
 package edu.kit.informatik.student_portal.course;
 
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.HashSet;
+import java.util.Set;
 
+import edu.kit.informatik.student_portal.common.ICanEqual;
+import edu.kit.informatik.student_portal.common.ExaminationMark;
 import edu.kit.informatik.student_portal.user.Professor;
-import edu.kit.informatik.student_portal.user.Student;
 
-public final class Lecture extends Course {
+public final class Lecture extends Course implements ICanEqual {
     private final Module module;
     private final Professor professor;
-    private final Map<Student, Double> studentGrades; 
+    private final Set<ExaminationMark> marks;
     
     /**
      * TODO
@@ -26,7 +27,7 @@ public final class Lecture extends Course {
         professor.addLecture(this);
         this.module = module; 
         module.addLecture(this);
-        studentGrades = new TreeMap<Student, Double>();
+        marks = new HashSet<ExaminationMark>();
     }
 
     /**
@@ -40,18 +41,27 @@ public final class Lecture extends Course {
 
     @Override
     public int hashCode() {
-        //TODO implement
-        final int prime = 31;
-        int result = super.hashCode();
-        result = prime * result + ((module == null) ? 0 : module.hashCode());
-        result = prime * result + ((professor == null) ? 0 : professor.hashCode());
-        return result;
+        return super.hashCode();
     }
 
     @Override
     public boolean equals(Object obj) {
         return obj instanceof Lecture
-                && super.equals(obj)
-                && module.equals(((Lecture) obj).module);
+                && ((Lecture) obj).canEqual(this)
+                && compareTo((Lecture) obj) == 0;
+    }
+    
+    @Override
+    public boolean canEqual(Object obj) {
+        return obj instanceof Lecture;
+    }
+    
+    /**
+     * TODO
+     * @param mark TODO
+     */
+    public void addMark(final ExaminationMark mark) {
+        //TODO check for dupplicate
+        marks.add(mark);
     }
 }

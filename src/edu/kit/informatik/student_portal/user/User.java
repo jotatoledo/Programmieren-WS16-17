@@ -1,6 +1,10 @@
 package edu.kit.informatik.student_portal.user;
 
-public class User {
+import java.util.Objects;
+
+import edu.kit.informatik.student_portal.common.ICanEqual;
+
+public class User implements Comparable<User>, ICanEqual {
     private final String firstName;
     private final String lastName;
     
@@ -23,13 +27,14 @@ public class User {
 
     @Override
     public int hashCode() {
-        // TODO Auto-generated method stub
-        return super.hashCode();
+        return Objects.hash(firstName, lastName);
     }
 
     @Override
     public boolean equals(Object obj) {
-        return false;
+        return obj instanceof User 
+                && ((User) obj).canEqual(this) 
+                && compareTo((User) obj) == 0;
     }
 
     /**
@@ -46,5 +51,19 @@ public class User {
      */
     public String getLastName() {
         return lastName;
+    }
+
+    @Override
+    public int compareTo(User o) {
+        //TODO null safe
+        final int compareFirstName = firstName.compareTo(o.getFirstName());
+        if (compareFirstName != 0)
+            return compareFirstName;
+        return lastName.compareTo(o.getLastName());        
+    }
+    
+    @Override
+    public boolean canEqual(Object obj) {
+        return obj instanceof User;
     }
 }

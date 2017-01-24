@@ -3,7 +3,9 @@ package edu.kit.informatik.student_portal.course;
 import java.util.Set;
 import java.util.TreeSet;
 
-public final class Module extends Course {
+import edu.kit.informatik.student_portal.common.ICanEqual;
+
+public final class Module extends Course implements ICanEqual {
     private final Set<Lecture> lectures;
     
     /**
@@ -38,28 +40,18 @@ public final class Module extends Course {
 
     @Override
     public int hashCode() {
-        //TODO implement
-        final int prime = 31;
-        int result = super.hashCode();
-        result = prime * result + ((lectures == null) ? 0 : lectures.hashCode());
-        return result;
+        return super.hashCode();
     }
 
     @Override
     public boolean equals(Object obj) {
-        //TODO implement
-        if (this == obj)
-            return true;
-        if (!super.equals(obj))
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Module other = (Module) obj;
-        if (lectures == null) {
-            if (other.lectures != null)
-                return false;
-        } else if (!lectures.equals(other.lectures))
-            return false;
-        return true;
+        return obj instanceof Module 
+                && ((Module) obj).canEqual(this)
+                && compareTo((Module) obj) == 0;
+    }
+    
+    @Override
+    public boolean canEqual(Object obj) {
+        return obj instanceof Module;
     }
 }

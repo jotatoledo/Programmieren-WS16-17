@@ -49,13 +49,7 @@ public final class Appointment implements Comparable<Appointment> {
     public boolean equals(
             final Object obj) {
         ////
-        if (obj instanceof Appointment) {
-            final Appointment other = (Appointment) obj;
-            if (name.equals(other.name) && from.equals(other.from) && to.equals(other.to)) {
-                return true;
-            }
-        }
-        return false;
+        return obj instanceof Appointment && compareTo((Appointment) obj) == 0;
     }
 
     @Override
