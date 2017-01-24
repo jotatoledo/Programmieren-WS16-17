@@ -1,10 +1,10 @@
-package edu.kit.informatik.student_portal.professorial_chair;
+package edu.kit.informatik.student_portal.chair;
 
 import java.util.HashSet;
 import java.util.Set;
 import edu.kit.informatik.student_portal.user.Professor;
 
-public final class ProfessorialChair implements Comparable<ProfessorialChair> {
+public final class Chair implements Comparable<Chair> {
     private final String name;
     private final Set<Professor> professors;
     
@@ -13,10 +13,11 @@ public final class ProfessorialChair implements Comparable<ProfessorialChair> {
      * @param name The name for the new instance
      * @throws IllegalArgumentException TODO
      */
-    public ProfessorialChair(final String name) throws IllegalArgumentException {
+    public Chair(final String name) throws IllegalArgumentException {
+        if (name == null)
+            throw new IllegalArgumentException("The value of the parameter 'name' is null");
         if (!name.matches("\\p{javaLowerCase}*"))
-            //TODO add exception message
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Name of the chair isnt made exclusively of lowcase letters");
         this.name = name;
         this.professors = new HashSet<Professor>();
     }
@@ -31,22 +32,26 @@ public final class ProfessorialChair implements Comparable<ProfessorialChair> {
     }
 
     @Override
-    public int compareTo(ProfessorialChair o) {
+    public int compareTo(Chair o) {
         return name.compareTo(o.name);
     }
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
-        result = prime * result + ((professors == null) ? 0 : professors.hashCode());
-        return result;
+        return name.hashCode();
     }
 
     @Override
     public boolean equals(Object obj) {
-        return obj instanceof ProfessorialChair
-                && compareTo((ProfessorialChair) obj) == 0;
+        return obj instanceof Chair
+                && compareTo((Chair) obj) == 0;
+    }
+
+    /**
+     * 
+     * @return TODO
+     */
+    public String getName() {
+        return name;
     }
 }
