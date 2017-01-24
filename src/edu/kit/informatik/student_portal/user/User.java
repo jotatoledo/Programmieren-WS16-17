@@ -5,9 +5,9 @@ public class User {
     private final String lastName;
     
     /**
-     * 
-     * @param firstName
-     * @param lastName
+     * TODO
+     * @param firstName TODO
+     * @param lastName TODO
      * @throws IllegalArgumentException 
      */
     public User(final String firstName, final String lastName) throws IllegalArgumentException {
@@ -33,16 +33,16 @@ public class User {
     }
 
     /**
-     * 
-     * @return
+     * TODO
+     * @return TODO
      */
     public String getFirstName() {
         return firstName;
     }
 
     /**
-     * 
-     * @return
+     * TODO
+     * @return TODO
      */
     public String getLastName() {
         return lastName;

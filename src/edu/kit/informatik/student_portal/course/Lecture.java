@@ -1,13 +1,18 @@
 package edu.kit.informatik.student_portal.course;
 
+import java.util.Map;
+import java.util.TreeMap;
+
 import edu.kit.informatik.student_portal.user.Professor;
+import edu.kit.informatik.student_portal.user.Student;
 
 public final class Lecture extends Course {
     private final Module module;
     private final Professor professor;
+    private final Map<Student, Double> studentGrades; 
     
     /**
-     * 
+     * TODO
      * @param professor TODO
      * @param module TODO
      * @param credits TODO
@@ -21,10 +26,11 @@ public final class Lecture extends Course {
         professor.addLecture(this);
         this.module = module; 
         module.addLecture(this);
+        studentGrades = new TreeMap<Student, Double>();
     }
 
     /**
-     * 
+     * TODO
      * @param o TODO
      * @return TODO
      */

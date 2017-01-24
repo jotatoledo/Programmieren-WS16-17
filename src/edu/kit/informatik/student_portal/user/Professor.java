@@ -1,7 +1,8 @@
 package edu.kit.informatik.student_portal.user;
 
-import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
+
 import edu.kit.informatik.student_portal.course.Lecture;
 import edu.kit.informatik.student_portal.professorial_chair.ProfessorialChair;
 
@@ -10,18 +11,18 @@ public final class Professor extends User implements Comparable<Professor> {
     private final Set<Lecture> lectures;
     
     /**
-     * 
-     * @param chair
-     * @param firstName
-     * @param lastName
-     * @throws IllegalArgumentException
+     * TODO
+     * @param chair TODO
+     * @param firstName TODO
+     * @param lastName TODO
+     * @throws IllegalArgumentException TODO
      */
     public Professor(final ProfessorialChair chair, final String firstName, 
             final String lastName) throws IllegalArgumentException {
         super(firstName, lastName);    
         this.chair = chair;
         chair.addProfessor(this);
-        lectures = new HashSet<Lecture>();
+        lectures = new TreeSet<Lecture>();
         
     }
 
@@ -51,16 +52,16 @@ public final class Professor extends User implements Comparable<Professor> {
     }
 
     /**
-     * 
-     * @return
+     * TODO
+     * @return TODO
      */
     public ProfessorialChair getChair() {
         return chair;
     }
     
     /**
-     * 
-     * @param lecture
+     * TODO
+     * @param lecture TODO
      */
     public void addLecture(final Lecture lecture) {
         if (!lectures.add(lecture))
