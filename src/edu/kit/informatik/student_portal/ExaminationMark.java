@@ -20,7 +20,7 @@ public final class ExaminationMark implements Comparable<ExaminationMark> {
      */
     public ExaminationMark(final Lecture lecture, final Student student, 
             final double mark) {
-    	ParameterTester.testValidMark(mark);
+    	ValueTester.testValidMark(mark);
         this.student = student;
         this.lecture = lecture;        
         this.mark = mark;
