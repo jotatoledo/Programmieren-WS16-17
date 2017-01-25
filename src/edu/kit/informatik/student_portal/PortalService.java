@@ -41,7 +41,7 @@ public class PortalService implements IPortalService {
 
     @Override
     public Lecture getLecture(final int lectureId) {
-        ParameterTester.testLectureId(lectureId);
+        ParameterTester.testValidLectureId(lectureId);
         try {
             Optional<Lecture> result = lectures.stream()
                     .filter(x-> x.getId() == lectureId)
@@ -73,7 +73,7 @@ public class PortalService implements IPortalService {
     
     @Override
     public Module getModule(final int moduleId) {
-        ParameterTester.testModuleId(moduleId);
+        ParameterTester.testValidModuleId(moduleId);
         try {
             Optional<Module> result = modules.stream()
                     .filter(x-> x.getId() == moduleId)
@@ -205,6 +205,7 @@ public class PortalService implements IPortalService {
     
     @Override
     public ExaminationMark addMark(final Lecture lecture, final Student student, final double mark) {
+    	ParameterTester.testValidMark(mark);
         if (existMark(lecture, student))
             throw new IllegalArgumentException("there is already a mark for the given "
                     + "lecture assigned to the given student");

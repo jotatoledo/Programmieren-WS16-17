@@ -20,9 +20,7 @@ public final class ExaminationMark implements Comparable<ExaminationMark> {
      */
     public ExaminationMark(final Lecture lecture, final Student student, 
             final double mark) {
-        //TODO math round
-        if (mark < 1.00 || mark > 5.00)
-            throw new IllegalArgumentException("invalid mark value");
+    	ParameterTester.testValidMark(mark);
         this.student = student;
         this.lecture = lecture;        
         this.mark = mark;
