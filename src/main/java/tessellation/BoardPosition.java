@@ -6,14 +6,41 @@ package main.java.tessellation;
  * @version 1.00
  */
 public enum BoardPosition {
+    /**
+     * UPPER_RIGHT_CORNER
+     */
     UPPER_RIGHT_CORNER("UPPER_RIGHT_CORNER", 3, 4, 5),
+    /**
+     * DOWN_RIGH_CORNER
+     */
     DOWN_RIGH_CORNER("DOWN_RIGH_CORNER", 0, 4, 5),
+    /**
+     * UPPER_LEFT_CORNER
+     */
     UPPER_LEFT_CORNER("UPPER_LEFT_CORNER", 2, 3),
+    /**
+     * DOWN_LEFT_CORNER
+     */
     DOWN_LEFT_CORNER("DOWN_LEFT_CORNER", 0, 1, 2),
+    /**
+     * INTERNAL
+     */
     INTERNAL("INTERNAL", 0, 1, 2, 3, 4, 5),
+    /**
+     * UPPER_SIDE
+     */
     UPPER_SIDE("UPPER_SIDE", 2, 3, 4, 5),
+    /**
+     * DOWN_SIDE
+     */
     DOWN_SIDE("DOWN_SIDE", 0, 1, 2, 5),
+    /**
+     * LEFT_SIDE
+     */
     LEFT_SIDE("LEFT_SIDE", 0, 1, 2, 3),
+    /**
+     * RIGHT_SIDE
+     */
     RIGHT_SIDE("RIGHT_SIDE", 0, 3, 4, 5);  
     
     
@@ -28,6 +55,11 @@ public enum BoardPosition {
      */
     private final String representation;
     
+    /**
+     * Creates a new instance
+     * @param representation the string representation
+     * @param tileSides the sides of a tile in contact to other tiles
+     */
     BoardPosition(String representation, int... tileSides) {
         this.tileSidesInContact = new int[tileSides.length];    
         for (int i = 0; i < tileSides.length; i++) {
@@ -56,8 +88,8 @@ public enum BoardPosition {
      * Calculates the {@linkplain BoardPosition} 
      * associated to a given index of the codification list in [{@linkplain Board}
      * @param index A index of the codification list in [{@linkplain Board}
-     * @param elementsCol TODO
-     * @param elementsRow TODO
+     * @param elementsCol number element in column
+     * @param elementsRow number elements in row
      * @return The value associated to the index
      */
     public static BoardPosition calculatePosition(int index, final int elementsCol, final int elementsRow) {
@@ -106,6 +138,7 @@ public enum BoardPosition {
          return boardPositon;
     }
     
+    @Override
     public String toString() {
         return representation;
     }
