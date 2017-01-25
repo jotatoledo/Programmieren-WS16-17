@@ -95,6 +95,7 @@ public final class Lecture extends Course implements ICanEqual {
      * @return TODO add doc
      */
     public String average() {
+        //TODO round
         if (marks.size() == 0)
             return "none";
        return Double.toString(marks.stream()

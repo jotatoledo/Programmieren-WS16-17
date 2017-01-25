@@ -13,12 +13,14 @@ public final class ExaminationMark implements Comparable<ExaminationMark> {
     private final double mark;
     
     /**
-     * 
-     * @param lecture TODO
-     * @param student TODO
-     * @param mark TODO
+     * Creates a new instance
+     * @param lecture TODO add doc
+     * @param student TODO add doc
+     * @param mark TODO add doc
      */
-    public ExaminationMark(final Lecture lecture, final Student student, final double mark) {
+    public ExaminationMark(final Lecture lecture, final Student student, 
+            final double mark) {
+        //TODO math round
         if (mark < 1.00 || mark > 5.00)
             throw new IllegalArgumentException("invalid mark value");
         this.student = student;
