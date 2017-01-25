@@ -118,7 +118,7 @@ public class PortalService implements IPortalService {
     }
     
     @Override
-    public Student addStudent(String firstName, String lastName, int enrolmentNumber) {
+    public Student addStudent(final String firstName, final String lastName, final int enrolmentNumber) {
         if (existStudent(enrolmentNumber))
             throw new IllegalArgumentException("there is already a student with the given enrolment number");
         Student entity = new Student(enrolmentNumber, firstName, lastName);
@@ -134,7 +134,14 @@ public class PortalService implements IPortalService {
     @Override
     public Professor getProfessor(final String firstName, 
             final String lastName, final Chair chair) {
-        //TODO check parameters
+    	if (firstName == null)
+            throw new IllegalArgumentException("the given first name is null");
+    	if (!firstName.matches("\\p{javaLowerCase}*"))
+    		throw new IllegalArgumentException("first name given isnt made only of lowercase letters");
+    	if (lastName == null)
+            throw new IllegalArgumentException("the given last name is null");
+    	if (!lastName.matches("\\p{javaLowerCase}*"))
+    		throw new IllegalArgumentException("last name given isnt made only of lowercase letters");
         try {
             Optional<Professor> result = professors.stream()
                     .filter(x-> x.getFirstName().equals(firstName)
@@ -150,7 +157,18 @@ public class PortalService implements IPortalService {
     @Override
     public boolean existProfessor(final String firstName, 
             final String lastName, final String chairName) {
-        //TODO check parameters
+    	if (chairName == null)
+            throw new IllegalArgumentException("the given chair name is null");
+        if (!chairName.matches("\\p{javaLowerCase}*"))
+            throw new IllegalArgumentException("the given chair name isnt only lowercase letters");
+        if (firstName == null)
+            throw new IllegalArgumentException("the given first name is null");
+        if (!firstName.matches("\\p{javaLowerCase}*"))
+            throw new IllegalArgumentException("the given first name isnt only lowercase letters");
+        if (lastName == null)
+            throw new IllegalArgumentException("the given last name is null");
+        if (!lastName.matches("\\p{javaLowerCase}*"))
+            throw new IllegalArgumentException("the given last name isnt only lowercase letters");
         Chair chair = getChair(chairName);
         Optional<Professor> result = professors.stream()
                 .filter(x-> x.getFirstName().equals(firstName)
@@ -164,7 +182,7 @@ public class PortalService implements IPortalService {
     public Professor addProfesor(String firstName, String lastName, String chairName) {
         //TODO optimize chair reference
         if (!existChair(chairName))
-            chairs.add(new Chair(chairName));
+            addChair(chairName);
         if (existProfessor(firstName, lastName, chairName))
             throw new IllegalArgumentException("there is already a professor with the given values");
         Professor entity = new Professor(getChair(chairName), firstName, lastName);
@@ -221,10 +239,24 @@ public class PortalService implements IPortalService {
     
     @Override
     public boolean existChair(String chairName) {
-        //TODO check parameters
+    	if (chairName == null)
+            throw new IllegalArgumentException("the given chair name is null");
+        if (!chairName.matches("\\p{javaLowerCase}*"))
+            throw new IllegalArgumentException("the given chair name isnt only lowercase letters");
         Optional<Chair> result = chairs.stream()
                 .filter(x-> x.getName().equals(chairName))
                 .findFirst();        
         return result.isPresent();
-    }  
+    }
+
+	@Override
+	public Chair addChair(String name) {
+		if (name == null)
+            throw new IllegalArgumentException("the given chair name is null");
+        if (!name.matches("\\p{javaLowerCase}*"))
+            throw new IllegalArgumentException("the given chair name isnt only lowercase letters");
+		Chair entity = new Chair(name);
+		chairs.add(entity);
+		return entity;
+	}  
 }

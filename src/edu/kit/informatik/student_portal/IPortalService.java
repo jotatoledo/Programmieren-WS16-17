@@ -152,6 +152,13 @@ public interface IPortalService {
     
     /**
      * TODO add doc
+     * @param name TODO add doc
+     * @return TODO add doc
+     */
+    Chair addChair(String name);
+    
+    /**
+     * TODO add doc
      * @param chairName TODO add doc
      * @return TODO add doc
      */
