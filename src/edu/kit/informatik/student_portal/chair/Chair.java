@@ -4,31 +4,35 @@ import java.util.HashSet;
 import java.util.Set;
 import edu.kit.informatik.student_portal.user.Professor;
 
+/**
+ * Represents a chair in the university system
+ * @author JoseNote
+ * @version 1.00
+ */
 public final class Chair implements Comparable<Chair> {
     private final String name;
     private final Set<Professor> professors;
     
     /**
-     * TODO
+     * Creates a new instance
      * @param name The name for the new instance
-     * @throws IllegalArgumentException TODO
      */
-    public Chair(final String name) throws IllegalArgumentException {
+    public Chair(final String name) {
         if (name == null)
-            throw new IllegalArgumentException("The value of the parameter 'name' is null");
+            throw new IllegalArgumentException("the value of the parameter 'name' is null");
         if (!name.matches("\\p{javaLowerCase}*"))
-            throw new IllegalArgumentException("Name of the chair isnt made exclusively of lowcase letters");
+            throw new IllegalArgumentException("name of the chair isnt made exclusively of lowcase letters");
         this.name = name;
         this.professors = new HashSet<Professor>();
     }
     
     /**
-     * TODO
-     * @param professor TODO
+     * TODO add doc
+     * @param professor TODO add doc
      */
     public void addProfessor(final Professor professor) {
         if (!professors.add(professor))
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("there is already a professor with this name on this chair");
     }
 
     @Override
@@ -48,8 +52,8 @@ public final class Chair implements Comparable<Chair> {
     }
 
     /**
-     * 
-     * @return TODO
+     * Getter for name member
+     * @return the value of the name member
      */
     public String getName() {
         return name;
