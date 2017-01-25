@@ -1,7 +1,7 @@
 package edu.kit.informatik.student_portal;
 
 /**
- * Error messages for string members of differents classes
+ * Error messages for string members of different classes
  * @author s_toledonavarro
  * @version 1.00
  */
