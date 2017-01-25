@@ -46,10 +46,12 @@ public class PortalService implements IPortalService {
     }
 
     @Override
-    public Lecture getLecture(final int id) {
+    public Lecture getLecture(final int lectureId) {
+        if (lectureId < 1)
+            throw new IllegalArgumentException("invalid id");
         try {
             Optional<Lecture> result = lectures.stream()
-                    .filter(x-> x.getId() == id)
+                    .filter(x-> x.getId() == lectureId)
                     .findFirst();
             return result.get();
         } catch (NoSuchElementException e) {
@@ -58,11 +60,13 @@ public class PortalService implements IPortalService {
     }
     
     @Override
-    public Lecture addLecture(String name, int idModule, 
-            String professorFirstName, String professorLastName,
-            String chairName, int credits) {
+    public Lecture addLecture(final String name, final int idModule, 
+            final String professorFirstName, final String professorLastName,
+            final String chairName, final int credits) {
         Professor prof = getProfessor(professorFirstName, professorLastName, getChair(chairName));
         Module mod = getModule(idModule);
+        if (Integer.parseInt(mod.totalCredits()) + credits > 45)
+            throw new IllegalArgumentException("cant exceed 45 credits on the module");
         Lecture entity = new Lecture(prof, mod, credits, name);
         lectures.add(entity);
         return entity;
@@ -74,11 +78,12 @@ public class PortalService implements IPortalService {
     }
     
     @Override
-    public Module getModule(final int id) {
-        //TODO validate id input
+    public Module getModule(final int moduleId) {
+        if (moduleId < 1)
+            throw new IllegalArgumentException("invalid module id value");
         try {
             Optional<Module> result = modules.stream()
-                    .filter(x-> x.getId() == id)
+                    .filter(x-> x.getId() == moduleId)
                     .findFirst();
             return result.get();
         } catch (NoSuchElementException e) {
@@ -100,7 +105,8 @@ public class PortalService implements IPortalService {
     
     @Override
     public Student getStudent(final int enrolmentNumber) {
-      //TODO validate id input
+        if (enrolmentNumber > 999999 || enrolmentNumber < 100000)
+            throw new IllegalArgumentException("invalid enrolment number");
         try {
             Optional<Student> result = students.stream()
                     .filter(x-> x.getEnrolmentNumber() == enrolmentNumber)
@@ -136,6 +142,7 @@ public class PortalService implements IPortalService {
     @Override
     public Professor getProfessor(final String firstName, 
             final String lastName, final Chair chair) {
+        //TODO check parameters
         try {
             Optional<Professor> result = professors.stream()
                     .filter(x-> x.getFirstName().equals(firstName)
@@ -149,7 +156,9 @@ public class PortalService implements IPortalService {
     }
     
     @Override
-    public boolean existProfessor(final String firstName, final String lastName, final String chairName) {
+    public boolean existProfessor(final String firstName, 
+            final String lastName, final String chairName) {
+        //TODO check parameters
         Optional<Professor> result = professors.stream()
                 .filter(x-> x.getFirstName().equals(firstName)
                         && x.getLastName().equals(lastName)
@@ -202,6 +211,7 @@ public class PortalService implements IPortalService {
 
     @Override
     public Chair getChair(final String chairName) {
+        //TODO check parameters
         try {
             Optional<Chair> result = chairs.stream()
                     .filter(x-> x.getName().equals(chairName))
@@ -214,6 +224,7 @@ public class PortalService implements IPortalService {
     
     @Override
     public boolean existChair(String chairName) {
+        //TODO check parameters
         Optional<Chair> result = chairs.stream()
                 .filter(x-> x.getName().equals(chairName))
                 .findFirst();        
