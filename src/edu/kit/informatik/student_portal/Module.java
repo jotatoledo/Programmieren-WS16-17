@@ -5,6 +5,11 @@ import java.util.Collections;
 import java.util.Set;
 import java.util.TreeSet;
 
+/**
+ * TODO add doc
+ * @author JoseNote
+ * @version
+ */
 public final class Module extends Course implements ICanEqual {
     private final Set<Lecture> lectures;
     

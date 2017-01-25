@@ -2,6 +2,11 @@ package edu.kit.informatik.student_portal;
 
 import java.util.Objects;
 
+/**
+ * TODO add doc
+ * @author JoseNote
+ * @version 1.00
+ */
 public final class ExaminationMark implements Comparable<ExaminationMark> {
     private final Lecture lecture;
     private final Student student;

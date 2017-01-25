@@ -3,7 +3,7 @@ package edu.kit.informatik.student_portal;
 import edu.kit.informatik.Terminal;
 
 /**
- * 
+ * TODO add doc
  * @author JoseNote
  * @version 1.00
  * TODO add error message on display of empty list

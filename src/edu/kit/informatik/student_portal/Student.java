@@ -3,6 +3,11 @@ package edu.kit.informatik.student_portal;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * TODO add doc
+ * @author JoseNote
+ * @version 1.00
+ */
 public final class Student extends User implements ICanEqual {
     private final int enrolmentNumber;
     private final Set<ExaminationMark> marks;

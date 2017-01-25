@@ -1,12 +1,15 @@
 package edu.kit.informatik.student_portal;
 
+/**
+ * TODO add doc
+ * @author JoseNote
+ * @version 1.00
+ */
 public class Course implements Comparable<Course>, ICanEqual {
     private static int instanceCounter = 1;
     private final int id;
     private final String name;
     private int credits;
-
-    
 
     /**
      * 

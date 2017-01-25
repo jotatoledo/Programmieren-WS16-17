@@ -2,6 +2,11 @@ package edu.kit.informatik.student_portal;
 
 import java.util.Collection;
 
+/**
+ * Contract for the portal service
+ * @author JoseNote
+ * @version 1.00
+ */
 public interface IPortalService {
     /**
      * TODO add doc

@@ -2,6 +2,11 @@ package edu.kit.informatik.student_portal;
 
 import java.util.Objects;
 
+/**
+ * TODO add doc
+ * @author JoseNote
+ * @version 1.00
+ */
 public class User implements Comparable<User>, ICanEqual {
     private final String firstName;
     private final String lastName;
