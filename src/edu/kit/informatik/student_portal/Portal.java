@@ -2,6 +2,12 @@ package edu.kit.informatik.student_portal;
 
 import edu.kit.informatik.Terminal;
 
+/**
+ * 
+ * @author JoseNote
+ * @version 1.00
+ * TODO add error message on display of empty list
+ */
 public final class Portal {
     private final IPortalService portalService;
     
@@ -84,7 +90,7 @@ public final class Portal {
                         continue;
                     }
                     if (input.startsWith(Command.SUMMARY_PROFESSOR.getCommandText())) {
-                        console.summaryProfessor(getParameters(input, Command.ADD_PROFESSOR));
+                        console.summaryProfessor(getParameters(input, Command.SUMMARY_PROFESSOR));
                         continue;
                     }
                 }                
