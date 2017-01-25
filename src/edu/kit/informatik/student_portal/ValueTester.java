@@ -53,4 +53,9 @@ public class ValueTester {
 		if (mark < 1.00 || mark > 5.00)
             throw new IllegalArgumentException("invalid mark value");
 	}
+	
+	public static void testValidCredits(final int credits){
+		if (credits < 0 || credits > 9)
+            throw new IllegalArgumentException(credits < 0 ? "Smaller 0" : "Larger 9");
+	}
 }

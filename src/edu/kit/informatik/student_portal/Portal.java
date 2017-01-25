@@ -7,6 +7,7 @@ import edu.kit.informatik.Terminal;
  * @author JoseNote
  * @version 1.00
  * TODO add error message on display of empty list
+ * TODO implement parsing error catching
  */
 public final class Portal {
     private final IPortalService portalService;
