@@ -98,7 +98,7 @@ public final class Portal {
             } catch (IllegalArgumentException e1) {
                 Terminal.printError(e1.getMessage());
             } catch (IndexOutOfBoundsException e2) {
-                Terminal.printError(e2.getMessage());
+                Terminal.printError("wrong number of parameters");
             }            
         } while(true);
     }
