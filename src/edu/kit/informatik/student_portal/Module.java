@@ -1,11 +1,9 @@
-package edu.kit.informatik.student_portal.course;
+package edu.kit.informatik.student_portal;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
 import java.util.TreeSet;
-
-import edu.kit.informatik.student_portal.common.ICanEqual;
 
 public final class Module extends Course implements ICanEqual {
     private final Set<Lecture> lectures;
@@ -56,7 +54,7 @@ public final class Module extends Course implements ICanEqual {
     public String toString() {
         return Integer.toString(getId()).concat(" ")
                 .concat(getName()).concat(" ")
-                .concat(totalCredits()).concat(" ")
+                .concat(Integer.toString(totalCredits())).concat(" ")
                 .concat(average());
     }
     
@@ -65,7 +63,7 @@ public final class Module extends Course implements ICanEqual {
      * @param lecture TODO add doc
      */
     public void addLecture(final Lecture lecture) {
-        if ((Integer.parseInt(totalCredits()) + lecture.getCredits()) > 45)
+        if ((totalCredits() + lecture.getCredits()) > 45)
             throw new IllegalArgumentException("cant exceed 45 credits on the module");
         if (!lectures.add(lecture))
             //TODO add exception text
@@ -85,12 +83,10 @@ public final class Module extends Course implements ICanEqual {
      * TODO add doc
      * @return TODO add doc
      */
-    public String totalCredits() {
-        if (lectures.size() == 0)
-            return "none";
-        return Integer.toString(lectures.stream()
+    public int totalCredits() {
+        return lectures.stream()
                 .mapToInt(x->x.getCredits())
-                .reduce(0, (a, b) -> a + b));
+                .reduce(0, (a, b) -> a + b);
     }
     
     /**

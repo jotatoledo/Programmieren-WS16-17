@@ -1,14 +1,6 @@
 package edu.kit.informatik.student_portal;
 
 import edu.kit.informatik.Terminal;
-import edu.kit.informatik.student_portal.bll.PortalService;
-import edu.kit.informatik.student_portal.bll.contracts.IPortalService;
-import edu.kit.informatik.student_portal.common.Command;
-import edu.kit.informatik.student_portal.common.ExaminationMark;
-import edu.kit.informatik.student_portal.course.Lecture;
-import edu.kit.informatik.student_portal.course.Module;
-import edu.kit.informatik.student_portal.user.Professor;
-import edu.kit.informatik.student_portal.user.Student;
 
 public final class Portal {
     private final IPortalService portalService;

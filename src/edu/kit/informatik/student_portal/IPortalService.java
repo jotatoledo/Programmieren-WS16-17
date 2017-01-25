@@ -1,13 +1,6 @@
-package edu.kit.informatik.student_portal.bll.contracts;
+package edu.kit.informatik.student_portal;
 
 import java.util.Collection;
-
-import edu.kit.informatik.student_portal.chair.Chair;
-import edu.kit.informatik.student_portal.common.ExaminationMark;
-import edu.kit.informatik.student_portal.course.Lecture;
-import edu.kit.informatik.student_portal.course.Module;
-import edu.kit.informatik.student_portal.user.Professor;
-import edu.kit.informatik.student_portal.user.Student;
 
 public interface IPortalService {
     /**

@@ -1,14 +1,10 @@
-package edu.kit.informatik.student_portal.user;
+package edu.kit.informatik.student_portal;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
-
-import edu.kit.informatik.student_portal.chair.Chair;
-import edu.kit.informatik.student_portal.common.ICanEqual;
-import edu.kit.informatik.student_portal.course.Lecture;
 
 /**
  * TODO add doc

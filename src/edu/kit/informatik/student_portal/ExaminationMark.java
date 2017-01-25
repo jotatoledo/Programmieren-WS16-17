@@ -1,9 +1,6 @@
-package edu.kit.informatik.student_portal.common;
+package edu.kit.informatik.student_portal;
 
 import java.util.Objects;
-
-import edu.kit.informatik.student_portal.course.Lecture;
-import edu.kit.informatik.student_portal.user.Student;
 
 public final class ExaminationMark implements Comparable<ExaminationMark> {
     private final Lecture lecture;

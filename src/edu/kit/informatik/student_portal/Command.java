@@ -1,4 +1,4 @@
-package edu.kit.informatik.student_portal.common;
+package edu.kit.informatik.student_portal;
 
 /**
  * Represent the possible commands

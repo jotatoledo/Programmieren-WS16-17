@@ -1,4 +1,4 @@
-package edu.kit.informatik.student_portal.bll;
+package edu.kit.informatik.student_portal;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -6,14 +6,6 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
-
-import edu.kit.informatik.student_portal.bll.contracts.IPortalService;
-import edu.kit.informatik.student_portal.chair.Chair;
-import edu.kit.informatik.student_portal.common.ExaminationMark;
-import edu.kit.informatik.student_portal.course.Lecture;
-import edu.kit.informatik.student_portal.course.Module;
-import edu.kit.informatik.student_portal.user.Professor;
-import edu.kit.informatik.student_portal.user.Student;
 
 /**
  * Service for the student portal
@@ -65,7 +57,7 @@ public class PortalService implements IPortalService {
             final String chairName, final int credits) {
         Professor prof = getProfessor(professorFirstName, professorLastName, getChair(chairName));
         Module mod = getModule(idModule);
-        if (Integer.parseInt(mod.totalCredits()) + credits > 45)
+        if ((mod.totalCredits() + credits) > 45)
             throw new IllegalArgumentException("cant exceed 45 credits on the module");
         Lecture entity = new Lecture(prof, mod, credits, name);
         lectures.add(entity);

@@ -1,9 +1,7 @@
-package edu.kit.informatik.student_portal.user;
+package edu.kit.informatik.student_portal;
 
 import java.util.HashSet;
 import java.util.Set;
-import edu.kit.informatik.student_portal.common.ICanEqual;
-import edu.kit.informatik.student_portal.common.ExaminationMark;
 
 public final class Student extends User implements ICanEqual {
     private final int enrolmentNumber;

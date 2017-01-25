@@ -1,4 +1,4 @@
-package edu.kit.informatik.student_portal.common;
+package edu.kit.informatik.student_portal;
 
 /**
  * Interface used to support the implementation of equality in class hierarchies

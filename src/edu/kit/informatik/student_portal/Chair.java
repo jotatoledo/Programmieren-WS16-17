@@ -1,8 +1,7 @@
-package edu.kit.informatik.student_portal.chair;
+package edu.kit.informatik.student_portal;
 
 import java.util.HashSet;
 import java.util.Set;
-import edu.kit.informatik.student_portal.user.Professor;
 
 /**
  * Represents a chair in the university system

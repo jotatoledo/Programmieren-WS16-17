@@ -1,6 +1,4 @@
-package edu.kit.informatik.student_portal.course;
-
-import edu.kit.informatik.student_portal.common.ICanEqual;
+package edu.kit.informatik.student_portal;
 
 public class Course implements Comparable<Course>, ICanEqual {
     private static int instanceCounter = 1;

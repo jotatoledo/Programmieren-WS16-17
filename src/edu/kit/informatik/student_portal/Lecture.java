@@ -1,11 +1,7 @@
-package edu.kit.informatik.student_portal.course;
+package edu.kit.informatik.student_portal;
 
 import java.util.HashSet;
 import java.util.Set;
-
-import edu.kit.informatik.student_portal.common.ICanEqual;
-import edu.kit.informatik.student_portal.common.ExaminationMark;
-import edu.kit.informatik.student_portal.user.Professor;
 
 public final class Lecture extends Course implements ICanEqual {
     private final Module module;

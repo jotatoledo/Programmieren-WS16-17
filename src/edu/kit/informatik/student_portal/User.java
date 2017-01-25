@@ -1,8 +1,6 @@
-package edu.kit.informatik.student_portal.user;
+package edu.kit.informatik.student_portal;
 
 import java.util.Objects;
-
-import edu.kit.informatik.student_portal.common.ICanEqual;
 
 public class User implements Comparable<User>, ICanEqual {
     private final String firstName;
