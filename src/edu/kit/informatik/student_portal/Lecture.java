@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * TODO add doc
+ * Represents a lecture in the system
  * @author JoseNote
  * @version 1.00
  */
