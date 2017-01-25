@@ -10,14 +10,13 @@ public final class Student extends User implements ICanEqual {
     private final Set<ExaminationMark> marks;
     
     /**
-     * TODO
-     * @param enrolmentNumber TODO
-     * @param firstName TODO
-     * @param lastName TODO
-     * @throws IllegalArgumentException TODO
+     * TODO add doc
+     * @param enrolmentNumber TODO add doc
+     * @param firstName TODO add doc
+     * @param lastName TODO add doc
      */
     public Student(final int enrolmentNumber, 
-            final String firstName, final String lastName) throws IllegalArgumentException {
+            final String firstName, final String lastName) {
         super(firstName, lastName);
         if (enrolmentNumber < 100000 || enrolmentNumber > 999999)
             throw new IllegalArgumentException("Invalid enrolment number");
@@ -26,15 +25,22 @@ public final class Student extends User implements ICanEqual {
     }
 
     /**
-     * TODO
-     * @param o TODO
-     * @return TODO
+     * TODO add doc
+     * @param o TODO add doc
+     * @return TODO add doc
      */
     public int compareTo(Student o) {
         //TODO add null-safe
         return Integer.compare(enrolmentNumber, o.enrolmentNumber);
     }
 
+    @Override
+    public int compareTo(User o) {
+        if (o instanceof Student)
+            return compareTo((Student) o);
+        return super.compareTo(o);
+    }
+    
     @Override
     public int hashCode() {
         return Integer.hashCode(enrolmentNumber);
@@ -52,9 +58,17 @@ public final class Student extends User implements ICanEqual {
         return obj instanceof Student;
     }
     
+    @Override
+    public String toString() {
+        return Integer.toString(enrolmentNumber).concat(" ")
+                .concat(getFirstName()).concat(" ")
+                .concat(getLastName()).concat(" ")
+                .concat(average());
+    }
+    
     /**
-     * TODO
-     * @param mark TODO
+     * TODO add doc
+     * @param mark TODO add doc
      */
     public void addMark(final ExaminationMark mark) {
         //TODO check for dupplicate
@@ -62,10 +76,28 @@ public final class Student extends User implements ICanEqual {
     }
 
     /**
-     * 
-     * @return TODO
+     * TODO add doc
+     * @return TODO add doc
      */
     public int getEnrolmentNumber() {
         return enrolmentNumber;
+    }
+    
+    /**
+     * TODO add doc
+     * @return TODO add doc
+     */
+    public String average() {
+        return "none";
+    }
+    
+    /**
+     * TODO add doc
+     * @return TODO add doc
+     */
+    public ExaminationMark[] getMarks() {
+        return marks.stream()
+                .sorted((m1, m2) -> Integer.compare(m1.getLectureId(), m2.getLectureId()))
+                .toArray(size -> new ExaminationMark[size]);
     }
 }

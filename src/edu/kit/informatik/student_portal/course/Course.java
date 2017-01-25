@@ -8,6 +8,8 @@ public class Course implements Comparable<Course>, ICanEqual {
     private final String name;
     private int credits;
 
+    
+
     /**
      * 
      * @param credits TODO
@@ -57,10 +59,26 @@ public class Course implements Comparable<Course>, ICanEqual {
     }
 
     /**
-     * 
-     * @return TODO
+     * TODO add doc
+     * @return TODO add doc
      */
     public int getId() {
         return id;
+    }
+
+    /**
+     * TODO add doc
+     * @return TODO add doc
+     */
+    public String getName() {
+        return name;
+    }
+    
+    /**
+     * TODO add doc
+     * @return TODO add doc
+     */
+    public int getCredits() {
+        return credits;
     }
 }

@@ -1,5 +1,8 @@
 package edu.kit.informatik.student_portal.user;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -7,19 +10,23 @@ import edu.kit.informatik.student_portal.chair.Chair;
 import edu.kit.informatik.student_portal.common.ICanEqual;
 import edu.kit.informatik.student_portal.course.Lecture;
 
+/**
+ * TODO add doc
+ * @author JoseNote
+ * @version 1.00
+ */
 public final class Professor extends User implements ICanEqual {
     private final Chair chair;
     private final Set<Lecture> lectures;
     
     /**
-     * TODO
-     * @param chair TODO
-     * @param firstName TODO
-     * @param lastName TODO
-     * @throws IllegalArgumentException TODO
+     * TODO add doc
+     * @param chair TODO add doc
+     * @param firstName TODO add doc
+     * @param lastName TODO add doc
      */
     public Professor(final Chair chair, final String firstName, 
-            final String lastName) throws IllegalArgumentException {
+            final String lastName) {
         super(firstName, lastName);    
         this.chair = chair;
         chair.addProfessor(this);
@@ -27,27 +34,34 @@ public final class Professor extends User implements ICanEqual {
     }
 
     /**
-     * 
-     * @param o TODO
-     * @return TODO
+     * TODO add doc
+     * @param o TODO add doc
+     * @return TODO add doc
      */
     public int compareTo(Professor o) {
         //TODO Add null-safe
         final int superComparission = super.compareTo(o);
-        return superComparission == 0 ? superComparission : chair.compareTo(o.getChair());
+        return superComparission != 0 ? superComparission : chair.compareTo(o.getChair());
+    }
+    
+    @Override
+    public int compareTo(User o) {
+        if (o instanceof Professor)
+            return compareTo((Professor) o);
+        return super.compareTo(o);
     }
 
     @Override
     public int hashCode() {
-        // TODO Auto-generated method stub
-        return super.hashCode();
+        return Objects.hash(getFirstName(), getLastName(), chair);
     }
 
     @Override
     public boolean equals(Object obj) {
-        return obj instanceof Professor 
-                && ((Professor) obj).canEqual(this)
-                && compareTo((Professor) obj) == 0;
+        boolean value = obj instanceof Professor 
+        && ((Professor) obj).canEqual(this)
+        && compareTo((Professor) obj) == 0;
+        return value;
     }
 
     @Override
@@ -56,19 +70,45 @@ public final class Professor extends User implements ICanEqual {
     }
     
     /**
-     * TODO
-     * @return TODO
+     * TODO add doc
+     * @return TODO add doc
      */
     public Chair getChair() {
         return chair;
     }
     
     /**
-     * TODO
-     * @param lecture TODO
+     * TODO add doc
+     * @param lecture TODO add doc
      */
     public void addLecture(final Lecture lecture) {
         if (!lectures.add(lecture))
             throw new IllegalArgumentException("This professor instance already has the given lecture assigned");
+    }
+    
+    /**
+     * TODO add doc
+     * @return TODO add doc
+     */
+    public String average() {
+        //TODO implement
+        if (lectures.size() == 0)
+            return "none";
+        
+        return "none";
+    }
+    
+    private int totalCredits() {
+        return lectures.stream()
+                .mapToInt(x->x.getCredits())
+                .reduce(0, (a, b) -> a + b);
+    }
+    
+    /**
+     * TODO add doc
+     * @return TODO add doc
+     */
+    public Collection<Lecture> getLectures() {
+        return Collections.unmodifiableCollection(lectures);
     }
 }

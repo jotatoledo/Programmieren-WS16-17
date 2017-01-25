@@ -1,5 +1,7 @@
 package edu.kit.informatik.student_portal.course;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -9,33 +11,28 @@ public final class Module extends Course implements ICanEqual {
     private final Set<Lecture> lectures;
     
     /**
-     * TODO
-     * @param name TODO
-     * @throws IllegalArgumentException TODO
+     * TODO add doc
+     * @param name TODO add doc
      */
-    public Module(final String name) throws IllegalArgumentException {
+    public Module(final String name) {
         super(name);
         lectures = new TreeSet<Lecture>();
     }
 
     /**
-     * 
-     * @param o TODO
-     * @return TODO
+     * TODO add doc
+     * @param o TODO add doc
+     * @return TODO add doc
      */
     public int compareTo(Module o) {
         return super.compareTo(o);
     }
     
-    /**
-     * TODO
-     * @param lecture TODO
-     */
-    public void addLecture(final Lecture lecture) {
-        //TODO check number of credits before adding
-        if (!lectures.add(lecture))
-            //TODO add exception text
-            throw new IllegalArgumentException();
+    @Override
+    public int compareTo(Course o) {
+        if (o instanceof Module)
+            return compareTo((Module) o);
+        return super.compareTo(o);
     }
 
     @Override
@@ -53,5 +50,54 @@ public final class Module extends Course implements ICanEqual {
     @Override
     public boolean canEqual(Object obj) {
         return obj instanceof Module;
+    }
+    
+    @Override
+    public String toString() {
+        return Integer.toString(getId()).concat(" ")
+                .concat(getName()).concat(" ")
+                .concat(totalCredits()).concat(" ")
+                .concat(average());
+    }
+    
+    /**
+     * TODO add doc
+     * @param lecture TODO add doc
+     */
+    public void addLecture(final Lecture lecture) {
+        if ((Integer.parseInt(totalCredits()) + lecture.getCredits()) > 45)
+            throw new IllegalArgumentException("cant exceed 45 credits on the module");
+        if (!lectures.add(lecture))
+            //TODO add exception text
+            throw new IllegalArgumentException("lecture wasnt added to the module");
+    }
+    
+    /**
+     * TODO add doc
+     * @return TODO add doc
+     */
+    public String average() {
+        //TODO implement
+        return "none";
+    }
+    
+    /**
+     * TODO add doc
+     * @return TODO add doc
+     */
+    public String totalCredits() {
+        if (lectures.size() == 0)
+            return "none";
+        return Integer.toString(lectures.stream()
+                .mapToInt(x->x.getCredits())
+                .reduce(0, (a, b) -> a + b));
+    }
+    
+    /**
+     * TODO add doc
+     * @return TODO add doc
+     */
+    public Collection<Lecture> getLectures() {
+        return Collections.unmodifiableCollection(lectures);
     }
 }

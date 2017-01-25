@@ -14,13 +14,11 @@ public class User implements Comparable<User>, ICanEqual {
      * @param lastName TODO
      * @throws IllegalArgumentException 
      */
-    public User(final String firstName, final String lastName) throws IllegalArgumentException {
+    public User(final String firstName, final String lastName) {
         if (!firstName.matches("\\p{javaLowerCase}*"))
-            //TODO add exception message
-            throw new IllegalArgumentException();   
+            throw new IllegalArgumentException("first name istn made only of lower cases");   
         if (!lastName.matches("\\p{javaLowerCase}*"))
-            //TODO add exception message
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("lastname isnt made only of lower cases");
         this.firstName = firstName;
         this.lastName = lastName;
     }
@@ -57,9 +55,7 @@ public class User implements Comparable<User>, ICanEqual {
     public int compareTo(User o) {
         //TODO null safe
         final int compareFirstName = firstName.compareTo(o.getFirstName());
-        if (compareFirstName != 0)
-            return compareFirstName;
-        return lastName.compareTo(o.getLastName());        
+        return compareFirstName != 0 ? compareFirstName : lastName.compareTo(o.getLastName());        
     }
     
     @Override
