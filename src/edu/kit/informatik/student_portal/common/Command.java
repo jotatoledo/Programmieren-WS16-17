@@ -1,5 +1,10 @@
 package edu.kit.informatik.student_portal.common;
 
+/**
+ * Represent the possible commands
+ * @author JoseNote
+ * @version 1.00
+ */
 public enum Command {
     /**
      * Command used to add a new professor to the system
