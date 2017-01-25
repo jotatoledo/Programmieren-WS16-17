@@ -151,22 +151,24 @@ public class PortalService implements IPortalService {
     public boolean existProfessor(final String firstName, 
             final String lastName, final String chairName) {
         //TODO check parameters
+        Chair chair = getChair(chairName);
         Optional<Professor> result = professors.stream()
                 .filter(x-> x.getFirstName().equals(firstName)
                         && x.getLastName().equals(lastName)
-                        && x.getChair().getName().equals(chairName))
+                        && x.getChair().equals(chair))
                 .findFirst();        
         return result.isPresent();
     }
 
     @Override
     public Professor addProfesor(String firstName, String lastName, String chairName) {
+        //TODO optimize chair reference
         if (!existChair(chairName))
             chairs.add(new Chair(chairName));
         if (existProfessor(firstName, lastName, chairName))
             throw new IllegalArgumentException("there is already a professor with the given values");
         Professor entity = new Professor(getChair(chairName), firstName, lastName);
-        boolean added = professors.add(entity);
+        professors.add(entity);
         return entity;
     }
 
@@ -203,7 +205,10 @@ public class PortalService implements IPortalService {
 
     @Override
     public Chair getChair(final String chairName) {
-        //TODO check parameters
+        if (chairName == null)
+            throw new IllegalArgumentException("the given chair name is null");
+        if (!chairName.matches("\\p{javaLowerCase}*"))
+            throw new IllegalArgumentException("the given chair name isnt only lowercase letters");
         try {
             Optional<Chair> result = chairs.stream()
                     .filter(x-> x.getName().equals(chairName))

@@ -37,7 +37,8 @@ public final class Professor extends User implements ICanEqual {
     public int compareTo(Professor o) {
         //TODO Add null-safe
         final int superComparission = super.compareTo(o);
-        return superComparission != 0 ? superComparission : chair.compareTo(o.getChair());
+        final int result = superComparission != 0 ? superComparission : chair.compareTo(o.getChair());
+        return result;
     }
     
     @Override
