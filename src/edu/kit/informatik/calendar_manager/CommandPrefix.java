@@ -9,44 +9,44 @@ public enum CommandPrefix {
     /**
      * Prefix for the quit command
      */
-    QUIT("quit","quit".length()),
+    QUIT("quit"),
     /**
      * Prefix for the add command
      */
-    ADD_APPOINTMENT("add appointment","add appointment".length()),
+    ADD_APPOINTMENT("add appointment"),
     /**
      * Prefix for the simple print command
      */
-    PRINT_APPOINTMENTS("print appointments","print appointments".length()),
+    PRINT_APPOINTMENTS("print appointments"),
     /**
      * Prefix for the print command of appointments that start before a given date
      */
-    PRINT_APPOINTMENTS_BEFORE("print appointments that start before","print appointments that start before".length()),
+    PRINT_APPOINTMENTS_BEFORE("print appointments that start before"),
     /**
      * Prefix for the print command of appointments on a given day
      */
-    PRINT_APPOINTMENTS_ON("print appointments on","print appointments on".length()),
+    PRINT_APPOINTMENTS_ON("print appointments on"),
     /**
      * Prefix for the print command of appointments contained in a given time interval
      */
-    PRINT_APPOINTMENTS_INTERVAL("print appointments in interval","print appointments in interval".length()),
+    PRINT_APPOINTMENTS_INTERVAL("print appointments in interval"),
     /**
      * Prefix for the print command of appointments that conflict with a given one
      */
-    PRINT_APPOINTMENTS_CONFLICT("print appointments that conflict with","print appointments that conflict with".length());
-    
+    PRINT_APPOINTMENTS_CONFLICT("print appointments that conflict with");
+
     private final String prefix;
     private final int prefixLength;
-        
+
     /**
      * Creates a new item
      * @param representation The command line prefix associated to the new element
      */
-    CommandPrefix(final String representation,final int prefixLength) {
+    CommandPrefix(final String representation) {
         this.prefix = representation;
-        this.prefixLength = prefixLength;
+        this.prefixLength = representation.length();
     }
-    
+
     /**
      * The string representation of this
      * @return The value of the string {@linkplain CommandPrefix#prefix representation} of this
@@ -54,8 +54,12 @@ public enum CommandPrefix {
     public String getRepresentation() {
         return prefix;
     }
-    
-    public int getPrefixLength(){
-    	return prefixLength;
+
+    /**
+     * Getter for prefix length
+     * @return Length value
+     */
+    public int getPrefixLength() {
+        return prefixLength;
     }
 }
