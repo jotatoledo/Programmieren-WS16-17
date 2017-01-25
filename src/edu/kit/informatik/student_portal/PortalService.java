@@ -7,6 +7,8 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
 
+import com.sun.corba.se.spi.orbutil.fsm.Input;
+
 /**
  * Service for the student portal
  * @author JoseNote
@@ -39,8 +41,7 @@ public class PortalService implements IPortalService {
 
     @Override
     public Lecture getLecture(final int lectureId) {
-        if (lectureId < 1)
-            throw new IllegalArgumentException("invalid id");
+        ParameterTester.testLectureId(lectureId);
         try {
             Optional<Lecture> result = lectures.stream()
                     .filter(x-> x.getId() == lectureId)
@@ -55,6 +56,7 @@ public class PortalService implements IPortalService {
     public Lecture addLecture(final String name, final int idModule, 
             final String professorFirstName, final String professorLastName,
             final String chairName, final int credits) {
+    	//TODO add parameter test
         Professor prof = getProfessor(professorFirstName, professorLastName, getChair(chairName));
         Module mod = getModule(idModule);
         if ((mod.totalCredits() + credits) > 45)
@@ -71,8 +73,7 @@ public class PortalService implements IPortalService {
     
     @Override
     public Module getModule(final int moduleId) {
-        if (moduleId < 1)
-            throw new IllegalArgumentException("invalid module id value");
+        ParameterTester.testModuleId(moduleId);
         try {
             Optional<Module> result = modules.stream()
                     .filter(x-> x.getId() == moduleId)
@@ -84,8 +85,9 @@ public class PortalService implements IPortalService {
     }
     
     @Override
-    public Module addModule(String name) {
-        Module entity = new Module(name);
+    public Module addModule(final String moduleName) {
+    	ParameterTester.testStringNotNullAndLowercase(ErrorMessage.MODULE_NAME, moduleName);
+        Module entity = new Module(moduleName);
         modules.add(entity);
         return entity;
     }
@@ -96,21 +98,29 @@ public class PortalService implements IPortalService {
     }
     
     @Override
-    public Student getStudent(final int enrolmentNumber) {
-        if (enrolmentNumber > 999999 || enrolmentNumber < 100000)
-            throw new IllegalArgumentException("invalid enrolment number");
-        try {
+    public Student getStudent(final String firstName, final String lastName, final int enrolmentNumber) {
+    	ParameterTester.testStringNotNullAndLowercase(ErrorMessage.STUDENT_FIRSTNAME, firstName);
+    	ParameterTester.testStringNotNullAndLowercase(ErrorMessage.STUDENT_FIRSTNAME, lastName);
+    	ParameterTester.testEnrolmentNumber(enrolmentNumber);
+    	return getStudent(enrolmentNumber);
+    }
+    
+    @Override
+	public Student getStudent(final int enrolmentNumber) {
+    	ParameterTester.testEnrolmentNumber(enrolmentNumber);
+    	try {
             Optional<Student> result = students.stream()
                     .filter(x-> x.getEnrolmentNumber() == enrolmentNumber)
                     .findFirst();
             return result.get();
         } catch (NoSuchElementException e) {
             throw new IllegalArgumentException("there is no student with the given enrolment number");
-        } 
-    }
+        }
+	} 
     
     @Override
-    public boolean existStudent(int enrolmentNumber) {
+    public boolean existStudent(final int enrolmentNumber) {
+    	ParameterTester.testEnrolmentNumber(enrolmentNumber);
         Optional<Student> result = students.stream()
                 .filter(x-> x.getEnrolmentNumber() == enrolmentNumber)
                 .findFirst();        
@@ -118,10 +128,13 @@ public class PortalService implements IPortalService {
     }
     
     @Override
-    public Student addStudent(final String firstName, final String lastName, final int enrolmentNumber) {
+    public Student addStudent(final String studentFirstName, final String studentLastName, final int enrolmentNumber) {
+    	ParameterTester.testStringNotNullAndLowercase(ErrorMessage.STUDENT_FIRSTNAME, studentFirstName);
+    	ParameterTester.testStringNotNullAndLowercase(ErrorMessage.STUDENT_LASTNAME, studentLastName);
+    	ParameterTester.testEnrolmentNumber(enrolmentNumber);
         if (existStudent(enrolmentNumber))
             throw new IllegalArgumentException("there is already a student with the given enrolment number");
-        Student entity = new Student(enrolmentNumber, firstName, lastName);
+        Student entity = new Student(enrolmentNumber, studentFirstName, studentLastName);
         students.add(entity);
         return entity;
     }
@@ -132,20 +145,14 @@ public class PortalService implements IPortalService {
     }
     
     @Override
-    public Professor getProfessor(final String firstName, 
-            final String lastName, final Chair chair) {
-    	if (firstName == null)
-            throw new IllegalArgumentException("the given first name is null");
-    	if (!firstName.matches("\\p{javaLowerCase}*"))
-    		throw new IllegalArgumentException("first name given isnt made only of lowercase letters");
-    	if (lastName == null)
-            throw new IllegalArgumentException("the given last name is null");
-    	if (!lastName.matches("\\p{javaLowerCase}*"))
-    		throw new IllegalArgumentException("last name given isnt made only of lowercase letters");
+    public Professor getProfessor(final String professorFirstName, 
+            final String professorLastName, final Chair chair) {
+    	ParameterTester.testStringNotNullAndLowercase(ErrorMessage.PROFESSOR_FIRSTNAME, professorFirstName);
+    	ParameterTester.testStringNotNullAndLowercase(ErrorMessage.PROFESSOR_LASTNAME, professorLastName);
         try {
             Optional<Professor> result = professors.stream()
-                    .filter(x-> x.getFirstName().equals(firstName)
-                            && x.getLastName().equals(lastName)
+                    .filter(x-> x.getFirstName().equals(professorFirstName)
+                            && x.getLastName().equals(professorLastName)
                             && x.getChair().equals(chair))
                     .findFirst();
             return result.get();
@@ -155,37 +162,31 @@ public class PortalService implements IPortalService {
     }
     
     @Override
-    public boolean existProfessor(final String firstName, 
-            final String lastName, final String chairName) {
-    	if (chairName == null)
-            throw new IllegalArgumentException("the given chair name is null");
-        if (!chairName.matches("\\p{javaLowerCase}*"))
-            throw new IllegalArgumentException("the given chair name isnt only lowercase letters");
-        if (firstName == null)
-            throw new IllegalArgumentException("the given first name is null");
-        if (!firstName.matches("\\p{javaLowerCase}*"))
-            throw new IllegalArgumentException("the given first name isnt only lowercase letters");
-        if (lastName == null)
-            throw new IllegalArgumentException("the given last name is null");
-        if (!lastName.matches("\\p{javaLowerCase}*"))
-            throw new IllegalArgumentException("the given last name isnt only lowercase letters");
+    public boolean existProfessor(final String professorFirstName, 
+            final String professorLastName, final String chairName) {
+    	ParameterTester.testStringNotNullAndLowercase(ErrorMessage.PROFESSOR_FIRSTNAME, professorFirstName);
+    	ParameterTester.testStringNotNullAndLowercase(ErrorMessage.PROFESSOR_LASTNAME, professorLastName);
+    	ParameterTester.testStringNotNullAndLowercase(ErrorMessage.CHAIR_NAME, chairName);
         Chair chair = getChair(chairName);
         Optional<Professor> result = professors.stream()
-                .filter(x-> x.getFirstName().equals(firstName)
-                        && x.getLastName().equals(lastName)
+                .filter(x-> x.getFirstName().equals(professorFirstName)
+                        && x.getLastName().equals(professorLastName)
                         && x.getChair().equals(chair))
                 .findFirst();        
         return result.isPresent();
     }
 
     @Override
-    public Professor addProfesor(String firstName, String lastName, String chairName) {
+    public Professor addProfesor(final String professorFirstName, final String professorLastName, final String chairName) {
+    	ParameterTester.testStringNotNullAndLowercase(ErrorMessage.PROFESSOR_FIRSTNAME, professorFirstName);
+    	ParameterTester.testStringNotNullAndLowercase(ErrorMessage.PROFESSOR_LASTNAME, professorLastName);
+    	ParameterTester.testStringNotNullAndLowercase(ErrorMessage.CHAIR_NAME, chairName);
         //TODO optimize chair reference
         if (!existChair(chairName))
             addChair(chairName);
-        if (existProfessor(firstName, lastName, chairName))
+        if (existProfessor(professorFirstName, professorLastName, chairName))
             throw new IllegalArgumentException("there is already a professor with the given values");
-        Professor entity = new Professor(getChair(chairName), firstName, lastName);
+        Professor entity = new Professor(getChair(chairName), professorFirstName, professorLastName);
         professors.add(entity);
         return entity;
     }
@@ -203,7 +204,7 @@ public class PortalService implements IPortalService {
     }
     
     @Override
-    public ExaminationMark addMark(Lecture lecture, Student student, double mark) {
+    public ExaminationMark addMark(final Lecture lecture, final Student student, final double mark) {
         if (existMark(lecture, student))
             throw new IllegalArgumentException("there is already a mark for the given "
                     + "lecture assigned to the given student");
@@ -223,10 +224,7 @@ public class PortalService implements IPortalService {
 
     @Override
     public Chair getChair(final String chairName) {
-        if (chairName == null)
-            throw new IllegalArgumentException("the given chair name is null");
-        if (!chairName.matches("\\p{javaLowerCase}*"))
-            throw new IllegalArgumentException("the given chair name isnt only lowercase letters");
+        ParameterTester.testStringNotNullAndLowercase(ErrorMessage.CHAIR_NAME, chairName);
         try {
             Optional<Chair> result = chairs.stream()
                     .filter(x-> x.getName().equals(chairName))
@@ -238,11 +236,8 @@ public class PortalService implements IPortalService {
     }
     
     @Override
-    public boolean existChair(String chairName) {
-    	if (chairName == null)
-            throw new IllegalArgumentException("the given chair name is null");
-        if (!chairName.matches("\\p{javaLowerCase}*"))
-            throw new IllegalArgumentException("the given chair name isnt only lowercase letters");
+    public boolean existChair(final String chairName) {
+    	ParameterTester.testStringNotNullAndLowercase(ErrorMessage.CHAIR_NAME, chairName);
         Optional<Chair> result = chairs.stream()
                 .filter(x-> x.getName().equals(chairName))
                 .findFirst();        
@@ -250,13 +245,12 @@ public class PortalService implements IPortalService {
     }
 
 	@Override
-	public Chair addChair(String name) {
-		if (name == null)
-            throw new IllegalArgumentException("the given chair name is null");
-        if (!name.matches("\\p{javaLowerCase}*"))
-            throw new IllegalArgumentException("the given chair name isnt only lowercase letters");
-		Chair entity = new Chair(name);
+	public Chair addChair(String chairName) {
+		ParameterTester.testStringNotNullAndLowercase(ErrorMessage.CHAIR_NAME, chairName);
+		Chair entity = new Chair(chairName);
 		chairs.add(entity);
 		return entity;
-	}  
+	}
+
+	 
 }

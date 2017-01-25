@@ -67,6 +67,8 @@ public interface IPortalService {
      * @param enrolmentNumber TODO add doc
      * @return TODO add doc
      */
+    Student getStudent(String firstName, String lastName, int enrolmentNumber);
+    
     Student getStudent(int enrolmentNumber);
     
     /**

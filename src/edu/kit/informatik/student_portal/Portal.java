@@ -161,7 +161,7 @@ public final class Portal {
     }
     
     private void summaryStudent(final String[] input) {
-        Student stu = portalService.getStudent(Integer.parseInt(input[2]));
+        Student stu = portalService.getStudent(input[0], input[1], Integer.parseInt(input[2]));
         
         for (ExaminationMark mark : stu.getMarks()) {
             Terminal.printLine(mark.infoLecture());
