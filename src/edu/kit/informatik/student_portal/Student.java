@@ -20,8 +20,8 @@ public final class Student extends User implements ICanEqual {
      */
     public Student(final int enrolmentNumber, 
             final String firstName, final String lastName) {
-        super(TestUtility.testStringNotNullAndLowercase(ErrorMessage.STUDENT_FIRSTNAME, firstName), 
-                TestUtility.testStringNotNullAndLowercase(ErrorMessage.STUDENT_LASTNAME, lastName));
+        super(TestUtility.testStringLowerCaseNotNull(ErrorMessage.STUDENT_FIRSTNAME, firstName), 
+                TestUtility.testStringLowerCaseNotNull(ErrorMessage.STUDENT_LASTNAME, lastName));
         this.enrolmentNumber = TestUtility.testValidEnrolmentNumber(enrolmentNumber);
         marks = new HashSet<ExaminationMark>();
     }

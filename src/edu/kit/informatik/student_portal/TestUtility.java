@@ -12,7 +12,7 @@ public class TestUtility {
      * @param input TODO add doc
      * @return TODO add doc
      */
-    public static String testStringNotNullAndLowercase(final ErrorMessage message, 
+    public static String testStringLowerCaseNotNull(final ErrorMessage message, 
             final String input) {
         if (input == null)
             throw new IllegalArgumentException(message.getNullErrorMessage());

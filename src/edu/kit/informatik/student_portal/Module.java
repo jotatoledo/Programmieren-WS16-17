@@ -18,7 +18,7 @@ public final class Module extends Course implements ICanEqual {
      * @param name TODO add doc
      */
     public Module(final String name) {
-        super(TestUtility.testStringNotNullAndLowercase(ErrorMessage.MODULE_NAME, name));
+        super(TestUtility.testStringLowerCaseNotNull(ErrorMessage.MODULE_NAME, name));
         lectures = new TreeSet<Lecture>();
     }
 

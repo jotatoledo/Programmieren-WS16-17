@@ -23,8 +23,8 @@ public final class Professor extends User implements ICanEqual {
      */
     public Professor(final Chair chair, final String firstName, 
             final String lastName) {
-        super(TestUtility.testStringNotNullAndLowercase(ErrorMessage.PROFESSOR_FIRSTNAME, firstName), 
-                TestUtility.testStringNotNullAndLowercase(ErrorMessage.PROFESSOR_LASTNAME, lastName));    
+        super(TestUtility.testStringLowerCaseNotNull(ErrorMessage.PROFESSOR_FIRSTNAME, firstName), 
+                TestUtility.testStringLowerCaseNotNull(ErrorMessage.PROFESSOR_LASTNAME, lastName));    
         this.chair = chair;
         chair.addProfessor(this);
         lectures = new TreeSet<Lecture>();        

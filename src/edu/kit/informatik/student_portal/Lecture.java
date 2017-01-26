@@ -23,7 +23,7 @@ public final class Lecture extends Course implements ICanEqual {
     public Lecture(final Professor professor, final Module module, 
             final int credits, final String name) {
         super(TestUtility.testValidCredits(credits), 
-                TestUtility.testStringNotNullAndLowercase(ErrorMessage.LECTURE_NAME, name));
+                TestUtility.testStringLowerCaseNotNull(ErrorMessage.LECTURE_NAME, name));
         this.professor = professor;
         professor.addLecture(this);
         this.module = module; 
