@@ -79,8 +79,38 @@ public final class Module extends Course implements ICanEqual {
      * @return TODO add doc
      */
     public String average() {
-        //TODO implement
-        return "none";
+        if (lectures.size() == 0 || lecturesWithNotes() == 0)
+            return "none";
+        return Double.toString(numericAverage());
+    }
+    
+    /**
+     * TODO add doc
+     * @return TODO add doc
+     */
+    public double numericAverage() {
+        //TODO aufrunden auf 2 Komma
+        if (lectures.size() == 0 || lecturesWithNotes() == 0)
+            return 0.0;
+        int countMarks = 0;
+        double acummAggregatedMarks = 0.0;
+        for (Lecture lec : lectures) {
+            if (lec.numberMarks() == 0)
+                continue;
+            countMarks += lec.numberMarks();
+            acummAggregatedMarks += lec.numberMarks() * lec.totalMarks();
+        }
+        return acummAggregatedMarks / countMarks;
+    }
+    
+    /**
+     * TODO add doc
+     * @return TODO add doc
+     */
+    public long lecturesWithNotes() {
+        return lectures.stream()
+                .filter(x-> x.numberMarks() != 0)
+                .count();
     }
     
     /**

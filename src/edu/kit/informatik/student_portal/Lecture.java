@@ -96,12 +96,9 @@ public final class Lecture extends Course implements ICanEqual {
      * @return TODO add doc
      */
     public String average() {
-        //TODO round
         if (marks.size() == 0)
             return "none";
-       return Double.toString(marks.stream()
-               .mapToDouble(x->x.getMark())
-               .reduce(0, (a, b) -> a + b));
+        return Double.toString(numericAverage());
     }
     
     /**
@@ -112,5 +109,36 @@ public final class Lecture extends Course implements ICanEqual {
         return marks.stream()
                 .sorted((m1, m2) -> Integer.compare(m1.getStudentEnrolmentNumber(), m2.getStudentEnrolmentNumber()))
                 .toArray(size -> new ExaminationMark[size]);
+    }
+    
+    /**
+     * TODO add doc 
+     * @return TODO add doc
+     */
+    public int numberMarks() {
+        return marks.size();
+    }
+    
+    /**
+     * TODO Add doc
+     * @return Add doc
+     */
+    public double numericAverage() {
+        //TODO round
+        if (marks.size() == 0)
+            return 0;
+        return totalMarks() / marks.size();
+    }
+    
+    /**
+     * TODO add doc
+     * @return TODO add doc
+     */
+    public double totalMarks() {
+        if (marks.size() == 0)
+            return 0;
+        return marks.stream()
+            .mapToDouble(x->x.getMark())
+            .reduce(0, (a, b) -> a + b);
     }
 }

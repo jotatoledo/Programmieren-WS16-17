@@ -16,7 +16,7 @@ public abstract class Course implements Comparable<Course>, ICanEqual {
      * @param credits TODO add doc
      * @param name TODO add doc
      */
-    public Course(final int credits, 
+    protected Course(final int credits, 
             final String name) {
         this(name);
         TestUtility.testValidCredits(credits);
