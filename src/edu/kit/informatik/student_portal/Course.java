@@ -27,7 +27,7 @@ public abstract class Course implements Comparable<Course>, ICanEqual {
      * TODO add doc
      * @param name TODO add doc
      */
-    public Course(final String name) {
+    protected Course(final String name) {
         this.name = name;
         id = instanceCounter++;
     }

@@ -17,10 +17,6 @@ public abstract class User implements Comparable<User>, ICanEqual {
      * @param lastName TODO add doc
      */
     protected User(final String firstName, final String lastName) {
-//        if (!firstName.matches("\\p{javaLowerCase}*"))
-//            throw new IllegalArgumentException("first name istn made only of lower cases");   
-//        if (!lastName.matches("\\p{javaLowerCase}*"))
-//            throw new IllegalArgumentException("lastname isnt made only of lower cases");
         this.firstName = firstName;
         this.lastName = lastName;
     }
