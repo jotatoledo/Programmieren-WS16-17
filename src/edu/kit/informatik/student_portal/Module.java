@@ -71,7 +71,6 @@ public final class Module extends Course implements ICanEqual {
         if ((totalCredits() + lecture.getCredits()) > 45)
             throw new IllegalArgumentException("cant exceed 45 credits on the module");
         if (!lectures.add(lecture))
-            //TODO add exception text
             throw new IllegalArgumentException("lecture wasnt added to the module");
     }
     

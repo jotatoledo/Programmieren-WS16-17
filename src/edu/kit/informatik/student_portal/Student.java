@@ -90,6 +90,7 @@ public final class Student extends User implements ICanEqual {
      * @return TODO add doc
      */
     public String average() {
+        //TODO implement
         return "none";
     }
     
