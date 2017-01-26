@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 /**
  * TODO add doc
@@ -26,7 +27,7 @@ public final class Professor extends User implements ICanEqual {
         super(TestUtility.testStringLowerCaseNotNull(ErrorMessage.PROFESSOR_FIRSTNAME, firstName), 
                 TestUtility.testStringLowerCaseNotNull(ErrorMessage.PROFESSOR_LASTNAME, lastName));    
         this.chair = chair;
-        chair.addProfessor(this);
+        this.chair.addProfessor(this);
         lectures = new TreeSet<Lecture>();        
     }
 
@@ -72,7 +73,7 @@ public final class Professor extends User implements ICanEqual {
         return chair.getName().concat(" ")
         .concat(getFirstName()).concat(" ")
         .concat(getLastName().concat(" ")
-        .concat(average()));
+        .concat(stringAverage()));
     }
     
     /**
@@ -96,15 +97,45 @@ public final class Professor extends User implements ICanEqual {
      * TODO add doc
      * @return TODO add doc
      */
-    public String average() {
-        //TODO implement
-        if (lectures.size() == 0)
+    public String stringAverage() {
+        if (lectures.size() == 0 || lecturesWithMarks().size() == 0)
             return "none";
-        
-        return "none";
+        return Double.toString(numericAverage());
     }
     
-    private int totalCredits() {
+    /**
+     * TODO add doc
+     * @return TODO add doc
+     */
+    public double numericAverage() {
+        //TODO aufrunden
+        if (lectures.size() == 0 || lecturesWithMarks().size() == 0)
+            //no lectures assigned or no lectures with marks
+            return 0.0;
+        int countCredtis = 0;
+        double accumWeigtedAverage = 0.0;
+        for (Lecture lect : lecturesWithMarks()) {
+            countCredtis += lect.getCredits();
+            accumWeigtedAverage += lect.getWeightedAverage();
+        }
+        return accumWeigtedAverage / countCredtis;
+    }
+    
+    /**
+     * Gets the lectures with at least one mark assigned
+     * @return TODO add doc
+     */
+    public Collection<Lecture> lecturesWithMarks() {
+        return lectures.stream()
+                .filter(lect->lect.numberMarks() != 0)
+                .collect(Collectors.toList());
+    }
+    
+    /**
+     * TODO add doc
+     * @return TODO add doc
+     */
+    public int totalCredits() {
         return lectures.stream()
                 .mapToInt(x->x.getCredits())
                 .reduce(0, (a, b) -> a + b);

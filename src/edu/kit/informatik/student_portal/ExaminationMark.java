@@ -3,7 +3,7 @@ package edu.kit.informatik.student_portal;
 import java.util.Objects;
 
 /**
- * TODO add doc
+ * Represents a mark associated to a lecture and a student in the portal system
  * @author JoseNote
  * @version 1.00
  */
@@ -54,7 +54,7 @@ public final class ExaminationMark implements Comparable<ExaminationMark> {
     public String infoLecture() {
         return Integer.toString(lecture.getId()).concat(" ")
                 .concat(lecture.getName()).concat(" ")
-                .concat(student.average());
+                .concat(student.stringAverage());
     }
 
     /**
@@ -101,5 +101,31 @@ public final class ExaminationMark implements Comparable<ExaminationMark> {
      */
     public int getStudentEnrolmentNumber() {
         return student.getEnrolmentNumber();
+    }
+    
+    /**
+     * Forward method for get lecture module
+     * @return TODO add doc
+     */
+    public Module getLectureModule() {
+        return lecture.getModule();
+    }
+    
+    /**
+     * Gets the weighted mark
+     * @return TODO add doc
+     */
+    public double getWeightedMark() {
+        //TODO aufrunden
+        return mark * lecture.getCredits();
+    }
+    
+    /**
+     * TODO add doc
+     * @param student TODO add doc
+     * @return TODO add doc
+     */
+    public boolean matchStudent(final Student student) {
+        return this.student.equals(student);
     }
 }

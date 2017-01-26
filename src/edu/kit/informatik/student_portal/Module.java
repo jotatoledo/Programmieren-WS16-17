@@ -6,9 +6,9 @@ import java.util.Set;
 import java.util.TreeSet;
 
 /**
- * TODO add doc
+ * Represents a module on the portal system
  * @author JoseNote
- * @version
+ * @version 1.00
  */
 public final class Module extends Course implements ICanEqual {
     private final Set<Lecture> lectures;
@@ -60,7 +60,7 @@ public final class Module extends Course implements ICanEqual {
         return Integer.toString(getId()).concat(" ")
                 .concat(getName()).concat(" ")
                 .concat(Integer.toString(totalCredits())).concat(" ")
-                .concat(average());
+                .concat(stringAverage());
     }
     
     /**
@@ -71,7 +71,6 @@ public final class Module extends Course implements ICanEqual {
         if ((totalCredits() + lecture.getCredits()) > 45)
             throw new IllegalArgumentException("cant exceed 45 credits on the module");
         if (!lectures.add(lecture))
-            //TODO add exception text
             throw new IllegalArgumentException("lecture wasnt added to the module");
     }
     
@@ -79,9 +78,39 @@ public final class Module extends Course implements ICanEqual {
      * TODO add doc
      * @return TODO add doc
      */
-    public String average() {
-        //TODO implement
-        return "none";
+    public String stringAverage() {
+        if (lectures.size() == 0 || lecturesWithNotes() == 0)
+            return "none";
+        return Double.toString(numericAverage());
+    }
+    
+    /**
+     * TODO add doc
+     * @return TODO add doc
+     */
+    private double numericAverage() {
+        //TODO aufrunden auf 2 Komma
+        if (lectures.size() == 0 || lecturesWithNotes() == 0)
+            return 0.0;
+        int countMarks = 0;
+        double acummAggregatedMarks = 0.0;
+        for (Lecture lec : lectures) {
+            if (lec.numberMarks() == 0)
+                continue;
+            countMarks += lec.numberMarks();
+            acummAggregatedMarks += lec.numberMarks() * lec.totalMarks();
+        }
+        return acummAggregatedMarks / countMarks;
+    }
+    
+    /**
+     * TODO add doc
+     * @return TODO add doc
+     */
+    public long lecturesWithNotes() {
+        return lectures.stream()
+                .filter(x-> x.numberMarks() != 0)
+                .count();
     }
     
     /**
@@ -100,5 +129,13 @@ public final class Module extends Course implements ICanEqual {
      */
     public Collection<Lecture> getLectures() {
         return Collections.unmodifiableCollection(lectures);
+    }
+    
+    public double getWeightedLecturesAverage(final Student student) {
+        return 0.0;
+//        return lectures.stream()
+//                .filter(l->l.getMarks().)
+//                .mapToInt(x->x.get())
+//                .reduce(0, (a, b) -> a + b);
     }
 }

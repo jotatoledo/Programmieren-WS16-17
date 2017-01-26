@@ -73,7 +73,10 @@ public final class Portal {
                 Terminal.printError(e1.getMessage());
             } catch (IndexOutOfBoundsException e2) {
                 Terminal.printError("wrong number of parameters");
-            }            
+            } catch (NullPointerException e3) {
+                Terminal.printError("null reference error");
+                Terminal.printError(e3.getMessage());
+            }
         } while(true);
     }
 

@@ -22,6 +22,7 @@ This repository uses:
 * Second assignment : [Calendar functions](https://github.com/jotatoledo/Programmieren-WS16-17/blob/master/assignment02.pdf)
 * Third assignment (Expanded to allow surfaces of different sizes) : [Tessellation](https://github.com/jotatoledo/Programmieren-WS16-17/blob/master/assignment03.pdf)
 * Fourth assignment : [Various](https://github.com/jotatoledo/Programmieren-WS16-17/blob/master/assignment04.pdf)
+* Fifth assignment : [Studenten portal](https://github.com/jotatoledo/Programmieren-WS16-17/blob/master/assignment05.pdf)
 
 **[Back to top](#table-of-contents)**
 

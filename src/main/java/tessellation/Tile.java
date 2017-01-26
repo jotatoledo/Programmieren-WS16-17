@@ -16,17 +16,6 @@ public class Tile {
      * Represents the codification of the connection lines in the tile
      */
     private LineType[] lineTypes;
-
-    protected LineType[] getLineTypes() {
-        return lineTypes;
-    }
-
-    protected void setLineTypes(LineType[] lineTypes) {
-        for (int i = 0; i < NUMBER_SIDES; i++) {
-            this.lineTypes[i] = lineTypes[i];
-        }
-    }
-
     //region A.2
     //==================================================================================================================
 
@@ -323,10 +312,8 @@ public class Tile {
     }
 
     //A.2.14
-    /**
-     * Returns the text representation of the tile.<br>
-     * The text representations of the colors in the codification array of the sides of the tile will be concatenated
-     */
+    
+    @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
 
@@ -339,6 +326,24 @@ public class Tile {
     //==================================================================================================================
     //endregion A.2
 
+    /**
+     * Getter for linetypes
+     * @return The value of linetypes
+     */
+    protected LineType[] getLineTypes() {
+        return lineTypes;
+    }
+
+    /**
+     * Setter for linestypes
+     * @param lineTypes The new values for linetypes
+     */
+    protected void setLineTypes(LineType[] lineTypes) {
+        for (int i = 0; i < NUMBER_SIDES; i++) {
+            this.lineTypes[i] = lineTypes[i];
+        }
+    }
+    
     //region A.3
 
     //A.3.1

@@ -1,7 +1,7 @@
 package edu.kit.informatik.student_portal;
 
 /**
- * TODO add doc
+ * Encapsulates the testing and parsing of multiple parameters
  * @author s_toledonavarro
  * @version 1.00
  */
