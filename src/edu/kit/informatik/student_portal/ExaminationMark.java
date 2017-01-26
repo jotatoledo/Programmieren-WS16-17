@@ -11,7 +11,7 @@ public final class ExaminationMark implements Comparable<ExaminationMark> {
     private final Lecture lecture;
     private final Student student;
     private final double mark;
-    
+
     /**
      * Creates a new instance
      * @param lecture TODO add doc
@@ -20,7 +20,7 @@ public final class ExaminationMark implements Comparable<ExaminationMark> {
      */
     public ExaminationMark(final Lecture lecture, final Student student, 
             final double mark) {
-    	ValueTester.testValidMark(mark);
+        ValueTester.testValidMark(mark);
         this.student = student;
         this.lecture = lecture;        
         this.mark = mark;
@@ -46,7 +46,7 @@ public final class ExaminationMark implements Comparable<ExaminationMark> {
         return obj instanceof ExaminationMark
                 && compareTo((ExaminationMark) obj) == 0;
     }
-    
+
     /**
      * TODO add doc
      * @return TODO add doc
@@ -56,7 +56,7 @@ public final class ExaminationMark implements Comparable<ExaminationMark> {
                 .concat(lecture.getName()).concat(" ")
                 .concat(student.average());
     }
-    
+
     /**
      * TODO add doc
      * @return TODO add doc
@@ -67,7 +67,7 @@ public final class ExaminationMark implements Comparable<ExaminationMark> {
                 .concat(student.getLastName()).concat(" ")
                 .concat(Double.toString(mark));
     }
-    
+
     /**
      * TODO add doc
      * @param lecture TODO add doc
@@ -86,7 +86,7 @@ public final class ExaminationMark implements Comparable<ExaminationMark> {
     public double getMark() {
         return mark;
     }
-    
+
     /**
      * TODO add doc
      * @return TODO add doc
@@ -94,7 +94,7 @@ public final class ExaminationMark implements Comparable<ExaminationMark> {
     public int getLectureId() {
         return lecture.getId();
     }
-    
+
     /**
      * TODO add doc
      * @return TODO add doc

@@ -9,8 +9,8 @@ package edu.kit.informatik.student_portal;
 public interface ICanEqual {
     /**
      * Support method for equality
-     * @param obj TODO
-     * @return TODO
+     * @param obj TODO add doc
+     * @return TODO add doc
      */
     boolean canEqual(Object obj);
 }

@@ -12,10 +12,9 @@ public class User implements Comparable<User>, ICanEqual {
     private final String lastName;
     
     /**
-     * TODO
-     * @param firstName TODO
-     * @param lastName TODO
-     * @throws IllegalArgumentException 
+     * TODO add doc
+     * @param firstName TODO add doc
+     * @param lastName TODO add doc
      */
     public User(final String firstName, final String lastName) {
         if (!firstName.matches("\\p{javaLowerCase}*"))
@@ -37,23 +36,7 @@ public class User implements Comparable<User>, ICanEqual {
                 && ((User) obj).canEqual(this) 
                 && compareTo((User) obj) == 0;
     }
-
-    /**
-     * TODO
-     * @return TODO
-     */
-    public String getFirstName() {
-        return firstName;
-    }
-
-    /**
-     * TODO
-     * @return TODO
-     */
-    public String getLastName() {
-        return lastName;
-    }
-
+    
     @Override
     public int compareTo(User o) {
         //TODO null safe
@@ -64,5 +47,21 @@ public class User implements Comparable<User>, ICanEqual {
     @Override
     public boolean canEqual(Object obj) {
         return obj instanceof User;
+    }
+    
+    /**
+     * TODO add doc
+     * @return TODO add doc
+     */
+    public String getFirstName() {
+        return firstName;
+    }
+
+    /**
+     * TODO add doc
+     * @return TODO add doc
+     */
+    public String getLastName() {
+        return lastName;
     }
 }

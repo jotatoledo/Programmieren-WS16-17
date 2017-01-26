@@ -66,6 +66,14 @@ public final class Professor extends User implements ICanEqual {
         return obj instanceof Professor;
     }
     
+    @Override
+    public String toString() {
+        return chair.getName().concat(" ")
+        .concat(getFirstName()).concat(" ")
+        .concat(getLastName().concat(" ")
+        .concat(average()));
+    }
+    
     /**
      * TODO add doc
      * @return TODO add doc
