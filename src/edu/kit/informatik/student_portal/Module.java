@@ -6,9 +6,9 @@ import java.util.Set;
 import java.util.TreeSet;
 
 /**
- * TODO add doc
+ * Represents a module on the portal system
  * @author JoseNote
- * @version
+ * @version 1.00
  */
 public final class Module extends Course implements ICanEqual {
     private final Set<Lecture> lectures;
@@ -88,7 +88,7 @@ public final class Module extends Course implements ICanEqual {
      * TODO add doc
      * @return TODO add doc
      */
-    public double numericAverage() {
+    private double numericAverage() {
         //TODO aufrunden auf 2 Komma
         if (lectures.size() == 0 || lecturesWithNotes() == 0)
             return 0.0;
@@ -129,5 +129,13 @@ public final class Module extends Course implements ICanEqual {
      */
     public Collection<Lecture> getLectures() {
         return Collections.unmodifiableCollection(lectures);
+    }
+    
+    public double getWeightedLecturesAverage(final Student student) {
+        return 0.0;
+//        return lectures.stream()
+//                .filter(l->l.getMarks().)
+//                .mapToInt(x->x.get())
+//                .reduce(0, (a, b) -> a + b);
     }
 }

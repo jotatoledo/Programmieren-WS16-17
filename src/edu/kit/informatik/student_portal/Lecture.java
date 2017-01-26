@@ -25,9 +25,9 @@ public final class Lecture extends Course implements ICanEqual {
         super(TestUtility.testValidCredits(credits), 
                 TestUtility.testStringLowerCaseNotNull(ErrorMessage.LECTURE_NAME, name));
         this.professor = professor;
-        professor.addLecture(this);
+        this.professor.addLecture(this);
         this.module = module; 
-        module.addLecture(this);
+        this.module.addLecture(this);
         marks = new HashSet<ExaminationMark>();
     }
 
@@ -141,4 +141,27 @@ public final class Lecture extends Course implements ICanEqual {
             .mapToDouble(x->x.getMark())
             .reduce(0, (a, b) -> a + b);
     }
+
+    /**
+     * TODO add doc
+     * @return TODO add doc
+     */
+    public Module getModule() {
+        return module;
+    }
+    
+    
+    /**
+     * Gets the average of this lecture multiplied by its credits
+     * @return TODO add doc
+     */
+    public double getWeightedAverage() {
+        return getCredits() * numericAverage();
+    }
+    
+//    public double getWeightedMarkForStudent(final Student student){
+//        return marks.stream()
+//                .filter(x-> x.matchStudent(student))
+//                .map(x->x.getWeightedMark())
+//    }
 }

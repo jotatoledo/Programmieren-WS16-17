@@ -1,7 +1,9 @@
 package edu.kit.informatik.student_portal;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * TODO add doc
@@ -65,7 +67,7 @@ public final class Student extends User implements ICanEqual {
         return Integer.toString(enrolmentNumber).concat(" ")
                 .concat(getFirstName()).concat(" ")
                 .concat(getLastName()).concat(" ")
-                .concat(average());
+                .concat(stringAverage());
     }
     
     /**
@@ -89,9 +91,20 @@ public final class Student extends User implements ICanEqual {
      * TODO add doc
      * @return TODO add doc
      */
-    public String average() {
-        //TODO implement
-        return "none";
+    public String stringAverage() {
+        if (marks.size() == 0)
+            return "none";
+        return Double.toString(numericAverage());
+    }
+    
+    /**
+     * TODO add doc
+     * @return TODO add doc
+     */
+    private double numericAverage() {
+        if (marks.size() == 0)
+            return 0.0;
+        return 0.0;
     }
     
     /**
@@ -102,5 +115,16 @@ public final class Student extends User implements ICanEqual {
         return marks.stream()
                 .sorted((m1, m2) -> Integer.compare(m1.getLectureId(), m2.getLectureId()))
                 .toArray(size -> new ExaminationMark[size]);
+    }
+    
+    /**
+     * Gets the different modules with at least one note for this object
+     * @return TODO add doc
+     */
+    public Collection<Module> getModules() {
+        return  marks.stream()
+                .map(x->x.getLectureModule())
+                .distinct()
+                .collect(Collectors.toList());    
     }
 }
