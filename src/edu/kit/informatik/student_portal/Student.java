@@ -20,10 +20,9 @@ public final class Student extends User implements ICanEqual {
      */
     public Student(final int enrolmentNumber, 
             final String firstName, final String lastName) {
-        super(firstName, lastName);
-        if (enrolmentNumber < 100000 || enrolmentNumber > 999999)
-            throw new IllegalArgumentException("Invalid enrolment number");
-        this.enrolmentNumber = enrolmentNumber;
+        super(TestUtility.testStringNotNullAndLowercase(ErrorMessage.STUDENT_FIRSTNAME, firstName), 
+                TestUtility.testStringNotNullAndLowercase(ErrorMessage.STUDENT_LASTNAME, lastName));
+        this.enrolmentNumber = TestUtility.testValidEnrolmentNumber(enrolmentNumber);
         marks = new HashSet<ExaminationMark>();
     }
 

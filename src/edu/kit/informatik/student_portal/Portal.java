@@ -84,8 +84,8 @@ public final class Portal {
     }
     
     private void addLecture(final String[] input) {
-        portalService.addLecture(input[0], ValueTester.parseModuleId(input[1]), 
-                input[2], input[3], input[4], ValueTester.parseCredits(input[5]));
+        portalService.addLecture(input[0], TestUtility.parseModuleId(input[1]), 
+                input[2], input[3], input[4], TestUtility.parseCredits(input[5]));
         
     }
     
@@ -96,7 +96,7 @@ public final class Portal {
     }
 
     private void summaryLecture(final String[] input) {
-        Lecture lec = portalService.getLecture(ValueTester.parseLectureId(input[0]));
+        Lecture lec = portalService.getLecture(TestUtility.parseLectureId(input[0]));
         
         for (ExaminationMark mark : lec.getMarks()) {
             Terminal.printLine(mark.infoStudent());
@@ -123,7 +123,7 @@ public final class Portal {
     
     private void addStudent(final String[] input) {
         portalService.addStudent(input[0], input[1], 
-                ValueTester.parseEnrolmentNumber(input[2]));        
+                TestUtility.parseEnrolmentNumber(input[2]));        
     }
     
     private void listStudent() {
@@ -134,7 +134,7 @@ public final class Portal {
     
     private void summaryStudent(final String[] input) {
         Student stu = portalService.getStudent(input[0], input[1], 
-                ValueTester.parseEnrolmentNumber(input[2]));
+                TestUtility.parseEnrolmentNumber(input[2]));
         
         for (ExaminationMark mark : stu.getMarks()) {
             Terminal.printLine(mark.infoLecture());
@@ -154,7 +154,7 @@ public final class Portal {
     
     private void summaryModule(final String[] input) {
       //TODO refactor to use a single string input?
-        Module mod = portalService.getModule(ValueTester.parseModuleId(input[0]));
+        Module mod = portalService.getModule(TestUtility.parseModuleId(input[0]));
         
         for (Lecture lect : mod.getLectures()) {
             Terminal.printLine(lect.toString());
@@ -162,8 +162,8 @@ public final class Portal {
     }
     
     private void examinationMarking(final String[] input) {
-        portalService.addMark(ValueTester.parseLectureId(input[0]), 
-                ValueTester.parseEnrolmentNumber(input[1]), 
-                ValueTester.parseMark(input[2]));
+        portalService.addMark(TestUtility.parseLectureId(input[0]), 
+                TestUtility.parseEnrolmentNumber(input[1]), 
+                TestUtility.parseMark(input[2]));
     }
 }

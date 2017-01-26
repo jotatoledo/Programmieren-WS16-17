@@ -19,7 +19,7 @@ public abstract class Course implements Comparable<Course>, ICanEqual {
     public Course(final int credits, 
             final String name) {
         this(name);
-        ValueTester.testValidCredits(credits);
+        TestUtility.testValidCredits(credits);
         this.credits = credits;
     }
 

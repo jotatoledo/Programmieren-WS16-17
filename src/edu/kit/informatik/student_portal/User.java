@@ -7,7 +7,7 @@ import java.util.Objects;
  * @author JoseNote
  * @version 1.00
  */
-public class User implements Comparable<User>, ICanEqual {
+public abstract class User implements Comparable<User>, ICanEqual {
     private final String firstName;
     private final String lastName;
     
@@ -17,10 +17,10 @@ public class User implements Comparable<User>, ICanEqual {
      * @param lastName TODO add doc
      */
     public User(final String firstName, final String lastName) {
-        if (!firstName.matches("\\p{javaLowerCase}*"))
-            throw new IllegalArgumentException("first name istn made only of lower cases");   
-        if (!lastName.matches("\\p{javaLowerCase}*"))
-            throw new IllegalArgumentException("lastname isnt made only of lower cases");
+//        if (!firstName.matches("\\p{javaLowerCase}*"))
+//            throw new IllegalArgumentException("first name istn made only of lower cases");   
+//        if (!lastName.matches("\\p{javaLowerCase}*"))
+//            throw new IllegalArgumentException("lastname isnt made only of lower cases");
         this.firstName = firstName;
         this.lastName = lastName;
     }

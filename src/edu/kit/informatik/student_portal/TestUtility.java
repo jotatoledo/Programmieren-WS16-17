@@ -5,7 +5,7 @@ package edu.kit.informatik.student_portal;
  * @author s_toledonavarro
  * @version 1.00
  */
-public class ValueTester {
+public class TestUtility {
     /**
      * TODO add doc
      * @param message TODO add doc

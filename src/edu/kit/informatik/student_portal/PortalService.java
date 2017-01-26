@@ -39,7 +39,7 @@ public class PortalService implements IPortalService {
 
     @Override
     public Lecture getLecture(final int lectureId) {
-        ValueTester.testValidLectureId(lectureId);
+        TestUtility.testValidLectureId(lectureId);
         
         try {
             Optional<Lecture> result = lectures.stream()
@@ -55,12 +55,12 @@ public class PortalService implements IPortalService {
     public Lecture addLecture(final String lectureName, final int moduleId, 
             final String professorFirstName, final String professorLastName,
             final String chairName, final int lectureCredits) {
-        ValueTester.testStringNotNullAndLowercase(ErrorMessage.LECTURE_NAME, lectureName);
-        ValueTester.testValidModuleId(moduleId);
-        ValueTester.testStringNotNullAndLowercase(ErrorMessage.PROFESSOR_FIRSTNAME, professorFirstName);
-        ValueTester.testStringNotNullAndLowercase(ErrorMessage.PROFESSOR_LASTNAME, professorLastName);
-        ValueTester.testStringNotNullAndLowercase(ErrorMessage.CHAIR_NAME, chairName);
-        ValueTester.testValidCredits(lectureCredits);
+        TestUtility.testStringNotNullAndLowercase(ErrorMessage.LECTURE_NAME, lectureName);
+        TestUtility.testValidModuleId(moduleId);
+        TestUtility.testStringNotNullAndLowercase(ErrorMessage.PROFESSOR_FIRSTNAME, professorFirstName);
+        TestUtility.testStringNotNullAndLowercase(ErrorMessage.PROFESSOR_LASTNAME, professorLastName);
+        TestUtility.testStringNotNullAndLowercase(ErrorMessage.CHAIR_NAME, chairName);
+        TestUtility.testValidCredits(lectureCredits);
         
         Module mod = getModule(moduleId);
         if ((mod.totalCredits() + lectureCredits) > 45)
@@ -78,7 +78,7 @@ public class PortalService implements IPortalService {
 
     @Override
     public Module getModule(final int moduleId) {
-        ValueTester.testValidModuleId(moduleId);
+        TestUtility.testValidModuleId(moduleId);
         
         try {
             Optional<Module> result = modules.stream()
@@ -92,7 +92,7 @@ public class PortalService implements IPortalService {
 
     @Override
     public Module addModule(final String moduleName) {
-        ValueTester.testStringNotNullAndLowercase(ErrorMessage.MODULE_NAME, moduleName);
+        TestUtility.testStringNotNullAndLowercase(ErrorMessage.MODULE_NAME, moduleName);
         
         Module entity = new Module(moduleName);
         modules.add(entity);
@@ -106,9 +106,9 @@ public class PortalService implements IPortalService {
 
     @Override
     public Student getStudent(final String firstName, final String lastName, final int enrolmentNumber) {
-        ValueTester.testStringNotNullAndLowercase(ErrorMessage.STUDENT_FIRSTNAME, firstName);
-        ValueTester.testStringNotNullAndLowercase(ErrorMessage.STUDENT_FIRSTNAME, lastName);
-        ValueTester.testValidEnrolmentNumber(enrolmentNumber);
+        TestUtility.testStringNotNullAndLowercase(ErrorMessage.STUDENT_FIRSTNAME, firstName);
+        TestUtility.testStringNotNullAndLowercase(ErrorMessage.STUDENT_FIRSTNAME, lastName);
+        TestUtility.testValidEnrolmentNumber(enrolmentNumber);
         
         try {
             Optional<Student> result = students.stream()
@@ -129,7 +129,7 @@ public class PortalService implements IPortalService {
 
     @Override
     public Student getStudent(final int enrolmentNumber) {
-        ValueTester.testValidEnrolmentNumber(enrolmentNumber);
+        TestUtility.testValidEnrolmentNumber(enrolmentNumber);
         
         try {
             Optional<Student> result = students.stream()
@@ -143,7 +143,7 @@ public class PortalService implements IPortalService {
 
     @Override
     public boolean existStudent(final int enrolmentNumber) {
-        ValueTester.testValidEnrolmentNumber(enrolmentNumber);
+        TestUtility.testValidEnrolmentNumber(enrolmentNumber);
         
         Optional<Student> result = students.stream()
                 .filter(x-> x.getEnrolmentNumber() == enrolmentNumber)
@@ -154,9 +154,9 @@ public class PortalService implements IPortalService {
     @Override
     public Student addStudent(final String studentFirstName, final String studentLastName, 
             final int enrolmentNumber) {
-        ValueTester.testStringNotNullAndLowercase(ErrorMessage.STUDENT_FIRSTNAME, studentFirstName);
-        ValueTester.testStringNotNullAndLowercase(ErrorMessage.STUDENT_LASTNAME, studentLastName);
-        ValueTester.testValidEnrolmentNumber(enrolmentNumber);
+        TestUtility.testStringNotNullAndLowercase(ErrorMessage.STUDENT_FIRSTNAME, studentFirstName);
+        TestUtility.testStringNotNullAndLowercase(ErrorMessage.STUDENT_LASTNAME, studentLastName);
+        TestUtility.testValidEnrolmentNumber(enrolmentNumber);
         
         if (existStudent(enrolmentNumber))
             throw new IllegalArgumentException("there is already a student with the given enrolment number");
@@ -173,9 +173,9 @@ public class PortalService implements IPortalService {
     @Override
     public Professor getProfessor(final String professorFirstName, 
             final String professorLastName, final String chairName) {
-        ValueTester.testStringNotNullAndLowercase(ErrorMessage.PROFESSOR_FIRSTNAME, professorFirstName);
-        ValueTester.testStringNotNullAndLowercase(ErrorMessage.PROFESSOR_LASTNAME, professorLastName);
-        ValueTester.testStringNotNullAndLowercase(ErrorMessage.CHAIR_NAME, chairName);
+        TestUtility.testStringNotNullAndLowercase(ErrorMessage.PROFESSOR_FIRSTNAME, professorFirstName);
+        TestUtility.testStringNotNullAndLowercase(ErrorMessage.PROFESSOR_LASTNAME, professorLastName);
+        TestUtility.testStringNotNullAndLowercase(ErrorMessage.CHAIR_NAME, chairName);
         
         try {
             Chair chair = getChair(chairName);
@@ -193,9 +193,9 @@ public class PortalService implements IPortalService {
     @Override
     public boolean existProfessor(final String professorFirstName, 
             final String professorLastName, final String chairName) {
-        ValueTester.testStringNotNullAndLowercase(ErrorMessage.PROFESSOR_FIRSTNAME, professorFirstName);
-        ValueTester.testStringNotNullAndLowercase(ErrorMessage.PROFESSOR_LASTNAME, professorLastName);
-        ValueTester.testStringNotNullAndLowercase(ErrorMessage.CHAIR_NAME, chairName);
+        TestUtility.testStringNotNullAndLowercase(ErrorMessage.PROFESSOR_FIRSTNAME, professorFirstName);
+        TestUtility.testStringNotNullAndLowercase(ErrorMessage.PROFESSOR_LASTNAME, professorLastName);
+        TestUtility.testStringNotNullAndLowercase(ErrorMessage.CHAIR_NAME, chairName);
         
         Chair chair = getChair(chairName);
         Optional<Professor> result = professors.stream()
@@ -209,9 +209,9 @@ public class PortalService implements IPortalService {
     @Override
     public Professor addProfesor(final String professorFirstName, 
             final String professorLastName, final String chairName) {
-        ValueTester.testStringNotNullAndLowercase(ErrorMessage.PROFESSOR_FIRSTNAME, professorFirstName);
-        ValueTester.testStringNotNullAndLowercase(ErrorMessage.PROFESSOR_LASTNAME, professorLastName);
-        ValueTester.testStringNotNullAndLowercase(ErrorMessage.CHAIR_NAME, chairName);
+        TestUtility.testStringNotNullAndLowercase(ErrorMessage.PROFESSOR_FIRSTNAME, professorFirstName);
+        TestUtility.testStringNotNullAndLowercase(ErrorMessage.PROFESSOR_LASTNAME, professorLastName);
+        TestUtility.testStringNotNullAndLowercase(ErrorMessage.CHAIR_NAME, chairName);
         
         //TODO optimize chair reference
         if (!existChair(chairName))
@@ -226,8 +226,8 @@ public class PortalService implements IPortalService {
     @Override
     public ExaminationMark getMark(final int lectureId, 
             final int studentEnrolmentNumber) {
-        ValueTester.testValidLectureId(lectureId);
-        ValueTester.testValidEnrolmentNumber(studentEnrolmentNumber);
+        TestUtility.testValidLectureId(lectureId);
+        TestUtility.testValidEnrolmentNumber(studentEnrolmentNumber);
         
         Lecture lecture = getLecture(lectureId);
         Student student = getStudent(studentEnrolmentNumber);
@@ -245,9 +245,9 @@ public class PortalService implements IPortalService {
     @Override
     public ExaminationMark addMark(final int lectureId, 
             final int studentEnrolmentNumber, final double mark) {
-        ValueTester.testValidLectureId(lectureId);
-        ValueTester.testValidEnrolmentNumber(studentEnrolmentNumber);
-        ValueTester.testValidMark(mark);
+        TestUtility.testValidLectureId(lectureId);
+        TestUtility.testValidEnrolmentNumber(studentEnrolmentNumber);
+        TestUtility.testValidMark(mark);
         
         if (existMark(lectureId, studentEnrolmentNumber))
             throw new IllegalArgumentException("there is already a mark for the given "
@@ -260,8 +260,8 @@ public class PortalService implements IPortalService {
 
     @Override
     public boolean existMark(final int lectureId, final int studentEnrolmentNumber) {
-        ValueTester.testValidLectureId(lectureId);
-        ValueTester.testValidEnrolmentNumber(studentEnrolmentNumber);
+        TestUtility.testValidLectureId(lectureId);
+        TestUtility.testValidEnrolmentNumber(studentEnrolmentNumber);
         
         Lecture lecture = getLecture(lectureId);
         Student student = getStudent(studentEnrolmentNumber);
@@ -273,7 +273,7 @@ public class PortalService implements IPortalService {
 
     @Override
     public Chair getChair(final String chairName) {
-        ValueTester.testStringNotNullAndLowercase(ErrorMessage.CHAIR_NAME, chairName);
+        TestUtility.testStringNotNullAndLowercase(ErrorMessage.CHAIR_NAME, chairName);
         
         try {
             Optional<Chair> result = chairs.stream()
@@ -287,7 +287,7 @@ public class PortalService implements IPortalService {
 
     @Override
     public boolean existChair(final String chairName) {
-        ValueTester.testStringNotNullAndLowercase(ErrorMessage.CHAIR_NAME, chairName);
+        TestUtility.testStringNotNullAndLowercase(ErrorMessage.CHAIR_NAME, chairName);
         
         Optional<Chair> result = chairs.stream()
                 .filter(x-> x.getName().equals(chairName))
@@ -297,7 +297,7 @@ public class PortalService implements IPortalService {
 
     @Override
     public Chair addChair(final String chairName) {
-        ValueTester.testStringNotNullAndLowercase(ErrorMessage.CHAIR_NAME, chairName);
+        TestUtility.testStringNotNullAndLowercase(ErrorMessage.CHAIR_NAME, chairName);
         
         Chair entity = new Chair(chairName);
         chairs.add(entity);

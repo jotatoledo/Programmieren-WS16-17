@@ -9,20 +9,20 @@ public enum ErrorMessage {
     /**
      * Error messages for first name member of class professor
      */
-    PROFESSOR_FIRSTNAME("professor firstname"),
+    PROFESSOR_FIRSTNAME("professor first name"),
     /**
      * Error messages for last name member of class professor
      */
-    PROFESSOR_LASTNAME("professor lastname"),
+    PROFESSOR_LASTNAME("professor last name"),
 
     /**
      * Error messages for first name member of class student
      */
-    STUDENT_FIRSTNAME("student firstname"),
+    STUDENT_FIRSTNAME("student first name"),
     /**
      * Error messages for last name member of class student
      */
-    STUDENT_LASTNAME("student lastname"),
+    STUDENT_LASTNAME("student last name"),
 
     /**
      * Error messages for name member of class chair
