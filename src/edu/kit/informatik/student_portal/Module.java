@@ -60,7 +60,7 @@ public final class Module extends Course implements ICanEqual {
         return Integer.toString(getId()).concat(" ")
                 .concat(getName()).concat(" ")
                 .concat(Integer.toString(totalCredits())).concat(" ")
-                .concat(average());
+                .concat(stringAverage());
     }
     
     /**
@@ -78,7 +78,7 @@ public final class Module extends Course implements ICanEqual {
      * TODO add doc
      * @return TODO add doc
      */
-    public String average() {
+    public String stringAverage() {
         if (lectures.size() == 0 || lecturesWithNotes() == 0)
             return "none";
         return Double.toString(numericAverage());
