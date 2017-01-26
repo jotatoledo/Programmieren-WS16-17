@@ -6,7 +6,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import edu.kit.informatik.calendar.Date;
-import edu.kit.informatik.list.FixedDeltaDateIterator;
+import edu.kit.informatik.iterator.fixed_delta_iterator.FixedDeltaDateIterator;
 
 public class FixedDeltaDateIteratorTest {
     

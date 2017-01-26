@@ -1,7 +1,11 @@
-package edu.kit.informatik.calendar;
+package edu.kit.informatik.calendar_manager;
 
+import edu.kit.informatik.calendar.Appointment;
+import edu.kit.informatik.calendar.Date;
+import edu.kit.informatik.calendar.DateTime;
+import edu.kit.informatik.calendar.Time;
+import edu.kit.informatik.iterator.SortedIterator;
 import edu.kit.informatik.list.LinkedSortedAppendList;
-import edu.kit.informatik.list.SortedIterator;
 
 /**
  * Offers functionalities to manage a collection of {@linkplain Appointment appointments}
@@ -28,7 +32,7 @@ public final class Calendar {
 
     /**
      * Get all the {@linkplain Appointment} instances stored in this
-     * @return 
+     * @return An iterator associated to the instances stored in this
      */
     public SortedIterator<Appointment> get() {
         return list.iterator();

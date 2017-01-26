@@ -1,6 +1,7 @@
-package edu.kit.informatik.list;
+package edu.kit.informatik.iterator.fixed_delta_iterator;
 
 import edu.kit.informatik.calendar.Date;
+import edu.kit.informatik.iterator.SortedIterator;
 
 /**
  * Implements a dynamically generated list of {@linkplain Date} instances
@@ -32,12 +33,14 @@ public final class FixedDeltaDateIterator implements SortedIterator<Date> {
         this.deltaYear = deltaYear;
     }
 
+    @Override
     public boolean hasNext() {
         if (endDate == null) 
             return true;
         return currentValue.compareTo(endDate) <= 0;
     }
 
+    @Override
     public Date next() {
         Date result = currentValue;
         currentValue = currentValue.plusDays(deltaDay).plusMonths(deltaMonth).plusYears(deltaYear);

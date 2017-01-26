@@ -159,7 +159,7 @@ public final class DateTime {
     /**
      * Adds a {@linkplain Date} instance to {@link #date}.
      * Calendar rules are respected.
-     * @param time The {@linkplain Date} instance to add
+     * @param date The {@linkplain Date} instance to add
      * @return A new instance of {@linkplain DateTime} with the new values
      */
     public DateTime plus(Date date) {
@@ -167,9 +167,9 @@ public final class DateTime {
     }
 
     /**
-     * Subtracts a {@linkplain Time} from {@link #time}.
+     * Subtracts a {@linkplain Date} from {@link #date}.
      * Calendar rules are respected.
-     * @param time The {@linkplain Time} instance to subtract
+     * @param date The {@linkplain Date} instance to subtract
      * @return A new instance of {@linkplain DateTime} with the new values
      */
     public DateTime minus(Date date) {
@@ -280,6 +280,11 @@ public final class DateTime {
 
     //region Order relations A.10
 
+    /**
+     * 
+     * @param other The other instance to compare
+     * @return A boolean value
+     */
     public boolean isBefore(DateTime other) {
         boolean isBefore = false;
 
@@ -295,10 +300,20 @@ public final class DateTime {
         return isBefore;
     }
 
+    /**
+     * 
+     * @param other The other instance to compare
+     * @return A boolean value
+     */
     public boolean isEqual(DateTime other) {
         return !this.isAfter(other) && !this.isBefore(other);
     }
 
+    /**
+     * 
+     * @param other The other instance to compare
+     * @return A boolean value
+     */
     public boolean isAfter(DateTime other) {
         boolean isAfter = false;
 

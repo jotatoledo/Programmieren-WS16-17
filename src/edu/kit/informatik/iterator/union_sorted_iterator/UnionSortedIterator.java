@@ -1,7 +1,9 @@
-package edu.kit.informatik.list;
+package edu.kit.informatik.iterator.union_sorted_iterator;
+
+import edu.kit.informatik.iterator.SortedIterator;
 
 /**
- * 
+ * Implements a dynamically generated list using 2 iterators
  * @author JoseNote
  *
  * @param <T> A class that implements the interface {@linkplain Comparable}
@@ -15,8 +17,8 @@ public final class UnionSortedIterator<T extends Comparable<T>> implements Sorte
 
     /**
      * Creates a new class instance
-     * @param iteratorA
-     * @param iteratorB
+     * @param iteratorA An iterator
+     * @param iteratorB An iterator
      */
     public UnionSortedIterator(SortedIterator<T> iteratorA, SortedIterator<T> iteratorB) {
         this.iteratorA = iteratorA;
@@ -25,11 +27,13 @@ public final class UnionSortedIterator<T extends Comparable<T>> implements Sorte
         currentValueIteratorB = null;
     }
 
+    @Override
     public boolean hasNext() {
         //At least one of the two iterators has an element
         return iteratorA.hasNext() || iteratorB.hasNext();
     }
 
+    @Override
     public T next() {
         if (currentValueIteratorA == null) 
             if (iteratorA.hasNext()) 

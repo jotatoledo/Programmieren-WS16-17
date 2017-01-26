@@ -1,5 +1,7 @@
 package edu.kit.informatik.list;
 
+import edu.kit.informatik.iterator.SortedIterator;
+
 /**
  * Implements a sorted double connected generic list
  * 
@@ -26,10 +28,7 @@ public class LinkedSortedAppendList<T extends Comparable<T>> implements SortedAp
         last = null;        
     }
     
-    /**
-     * Implementation of {@linkplain SortedAppendList#addSorted(Comparable) SortedAppendList#addSorted}
-     * @param element The new element to add
-     */
+    @Override
     public void addSorted(T element) {
         if (first == null) {
             //true: the list is empty
@@ -61,10 +60,7 @@ public class LinkedSortedAppendList<T extends Comparable<T>> implements SortedAp
         }
     }
 
-    /**
-     * Implementation of {@linkplain SortedAppendList#iterator() SortedAppendList#iterator}
-     * @return An instance of {@linkplain Iterator}
-     */
+    @Override
     public SortedIterator<T> iterator() {
         return new Iterator(first);
     }
@@ -123,10 +119,12 @@ public class LinkedSortedAppendList<T extends Comparable<T>> implements SortedAp
             cursor = start;
         }
         
+        @Override
         public boolean hasNext() {
             return cursor != null;
         }
 
+        @Override
         public T next() {
             T currentContent = cursor.value;
             cursor = cursor.next;

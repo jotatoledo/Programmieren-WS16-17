@@ -1,5 +1,7 @@
 package edu.kit.informatik.list;
 
+import edu.kit.informatik.iterator.SortedIterator;
+
 /**
  * Interface for a sorted list
  * 

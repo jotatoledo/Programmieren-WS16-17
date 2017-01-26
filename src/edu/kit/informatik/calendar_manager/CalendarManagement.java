@@ -1,7 +1,10 @@
-package edu.kit.informatik.calendar;
+package edu.kit.informatik.calendar_manager;
 
 import edu.kit.informatik.Terminal;
-import edu.kit.informatik.list.SortedIterator;
+import edu.kit.informatik.calendar.Appointment;
+import edu.kit.informatik.calendar.Date;
+import edu.kit.informatik.calendar.DateUtil;
+import edu.kit.informatik.iterator.SortedIterator;
 
 /**
  * Emulates the behavior of a simple console-interface appointment manager
@@ -14,7 +17,7 @@ public final class CalendarManagement {
      * Represents the information from a set of appointments
      */
     private final Calendar information;
-
+    
     /**
      * Creates a new instance
      */
