@@ -69,7 +69,7 @@ public final class Lecture extends Course implements ICanEqual {
         return Integer.toString(getId()).concat(" ")
                 .concat(getName()).concat(" ")
                 .concat(Integer.toString(getCredits())).concat(" ")
-                .concat(average());
+                .concat(stringAverage());
     }
     
     /**
@@ -80,7 +80,7 @@ public final class Lecture extends Course implements ICanEqual {
     public String toStringNoCredit() {
         return Integer.toString(getId()).concat(" ")
                 .concat(getName()).concat(" ")
-                .concat(average());
+                .concat(stringAverage());
     }
     /**
      * TODO add doc
@@ -95,7 +95,7 @@ public final class Lecture extends Course implements ICanEqual {
      * TODO add doc
      * @return TODO add doc
      */
-    public String average() {
+    public String stringAverage() {
         if (marks.size() == 0)
             return "none";
         return Double.toString(numericAverage());
