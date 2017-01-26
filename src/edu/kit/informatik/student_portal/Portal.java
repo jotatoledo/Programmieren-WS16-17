@@ -66,8 +66,9 @@ public final class Portal {
                         console.listProfessors();
                     else if (input.startsWith(Command.SUMMARY_PROFESSOR.getCommandText()))
                         console.summaryProfessor(getParameters(input, Command.SUMMARY_PROFESSOR));
-                }                
-                throw new IllegalArgumentException("invalid command");
+                    else
+                        throw new IllegalArgumentException("invalid command");
+                }
             } catch (IllegalArgumentException e1) {
                 Terminal.printError(e1.getMessage());
             } catch (IndexOutOfBoundsException e2) {
