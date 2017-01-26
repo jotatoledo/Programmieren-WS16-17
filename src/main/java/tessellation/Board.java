@@ -111,7 +111,7 @@ public class Board {
     //A.4.7
     /**
      * Rotates the tile at a given index in the codification array 60° counterclockwise
-     * @param position
+     * @param position The tiles position in the table
      */
     public void rotateTileCounterClockwise(int position) {
         table[position].rotateCounterClockwise();
@@ -174,24 +174,26 @@ public class Board {
         int calculatedBoardIndex = 0;
 
         switch(tileSide) {
-        case(0):
-            calculatedBoardIndex = tilePosition - 1;
-        break;
-        case(1):
-            calculatedBoardIndex = tilePosition + Board.ELEMENTS_COLUMN - 1;
-        break;
-        case(2):
-            calculatedBoardIndex = tilePosition + Board.ELEMENTS_COLUMN;
-        break;
-        case(3):
-            calculatedBoardIndex = tilePosition + 1;
-        break;
-        case(4):
-            calculatedBoardIndex = tilePosition - Board.ELEMENTS_COLUMN + 1;
-        break;
-        case(5):
-            calculatedBoardIndex = tilePosition - Board.ELEMENTS_COLUMN;
-        break;
+            case(0):
+                calculatedBoardIndex = tilePosition - 1;
+            break;
+            case(1):
+                calculatedBoardIndex = tilePosition + Board.ELEMENTS_COLUMN - 1;
+            break;
+            case(2):
+                calculatedBoardIndex = tilePosition + Board.ELEMENTS_COLUMN;
+            break;
+            case(3):
+                calculatedBoardIndex = tilePosition + 1;
+            break;
+            case(4):
+                calculatedBoardIndex = tilePosition - Board.ELEMENTS_COLUMN + 1;
+            break;
+            case(5):
+                calculatedBoardIndex = tilePosition - Board.ELEMENTS_COLUMN;
+            break;
+            default:
+                break;
         }
         return calculatedBoardIndex;
     }
@@ -239,15 +241,17 @@ public class Board {
         int calculatedContactSide = -1;
 
         switch(diff) {
-        case(VERTICAL):
-            calculatedContactSide = referenceTile > neighborTile ? 0 : 3;
-            break;
-        case(MAIN_DIAGONAL):
-            calculatedContactSide = referenceTile > neighborTile ? 5 : 2;
-            break;
-        case(SECUNDARY_DIAGONAL):
-            calculatedContactSide = referenceTile > neighborTile ? 4 : 1; 
-            break;
+            case(VERTICAL):
+                calculatedContactSide = referenceTile > neighborTile ? 0 : 3;
+                break;
+            case(MAIN_DIAGONAL):
+                calculatedContactSide = referenceTile > neighborTile ? 5 : 2;
+                break;
+            case(SECUNDARY_DIAGONAL):
+                calculatedContactSide = referenceTile > neighborTile ? 4 : 1; 
+                break;
+            default:
+                break;
         }
         return calculatedContactSide;
     }

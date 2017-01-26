@@ -25,6 +25,10 @@ public enum LineType {
 
     private final char abbreviation;
 
+    /**
+     * Creates a new color instance
+     * @param abbreviation The char abbreviation for the color
+     */
     LineType(char abbreviation) {
         this.abbreviation = abbreviation;
     }

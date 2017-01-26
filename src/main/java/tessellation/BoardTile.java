@@ -30,6 +30,7 @@ public class BoardTile extends Tile {
         return new Tile(getLineTypes());
     }
     
+    @Override
     public void setLineTypes(LineType[] lineTypes) {
         super.setLineTypes(lineTypes);
     }
@@ -50,9 +51,7 @@ public class BoardTile extends Tile {
         return super.toString();
     }
     
-    /**
-     * The string representation of this class
-     */
+    @Override
     public String toString() {
         return position.toString().concat("\n").concat(super.toString());
     }
