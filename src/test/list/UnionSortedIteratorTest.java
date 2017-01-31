@@ -1,4 +1,4 @@
-package test.java.list;
+package test.list;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;

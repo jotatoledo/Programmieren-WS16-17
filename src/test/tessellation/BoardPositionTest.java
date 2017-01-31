@@ -1,4 +1,4 @@
-package test.java.tessellation;
+package test.tessellation;
 
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.is;
