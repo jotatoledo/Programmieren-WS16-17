@@ -1,409 +1,333 @@
-
 package edu.kit.informatik.calendar;
 
 /**
  * Represents a specific {@linkplain Time} at a specific {@linkplain Date}.
  * 
- * @author  Tobias Bachert
- * @version 1.03, 2016/11/18
+ * @author  JoseNote
+ * @version 2.0, 2016/11/27
  */
-public final class DateTime implements Comparable<DateTime> {
-    
-    private final Date date;
-    private final Time time;
-    
+public final class DateTime {   
     /**
-     * Constructs a {@code DateTime} with the specified arguments.
-     * 
-     * @param date the date
-     * @param time the time
+     * The {@linkplain Date} component of the object
      */
-    public DateTime(
-            final Date date,
-            final Time time) {
-        ////
+    private final Date date;
+    /**
+     * The {@linkplain Time} component of the object
+     */
+    private final Time time;
+
+    /**
+     * Initializes a new {@linkplain DateTime} instance with values for all its attributes
+     * @param date The value for {@link #date}
+     * @param time The value for {@link #time}
+     */
+    public DateTime(Date date, Time time) {
         this.date = date;
         this.time = time;
     }
-    
+
+    //region Encapsulation A.5
+
     /**
-     * Returns the current date time in the UTC time zone.
-     * 
-     * @return the current date time
-     */
-    public static DateTime now() {
-        ////
-        return new Date(1970, 1, 1).atTime(new Time(0, 0, 0)).add(System.currentTimeMillis() / 1000);
-    }
-    
-    /**
-     * Adds the specified count of seconds to this.
-     * 
-     * @param  seconds the count of seconds to add
-     * @return the resulting date time
-     */
-    private DateTime add(
-            final long seconds) {
-        ////
-        final long totalSeconds = time.inSeconds() + seconds;
-        
-        final Time time = Time.ofSeconds(totalSeconds);
-        final int  days = (int) ((totalSeconds - time.inSeconds()) / Time.SECONDS_IN_DAY);
-        
-        return date.plusDays(days).atTime(time);
-    }
-    
-    @Override
-    public int compareTo(
-            final DateTime other) {
-        ////
-        final int dDif = date.compareTo(other.date);
-        if (dDif != 0) return dDif;
-        final int tDif = time.compareTo(other.time);
-        if (tDif != 0) return tDif;
-        return 0;
-    }
-    
-    @Override
-    public boolean equals(
-            final Object obj) {
-        ////
-        return obj instanceof DateTime
-                && compareTo((DateTime) obj) == 0;
-    }
-    
-    @Override
-    public int hashCode() {
-        ////
-        return date.hashCode() ^ time.hashCode();
-    }
-    
-    /**
-     * Returns a string representation of this date time.
-     * 
-     * <p>The returned string has the format
-     * <blockquote><pre>
-     * (dd)-(MM)-(yyyy)T(hh):(mm):(ss)</pre>
-     * </blockquote>
-     */
-    @Override
-    public String toString() {
-        ////
-        return appendTo(new StringBuilder(19)).toString();
-    }
-    
-    /**
-     * Appends the string representation of this to the specified string builder.
-     * 
-     * <p>The string representation is appended as per invoking
-     * <blockquote><pre>
-     * sb.append({@linkplain #toString()});</pre>
-     * </blockquote>
-     * 
-     * @param  sb the string builder to append to
-     * @return a reference to {@code sb}
-     */
-    /*pkg*/ StringBuilder appendTo(
-            final StringBuilder sb) {
-        ////
-        date.appendTo(sb).append('T');
-        time.appendTo(sb);
-        return sb;
-    }
-    
-    //==================================================================================================================
-    
-    /**
-     * Returns the {@linkplain Date} of this.
-     * 
-     * @return the date
+     * Getter for {@link #date}
+     * @return The value of {@link #date}
      */
     public Date getDate() {
-        ////
         return date;
     }
-    
+
     /**
-     * Returns the year of this date.
-     * 
-     * @return the year
-     */
-    public int getYear() {
-        ////
-        return date.getYear();
-    }
-    
-    /**
-     * Returns the month of this date as {@linkplain Month#toIndex() index}.
-     * 
-     * @return the month
-     */
-    public int getMonthValue() {
-        ////
-        return date.getMonthValue();
-    }
-    
-    /**
-     * Returns the month of this date.
-     * 
-     * @return the month
-     */
-    public Month getMonth() {
-        ////
-        return date.getMonth();
-    }
-    
-    /**
-     * Returns the day number of this date in the year of this.
-     * 
-     * @return the day number
-     */
-    public int getDayOfYear() {
-        ////
-        return date.getDayOfYear();
-    }
-    
-    /**
-     * Returns the day of this date.
-     * 
-     * @return the day
-     */
-    public int getDayOfMonth() {
-        ////
-        return date.getDayOfMonth();
-    }
-    
-    /**
-     * Returns the {@linkplain DayOfWeek} of this date.
-     * 
-     * @return the day of the week
-     */
-    public DayOfWeek getDayOfWeek() {
-        ////
-        return date.getDayOfWeek();
-    }
-    
-    /**
-     * Returns the {@linkplain Time} of this.
-     * 
-     * @return the time
+     * Getter for {@link #time}
+     * @return The value of {@link #time}
      */
     public Time getTime() {
-        ////
         return time;
     }
-    
+
+    //endregion Encapsulation A.5
+
+    //region Text representation A.6
+
     /**
-     * Returns the hour of this time.
-     * 
-     * @return the hour
+     * Generates the string representation of the object
+     * @return The string representation of the object in format DD-MM-YYYYThh:mm:ss
+     */
+    public String toString() {
+        return date.toString().concat("T").concat(time.toString());
+    }
+
+    //endregion Text representation A.6
+
+    //region Extra methods A.8
+
+    /**
+     * Gets the year value of the {@linkplain Date} component of the object
+     * @return The value of {@link Date #year}
+     */
+    public int getYear() {
+        return this.date.getYear();
+    }
+
+    /**
+     * Gets the month value of the {@linkplain Date} component of the object
+     * @return The value of {@link Date #month}
+     */
+    public int getMonthValue() {
+        return this.date.getMonthValue();
+    }
+
+    /**
+     * Gets the {@linkplain Month} value of the {@linkplain Date} component of the object
+     * @return The {@linkplain Month month} value associated to {@link Date #month}
+     */
+    public Month getMonth() {
+        return this.date.getMonth();
+    }
+
+    /**
+     * The day on the year associated to {@link #date}
+     * @return A value between 1 and 365 (366 if {@link #date} is associated to a leap year)
+     */
+    public int getDayOfYear() {
+        return this.date.getDayOfYear();
+    }
+
+    /**
+     * Gets the day value of the {@linkplain Date} component of the object
+     * @return The value of {@link Date #day}
+     */
+    public int getDayOfMonth() {
+        return this.date.getDayOfMonth();
+    }
+
+    /**
+     * Gets the {@linkplain DayOfWeek} value of the {@linkplain Date} component of the object
+     * @return The {@linkplain DayOfWeek} value associated to {@link Date #day}
+     */
+    public DayOfWeek getDayOfWeek() {
+        return this.date.getDayOfWeek();
+    }
+
+    /**
+     * Gets the hour value of the {@linkplain Time} component of the object
+     * @return The value of {@link Time #hour}
      */
     public int getHour() {
-        ////
-        return time.getHour();
+        return this.time.getHour();
     }
-    
+
     /**
-     * Returns the minute of this time.
-     * 
-     * @return the minute
+     * Gets the minute value of the {@linkplain Time} component of the object
+     * @return The value of {@link Time #minute}
      */
     public int getMinute() {
-        ////
-        return time.getMinute();
+        return this.time.getMinute();
     }
-    
+
     /**
-     * Returns the second of this time.
-     * 
-     * @return the second
+     * Gets the second value of the {@linkplain Time} component of the object
+     * @return The value of {@link Time #second}
      */
     public int getSecond() {
-        ////
-        return time.getSecond();
+        return this.time.getSecond();
     }
-    
-    //==================================================================================================================
-    
+
+    //endregion Extra methods A.8
+
+    //region Datetime calculations A.9.3
+
     /**
-     * Returns whether {@code this} is before {@code other}.
-     * 
-     * @param  other the object to compare to
-     * @return {@code true} if this is before {@code other}
+     * Adds a {@linkplain DateTime} instance to the object.
+     * Calendar rules are respected.
+     * @param datetime The {@linkplain DateTime} instance to add
+     * @return A new instance of {@linkplain DateTime} with the new values
      */
-    public boolean isBefore(
-            final DateTime other) {
-        ////
-        return compareTo(other) < 0;
+    public DateTime plus(DateTime datetime) {
+        return plus(datetime.getTime()).plus(datetime.getDate());
     }
-    
+
     /**
-     * Returns whether {@code this} is equal to {@code other}.
-     * 
-     * @param  other the object to compare to
-     * @return {@code true} if this is equal to {@code other}
+     * Subtract a {@linkplain DateTime} instance from the object.
+     * Calendar rules are respected.
+     * @param datetime The {@linkplain DateTime} instance to subtract
+     * @return A new instance of {@linkplain DateTime} with the new values
      */
-    public boolean isEqual(
-            final DateTime other) {
-        ////
-        return compareTo(other) == 0;
+    public DateTime minus(DateTime datetime) {
+        return minus(datetime.getTime()).minus(datetime.getDate());
     }
-    
+
     /**
-     * Returns whether {@code this} is after {@code other}.
-     * 
-     * @param  other the object to compare to
-     * @return {@code true} if this is after {@code other}
+     * Adds a {@linkplain Date} instance to {@link #date}.
+     * Calendar rules are respected.
+     * @param date The {@linkplain Date} instance to add
+     * @return A new instance of {@linkplain DateTime} with the new values
      */
-    public boolean isAfter(
-            final DateTime other) {
-        ////
-        return compareTo(other) > 0;
+    public DateTime plus(Date date) {
+        return this.date.plus(date).atTime(time);
     }
-    
-    //==================================================================================================================
-    
+
     /**
-     * Adds the specified date time to this and returns the sum.
-     * 
-     * @param  datetime the date time to add
-     * @return the sum of this and {@code datetime}
+     * Subtracts a {@linkplain Date} from {@link #date}.
+     * Calendar rules are respected.
+     * @param date The {@linkplain Date} instance to subtract
+     * @return A new instance of {@linkplain DateTime} with the new values
      */
-    public DateTime plus(
-            final DateTime datetime) {
-        ////
-        return plus(datetime.time).plus(datetime.date);
+    public DateTime minus(Date date) {
+        return this.date.minus(date).atTime(time);
     }
-    
+
     /**
-     * Subtracts the specified date time to this and returns the difference.
-     * 
-     * @param  datetime the date time to subtract
-     * @return the difference of this and {@code datetime}
+     * Adds a {@linkplain Time} instance to {@link #time}.
+     * Calendar rules are respected.
+     * @param time The {@linkplain Time} instance to be add
+     * @return A new instance of {@linkplain DateTime} with the new values
      */
-    public DateTime minus(
-            final DateTime datetime) {
-        ////
-        return minus(datetime.time).minus(datetime.date);
+    public DateTime plus(Time time) {
+        Time resultTime = this.time.plus(time);
+        int dayCarry = 0;
+
+        if (!time.isEqual(Time.MIN_VAL) && !this.time.isEqual(Time.MIN_VAL)) {
+            //true: both the object time and the parameter time aren't 00:00:00
+            //Only in this case could the addition of 2 times create a day carry
+            if (!resultTime.isAfter(this.time) && !resultTime.isAfter(time)) {
+                //true: the result isn't after the object time or the argument time
+                //This means that the result surpassed 23:59:59, creating a day carry
+                dayCarry++;
+            }
+        }
+        return date.plusDays(dayCarry).atTime(resultTime);
     }
-    
+
     /**
-     * Adds the specified date to this and returns the result.
-     * 
-     * @param  other the date to add
-     * @return this plus {@code other}
+     * Subtracts a {@linkplain Time} instance from {@link #time}.
+     * Calendar rules are respected. 
+     * @param time The {@linkplain Time} instance to subtract
+     * @return A new instance of {@linkplain DateTime} with the new values
      */
-    public DateTime plus(
-            final Date other) {
-        ////
-        return date.plus(other).atTime(time);
+    public DateTime minus(Time time) {
+        Time resultTime = this.time.minus(time);
+        int dayCarry = 0;
+
+        if (time.isAfter(this.time)) {
+            //true: the time to be subtracted is larger than the one of the object
+            //Only in this case, the subtraction will create a day carry
+            dayCarry++;
+        }
+        return date.minusDays(dayCarry).atTime(resultTime);
     }
-    
+
     /**
-     * Subtracts the specified date from this and returns the result.
-     * 
-     * @param  other the date to subtract
-     * @return this minus {@code other}
+     * Adds years to the {@linkplain Date} component of the object.
+     * Calendar rules are respected. 
+     * @param years A positive or 0 number. The amount of years to add.
+     * @return A new {@linkplain DateTime} instance with the new values
      */
-    public DateTime minus(
-            final Date other) {
-        ////
-        return date.minus(other).atTime(time);
-    }
-    
-    /**
-     * Adds the specified time to this and returns the result.
-     * 
-     * @param  time the time to add
-     * @return this plus {@code time}
-     */
-    public DateTime plus(
-            final Time time) {
-        ////
-        return add(time.inSeconds());
-    }
-    
-    /**
-     * Subtracts the specified time from this and returns the result.
-     * 
-     * @param  time the time to subtract
-     * @return this minus {@code time}
-     */
-    public DateTime minus(
-            final Time time) {
-        ////
-        return add(-time.inSeconds());
-    }
-    
-    /**
-     * Adds the specified years to this and returns the result.
-     * 
-     * @param  years the years to add
-     * @return this plus {@code years}
-     */
-    public DateTime plusYears(
-            final int years) {
-        ////
+    public DateTime plusYears(int years) {
         return date.plusYears(years).atTime(time);
     }
-    
+
     /**
-     * Adds the specified months to this and returns the result.
-     * 
-     * @param  months the months to add
-     * @return this plus {@code months}
+     * Adds months to the {@linkplain Date} component of the object.
+     * Calendar rules are respected. 
+     * @param months A positive or 0 number. The amount of months to add.
+     * @return A new {@linkplain DateTime} instance with the new values
      */
-    public DateTime plusMonths(
-            final int months) {
-        ////
+    public DateTime plusMonths(int months) {
         return date.plusMonths(months).atTime(time);
     }
-    
+
     /**
-     * Adds the specified days to this and returns the result.
-     * 
-     * @param  days the days to add
-     * @return this plus {@code days}
+     * Adds days to the {@linkplain Date} component of the object.
+     * Calendar rules are respected. 
+     * @param days A positive or 0 number. The amount of days to add.
+     * @return A new {@linkplain DateTime} instance with the new values
      */
-    public DateTime plusDays(
-            final int days) {
-        ////
+    public DateTime plusDays(int days) {
         return date.plusDays(days).atTime(time);
     }
-    
+
     /**
-     * Subtracts the specified years from this and returns the result.
-     * 
-     * @param  years the years to subtract
-     * @return this minus {@code years}
+     * Subtracts years from the {@linkplain Date} component of the object
+     * Calendar rules are respected. 
+     * @param years A positive or 0 number. The amount of years to subtract.
+     * @return A new {@linkplain DateTime} instance with the new values
      */
-    public DateTime minusYears(
-            final int years) {
-        ////
+    public DateTime minusYears(int years) {
         return date.minusYears(years).atTime(time);
     }
-    
+
     /**
-     * Subtracts the specified months from this and returns the result.
-     * 
-     * @param  months the months to subtract
-     * @return this minus {@code months}
+     * Subtracts months from the {@linkplain Date} component of the object.
+     * Calendar rules are respected. 
+     * @param months A positive or 0 number. The amount of months to subtract.
+     * @return A new {@linkplain DateTime} instance with the new values
      */
-    public DateTime minusMonths(
-            final int months) {
-        ////
+    public DateTime minusMonths(int months) {
         return date.minusMonths(months).atTime(time);
     }
-    
+
     /**
-     * Subtracts the specified days from this and returns the result.
-     * 
-     * @param  days the days to subtract
-     * @return this minus {@code days}
+     * Subtracts days from the {@linkplain Date} component of the object.
+     * Calendar rules are respected. 
+     * @param days A positive or 0 number. The amount of days to subtract.
+     * @return A new {@linkplain DateTime} instance with the new values
      */
-    public DateTime minusDays(
-            final int days) {
-        ////
+    public DateTime minusDays(int days) {
         return date.minusDays(days).atTime(time);
     }
+
+    //endregion Datetime calculations A.9.3
+
+    //region Order relations A.10
+
+    /**
+     * 
+     * @param other The other instance to compare
+     * @return A boolean value
+     */
+    public boolean isBefore(DateTime other) {
+        boolean isBefore = false;
+
+        if (this.date.isBefore(other.getDate())) {
+            isBefore = true;
+        } else {
+            if (this.date.isEqual(other.getDate())) {
+                if (this.time.isBefore(other.getTime())) {
+                    isBefore = true;
+                }
+            }
+        }
+        return isBefore;
+    }
+
+    /**
+     * 
+     * @param other The other instance to compare
+     * @return A boolean value
+     */
+    public boolean isEqual(DateTime other) {
+        return !this.isAfter(other) && !this.isBefore(other);
+    }
+
+    /**
+     * 
+     * @param other The other instance to compare
+     * @return A boolean value
+     */
+    public boolean isAfter(DateTime other) {
+        boolean isAfter = false;
+
+        if (this.date.isAfter(other.getDate())) {
+            isAfter = true;
+        } else {
+            if (this.date.isEqual(other.getDate())) {
+                if (this.time.isAfter(other.getTime())) {
+                    isAfter = true;
+                }
+            }
+        }
+        return isAfter;
+    }
+
+    //endregion Order relations A.10
 }

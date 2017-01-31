@@ -1,9 +1,9 @@
 package edu.kit.informatik.calendar_manager;
 
-import edu.kit.informatik.calendar.Appointment;
-import edu.kit.informatik.calendar.Date;
-import edu.kit.informatik.calendar.DateTime;
-import edu.kit.informatik.calendar.Time;
+import edu.kit.informatik.calendar_sample.Appointment;
+import edu.kit.informatik.calendar_sample.Date;
+import edu.kit.informatik.calendar_sample.DateTime;
+import edu.kit.informatik.calendar_sample.Time;
 import edu.kit.informatik.iterator.SortedIterator;
 import edu.kit.informatik.list.LinkedSortedAppendList;
 

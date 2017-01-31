@@ -1,11 +1,11 @@
-package main.java.calendar;
+
+package edu.kit.informatik.calendar_sample;
 
 /**
  * Represents a day of a week.
- * The Enumeration starts at 0.
  * 
  * @author  Tobias Bachert
- * @version 1.00, 2016/11/27
+ * @version 1.00, 2016/10/27
  */
 public enum DayOfWeek {
     /**
@@ -42,16 +42,18 @@ public enum DayOfWeek {
     /**
      * Returns the day with the specified index.
      * 
-     * <p>The specified index has to be between the {@linkplain #toIndex() index} of  {@linkplain #MONDAY} and
-     * {@linkplain #SUNDAY} (inclusive).
-     * 
      * @param  index the index
-     * @return the month
+     * @return the day
      * @throws IllegalArgumentException if {@code index} is not the index of a day of a week
      */
-    public static DayOfWeek ofIndex(final int index) {
+    public static DayOfWeek ofIndex(
+            final int index) {
+        ////
+        assert DAYS.length == 7;
+        
         if (index < 1 || index > DAYS.length)
-            throw new IllegalArgumentException("Bad index " + index);
+            throw new IllegalArgumentException("Invalid index " + index + " (expected [1,7])");
+        
         return DAYS[index - 1];
     }
     
@@ -63,6 +65,7 @@ public enum DayOfWeek {
      * @return the index
      */
     public int toIndex() {
+        ////
         return ordinal() + 1;
     }
 }

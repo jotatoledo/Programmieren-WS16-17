@@ -1,4 +1,4 @@
-package main.java.tessellation;
+package edu.kit.informatik.tessellation;
 
 /**
  * Represents a position of a {@linkplain Tile tile} in the {@linkplain Board game board}

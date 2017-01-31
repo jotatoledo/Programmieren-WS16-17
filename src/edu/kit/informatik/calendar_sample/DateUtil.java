@@ -1,4 +1,4 @@
-package edu.kit.informatik.calendar;
+package edu.kit.informatik.calendar_sample;
 
 import static java.lang.Integer.parseInt;
 

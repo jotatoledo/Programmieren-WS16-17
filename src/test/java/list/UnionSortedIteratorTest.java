@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import edu.kit.informatik.calendar.Date;
+import edu.kit.informatik.calendar_sample.Date;
 import edu.kit.informatik.iterator.fixed_delta_iterator.FixedDeltaDateIterator;
 import edu.kit.informatik.iterator.union_sorted_iterator.UnionSortedIterator;
 

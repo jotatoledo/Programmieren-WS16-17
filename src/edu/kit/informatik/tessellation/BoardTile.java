@@ -1,4 +1,4 @@
-package main.java.tessellation;
+package edu.kit.informatik.tessellation;
 
 /**
  * An extension of {@linkplain Tile}<br>

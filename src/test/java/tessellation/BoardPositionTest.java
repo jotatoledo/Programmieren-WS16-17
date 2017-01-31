@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.is;
 import org.junit.Test;
 
-import main.java.tessellation.BoardPosition;
+import edu.kit.informatik.tessellation.BoardPosition;
 
 /**
  * Unit test for {@linkplain BoardPosition}

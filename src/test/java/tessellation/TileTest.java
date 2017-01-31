@@ -5,8 +5,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import main.java.tessellation.LineType;
-import main.java.tessellation.Tile;
+import edu.kit.informatik.tessellation.LineType;
+import edu.kit.informatik.tessellation.Tile;
 
 /**
  * Unit test for {@linkplain Tile}
