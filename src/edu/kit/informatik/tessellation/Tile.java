@@ -1,4 +1,4 @@
-package main.java.tessellation;
+package edu.kit.informatik.tessellation;
 
 /**
  * Represents a tile with {@linkplain Tile #NUMBER_SIDES n}-sides

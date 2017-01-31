@@ -1,4 +1,4 @@
-package main.java.tessellation;
+package edu.kit.informatik.tessellation;
 
 /**
  * Represents a game board made of {@linkplain Tile}

@@ -1,12 +1,12 @@
-package test.java.tessellation;
+package test.tessellation;
 
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 import org.junit.Test;
 
-import main.java.tessellation.BoardPosition;
-import main.java.tessellation.BoardTile;
-import main.java.tessellation.LineType;
+import edu.kit.informatik.tessellation.BoardPosition;
+import edu.kit.informatik.tessellation.BoardTile;
+import edu.kit.informatik.tessellation.LineType;
 
 public class BoardTileTest {
 

@@ -47,6 +47,11 @@
 
 
 	<build>
+	    <sourceDirectory>${basedir}/src/edu/kit/informatik</sourceDirectory>
+	    <scriptSourceDirectory>${basedir}/src/edu/kit/informatik/scripts</scriptSourceDirectory>
+	    <testSourceDirectory>${basedir}/src/test/</testSourceDirectory>
+	    <outputDirectory>${basedir}/target/classes</outputDirectory>
+	    <testOutputDirectory>${basedir}/target/test-classes</testOutputDirectory>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

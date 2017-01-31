@@ -1,446 +1,368 @@
-
 package edu.kit.informatik.calendar;
 
 /**
  * Represents a date consisting of a year, a {@linkplain Month month} and a day.
  * 
- * @author  Tobias Bachert
- * @version 1.04, 2016/11/23
+ * @author  JoseNote
+ * @version 2.0, 2016/11/27
  */
-public final class Date implements Comparable<Date> {
-    
+public final class Date {
     private final int year;
+    /**
+     * A value between 1 and 12
+     */
     private final int month;
+    /**
+     * A value between 1 and 31
+     */
     private final int day;
-    
+
     /**
-     * Constructs a {@code Date} with the specified arguments.
-     * 
-     * @param year the year
-     * @param month the month
-     * @param day the day
+     * Initializes a new object instance with values for all its attributes
+     * @param year The value for {@link #year}
+     * @param month The value for {@link #month}
+     * @param dayOfMonth The value for {@link #day}
      */
-    public Date(
-            final int year,
-            final int month,
-            final int day) {
-        ////
-        this.year  = year;
+    public Date(int year, int month, int dayOfMonth) {
+        this.year = year;
         this.month = month;
-        this.day   = day;
+        day = dayOfMonth;
     }
-    
+
+    //region Fabric method A.3
+
     /**
-     * Returns a {@linkplain DateTime} with this as date and the specified time as time.
-     * 
-     * @param  time the time
-     * @return the date time
+     * Creates a {@linkplain DateTime} instance using the current  {@linkplain Date} and a given {@linkplain Time}
+     * @param time The {@linkplain Time} to use
+     * @return An instance of {@linkplain DateTime}
      */
-    public DateTime atTime(
-            final Time time) {
-        ////
+    public DateTime atTime(Time time) {
         return new DateTime(this, time);
     }
-    
+
+    //endregion
+
+    //region Encapsulation A.5
+
     /**
-     * Returns whether the year of this date is a leap year.
-     * 
-     * @return {@code true} if the year is a leap year, {@code false} otherwise
-     */
-    public boolean isLeapYear() {
-        ////
-        return YearKind.of(year).isLeap();
-    }
-    
-    /**
-     * Returns the total count of days.
-     * 
-     * <p>The day zero is defined as the imaginary date {@code 0000/01/00}, which is equivalent to the date {@code
-     * -0001/12/31}.
-     * 
-     * @return the count of days
-     */
-    private int totalDays() {
-        ////
-        final YearKind yearKind = YearKind.of(year);
-        return yearKind.zerothDayOf(month) + day + (year > 0 && !yearKind.isLeap() ? 1 : 0)
-                + year * 365 + year / 4 - year / 100 + year / 400;
-    }
-    
-    /**
-     * Returns the days that have passed since the zeroth of the specified year.
-     * 
-     * @param  year the year
-     * @param  month the month
-     * @param  day the day, may exceed the specified month
-     * @return the day of year
-     */
-    private static int dayOfYear(
-            final int year,
-            final int month,
-            final int day) {
-        ////
-        return YearKind.of(year).zerothDayOf(month) + day;
-    }
-    
-    /**
-     * Returns the index of the day of the week of this date.
-     *
-     * @return the day of the week
-     * 
-     * @see    DayOfWeek#ofIndex(int)
-     */
-    private int dayOfWeek() {
-        ////
-        final int modDays = DateUtil.mod(totalDays(), 7);
-        return modDays <= 2 ? modDays + 5 : modDays - 2; // 0000/01/01==SATURDAY==D1==6
-    }
-    
-    @Override
-    public int compareTo(
-            final Date other) {
-        ////
-        return Integer.compare(totalDays(), other.totalDays());
-    }
-    
-    @Override
-    public boolean equals(
-            final Object obj) {
-        ////
-        return obj instanceof Date
-                && compareTo((Date) obj) == 0;
-    }
-    
-    @Override
-    public int hashCode() {
-        ////
-        return Integer.hashCode(totalDays());
-    }
-    
-    /**
-     * Returns a string representation of this date.
-     * 
-     * <p>The returned string has the format
-     * <blockquote><pre>
-     * (dd)-(MM)-(yyyy)</pre>
-     * </blockquote>
-     */
-    @Override
-    public String toString() {
-        ////
-        return appendTo(new StringBuilder(10)).toString();
-    }
-    
-    /**
-     * Appends the string representation of this to the specified string builder.
-     * 
-     * <p>The string representation is appended as per invoking
-     * <blockquote><pre>
-     * sb.append({@linkplain #toString()});</pre>
-     * </blockquote>
-     * 
-     * @param  sb the string builder to append to
-     * @return a reference to {@code sb}
-     */
-    /*pkg*/ StringBuilder appendTo(
-            final StringBuilder sb) {
-        ////
-        DateUtil.append(sb, day   , 2).append('-');
-        DateUtil.append(sb, month , 2).append('-');
-        DateUtil.append(sb, year  , 4);
-        return sb;
-    }
-    
-    //==================================================================================================================
-    
-    /**
-     * Returns the year of this date.
-     * 
-     * @return the year
+     * Gets the value of {@link #year}
+     * @return A number
      */
     public int getYear() {
-        ////
         return year;
     }
-    
+
     /**
-     * Returns the month of this date as {@linkplain Month#toIndex() index}.
-     * 
-     * @return the month
+     * Gets the value of {@link #month}
+     * @return A number between 1 and 12
      */
     public int getMonthValue() {
-        ////
         return month;
     }
-    
+
     /**
-     * Returns the month of this date.
-     * 
-     * @return the month
-     */
-    public Month getMonth() {
-        ////
-        return Month.ofIndex(getMonthValue());
-    }
-    
-    /**
-     * Returns the day number of this date in the year of this.
-     * 
-     * @return the day number
-     */
-    public int getDayOfYear() {
-        ////
-        return dayOfYear(year, month, day);
-    }
-    
-    /**
-     * Returns the day of this date.
-     * 
-     * @return the day
+     * Gets the value of {@link #day}
+     * @return A number between 1 and 31
      */
     public int getDayOfMonth() {
-        ////
         return day;
     }
-    
+
+    //endregion
+
+    //region Expanded functions A.7
+
     /**
-     * Returns the {@linkplain DayOfWeek} of this date.
-     * 
-     * @return the day of the week
+     * Gets the matching {@linkplain Month month} associated to {@link #month} 
+     * @return A {@linkplain Month month}
+     */
+    public Month getMonth() {
+        return Month.ofIndex(month);
+    }
+
+    /**
+     * Calculates the day value in relation to the year associated to this instance
+     * @return A value between 1 and 365 (366 if {@link #year}  represents a leap year)
+     */
+    public int getDayOfYear() {
+        int dayOfYear = 0;
+        boolean isLeapYear = isLeapYear();
+
+        //adds the days of the months previous to the one of the instance in an accumulator
+        for (int i = 1; i < month; i++) {
+            dayOfYear = dayOfYear + Month.ofIndex(i).getDaysInMonth(isLeapYear);
+        }
+        //Adds the days of the actual month of the instance to the accumulator
+        dayOfYear += day;
+        return dayOfYear;
+    }
+
+    /**
+     * Gets the matching {@linkplain DayOfWeek day of week} associated to {@link #day} 
+     * @return A {@linkplain DayOfWeek day of week}
      */
     public DayOfWeek getDayOfWeek() {
-        ////
-        return DayOfWeek.ofIndex(dayOfWeek());
-    }
-    
-    //==================================================================================================================
-    
-    /**
-     * Returns whether {@code this} is before {@code other}.
-     * 
-     * @param  other the object to compare to
-     * @return {@code true} if this is before {@code other}
-     */
-    public boolean isBefore(
-            final Date other) {
-        ////
-        return compareTo(other) < 0;
-    }
-    
-    /**
-     * Returns whether {@code this} is equal to {@code other}.
-     * 
-     * @param  other the object to compare to
-     * @return {@code true} if this is equal to {@code other}
-     */
-    public boolean isEqual(
-            final Date other) {
-        ////
-        return compareTo(other) == 0;
-    }
-    
-    /**
-     * Returns whether {@code this} is after {@code other}.
-     * 
-     * @param  other the object to compare to
-     * @return {@code true} if this is after {@code other}
-     */
-    public boolean isAfter(
-            final Date other) {
-        ////
-        return compareTo(other) > 0;
-    }
-    
-    //==================================================================================================================
-    
-    /**
-     * Adds the specified date to this and returns the result.
-     * 
-     * @param  date the date to add
-     * @return this plus {@code date}
-     */
-    public Date plus(
-            final Date date) {
-        ////
-        return plusDays(date.day).plusMonths(date.month).plusYears(date.year);
-    }
-    
-    /**
-     * Adds the specified years to this and returns the result.
-     * 
-     * @param  years the years to add
-     * @return this plus {@code years}
-     */
-    public Date plusYears(
-            final int years) {
-        ////
-        return resolveDate(year + years, month, day);
-    }
-    
-    /**
-     * Adds the specified months to this and returns the result.
-     * 
-     * @param  months the months to add
-     * @return this plus {@code months}
-     */
-    public Date plusMonths(
-            final int months) {
-        ////
-        return resolveDate(year, month + months, day);
-    }
-    
-    /**
-     * Adds the specified days to this and returns the result.
-     * 
-     * @param  days the days to add
-     * @return this plus {@code days}
-     */
-    public Date plusDays(
-            final int days) {
-        ////
-        return resolveDate(year, month, day + days);
-    }
-    
-    /**
-     * Subtracts the specified date from this and returns the result.
-     * 
-     * @param  date the date to subtract
-     * @return this minus {@code date}
-     */
-    public Date minus(
-            final Date date) {
-        ////
-        return minusDays(date.day).minusMonths(date.month).minusYears(date.year);
-    }
-    
-    /**
-     * Subtracts the specified years from this and returns the result.
-     * 
-     * @param  years the years to subtract
-     * @return this minus {@code years}
-     */
-    public Date minusYears(
-            final int years) {
-        ////
-        return resolveDate(year - years, month, day);
-    }
-    
-    /**
-     * Subtracts the specified months from this and returns the result.
-     * 
-     * @param  months the months to subtract
-     * @return this minus {@code months}
-     */
-    public Date minusMonths(
-            final int months) {
-        ////
-        return resolveDate(year, month - months, day);
-    }
-    
-    /**
-     * Subtracts the specified days from this and returns the result.
-     * 
-     * @param  days the days to subtract
-     * @return this minus {@code days}
-     */
-    public Date minusDays(
-            final int days) {
-        ////
-        return resolveDate(year, month, day - days);
-    }
-    
-    //==================================================================================================================
-    
-    /**
-     * Returns a date for the specified arguments.
-     * 
-     * <p>This method handles any count of exceeding days and months gracefully. Note that exceeding months are handled
-     * prior exceeding days are handled.
-     * 
-     * @param  year the year
-     * @param  month the month
-     * @param  day the day
-     * @return the date
-     */
-    private static Date resolveDate(
-            final int year,
-            final int month,
-            final int day) {
-        ////
-        final int nMonth = DateUtil.mod(month - 1, 12) + 1;
-        final int nYear  = year + (month - nMonth) / 12;
-        
-        return isValid(nYear, nMonth, day)
-                ? new Date(nYear, nMonth, day)
-                : ofDayOfYear(nYear, dayOfYear(nYear, nMonth, day));
-    }
-    
-    /**
-     * Returns whether the specified data represents a valid date.
-     * 
-     * @param  year the year
-     * @param  month the month
-     * @param  day the day
-     * @return {@code true} if the arguments represent a valid date, {@code false} otherwise
-     */
-    private static boolean isValid(
-            final int year,
-            final int month,
-            final int day) {
-        ////
-        return day >= 1 && day <= YearKind.of(year).daysIn(month);
-    }
-    
-    /**
-     * Returns the date for the specified year and day of year.
-     * 
-     * <p>This method handles exceeding days gracefully, i.e. {@code day=0} will be treated as last day of the previous
-     * year.
-     * 
-     * <p>This method can be used to revert the result of the {@linkplain #totalDays()} method by providing {@code 0}
-     * for the year and {@code totalDays} for the day.
-     * <blockquote><pre>
-     * Date d;
-     * ...
-     * assert d.equals(ofDayOfYear(0, d.totalDays());</pre>
-     * </blockquote>
-     * 
-     * @param  year the year
-     * @param  day the day
-     * @return the date
-     */
-    private static Date ofDayOfYear(
-            final int year,
-            final int day) {
-        ////
-        int remainingDays = day;
-        
-        // Adding/subtracting 365/366 days until day is within the current year
-        final int daysIn400Years = 365 * 400 + 100 - 4 + 1;
-        int nYear = year + remainingDays / daysIn400Years * 400;
-        remainingDays %= daysIn400Years;
-        
-        if (remainingDays <= 0) {
-            for (; remainingDays <= 0; remainingDays += daysInYear(--nYear)) { }
-        } else {
-            for (int diy; remainingDays > (diy = daysInYear(nYear)); remainingDays -= diy, nYear++) { }
+        Date dateBuffer = null;
+        int totalDaysSinceStart = 0;
+
+        for (int i = 0; i < year; i++) {
+            dateBuffer = new Date(i, 1, 1);
+            totalDaysSinceStart += dateBuffer.getDaysInYear();
         }
-        
-        final YearKind yearKind = YearKind.of(nYear);
-        final Month    month    = yearKind.monthByDayOfYear(remainingDays);
-        
-        return new Date(nYear, month.toIndex(), remainingDays - yearKind.zerothDayOf(month));
+
+        totalDaysSinceStart += getDayOfYear() - 1;
+        int modResult = totalDaysSinceStart % 7;
+
+
+        int index = modResult == 0 ? 6 : modResult - 1;
+
+        index = index == 0 ? 7 : index;
+        return DayOfWeek.ofIndex(index);
     }
-    
+
     /**
-     * Returns the days in the specified year.
-     * 
-     * @param  year the year
-     * @return the days, either {@code 365} or {@code 366}
+     * Gets the number of days associated to {@link #year}
+     * @return 366 if {@link #year} represents a leap year. 365 otherwise
      */
-    private static int daysInYear(
-            final int year) {
-        ////
-        return YearKind.of(year).lastDayOf(Month.DECEMBER);
+    public int getDaysInYear() {
+        return isLeapYear() ? 366 : 365;
     }
+
+    /**
+     * Checks if the value of {@link #year} is associated to a leap year.
+     * @return True if {@link #year} represents a leap year. False otherwise.
+     */
+    public boolean isLeapYear() {
+        return (year % 100 == 0) ? (year % 400 == 0) : (year % 4 == 0);
+    }
+
+    //endregion
+
+    //region Text representation A.6
+
+    /**
+     * Generates the string representation of the object
+     * @return The string representation of the object in format DD-MM-YYYY
+     */
+    public String toString() {
+        String dayRepresentation = null;
+        String monthRepresentation = null;
+        String yearRepresentation = String.valueOf(year);
+
+        if (day < 10) {
+            dayRepresentation  =  "0" + String.valueOf(day);
+        } else {
+            dayRepresentation  =  String.valueOf(day);
+        }
+        if (month < 10) {
+            monthRepresentation  =  "0" + String.valueOf(month);
+        } else { 
+            monthRepresentation  =  String.valueOf(month);
+        }
+        return dayRepresentation.concat("-").concat(monthRepresentation).concat("-").concat(yearRepresentation);
+    }
+
+    //endregion
+
+    //region Date calculations A.9.2
+
+    /**
+     * Adds the values from a given {@link Date} to the current instance.
+     * Calendar rules are respected
+     * @param date An instance of {@link Date}
+     * @return A new instance of {@link Date} with the merged values
+     */
+    public Date plus(Date date) {
+        return this.plusDays(date.getDayOfMonth())
+                .plusMonths(date.getMonthValue())
+                .plusYears(date.getYear());
+    }
+
+    /**
+     * Adds a given amount of years to the instance
+     * Calendar rules are respected
+     * @param years The amount of years to add
+     * @return A new {@link Date} instance with the corresponding values
+     */
+    public Date plusYears(int years) {
+        return new Date(years + this.year, 1, 1).plusMonths(month - 1).plusDays(day - 1);
+    }
+
+    /**
+     * Adds a given amount of months to the instance
+     * Calendar rules are respected
+     * @param months The amount of months to add
+     * @return A new {@link Date} instance with the corresponding values
+     */
+    public Date plusMonths(int months) {
+        int totalMonths = months + this.month;
+
+        if (totalMonths > 12) {
+            //true: the addition of months is more than 12
+            totalMonths -= 13;
+            return new Date(year, 1, 1).plusYears(1).plusMonths(totalMonths).plusDays(day - 1);
+        } else {
+            //false: otherwise
+            return new Date(year, totalMonths, 1).plusDays(day - 1);
+        }
+    }
+
+    /**
+     * Adds a given amount of days to the instance
+     * Calendar rules are respected
+     * @param days The amount of days to add
+     * @return A new {@link Date} instance with the corresponding values
+     */
+    public Date plusDays(int days) {
+        int totalDays = days + this.day;
+        int daysInCurrentMonth = getDaysInMonth();
+
+        if (totalDays > daysInCurrentMonth) {
+            //true:the addition of days is bigger than the days in the current month
+            totalDays -= daysInCurrentMonth + 1;
+            return new Date(year, month, 1).plusMonths(1).plusDays(totalDays);
+        } else {
+            //false: the addition of days doesn't surpasses the the days of the current month
+            return new Date(year, month, totalDays);
+        }
+    }
+
+    /**
+     * Subtracts the values from a given {@link Date} to the current instance.
+     * Calendar rules are respected
+     * @param date An instance of {@link Date}
+     * @return A new instance of {@link Date} with the merged values
+     */
+    public Date minus(Date date) {
+        return this.minusDays(date.getDayOfMonth())
+                .minusMonths(date.getMonthValue())
+                .minusYears(date.getYear());
+    }
+
+    /**
+     * Subtracts a given amount of years to the instance
+     * Calendar rules are respected
+     * @param years The amount of years to subtract
+     * @return A new {@link Date} instance with the corresponding values
+     */
+    public Date minusYears(int years) {
+        return new Date(this.year - years, 1, 1).plusMonths(month - 1).plusDays(day - 1);
+    }
+
+    /**
+     * Subtracts a given amount of months to the instance
+     * Calendar rules are respected
+     * @param months The amount of months to subtract
+     * @return A new {@link Date} instance with the corresponding values
+     */
+    public Date minusMonths(int months) {
+        int totalMonths = this.month - months;
+
+        if (totalMonths <= 0) {
+            return new Date(year, 12, 1).minusYears(1).minusMonths(Math.abs(totalMonths)).plusDays(day - 1);
+        } else {
+            return new Date(year, totalMonths, 1).plusDays(day - 1);
+        }
+    }
+
+    /**
+     * Subtracts a given amount of days to the instance
+     * Calendar rules are respected
+     * @param days The amount of days to subtract
+     * @return A new {@link Date} instance with the corresponding values
+     */
+    public Date minusDays(int days) {
+        int totalDays = this.day - days;
+
+        if (totalDays <= 0) {
+            return  new Date(year, month, 1).minusMonths(1).moveToEndOfMonth().minusDays(Math.abs(totalDays));
+        } else {
+            return new Date(year, month, totalDays);
+        }
+    }
+
+    /**
+     * Support function for the calculation of dates.
+     * Returns an instance of {@linkplain Date date} who's {@link #day} value matches the biggest day in {@link #month}
+     * @return A new instance of {@linkplain Date date}
+     */
+    private Date moveToEndOfMonth() {
+        return new Date(getYear(), getMonthValue(), getDaysInMonth());
+    }
+
+    /**
+     * Support function for the calculation of dates.
+     * Gets the amount of days associated to {@link #month} 
+     * @return A number between 28 and 31
+     */
+    private int getDaysInMonth() {
+        return getMonth().getDaysInMonth(isLeapYear());
+    }
+
+    //endregion
+
+    //region Order relations A.10
+
+    /**
+     * Compares the object to a given {@linkplain Date} instance and checks if the object is located before in time
+     * @param other The {@linkplain Date} instance to compare
+     * @return {@code True} if the object is located in time before the given value. {@code False} otherwise
+     */
+    public boolean isBefore(Date other) {
+        boolean isBefore = false;
+
+        if (year <= other.getYear()) {
+            if (year < other.getYear()) {
+                isBefore = true;
+            } else {
+                if (month <= other.getMonthValue()) {
+                    if (month < other.getMonthValue()) {
+                        isBefore = true;
+                    } else {
+                        if (day < other.getDayOfMonth()) {
+                            isBefore = true;
+                        }
+                    }
+                }
+            }
+        }
+        return isBefore;
+    }
+
+    /**
+     * Compares the object to a given {@linkplain Date} instance and checks if both represent the same point in time
+     * @param other The {@linkplain Date} instance to compare
+     * @return {@code True} if the object and the parameter are the same point in time
+     */
+    public boolean isEqual(Date other) {
+        return !isAfter(other) && !isBefore(other);
+    }
+
+    /**
+     * Compares the object to a given {@linkplain Date} instance and checks if the object is located after in time
+     * @param other The {@linkplain Date} instance to compare
+     * @return {@code True} if the object is located in time after the given value. {@code False} otherwise
+     */
+    public boolean isAfter(Date other) {
+        boolean isAfter = false;
+
+        if (year >= other.getYear()) {
+            if (year > other.getYear()) {
+                isAfter = true;
+            } else {
+                if (month >= other.getMonthValue()) {
+                    if (month > other.getMonthValue()) {
+                        isAfter = true;
+                    } else {
+                        if (day > other.getDayOfMonth()) {
+                            isAfter = true;
+                        }
+                    }
+                }
+            }
+        }
+        return isAfter;
+    }
+
+    //endregion
 }

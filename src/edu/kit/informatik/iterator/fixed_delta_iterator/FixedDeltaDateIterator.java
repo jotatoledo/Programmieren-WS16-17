@@ -1,6 +1,6 @@
 package edu.kit.informatik.iterator.fixed_delta_iterator;
 
-import edu.kit.informatik.calendar.Date;
+import edu.kit.informatik.calendar_sample.Date;
 import edu.kit.informatik.iterator.SortedIterator;
 
 /**

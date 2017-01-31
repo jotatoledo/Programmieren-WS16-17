@@ -1,13 +1,13 @@
-package test.java.calendar;
+package test.calendar;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
 
-import main.java.calendar.Date;
-import main.java.calendar.DateTime;
-import main.java.calendar.DayOfWeek;
-import main.java.calendar.Month;
-import main.java.calendar.Time;
+import edu.kit.informatik.calendar.Date;
+import edu.kit.informatik.calendar.DateTime;
+import edu.kit.informatik.calendar.DayOfWeek;
+import edu.kit.informatik.calendar.Month;
+import edu.kit.informatik.calendar.Time;
 
 import static org.hamcrest.CoreMatchers.*;
 

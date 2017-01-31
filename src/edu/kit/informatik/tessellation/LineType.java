@@ -1,4 +1,4 @@
-package main.java.tessellation;
+package edu.kit.informatik.tessellation;
 
 /**
  * Represents all possible types of lines that can be present on
