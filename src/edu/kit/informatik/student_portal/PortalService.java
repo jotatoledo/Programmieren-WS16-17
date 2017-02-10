@@ -303,6 +303,4 @@ public class PortalService implements IPortalService {
         chairs.add(entity);
         return entity;
     }
-
-
 }
