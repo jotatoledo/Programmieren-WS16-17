@@ -1,7 +1,6 @@
 
 package edu.kit.informatik;
 
-import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Consumer;
@@ -60,7 +59,7 @@ public final class CommandHandler<T, C extends CommandHandler.Command<T>> {
         return cmd.orElse(null);
     }
     
-    public Stream<C> commands() {
+    private Stream<C> commands() {
         return Stream.of(commands);
     }
     

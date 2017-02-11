@@ -1,4 +1,3 @@
-
 package edu.kit.informatik;
 
 import static java.util.regex.Pattern.compile;

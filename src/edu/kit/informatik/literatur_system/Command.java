@@ -72,10 +72,82 @@ public enum Command implements ICommand<ILiteraturSystemService> {
         }
     },
     /**
-     * TODO add doc
+     * TODO add doc complete
      * written-by <publication>,<list of author names>
      */
-    WRITTEN_BY("") {
+    WRITTEN_BY("written-by ([a-zA-Z]+),()((;())*)") {
+        @Override
+        public void execute(final ILiteraturSystemService service, 
+                            final String string) {
+            // TODO Auto-generated method stub
+            
+        }
+    },
+    /**
+     * TODO add doc
+     * cites <publication 1>,<publication 2>
+     */
+    CITES("cites ([a-zA-Z]+),([a-zA-Z]+)") {
+        @Override
+        public void execute(final ILiteraturSystemService service, 
+                            final String string) {
+            // TODO Auto-generated method stub
+            
+        }
+    },
+    /**
+     * TODO add doc. List expression
+     * add keywords to <entity>:<list of keywords>
+     */
+    ADD_KEYWORDS_TO("add keywords to ([a-zA-Z]+)()") {
+        @Override
+        public void execute(final ILiteraturSystemService service, 
+                            final String string) {
+            // TODO Auto-generated method stub
+            
+        }
+    },
+    /**
+     * TODO add doc
+     * all publications
+     */
+    ALL_PUBLICATIONS("all publications") {
+        @Override
+        public void execute(final ILiteraturSystemService service, 
+                            final String string) {
+            // TODO Auto-generated method stub
+            
+        }
+    },
+    /**
+     * TODO add doc
+     * list invalid publications
+     */
+    LIST_INVALID_PUBLICATIONS("list invalid publications") {
+        @Override
+        public void execute(final ILiteraturSystemService service, 
+                            final String string) {
+            // TODO Auto-generated method stub
+            
+        }
+    },
+    /**
+     * TODO add doc. List expression
+     * publications by <list of authors>
+     */
+    PUBLICATIONS_BY("publications by ()") {
+        @Override
+        public void execute(final ILiteraturSystemService service, 
+                            final String string) {
+            // TODO Auto-generated method stub
+            
+        }
+    },
+    /**
+     * TODO add doc
+     * in proceedings <series>,<year>
+     */
+    IN_PROCEEDINGS("in proceedings ([a-zA-Z]+),((?!0)\\d{4})") {
         @Override
         public void execute(final ILiteraturSystemService service, 
                             final String string) {
