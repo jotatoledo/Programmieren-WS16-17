@@ -5,7 +5,7 @@ import java.util.Objects;
 /**
  * TODO add doc
  * @author JoseNote
- * @version 1.00
+ * @version %I%, %G%
  */
 public final class Autor implements Comparable<Autor> {
     private final String firstName;

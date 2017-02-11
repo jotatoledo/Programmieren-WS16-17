@@ -180,7 +180,9 @@ public final class CampusManagement {
      */
     public Stream<Module> modules() {
         ////
-        return elements.stream().map(((GetModule) orElse -> null)::apply).filter(Objects::nonNull);
+        return elements.stream()
+                .map(((GetModule) orElse -> null)::apply)
+                .filter(Objects::nonNull);
     }
     
     /**

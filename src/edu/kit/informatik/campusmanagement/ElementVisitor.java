@@ -18,7 +18,7 @@ interface ElementVisitor<R> {
      * @return the result value
      */
     R visit(
-            final Lecture lecture);
+            Lecture lecture);
     
     /**
      * Visits the specified module.
@@ -27,7 +27,7 @@ interface ElementVisitor<R> {
      * @return the result value
      */
     R visit(
-            final Module module);
+            Module module);
     
     /**
      * Visits the specified element.
@@ -36,7 +36,7 @@ interface ElementVisitor<R> {
      * @return the return value
      */
     R visit(
-            final Element element);
+            Element element);
     
     /**
      * Visits the specified element.

@@ -41,7 +41,7 @@ abstract class Element implements Comparable<Element> {
      * @throws NullPointerException if visitor is {@code null}
      */
     abstract <R> R accept(
-            final ElementVisitor<R> visitor);
+            ElementVisitor<R> visitor);
     
     /**
      * Returns the id of the lecture.

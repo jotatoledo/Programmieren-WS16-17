@@ -80,7 +80,8 @@ public enum Command implements CommandHandler.Command<CampusManagement> {
             ////
             final Matcher m = matcher(pattern(), s);
             try {
-                professor(s, m.start(1), m.end(1)).apply(campusManagement).lectures().sorted()
+                professor(s, m.start(1), m.end(1)).apply(campusManagement)
+                .lectures().sorted()
                         .map(lecture -> listing(
                                 lecture.id(),
                                 lecture.name(),
@@ -210,7 +211,10 @@ public enum Command implements CommandHandler.Command<CampusManagement> {
             ////
             final Matcher m = matcher(pattern(), s);
             try {
-                module(s, m.start(1), m.end(1)).apply(campusManagement).lectures().sorted()
+                module(s, m.start(1), m.end(1))
+                .apply(campusManagement)
+                .lectures()
+                .sorted()
                         .map(lecture -> listing(
                                 lecture.id(),
                                 lecture.name(),
@@ -237,7 +241,7 @@ public enum Command implements CommandHandler.Command<CampusManagement> {
             final Matcher m = matcher(pattern(), s);
             try {
                 campusManagement.addLecture(
-                        Command.name(s, m.start(1), m.end(1)),
+                        name(s, m.start(1), m.end(1)),
                         module(s, m.start(2), m.end(2)).apply(campusManagement),
                         professor(s, m.start(3), m.end(3)).apply(campusManagement),
                         credits(s, m.start(4), m.end(4)));
@@ -280,7 +284,8 @@ public enum Command implements CommandHandler.Command<CampusManagement> {
             ////
             final Matcher m = matcher(pattern(), s);
             try {
-                final Lecture lecture = lecture(s, m.start(1), m.end(1)).apply(campusManagement);
+                final Lecture lecture = lecture(s, m.start(1), m.end(1))
+                        .apply(campusManagement);
                 lecture.students().sorted()
                         .map((student) -> listing(
                                 student.studentnumber(),
@@ -520,7 +525,7 @@ public enum Command implements CommandHandler.Command<CampusManagement> {
             throw new IllegalStateException("No match available");
         return m;
     }
-    
+//    
     private static Matcher matcher(Pattern pattern, String string, int s, int e) {
         final Matcher m = pattern.matcher(string).region(s, e);
         if (!m.matches())
@@ -529,7 +534,11 @@ public enum Command implements CommandHandler.Command<CampusManagement> {
     }
     
     private interface Accessor<T> {
-        
+        /**
+         * Accessor implementation of apply
+         * @param campusManagement
+         * @return
+         */
         T apply(CampusManagement campusManagement);
     }
 }
