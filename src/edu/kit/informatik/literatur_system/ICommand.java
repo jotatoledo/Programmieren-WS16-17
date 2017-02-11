@@ -21,4 +21,10 @@ public interface ICommand<T> {
      * @return TODO add doc
      */
     Pattern pattern();
+    
+    /**
+     * TODO add doc
+     * @return TODO add doc
+     */
+    boolean isQuit();
 }

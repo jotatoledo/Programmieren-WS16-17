@@ -2,8 +2,8 @@ package edu.kit.informatik.literatur_system;
 
 import static java.util.regex.Pattern.compile;
 
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 
 /**
  * TODO add doc
@@ -18,8 +18,9 @@ public enum Command implements ICommand<ILiteraturSystemService> {
     ADD_AUTOR("add autor ([a-zA-Z]+),([a-zA-Z]+)") {
         @Override
         public void execute(final ILiteraturSystemService service, 
-                            final String string) {
-            // TODO Auto-generated method stub
+                            final String input) {
+            // TODO implement
+            final Matcher m = matcher(pattern(), input);
             
         }
     },
@@ -30,7 +31,7 @@ public enum Command implements ICommand<ILiteraturSystemService> {
     ADD_JOURNAL("add journal ([a-zA-Z]+),([a-zA-Z]+)") {
         @Override
         public void execute(final ILiteraturSystemService service, 
-                            final String string) {
+                            final String input) {
             // TODO Auto-generated method stub
             
         }
@@ -172,15 +173,11 @@ public enum Command implements ICommand<ILiteraturSystemService> {
     
     private Command(
             final String format) {
-        ////
         stringrep = format;
         pattern = compile(format);
     }
     
-    /**
-     * TODO add doc
-     * @return TODO add doc
-     */
+    @Override
     public boolean isQuit() {
         return this == QUIT;
     }
@@ -189,13 +186,26 @@ public enum Command implements ICommand<ILiteraturSystemService> {
      * TODO add doc
      * @return TODO add doc
      */
-    public static CommandHandler<ILiteraturSystemService, Command> handler() {
+    public static CommandHandler<ILiteraturSystemService, ICommand<ILiteraturSystemService>> handler() {
         ////
-        return CommandHandler.of(new LiteraturSystemService(), values());
+        return CommandHandler.createFor(new LiteraturSystemService(), values());
     }
 
     @Override
     public Pattern pattern() {
         return pattern;
+    }
+    
+    /**
+     * TODO add doc
+     * @param pattern TODO add doc
+     * @param input TODO add doc
+     * @return TODO add doc
+     */
+    private static Matcher matcher(final Pattern pattern, final String input) {
+        final Matcher m = pattern.matcher(input);
+        if (!m.matches())
+            throw new IllegalStateException("no match available");
+        return m;
     }
 }

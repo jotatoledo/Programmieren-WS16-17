@@ -173,7 +173,7 @@ public enum Command implements CommandHandler.Command<CampusManagement> {
                 final String s) {
             ////
             final Matcher m = matcher(pattern(), s);
-            campusManagement.addModule(Command.name(s, m.start(1), m.end(1)));
+            campusManagement.addModule(name(s, m.start(1), m.end(1)));
             Terminal.printLine("Ok");
         }
     },

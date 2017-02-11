@@ -14,9 +14,8 @@ public class Console {
      */
     public static void main(
             final String[] args) {
-        ////
-        final CommandHandler<ILiteraturSystemService, Command> h = Command.handler();
-        Command c;
+        final CommandHandler<?, ICommand<ILiteraturSystemService>> h = Command.handler();
+        ICommand<?> c = null;
         do {
             c = h.accept(Terminal.readLine(), s -> Terminal.printLine("Error, no such command: '" + s + "'"));
         } while (c == null || !c.isQuit());

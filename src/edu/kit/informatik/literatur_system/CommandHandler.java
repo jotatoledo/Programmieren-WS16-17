@@ -14,7 +14,7 @@ import java.util.stream.Stream;
  */
 public final class CommandHandler<T, C extends ICommand<T>> {
     private final T target;
-    private final C[] commands;
+    private final ICommand<T>[] commands;
     
     private CommandHandler(final T target, final C[] commands) {
         //TODO remove dead code
@@ -25,10 +25,11 @@ public final class CommandHandler<T, C extends ICommand<T>> {
     }
     
     @SafeVarargs
-    public static <T, C extends ICommand<T>> CommandHandler<T, C> of(final T target, 
+    public static <T, C extends ICommand<T>> CommandHandler<T, ICommand<T>> createFor(
+            final T target, 
             final C... commands) {
         Objects.requireNonNull(target);
-        return new CommandHandler<>(target, commands.clone());
+        return new CommandHandler<>(target, commands);
     }
     
     /**
@@ -38,10 +39,10 @@ public final class CommandHandler<T, C extends ICommand<T>> {
      * @param callback TODO add doc
      * @return TODO add doc
      */
-    public C accept(final String string, final Consumer<? super String> callback) {
+    public ICommand<T> accept(final String string, final Consumer<? super String> callback) {
         Objects.requireNonNull(string);
         Objects.requireNonNull(callback);
-        final Optional<C> cmd = find(string);
+        final Optional<ICommand<T>> cmd = find(string);
         if (cmd.isPresent())
             cmd.get().execute(target, string);
         else
@@ -55,7 +56,7 @@ public final class CommandHandler<T, C extends ICommand<T>> {
      * @param string TODO add doc
      * @return TODO add doc
      */
-    private Optional<C> find(final String string) {
+    private Optional<ICommand<T>> find(final String string) {
         return commands()
                 .filter(cmd -> cmd.pattern().matcher(string).matches())
                 .reduce((l, r) -> { 
@@ -65,7 +66,7 @@ public final class CommandHandler<T, C extends ICommand<T>> {
         //The reduce API wasn't created for the used purpose
     }
     
-    private Stream<C> commands() {
+    private Stream<ICommand<T>> commands() {
         return Stream.of(commands);
     }
 }
