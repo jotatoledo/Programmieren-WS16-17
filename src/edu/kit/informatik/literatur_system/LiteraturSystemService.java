@@ -1,6 +1,7 @@
 package edu.kit.informatik.literatur_system;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
@@ -13,6 +14,7 @@ import java.util.stream.Stream;
  */
 public class LiteraturSystemService implements ILiteraturSystemService {
     private final Set<Author> authors;
+    private final Set<Publication> publications;
     
     /**
      * Creates a new instance of the service.
@@ -20,6 +22,7 @@ public class LiteraturSystemService implements ILiteraturSystemService {
      */
     public LiteraturSystemService() {
         authors = new TreeSet<Author>();
+        publications = new HashSet<Publication>();
     }
     
     private IllegalArgumentException noSuch(

@@ -8,7 +8,7 @@ import java.util.Set;
  * @author JoseNote
  * @version %I%, %G%
  */
-public abstract class Publication {
+public abstract class Publication extends TagedElement {
     private final String id;
     private final String titel;
     private final short publicationYear;
@@ -23,6 +23,7 @@ public abstract class Publication {
     public Publication(
             final String id, final String titel, final short publicationYear) {
         // TODO test id
+        super();
         this.id = id;
         this.titel = titel;
         this.publicationYear = publicationYear;
@@ -39,5 +40,13 @@ public abstract class Publication {
             //TODO improve error message
             throw new IllegalArgumentException("this publication is already associated to the given author");
         return this;
+    }
+    
+    /**
+     * TODO add doc
+     * @return TODO add doc
+     */
+    public String getId() {
+        return id;
     }
 }

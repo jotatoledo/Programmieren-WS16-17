@@ -5,7 +5,7 @@ package edu.kit.informatik.literatur_system;
  * @author JoseNote
  * @version %I%, %G%
  */
-public final class Journal {
+public final class Journal extends Venue {
     private final String name;
     private final String publisher;
     
@@ -15,6 +15,7 @@ public final class Journal {
      * @param publisher TODO add doc
      */
     public Journal(final String name, final String publisher) {
+        super();
         this.name = name;
         this.publisher = publisher;
     }
