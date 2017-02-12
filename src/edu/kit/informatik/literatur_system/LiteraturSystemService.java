@@ -20,6 +20,15 @@ public class LiteraturSystemService implements ILiteraturSystemService {
     public LiteraturSystemService() {
         authors = new TreeSet<Author>();
     }
+    
+    private IllegalArgumentException noSuch(
+            final Class<?> type,
+            final Object arg,
+            final Object... args) {
+        ////
+        return new IllegalArgumentException(Stream.concat(Stream.of(arg), Stream.of(args)).map(String::valueOf)
+                .collect(Collectors.joining(", ", "No such " + type.getSimpleName() + ": ", "")));
+    }
 
     @Override
     public Author addAuthor(final String firstName, final String lastName) {
@@ -41,13 +50,20 @@ public class LiteraturSystemService implements ILiteraturSystemService {
                 .isPresent();
                 
     }
-    
-    private IllegalArgumentException noSuch(
-            final Class<?> type,
-            final Object arg,
-            final Object... args) {
-        ////
-        return new IllegalArgumentException(Stream.concat(Stream.of(arg), Stream.of(args)).map(String::valueOf)
-                .collect(Collectors.joining(", ", "No such " + type.getSimpleName() + ": ", "")));
+
+    @Override
+    public Journal addJournal(final String name, final String publisher) {
+        //TODO validate input
+        if (existJournal(name))
+            throw new IllegalArgumentException("journal already exist");
+        Journal entity = new Journal(name, publisher);
+        //TODO add to collection
+        return entity;
+    }
+
+    @Override
+    public boolean existJournal(final String name) {
+        // TODO Auto-generated method stub
+        return false;
     }
 }
