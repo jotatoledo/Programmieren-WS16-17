@@ -10,6 +10,11 @@ import org.junit.Test;
 
 import edu.kit.informatik.literatur_system.Utilities;
 
+/**
+ * TODO add doc
+ * @author JoseNote
+ * @version %I%, %G%
+ */
 public class UtilitiesTest {
     private final List<String> firstList = new ArrayList<String>();
     private final List<String> secondList = new ArrayList<String>();
@@ -26,7 +31,6 @@ public class UtilitiesTest {
         secondList.add("five");
         secondList.add("six");
     }
-    
     
     @Test
     public void testConcatenatedList() {
