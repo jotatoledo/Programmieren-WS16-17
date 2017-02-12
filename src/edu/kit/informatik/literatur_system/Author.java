@@ -1,6 +1,8 @@
 package edu.kit.informatik.literatur_system;
 
 import java.util.Objects;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * TODO add doc
@@ -10,6 +12,7 @@ import java.util.Objects;
 public final class Author implements Comparable<Author> {
     private final String firstName;
     private final String lastName;
+    private final Set<Publication> publications;
     
     /**
      * TODO add doc
@@ -21,6 +24,8 @@ public final class Author implements Comparable<Author> {
         //TODO test name valid
         this.firstName = firstName;
         this.lastName = lastName;
+        //TODO change type of set
+        publications = new TreeSet<Publication>();
     }
 
     @Override
@@ -54,5 +59,17 @@ public final class Author implements Comparable<Author> {
      */
     public String getLastName() {
         return lastName;
+    }
+    
+    /**
+     * TODO add doc
+     * @param publication TODO add doc
+     * @return TODO add doc
+     */
+    public Author addPublication(final Publication publication) {
+        if (!publications.add(publication))
+          //TODO improve error message
+            throw new IllegalArgumentException("this author is already associated to the given publication");
+        return this;
     }
 }

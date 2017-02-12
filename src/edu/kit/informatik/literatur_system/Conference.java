@@ -1,14 +1,16 @@
 package edu.kit.informatik.literatur_system;
 
+import java.util.Objects;
+
 /**
  * TODO add doc
  * @author JoseNote
  * @version %I%, %G%
  */
-public final class Conference {
+public final class Conference implements Comparable<Conference> {
     private final String location;
     private final short year;
-    private final ConferenceSerie serie;
+    private final ConferenceSeries serie;
     
     /**
      * TODO add doc
@@ -17,9 +19,26 @@ public final class Conference {
      * @param serie TODO add doc
      */
     public Conference(
-            final String location, final short year, final ConferenceSerie serie) {
+            final String location, final short year, final ConferenceSeries serie) {
         this.location = location;
         this.year = year;
         this.serie = serie;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(serie, year);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof Conference
+                && compareTo((Conference) obj) == 0;
+    }
+
+    @Override
+    public int compareTo(Conference o) {
+        // TODO Auto-generated method stub
+        return 0;
     }
 }

@@ -1,5 +1,6 @@
 package edu.kit.informatik.literatur_system;
 
+import java.util.Collection;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
@@ -43,12 +44,7 @@ public class LiteraturSystemService implements ILiteraturSystemService {
 
     @Override
     public boolean existAuthor(final String firstName, final String lastName) {
-        return authors.stream()
-                .filter(x -> x.getLastName().compareTo(lastName) == 0)
-                .filter(x -> x.getFirstName().compareTo(firstName) == 0)
-                .findFirst()
-                .isPresent();
-                
+        return authors.contains(new Author(firstName, lastName));
     }
 
     @Override
@@ -65,5 +61,52 @@ public class LiteraturSystemService implements ILiteraturSystemService {
     public boolean existJournal(final String name) {
         // TODO Auto-generated method stub
         return false;
+    }
+
+    @Override
+    public ConferenceSeries addConferenceSeries(final String name) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public void writtenBy(final String publicationId, final Collection<AuthorNames> authors) {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public Publication getPublication(final String id) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public Collection<Author> getAuthor(Collection<AuthorNames> names) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public void cites(final String quoter, final String reference) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public Conference addConference(String conferenceSeriesId, short year, String location) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public Collection<Publication> getPublication(boolean onlyValid) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public Collection<Publication> getPublication(Collection<AuthorNames> authors) {
+        // TODO Auto-generated method stub
+        return null;
     }
 }
