@@ -61,10 +61,10 @@ public enum Command implements ICommand<ILiteraturSystemService> {
         }
     },
     /**
-     * TODO add doc
+     * TODO add doc. Change id to accept numbers
      * add article to <series/journal>:<id>,<year>,<title>
      */
-    ADD_ARTICLE("add article to ([a-zA-Z]+):([a-zA-Z]+),((?!0)\\d{4}),([a-zA-Z]+)") {
+    ADD_ARTICLE("add article to ([a-zA-Z]+):([a-z0-9]+),((?!0)\\d{4}),([a-zA-Z]+)") {
         @Override
         public void execute(final ILiteraturSystemService service, 
                             final String string) {
