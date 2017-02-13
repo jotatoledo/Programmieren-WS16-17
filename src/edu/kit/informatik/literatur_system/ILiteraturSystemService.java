@@ -59,12 +59,26 @@ public interface ILiteraturSystemService {
     boolean existJournal(String name);
     
     /**
+     * TODO add doc
+     * @param name TODO add doc
+     * @return TODO add doc
+     */
+    Journal getJournal(String name);
+    
+    /**
      * Creates a new conference series entity and persists it in the service
      * C3
      * @param name the name value for the new entity
      * @return the new entity
      */
     ConferenceSeries addConferenceSeries(String name);
+    
+    /**
+     * TODO add doc
+     * @param name TODO add doc
+     * @return TODO add doc
+     */
+    boolean existConferenceSeries(String name);
     
     /**
      * TODO add doc
