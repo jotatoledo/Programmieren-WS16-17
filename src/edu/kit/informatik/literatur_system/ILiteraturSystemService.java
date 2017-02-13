@@ -10,6 +10,7 @@ import java.util.Collection;
 public interface ILiteraturSystemService {
     /**
      * TODO add doc
+     * C4
      * @param conferenceSeriesId TODO add doc
      * @param year TODO add doc
      * @param location TODO add doc
@@ -19,6 +20,7 @@ public interface ILiteraturSystemService {
     
     /**
      * Creates a new author entity and persists it in the service
+     * C1
      * @param firstName the first name value for the new entity
      * @param lastName the last name value for the new entity
      * @return the new entity
@@ -42,6 +44,7 @@ public interface ILiteraturSystemService {
     
     /**
      * Creates a new journal entity and persists it in the service
+     * C2
      * @param name the name value for the new entity
      * @param publisher the publisher value for the new entity
      * @return the new entity
@@ -57,6 +60,7 @@ public interface ILiteraturSystemService {
     
     /**
      * Creates a new conference series entity and persists it in the service
+     * C3
      * @param name the name value for the new entity
      * @return the new entity
      */
@@ -64,6 +68,7 @@ public interface ILiteraturSystemService {
     
     /**
      * TODO add doc
+     * C6
      * @param publicationId TODO add doc
      * @param authors TODO add doc
      */
@@ -78,6 +83,7 @@ public interface ILiteraturSystemService {
     
     /**
      * TODO add doc
+     * C10
      * @param onlyValid TODO add doc
      * @return TODO add doc
      */
@@ -85,6 +91,7 @@ public interface ILiteraturSystemService {
     
     /**
      * TODO add doc
+     * C9
      * @param authors TODO add doc
      * @return TODO add doc
      */
@@ -92,8 +99,31 @@ public interface ILiteraturSystemService {
     
     /**
      * TODO add doc
+     * C7
      * @param quoter TODO add doc
      * @param reference TODO add doc
      */
     void cites(String quoter, String reference);
+    
+    /**
+     * TODO add doc
+     * Part of C5
+     * @param seriesId TODO add doc
+     * @param articleId TODO add doc
+     * @param articlePublicationYear TODO add doc
+     * @param articleTitle TODO add doc
+     * @return TODO add doc
+     */
+    Article addArticleToSeries(String seriesId, String articleId, short articlePublicationYear, String articleTitle);
+    
+    /**
+     * TODO add doc
+     * Part of C5
+     * @param journalId TODO add doc
+     * @param articleId TODO add doc
+     * @param articlePublicationYear TODO add doc
+     * @param articleTitle TODO add doc
+     * @return TODO add doc
+     */
+    Article addArticleToJournal(String journalId, String articleId, short articlePublicationYear, String articleTitle);
 }

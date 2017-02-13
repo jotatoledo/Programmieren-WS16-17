@@ -16,6 +16,7 @@ public class LiteraturSystemService implements ILiteraturSystemService {
     private final Set<Author> authors;
     private final Set<Publication> publications;
     
+    
     /**
      * Creates a new instance of the service.
      * Note: good point to use dependency injection
@@ -109,6 +110,20 @@ public class LiteraturSystemService implements ILiteraturSystemService {
 
     @Override
     public Collection<Publication> getPublication(Collection<AuthorNames> authors) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public Article addArticleToSeries(String seriesId, String articleId, short articlePublicationYear,
+            String articleTitle) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public Article addArticleToJournal(String journalId, String articleId, short articlePublicationYear,
+            String articleTitle) {
         // TODO Auto-generated method stub
         return null;
     }
