@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * Various generic utility functions
+ * Various utility functions
  * @author JoseNote
  * @version %I%, %G%
  */
@@ -45,7 +45,7 @@ public class Utilities {
      */
     public static IllegalArgumentException noSuch(
             final Class<?> type, final Object... args) {
-        //TODO refactor concat
+        //TODO improve message
         return new IllegalArgumentException(Stream.of(args).map(String::valueOf)
                 .collect(Collectors.joining(", ", "No such " + type.getSimpleName() + ": ", "")));
     }
@@ -58,7 +58,7 @@ public class Utilities {
      */
     public static IllegalArgumentException alreadyExist(
             final Class<?> type, final Object... args) {
-        //TODO refactor concat
+        //TODO improve message
         return new IllegalArgumentException(Stream.of(args).map(String::valueOf)
                 .collect(Collectors.joining(", ", "exist already " + type.getSimpleName() + ": ", "")));
     }
