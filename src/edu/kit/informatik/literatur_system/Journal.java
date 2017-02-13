@@ -19,4 +19,25 @@ public final class Journal extends Venue {
         this.name = name;
         this.publisher = publisher;
     }
+
+    /**
+     * TODO add doc
+     * @param name TODO add doc
+     */
+    public Journal(final String name) {
+        super();
+        this.name = name;
+        publisher = null;
+    }
+
+    @Override
+    public int hashCode() {
+        return name.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof Journal
+                && ((Journal) obj).name.compareTo(name) == 0;
+    }
 }
