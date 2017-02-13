@@ -37,4 +37,12 @@ public final class Keyword implements Comparable<Keyword> {
         return obj instanceof Keyword
                 && compareTo((Keyword) obj) == 0;
     }
+    
+    /**
+     * TODO add doc
+     * @return TODO add doc
+     */
+    public String getWord() {
+        return word;
+    }
 }

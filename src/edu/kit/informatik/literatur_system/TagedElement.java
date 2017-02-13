@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 /**
  * TODO add doc
@@ -30,5 +31,15 @@ public abstract class TagedElement implements ITaged {
     @Override
     public Collection<Keyword> getKeywords() {
         return Collections.unmodifiableCollection(keywords);
+    }
+    
+    /**
+     * TODO add doc
+     * @return TODO add doc
+     */
+    public Collection<String> getKeywordsValues() {
+        return getKeywords().stream()
+                .map(Keyword::getWord)
+                .collect(Collectors.toList());
     }
 }
