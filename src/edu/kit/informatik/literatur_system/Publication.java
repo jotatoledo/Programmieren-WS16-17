@@ -30,6 +30,17 @@ public abstract class Publication extends TagedElement {
         authors = new LinkedHashSet<Author>();
     }
     
+    @Override
+    public int hashCode() {
+        return id.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof Publication
+                && ((Publication) obj).id.compareTo(id) == 0;
+    }
+    
     /**
      * TODO add doc
      * @param author TODO add doc
