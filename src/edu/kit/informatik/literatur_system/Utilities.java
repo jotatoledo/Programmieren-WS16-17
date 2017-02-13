@@ -20,10 +20,21 @@ public class Utilities {
      * @return TODO add doc
      */
     @SafeVarargs
-    public static <T> List<T> concatenatedList(Collection<T>... collections) {
+    public static <T> List<T> concatenatedList(
+            Collection<T>... collections) {
         return Arrays.stream(collections)
                 .flatMap(Collection::stream)
                 .collect(Collectors.toList()); 
+    }
+    
+    /**
+     * Joins multiple primitive type objects into a space separated string
+     * @param values TODO add doc
+     * @return TODO add doc
+     */
+    public static String listing(
+            final Object... values) {
+        return Stream.of(values).map(String::valueOf).collect(Collectors.joining(" "));
     }
     
     /**
