@@ -1,6 +1,7 @@
 package edu.kit.informatik.literatur_system;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -28,6 +29,6 @@ public abstract class TagedElement implements ITaged {
     
     @Override
     public Collection<Keyword> getKeywords() {
-        return keywords;
+        return Collections.unmodifiableCollection(keywords);
     }
 }
