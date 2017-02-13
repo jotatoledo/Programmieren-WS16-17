@@ -21,7 +21,6 @@ public class Utilities {
      */
     @SafeVarargs
     public static <T> List<T> concatenatedList(Collection<T>... collections) {
-        //TODO check creation of new list
         return Arrays.stream(collections)
                 .flatMap(Collection::stream)
                 .collect(Collectors.toList()); 
@@ -35,11 +34,23 @@ public class Utilities {
      * @return TODO add doc
      */
     public static IllegalArgumentException noSuch(
-            final Class<?> type,
-            final Object arg,
-            final Object... args) {
-        ////
+            final Class<?> type, final Object arg, final Object... args) {
+        //TODO refactor concat
         return new IllegalArgumentException(Stream.concat(Stream.of(arg), Stream.of(args)).map(String::valueOf)
                 .collect(Collectors.joining(", ", "No such " + type.getSimpleName() + ": ", "")));
+    }
+    
+    /**
+     * TODO add doc
+     * @param type TODO add doc
+     * @param arg TODO add doc
+     * @param args TODO add doc
+     * @return TODO add doc
+     */
+    public static IllegalArgumentException alreadyExist(
+            final Class<?> type, final Object arg, final Object... args) {
+        //TODO refactor concat
+        return new IllegalArgumentException(Stream.concat(Stream.of(arg), Stream.of(args)).map(String::valueOf)
+                .collect(Collectors.joining(", ", "exist already " + type.getSimpleName() + ": ", "")));
     }
 }
