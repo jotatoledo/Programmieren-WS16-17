@@ -11,12 +11,12 @@ public interface ILiteraturSystemService {
     /**
      * TODO add doc
      * C4
-     * @param conferenceSeriesId TODO add doc
+     * @param seriesName TODO add doc
      * @param year TODO add doc
      * @param location TODO add doc
      * @return TODO add doc
      */
-    Conference addConference(String conferenceSeriesId, short year, String location);
+    Conference addConference(String seriesName, short year, String location);
     
     /**
      * Creates a new author entity and persists it in the service
@@ -82,6 +82,13 @@ public interface ILiteraturSystemService {
     
     /**
      * TODO add doc
+     * @param name TODO add doc
+     * @return TODO add doc
+     */
+    ConferenceSeries getConferenceSeries(String name);
+    
+    /**
+     * TODO add doc
      * C6
      * @param publicationId TODO add doc
      * @param authors TODO add doc
@@ -122,22 +129,31 @@ public interface ILiteraturSystemService {
     /**
      * TODO add doc
      * Part of C5
-     * @param seriesId TODO add doc
+     * @param seriesName TODO add doc
      * @param articleId TODO add doc
      * @param articlePublicationYear TODO add doc
      * @param articleTitle TODO add doc
      * @return TODO add doc
      */
-    Article addArticleToSeries(String seriesId, String articleId, short articlePublicationYear, String articleTitle);
+    Article addArticleToSeries(String seriesName, String articleId, short articlePublicationYear, String articleTitle);
     
     /**
      * TODO add doc
      * Part of C5
-     * @param journalId TODO add doc
+     * @param journalName TODO add doc
      * @param articleId TODO add doc
      * @param articlePublicationYear TODO add doc
      * @param articleTitle TODO add doc
      * @return TODO add doc
      */
-    Article addArticleToJournal(String journalId, String articleId, short articlePublicationYear, String articleTitle);
+    Article addArticleToJournal(
+            String journalName, String articleId, 
+            short articlePublicationYear, String articleTitle);
+    
+    /**
+     * TODO add doc
+     * @param id TODO add doc
+     * @return TODO add doc
+     */
+    boolean existPublication(String id);
 }
