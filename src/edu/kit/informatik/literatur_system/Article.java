@@ -26,6 +26,12 @@ public final class Article extends Publication {
         venue.addPublication(this);
     }
     
+    public Article(final String id) {
+        super(id);
+        venue = null;
+        // TODO Auto-generated constructor stub
+    }
+
     @Override
     public Collection<Keyword> getKeywords() {
         //TODO filter repeated?

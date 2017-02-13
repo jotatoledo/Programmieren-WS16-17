@@ -81,8 +81,6 @@ public final class Portal {
     }
 
     private static String[] getParameters(final String input, final Command command) {
-        //TODO validate number of parameters
-        //TODO refactor to trim?
         return input.substring(command.getLength() + 1).split(";");
     }
     
@@ -156,7 +154,7 @@ public final class Portal {
     }
     
     private void summaryModule(final String[] input) {
-      //TODO refactor to use a single string input?
+        //TODO refactor to use a single string input?
         Module mod = portalService.getModule(TestUtility.parseModuleId(input[0]));
         
         for (Lecture lect : mod.getLectures()) {

@@ -50,4 +50,13 @@ public final class ConferenceSeries extends TagedElement {
         conferences.put(c.getYear(), c);
         return this;
     }
+    
+    /**
+     * TODO add doc
+     * @param year TODO add doc
+     * @return TODO add doc
+     */
+    public Conference getConferenceInYear(final short year) {
+        return conferences.get(year);
+    }
 }

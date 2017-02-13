@@ -30,6 +30,14 @@ public abstract class Publication extends TagedElement {
         authors = new LinkedHashSet<Author>();
     }
     
+    public Publication(final String id) {
+        super();
+        this.id = id;
+        this.titel = null;
+        this.publicationYear = 1000;
+        authors = new LinkedHashSet<Author>();
+    }
+
     @Override
     public int hashCode() {
         return id.hashCode();

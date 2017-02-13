@@ -22,10 +22,11 @@ public final class Conference extends Venue {
     public Conference(
             final String location, final short year, final ConferenceSeries serie) {
         super();
+        //TODO check input
         this.location = location;
         this.year = year;
-        this.serie = serie;
         serie.addConference(this);
+        this.serie = serie;
     }
 
     @Override
