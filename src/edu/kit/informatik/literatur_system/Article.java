@@ -7,7 +7,7 @@ import java.util.Collection;
  * @author JoseNote
  * @version %I%, %G%
  */
-public class Article extends Publication {
+public final class Article extends Publication {
     private final Venue venue;
     
     /**
