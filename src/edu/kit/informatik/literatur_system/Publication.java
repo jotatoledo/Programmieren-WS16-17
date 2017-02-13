@@ -1,7 +1,8 @@
 package edu.kit.informatik.literatur_system;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * TODO add doc
@@ -9,10 +10,22 @@ import java.util.Set;
  * @version %I%, %G%
  */
 public abstract class Publication extends TagedElement {
+    /**
+     * TODO add doc
+     */
+    public static final boolean VALID = true;
+    /**
+     * TODO add doc
+     */
+    public static final boolean INVALID = false;
     private final String id;
     private final String titel;
     private final short publicationYear;
-    private final Set<Author> authors;
+    
+
+    private final Map<Author, Author> authors;
+    private final Map<Publication, Publication> referenceToOther;
+    private final Map<Publication, Publication> referenceToThis;
     
     /**
      * TODO add doc
@@ -27,15 +40,23 @@ public abstract class Publication extends TagedElement {
         this.id = id;
         this.titel = titel;
         this.publicationYear = publicationYear;
-        authors = new LinkedHashSet<Author>();
+        authors = new LinkedHashMap<Author, Author>();
+        referenceToOther = new HashMap<Publication, Publication>();
+        referenceToThis = new HashMap<Publication, Publication>();
     }
     
+    /**
+     * TODO add doc
+     * @param id TODO add doc
+     */
     public Publication(final String id) {
         super();
         this.id = id;
         this.titel = null;
         this.publicationYear = 1000;
-        authors = new LinkedHashSet<Author>();
+        authors = new LinkedHashMap<Author, Author>();
+        referenceToOther = new HashMap<Publication, Publication>();
+        referenceToThis = new HashMap<Publication, Publication>();
     }
 
     @Override
@@ -55,9 +76,10 @@ public abstract class Publication extends TagedElement {
      * @return TODO add doc
      */
     public Publication addAuthor(final Author author) {
-        if (!authors.add(author))
+        if (authors.containsKey(author))
             //TODO improve error message
             throw new IllegalArgumentException("this publication is already associated to the given author");
+        authors.put(author, author);
         return this;
     }
     
@@ -67,5 +89,45 @@ public abstract class Publication extends TagedElement {
      */
     public String getId() {
         return id;
+    }
+    
+    /**
+     * TODO add doc
+     * @param p TODO add doc
+     * @return TODO add doc
+     */
+    public Publication addReferenceToOther(final Publication p) {
+        if (referenceToOther.containsKey(p))
+            throw new IllegalArgumentException("p is already quoted by this");
+        referenceToOther.put(p, p);
+        return this;
+    }
+    
+    /**
+     * TODO add doc
+     * @param p TODO add doc
+     * @return TODO add doc
+     */
+    public Publication addReferenceToThis(final Publication p) {
+        if (referenceToThis.containsKey(p))
+            throw new IllegalArgumentException("this is already referenced by p");
+        referenceToThis.put(p, p);
+        return this;
+    }
+    
+    /**
+     * TODO add doc
+     * @return TODO add doc
+     */
+    public short getPublicationYear() {
+        return publicationYear;
+    }
+    
+    /**
+     * TODO add doc
+     * @return TODO add doc
+     */
+    public int numberAuthors() {
+        return authors.size();
     }
 }
