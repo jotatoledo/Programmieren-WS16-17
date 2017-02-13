@@ -1,6 +1,7 @@
 package edu.kit.informatik.literatur_system;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -43,12 +44,13 @@ public class LiteraturSystemService implements ILiteraturSystemService {
 
     @Override
     public boolean existAuthor(final String firstName, final String lastName) {
+        //TODO validate fields
         return authors.containsKey(new Author(firstName, lastName));
     }
 
     @Override
     public Journal addJournal(final String name, final String publisher) {
-        //TODO validate input
+        //TODO validate fields
         if (existJournal(name))
             //TODO improve error message
             throw Utilities.alreadyExist(Journal.class, name);
@@ -61,12 +63,13 @@ public class LiteraturSystemService implements ILiteraturSystemService {
 
     @Override
     public boolean existJournal(final String name) {
-        //TODO validate input
+        //TODO validate fields
         return journals.containsKey(new Journal(name));
     }
     
     @Override
     public Journal getJournal(final String name) {
+        //TODO validate fields
         Journal entity = journals.get(new Journal(name));
         if (entity == null)
             throw Utilities.noSuch(Journal.class, name);
@@ -75,7 +78,7 @@ public class LiteraturSystemService implements ILiteraturSystemService {
 
     @Override
     public ConferenceSeries addConferenceSeries(final String name) {
-        // TODO validate input
+        // TODO validate fields
         if (existConferenceSeries(name))
             //TODO improve error message
             throw Utilities.alreadyExist(ConferenceSeries.class, name);
@@ -88,13 +91,13 @@ public class LiteraturSystemService implements ILiteraturSystemService {
 
     @Override
     public boolean existConferenceSeries(final String name) {
-        //TODO validate input
+        //TODO validate fields
         return conferenceSeries.containsKey(new ConferenceSeries(name));
     }
     
     @Override
     public ConferenceSeries getConferenceSeries(final String name) {
-        //TODO validate input
+        //TODO validate fields
         ConferenceSeries entity = conferenceSeries.get(new ConferenceSeries(name));
         if (entity == null)
             throw Utilities.noSuch(ConferenceSeries.class, name);
@@ -103,14 +106,14 @@ public class LiteraturSystemService implements ILiteraturSystemService {
     
     @Override
     public void writtenBy(final String publicationId, final Collection<AuthorNames> authors) {
-        // TODO Auto-generated method stub
+        // TODO validate fields
+        // TODO implement
     }
 
-    
-
     @Override
-    public Collection<Author> getAuthor(Collection<AuthorNames> names) {
-        // TODO Auto-generated method stub
+    public Collection<Author> getAuthor(final Collection<AuthorNames> names) {
+        // TODO validate fields
+        // TODO implement
         return null;
     }
 
@@ -157,7 +160,7 @@ public class LiteraturSystemService implements ILiteraturSystemService {
     public Article addArticleToJournal(
             final String journalName, final String articleId, 
             final short articlePublicationYear, final String articleTitle) {
-        //TODO check input
+        //TODO validate fields
         Journal journal = getJournal(journalName);
         if (existPublication(articleId))
             throw Utilities.alreadyExist(Article.class, articleId);
@@ -168,11 +171,17 @@ public class LiteraturSystemService implements ILiteraturSystemService {
 
     @Override
     public boolean existPublication(final String id) {
+        // TODO validate fields
         return publications.containsKey(new Article(id));
     }
     
     @Override
-    public Collection<Publication> getPublication(boolean onlyValid) {
+    public Collection<Publication> getPublication() {
+        return Collections.unmodifiableCollection(publications.values());
+    }
+    
+    @Override
+    public Collection<Publication> getPublication(final boolean onlyValid) {
         if (Publication.VALID == onlyValid)
             return publications.values()
                     .stream()
@@ -186,17 +195,46 @@ public class LiteraturSystemService implements ILiteraturSystemService {
     }
 
     @Override
-    public Collection<Publication> getPublication(Collection<AuthorNames> authors) {
-        // TODO Auto-generated method stub
+    public Collection<Publication> getPublication(final Collection<AuthorNames> authors) {
+        // TODO validate fields
+        // TODO implement
         return null;
     }
     
     @Override
     public Publication getPublication(final String id) {
-        //TODO validate input
+        //TODO validate fields
         Publication entity = publications.get(new Article(id));
         if (entity == null)
             throw Utilities.noSuch(Publication.class, id);
         return entity;
+    }
+
+    @Override
+    public Publication addKeywordsToPublication(
+            final String publicationId, final Collection<String> keywords) {
+        // TODO validate fields
+        // TODO implement
+        Publication pub = getPublication(publicationId);
+        return pub;
+    }
+
+    @Override
+    public ConferenceSeries addKeywordsToConferenceSeries(
+            final String seriesName, final Collection<String> keywords) {
+        // TODO validate fields
+        // TODO implement
+        ConferenceSeries serie = getConferenceSeries(seriesName);
+        return serie;
+    }
+
+    @Override
+    public Collection<Publication> inProceedings(final String seriesName, final short year) {
+        //TODO validate fields
+        ConferenceSeries series = getConferenceSeries(seriesName);
+        Conference conf = series.getConferenceInYear(year);
+        if (conf == null)
+            throw Utilities.noSuch(Conference.class, year);
+        return conf.getPublications();
     }
 }

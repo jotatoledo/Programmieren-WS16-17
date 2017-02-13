@@ -103,6 +103,13 @@ public interface ILiteraturSystemService {
     Publication getPublication(String id);
     
     /**
+     * Gets all the publication entities
+     * C9
+     * @return the publication entities in the context
+     */
+    Collection<Publication> getPublication();
+    
+    /**
      * TODO add doc
      * C10
      * @param onlyValid TODO add doc
@@ -156,4 +163,31 @@ public interface ILiteraturSystemService {
      * @return TODO add doc
      */
     boolean existPublication(String id);
+    
+    /**
+     * TODO add doc
+     * Part of C8
+     * @param publicationId TODO add doc
+     * @param keywords TODO add doc
+     * @return TODO add doc
+     */
+    Publication addKeywordsToPublication(String publicationId, Collection<String> keywords);
+    
+    /**
+     * TODO add doc
+     * Part of C8
+     * @param seriesName TODO add doc
+     * @param keywords TODO add doc
+     * @return TODO add doc
+     */
+    ConferenceSeries addKeywordsToConferenceSeries(String seriesName, Collection<String> keywords);
+
+    /**
+     * TODO add doc
+     * C12
+     * @param seriesName TODO add doc
+     * @param year TODO add doc
+     * @return TODO add doc
+     */
+    Collection<Publication> inProceedings(String seriesName, short year);
 }
