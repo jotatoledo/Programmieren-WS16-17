@@ -10,6 +10,7 @@ import java.util.Map;
  */
 public final class ConferenceSeries extends TagedElement {
     private final String name;
+    //TODO refactor to allow multiple conferences in one year
     private final Map<Short, Conference> conferences;
     
     /**

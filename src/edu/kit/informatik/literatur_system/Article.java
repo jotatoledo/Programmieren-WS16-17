@@ -26,6 +26,10 @@ public final class Article extends Publication {
         venue.addPublication(this);
     }
     
+    /**
+     * TODO add doc
+     * @param id TODO add doc
+     */
     public Article(final String id) {
         super(id);
         venue = null;
