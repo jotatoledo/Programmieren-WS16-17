@@ -32,7 +32,7 @@ public class LiteraturSystemService implements ILiteraturSystemService {
     public Author addAuthor(final String firstName, final String lastName) {
         //TODO validate fields
         if (existAuthor(firstName, lastName))
-            throw new IllegalArgumentException("author already exist");
+            throw Utilities.alreadyExist(Author.class, firstName, lastName);
         Author entity = new Author(firstName, lastName);
         if (authors.putIfAbsent(entity, entity) != null)
             //TODO remove double check
@@ -50,7 +50,7 @@ public class LiteraturSystemService implements ILiteraturSystemService {
         //TODO validate input
         if (existJournal(name))
             //TODO improve error message
-            throw new IllegalArgumentException("journal already exist");
+            throw Utilities.alreadyExist(Journal.class, name);
         Journal entity = new Journal(name, publisher);
         if (journals.putIfAbsent(entity, entity) != null)
             //TODO remove double check
@@ -77,7 +77,7 @@ public class LiteraturSystemService implements ILiteraturSystemService {
         // TODO validate input
         if (existConferenceSeries(name))
             //TODO improve error message
-            throw new IllegalArgumentException("conference series already exist");
+            throw Utilities.alreadyExist(ConferenceSeries.class, name);
         ConferenceSeries entity = new ConferenceSeries(name);
         if (conferenceSeries.putIfAbsent(entity, entity) != null)
             //TODO remove double check
