@@ -4,8 +4,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * Implementation of the literature system service
@@ -15,25 +13,30 @@ import java.util.stream.Stream;
 public class LiteraturSystemService implements ILiteraturSystemService {
     private final Set<Author> authors;
     private final Set<Publication> publications;
-    
+    private final Set<ConferenceSeries> conferenceSeries;
+    private final Set<Journal> journals;
+    private final Set<Keyword> keywords;
     
     /**
      * Creates a new instance of the service.
      * Note: good point to use dependency injection
      */
     public LiteraturSystemService() {
-        authors = new TreeSet<Author>();
+        authors = new HashSet<Author>();
         publications = new HashSet<Publication>();
+        conferenceSeries = new HashSet<ConferenceSeries>();
+        journals = new HashSet<Journal>();
+        keywords = new TreeSet<Keyword>();
     }
     
-    private IllegalArgumentException noSuch(
-            final Class<?> type,
-            final Object arg,
-            final Object... args) {
-        ////
-        return new IllegalArgumentException(Stream.concat(Stream.of(arg), Stream.of(args)).map(String::valueOf)
-                .collect(Collectors.joining(", ", "No such " + type.getSimpleName() + ": ", "")));
-    }
+//    private IllegalArgumentException noSuch(
+//            final Class<?> type,
+//            final Object arg,
+//            final Object... args) {
+//        ////
+//        return new IllegalArgumentException(Stream.concat(Stream.of(arg), Stream.of(args)).map(String::valueOf)
+//                .collect(Collectors.joining(", ", "No such " + type.getSimpleName() + ": ", "")));
+//    }
 
     @Override
     public Author addAuthor(final String firstName, final String lastName) {
@@ -97,7 +100,8 @@ public class LiteraturSystemService implements ILiteraturSystemService {
     }
 
     @Override
-    public Conference addConference(String conferenceSeriesId, short year, String location) {
+    public Conference addConference(
+            final String conferenceSeriesId, final short year, final String location) {
         // TODO Auto-generated method stub
         return null;
     }
@@ -115,15 +119,17 @@ public class LiteraturSystemService implements ILiteraturSystemService {
     }
 
     @Override
-    public Article addArticleToSeries(String seriesId, String articleId, short articlePublicationYear,
-            String articleTitle) {
+    public Article addArticleToSeries(
+            final String seriesId, final String articleId, 
+            final short articlePublicationYear, final String articleTitle) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public Article addArticleToJournal(String journalId, String articleId, short articlePublicationYear,
-            String articleTitle) {
+    public Article addArticleToJournal(
+            final String journalId, final String articleId, 
+            final short articlePublicationYear, final String articleTitle) {
         // TODO Auto-generated method stub
         return null;
     }
