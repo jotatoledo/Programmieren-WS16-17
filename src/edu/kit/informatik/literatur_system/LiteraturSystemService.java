@@ -3,6 +3,7 @@ package edu.kit.informatik.literatur_system;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Implementation of the literature system service
@@ -105,11 +106,7 @@ public class LiteraturSystemService implements ILiteraturSystemService {
         // TODO Auto-generated method stub
     }
 
-    @Override
-    public Publication getPublication(final String id) {
-        // TODO Auto-generated method stub
-        return null;
-    }
+    
 
     @Override
     public Collection<Author> getAuthor(Collection<AuthorNames> names) {
@@ -119,8 +116,13 @@ public class LiteraturSystemService implements ILiteraturSystemService {
 
     @Override
     public void cites(final String quoter, final String reference) {
-        // TODO Auto-generated method stub
-        
+        //TODO check input
+        Publication pQuoter = getPublication(quoter);
+        Publication pReference = getPublication(reference);
+        if (pQuoter.getPublicationYear() <= pReference.getPublicationYear())
+            throw new IllegalArgumentException("the referenced publication wasnt published before the one quoting it");
+        pQuoter.addReferenceToOther(pReference);
+        pReference.addReferenceToThis(pQuoter);
     }
 
     @Override
@@ -171,13 +173,30 @@ public class LiteraturSystemService implements ILiteraturSystemService {
     
     @Override
     public Collection<Publication> getPublication(boolean onlyValid) {
-        // TODO Auto-generated method stub
-        return null;
+        if (Publication.VALID == onlyValid)
+            return publications.values()
+                    .stream()
+                    .filter(p-> p.numberAuthors() > 0)
+                    .collect(Collectors.toList());
+        else 
+            return publications.values()
+                    .stream()
+                    .filter(p-> p.numberAuthors() == 0)
+                    .collect(Collectors.toList());
     }
 
     @Override
     public Collection<Publication> getPublication(Collection<AuthorNames> authors) {
         // TODO Auto-generated method stub
         return null;
+    }
+    
+    @Override
+    public Publication getPublication(final String id) {
+        //TODO validate input
+        Publication entity = publications.get(new Article(id));
+        if (entity == null)
+            throw Utilities.noSuch(Publication.class, id);
+        return entity;
     }
 }
