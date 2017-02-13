@@ -1,5 +1,7 @@
 package edu.kit.informatik.literatur_system;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -32,4 +34,11 @@ public abstract class Venue extends TagedElement {
             throw new IllegalArgumentException("this publication is already assigned to this venue");
     }
     
+    /**
+     * TODO add doc
+     * @return TODO add doc
+     */
+    public Collection<Publication> getPublications() {
+        return Collections.unmodifiableCollection(publications);
+    }
 }
