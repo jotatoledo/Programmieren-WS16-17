@@ -50,7 +50,7 @@ public final class Conference extends Venue {
     @Override
     public Collection<Keyword> getKeywords() {
         //TODO filter repeated?
-        return Utilities.concatenatedList(getKeywords(), serie.getKeywords());
+        return Utilities.unify(getKeywords(), serie.getKeywords());
     }
     
     /**

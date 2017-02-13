@@ -39,6 +39,6 @@ public final class Article extends Publication {
     @Override
     public Collection<Keyword> getKeywords() {
         //TODO filter repeated?
-        return Utilities.concatenatedList(venue.getKeywords(), getKeywords());
+        return Utilities.unify(venue.getKeywords(), getKeywords());
     }
 }
