@@ -18,7 +18,7 @@ import edu.kit.informatik.literatur_system.Utilities;
 public class UtilitiesTest {
     private final List<String> firstList = new ArrayList<String>();
     private final List<String> secondList = new ArrayList<String>();
-    
+    private final List<String> thirdList = new ArrayList<String>();
     /**
      * TODO add doc
      */
@@ -30,11 +30,15 @@ public class UtilitiesTest {
         secondList.add("four");
         secondList.add("five");
         secondList.add("six");
+        
+        thirdList.add("one");
+        thirdList.add("three");
+        thirdList.add("six");
     }
     
     @Test
-    public void testConcatenatedList() {
-        Collection<String> result = Utilities.concatenatedList(firstList, secondList);
+    public void testUnify() {
+        Collection<String> result = Utilities.unify(firstList, secondList);
         assertTrue(result.size() == 6);
         assertTrue(result != firstList && result != secondList);
         assertTrue(result.contains("one"));
@@ -44,5 +48,23 @@ public class UtilitiesTest {
         assertTrue(result.contains("five"));
         assertTrue(result.contains("six"));
     }
-
+    
+    @Test
+    public void testIntersectArgs() {
+        Collection<String> result = Utilities.intersect(firstList, secondList);
+        assertTrue(result.size() == 0);
+        
+        result = Utilities.intersect(firstList, thirdList);
+        assertTrue(result.size() == 2);
+        assertTrue(result.contains("one"));
+        assertTrue(result.contains("three"));
+        assertTrue(result.contains("two") == false);
+        
+        result = Utilities.intersect(firstList, secondList, thirdList);
+        assertTrue(result.size() == 0);
+        
+        result = Utilities.intersect(firstList, thirdList, firstList);
+        assertTrue(result.size() == 2);
+        
+    }
 }
