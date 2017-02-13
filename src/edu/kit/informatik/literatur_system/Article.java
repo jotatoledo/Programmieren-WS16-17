@@ -23,6 +23,7 @@ public class Article extends Publication {
         super(id, titel, year);
         // TODO test id
         this.venue = venue;
+        venue.addPublication(this);
     }
     
     @Override

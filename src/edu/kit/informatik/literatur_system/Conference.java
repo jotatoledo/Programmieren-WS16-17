@@ -8,7 +8,7 @@ import java.util.Objects;
  * @author JoseNote
  * @version %I%, %G%
  */
-public final class Conference extends TagedElement implements Comparable<Conference> {
+public final class Conference extends Venue {
     private final String location;
     private final short year;
     private final ConferenceSeries serie;
@@ -25,6 +25,7 @@ public final class Conference extends TagedElement implements Comparable<Confere
         this.location = location;
         this.year = year;
         this.serie = serie;
+        serie.addConference(this);
     }
 
     @Override
@@ -35,18 +36,35 @@ public final class Conference extends TagedElement implements Comparable<Confere
     @Override
     public boolean equals(Object obj) {
         return obj instanceof Conference
-                && compareTo((Conference) obj) == 0;
+                && ((Conference) obj).year == year
+                && ((Conference) obj).serie.equals(serie);
     }
 
-    @Override
-    public int compareTo(Conference o) {
-        // TODO Auto-generated method stub
-        return 0;
-    }
+//    @Override
+//    public int compareTo(Conference o) {
+//        // TODO Auto-generated method stub
+//        return 0;
+//    }
 
     @Override
     public Collection<Keyword> getKeywords() {
         //TODO filter repeated?
         return Utilities.concatenatedList(getKeywords(), serie.getKeywords());
+    }
+    
+    /**
+     * TODO add doc
+     * @return TODO add doc
+     */
+    public String getLocation() {
+        return location;
+    }
+
+    /**
+     * TODO add doc
+     * @return TODO add doc
+     */
+    public short getYear() {
+        return year;
     }
 }

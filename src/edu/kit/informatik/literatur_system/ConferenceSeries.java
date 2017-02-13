@@ -1,17 +1,16 @@
 package edu.kit.informatik.literatur_system;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * TODO add doc
  * @author JoseNote
  * @version %I%, %G%
  */
-public final class ConferenceSeries extends Venue {
+public final class ConferenceSeries extends TagedElement {
     private final String name;
-    //TODO refactor to map<year,Collection<conference>)
-    private final Set<Conference> conferences;
+    private final Map<Short, Conference> conferences;
     
     /**
      * Creates a new instance
@@ -20,7 +19,7 @@ public final class ConferenceSeries extends Venue {
     public ConferenceSeries(final String name) {
         super();
         this.name = name;
-        conferences = new HashSet<Conference>();
+        conferences = new HashMap<Short, Conference>();
     }
 
     @Override
@@ -41,13 +40,14 @@ public final class ConferenceSeries extends Venue {
     
     /**
      * TODO add doc
-     * @param c add doc
-     * @return add doc
+     * @param c TODO add doc
+     * @return TODO add doc
      */
     public ConferenceSeries addConference(final Conference c) {
-        if (!conferences.add(c))
-            //TODO improve message
-            throw new IllegalArgumentException("the conference is already assigned to this series");
+        //TODO check wrapping of short value
+        if (conferences.containsKey(c.getYear()))
+            throw new IllegalArgumentException("there is already a conference in this year for this series");
+        conferences.put(c.getYear(), c);
         return this;
     }
 }
