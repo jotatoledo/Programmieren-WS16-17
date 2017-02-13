@@ -237,4 +237,21 @@ public class LiteraturSystemService implements ILiteraturSystemService {
             throw Utilities.noSuch(Conference.class, year);
         return conf.getPublications();
     }
+
+    @Override
+    public float jaccard(final Collection<String> firstGroupWords, final Collection<String> secondGroupWords) {
+        //TODO validate fields
+        Collection<String> union = Utilities.unifyNoRepetition(firstGroupWords, secondGroupWords);
+        if (union.size() == 0)
+            return 1;
+        Collection<String> intersection = Utilities.intersect(firstGroupWords, secondGroupWords);
+        return ((float) intersection.size()) / union.size();
+    }
+
+    @Override
+    public float similarity(final String firstPublicationId, final String secondPublicationId) {
+        return jaccard(
+                getPublication(firstPublicationId).getKeywordsValues(), 
+                getPublication(secondPublicationId).getKeywordsValues());
+    }
 }

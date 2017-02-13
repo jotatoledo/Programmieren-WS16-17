@@ -190,4 +190,22 @@ public interface ILiteraturSystemService {
      * @return TODO add doc
      */
     Collection<Publication> inProceedings(String seriesName, short year);
+    
+    /**
+     * TODO add doc
+     * C14
+     * @param firstGroupWords TODO add doc
+     * @param secondGroupWords TODO add doc
+     * @return TODO add doc
+     */
+    float jaccard(Collection<String> firstGroupWords, Collection<String> secondGroupWords);
+    
+    /**
+     * TODO add doc
+     * C15
+     * @param firstPublicationId TODO add doc
+     * @param secondPublicationId TODO add doc
+     * @return TODO add doc
+     */
+    float similarity(String firstPublicationId, String secondPublicationId);
 }
