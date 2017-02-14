@@ -35,6 +35,14 @@ public interface ILiteraturSystemService {
     Collection<Author> getAuthor(Collection<AuthorNames> names);
     
     /**
+     * TODO add doc
+     * @param firstName TODO add doc
+     * @param lastName TODO add doc
+     * @return TODO add doc
+     */
+    Author getAuthor(String firstName, String lastName);
+    
+    /**
      * Checks for the existence of an author entity
      * @param firstName the first name value to match against
      * @param lastName the last name value to match against
@@ -208,4 +216,22 @@ public interface ILiteraturSystemService {
      * @return TODO add doc
      */
     float similarity(String firstPublicationId, String secondPublicationId);
+    
+    /**
+     * TODO add doc
+     * C17
+     * @param firstName TODO add doc
+     * @param lastName TODO add doc
+     * @return TODO add doc
+     */
+    int hIndex(String firstName, String lastName);
+    
+    /**
+     * TODO add doc
+     * C18
+     * @param firstName TODO add doc
+     * @param lastName TODO add doc
+     * @return TODO add doc
+     */
+    Collection<Author> coAuthorsOf(String firstName, String lastName);
 }

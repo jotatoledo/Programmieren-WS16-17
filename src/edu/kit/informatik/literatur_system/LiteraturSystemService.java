@@ -41,6 +41,22 @@ public class LiteraturSystemService implements ILiteraturSystemService {
             throw new IllegalArgumentException("error by addition");
         return entity;
     }
+    
+    @Override
+    public Author getAuthor(final String firstName, final String lastName) {
+        //TODO validate fields
+        Author entity = authors.get(new Author(firstName, lastName));
+        if (entity == null)
+            throw Utilities.noSuch(Author.class, firstName, lastName);
+        return entity;
+    }
+    
+    @Override
+    public Collection<Author> getAuthor(final Collection<AuthorNames> names) {
+        // TODO validate fields
+        // TODO implement
+        return null;
+    }
 
     @Override
     public boolean existAuthor(final String firstName, final String lastName) {
@@ -108,13 +124,6 @@ public class LiteraturSystemService implements ILiteraturSystemService {
     public void writtenBy(final String publicationId, final Collection<AuthorNames> authors) {
         // TODO validate fields
         // TODO implement
-    }
-
-    @Override
-    public Collection<Author> getAuthor(final Collection<AuthorNames> names) {
-        // TODO validate fields
-        // TODO implement
-        return null;
     }
 
     @Override
@@ -254,4 +263,22 @@ public class LiteraturSystemService implements ILiteraturSystemService {
                 getPublication(firstPublicationId).getKeywordsValues(), 
                 getPublication(secondPublicationId).getKeywordsValues());
     }
+
+    @Override
+    public int hIndex(final String firstName, final String lastName) {
+        //TODO validate fields
+        //TODO implement
+        Author entity = getAuthor(firstName, lastName);
+        return 0;
+    }
+
+    @Override
+    public Collection<Author> coAuthorsOf(final String firstName, final String lastName) {
+        //TODO validate fields
+        //TODO implement
+        Author entity = getAuthor(firstName, lastName);
+        return null;
+    }
+
+    
 }
