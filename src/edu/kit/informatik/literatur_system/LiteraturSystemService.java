@@ -253,12 +253,13 @@ public class LiteraturSystemService implements ILiteraturSystemService {
         Collection<String> union = Utilities.unifyNoRepetition(firstGroupWords, secondGroupWords);
         if (union.size() == 0)
             return 1;
-        Collection<String> intersection = Utilities.intersect(firstGroupWords, secondGroupWords);
+        Collection<String> intersection = Utilities.intersectArgs(firstGroupWords, secondGroupWords);
         return ((float) intersection.size()) / union.size();
     }
 
     @Override
     public float similarity(final String firstPublicationId, final String secondPublicationId) {
+        //TODO validate fields
         return jaccard(
                 getPublication(firstPublicationId).getKeywordsValues(), 
                 getPublication(secondPublicationId).getKeywordsValues());

@@ -2,11 +2,14 @@ package edu.kit.informatik.literatur_system;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -16,23 +19,34 @@ import java.util.stream.Stream;
  * @version %I%, %G%
  */
 public class Utilities {
-//    /**
-//     * TODO add doc
-//     * @param <T> TODO add doc
-//     * @param collections TODO add doc
-//     * @return TODO add doc
-//     */
-//    public static <T> Set<T> intersect(Collection<? extends Collection<T>> collections) {
-//        Set<T> common = new LinkedHashSet<T>();
-//        if (!collections.isEmpty()) {
-//           Iterator<? extends Collection<T>> iterator = collections.iterator();
-//           common.addAll(iterator.next());
-//           while (iterator.hasNext()) {
-//              common.retainAll(iterator.next());
-//           }
-//        }
-//        return common;
-//    }
+    @SafeVarargs
+    public static <T> Collection<T> intersectArgsCustomCollector(Collection<T>... collections) {
+        return Arrays.stream(collections)
+        .collect(intersecting());
+    }
+    
+    private static <T, S extends Collection<T>> Collector<S, ?, Set<T>> intersecting() {
+        class Acc {
+            Set<T> result;
+
+            void accept(S s) {
+                if (result == null)
+                    result = new HashSet<>(s);
+                else result.retainAll(s);
+            }
+
+            Acc combine(Acc other) {
+                if (result == null)
+                    return other;
+                if (other.result != null)
+                    result.retainAll(other.result);
+                return this;
+            }
+        }
+        return Collector.of(Acc::new, Acc::accept, Acc::combine, 
+                            acc -> acc.result == null ? Collections.emptySet() : acc.result, 
+                            Collector.Characteristics.UNORDERED);
+    }
     
     /**
      * TODO add doc
@@ -41,28 +55,23 @@ public class Utilities {
      * @return TODO add doc
      */
     @SafeVarargs
-    public static <T> Collection<T> intersect(Collection<T>... collections) {
+    public static <T> Collection<T> intersectArgs(Collection<T>... collections) {
         return Arrays.stream(collections)
                 .reduce((a, b) -> {
                     Set<T> c = new HashSet<>(a);
                     c.retainAll(b);
                     return c;
                 }).orElseGet(HashSet::new);
-        
-//        return new HashSet<T>(Arrays.stream(collections)
-//                .reduce(new HashSet<T>(),
-//                        (a, b) -> {
-//                            a.retainAll(b);
-//                            return a;
-//                        }));
-        
-//        return new HashSet<T>(Arrays.stream(collections).reduce(//reduce with Identity
-//                new HashSet<T>(),
-//                ((a, b) -> {
-//                    a.retainAll(b);
-//                    return a;
-//                })
-//        ));
+    }
+    
+    public static <T> Set<T> intersectCollection(Collection<? extends Collection<T>> collections) {
+        if (collections.isEmpty())
+            return Collections.emptySet();
+        Collection<T> smallest
+            = Collections.min(collections, Comparator.comparingInt(Collection::size));
+        return smallest.stream().distinct()
+            .filter(t -> collections.stream().allMatch(c -> c == smallest || c.contains(t)))
+            .collect(Collectors.toSet());
     }
     
     /**
