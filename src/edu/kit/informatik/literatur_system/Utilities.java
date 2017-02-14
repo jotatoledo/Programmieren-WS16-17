@@ -49,12 +49,20 @@ public class Utilities {
                     return c;
                 }).orElseGet(HashSet::new);
         
-//        return Arrays.stream(collections)
+//        return new HashSet<T>(Arrays.stream(collections)
 //                .reduce(new HashSet<T>(),
 //                        (a, b) -> {
-//                            ((HashSet) a).retainAll(b);
+//                            a.retainAll(b);
 //                            return a;
-//                        });
+//                        }));
+        
+//        return new HashSet<T>(Arrays.stream(collections).reduce(//reduce with Identity
+//                new HashSet<T>(),
+//                ((a, b) -> {
+//                    a.retainAll(b);
+//                    return a;
+//                })
+//        ));
     }
     
     /**
@@ -65,7 +73,7 @@ public class Utilities {
      * @return TODO add doc
      */
     @SafeVarargs
-    public static <T> List<T> unify(
+    public static <T> Collection<T> unify(
             Collection<T>... collections) {
         return Arrays.stream(collections)
                 .flatMap(Collection::stream)
@@ -79,7 +87,7 @@ public class Utilities {
      * @return TODO add doc
      */
     @SafeVarargs
-    public static <T> List<T> unifyNoRepetition(
+    public static <T> Collection<T> unifyNoRepetition(
             Collection<T>... collections) {
         return Arrays.stream(collections)
                 .flatMap(Collection::stream)
