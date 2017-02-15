@@ -13,6 +13,7 @@ import java.util.stream.Stream;
 import edu.kit.informatik.literatur_system.AuthorNames;
 import edu.kit.informatik.literatur_system.ConferenceArticle;
 import edu.kit.informatik.literatur_system.JournalArticle;
+import sun.tools.jar.resources.jar;
 
 /**
  * Various utility functions
@@ -153,44 +154,56 @@ public class Utilities {
                 .collect(Collectors.joining(", ", "exist already " + type.getSimpleName() + ": ", "")));
     }
     
-    public static String formatIEEE(final int index, final JournalArticle jArticle) {
+    public static String formatToIEEESimplified(final int index, final JournalArticle jArticle) {
         return String.format(
-                "[%1] %2, \"%3,\" %4, %5", 
+                "[%1$] %2$, \"%3$,\" %4$, %5$", 
                 index, 
-                authorListIEEE(jArticle.getAuthors()),
+                formatToIEEESimplified(jArticle.getAuthors()),
                 jArticle.getArticleTitle(), 
                 jArticle.getJournalTitle(),
                 jArticle.getPublicationYear());
     }
     
-    public static String formatIEEE(final int index, final ConferenceArticle cArticle) {
+    public static String formatToIEEESimplified(final int index, final ConferenceArticle cArticle) {
         return String.format(
-                "[%1] %2, \"%3,\" in Proceedings of %4, %5, %6", 
+                "[%1$] %2$, \"%3$,\" in Proceedings of %4$, %5$, %6$", 
                 index,
-                authorListIEEE(cArticle.getAuthors()),
+                formatToIEEESimplified(cArticle.getAuthors()),
                 cArticle.getArticleTitle(),
                 cArticle.getConferenceSeriesName(),
                 cArticle.getConferenceLocation(),
                 cArticle.getConferenceYear());
     }
     
-    private static String authorListIEEE(final Collection<AuthorNames> authors) {
+    private static String formatToIEEESimplified(final Collection<AuthorNames> authors) {
         //TODO implement
         return null;
     }
     
-    public static String formatChicago(final JournalArticle jArticle){
+    public static String formatToChicagoSimplified(final JournalArticle jArticle){
         return String.format(
-                "", 
-                null);
+                "(%1$, %2$) %3$. \"%4$.\" %5$ (%6$).", 
+                jArticle.firstAuthorLastName(),
+                jArticle.getPublicationYear(),
+                formatToChicagoSimplified(jArticle.getAuthors()),
+                jArticle.getArticleTitle(),
+                jArticle.getJournalTitle(),
+                jArticle.getPublicationYear());
     }
     
-    public static String formatChicago(final ConferenceArticle cArticle){
-        //TODO implement
-        return null;
+    public static String formatToChicagoSimplified(final ConferenceArticle cArticle){
+        return String.format(
+                "(%1$, %2$) %3$. \"%4$.\" Paper presented at %5$, %6$, %7$.", 
+                cArticle.firstAuthorLastName(),
+                cArticle.getPublicationYear(),
+                formatToChicagoSimplified(cArticle.getAuthors()),
+                cArticle.getArticleTitle(),
+                cArticle.getConferenceSeriesName(),
+                cArticle.getConferenceYear(),
+                cArticle.getConferenceLocation());
     }
     
-    private static String authorListChicago(final Collection<AuthorNames> authors) {
+    private static String formatToChicagoSimplified(final Collection<AuthorNames> authors) {
         //TODO implement
         return null;
     }
