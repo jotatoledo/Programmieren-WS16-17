@@ -2,11 +2,8 @@ package edu.kit.informatik.literatur_system;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Set;
-import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 /**
@@ -24,7 +21,8 @@ public final class Author implements Comparable<Author> {
      * @param firstName add doc
      * @param lastName add doc
      */
-    public Author(final String firstName,
+    public Author(
+            final String firstName,
             final String lastName) {
         //TODO test name valid
         this.firstName = firstName;

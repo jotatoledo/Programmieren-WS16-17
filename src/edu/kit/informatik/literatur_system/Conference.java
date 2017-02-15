@@ -3,6 +3,8 @@ package edu.kit.informatik.literatur_system;
 import java.util.Collection;
 import java.util.Objects;
 
+import edu.kit.informatik.Utilities;
+
 /**
  * TODO add doc
  * @author JoseNote
