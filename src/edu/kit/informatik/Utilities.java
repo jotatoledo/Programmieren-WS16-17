@@ -154,13 +154,24 @@ public class Utilities {
     }
     
     public static String formatIEE(final int index, final JournalArticle jArticle) {
-        //TODO implement
-        return null;
+        return String.format(
+                "[%1] %2, \"%3,\" %4, %5", 
+                index, 
+                authorListIEE(jArticle.getAuthors()),
+                jArticle.getArticleTitle(), 
+                jArticle.getJournalTitle(),
+                jArticle.getPublicationYear());
     }
     
     public static String formatIEE(final int index, final ConferenceArticle cArticle) {
-        //TODO implement
-        return null;
+        return String.format(
+                "[%1] %2, \"%3,\" in Proceedings of %4, %5, %6", 
+                index,
+                authorListIEE(cArticle.getAuthors()),
+                cArticle.getArticleTitle(),
+                cArticle.getConferenceSeriesName(),
+                cArticle.getConferenceLocation(),
+                cArticle.getConferenceYear());
     }
     
     private static String authorListIEE(final Collection<AuthorNames> authors) {
@@ -169,8 +180,9 @@ public class Utilities {
     }
     
     public static String formatChicago(final JournalArticle jArticle){
-        //TODO implement
-        return null;
+        return String.format(
+                "", 
+                null);
     }
     
     public static String formatChicago(final ConferenceArticle cArticle){
