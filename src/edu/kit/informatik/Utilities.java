@@ -153,28 +153,28 @@ public class Utilities {
                 .collect(Collectors.joining(", ", "exist already " + type.getSimpleName() + ": ", "")));
     }
     
-    public static String formatIEE(final int index, final JournalArticle jArticle) {
+    public static String formatIEEE(final int index, final JournalArticle jArticle) {
         return String.format(
                 "[%1] %2, \"%3,\" %4, %5", 
                 index, 
-                authorListIEE(jArticle.getAuthors()),
+                authorListIEEE(jArticle.getAuthors()),
                 jArticle.getArticleTitle(), 
                 jArticle.getJournalTitle(),
                 jArticle.getPublicationYear());
     }
     
-    public static String formatIEE(final int index, final ConferenceArticle cArticle) {
+    public static String formatIEEE(final int index, final ConferenceArticle cArticle) {
         return String.format(
                 "[%1] %2, \"%3,\" in Proceedings of %4, %5, %6", 
                 index,
-                authorListIEE(cArticle.getAuthors()),
+                authorListIEEE(cArticle.getAuthors()),
                 cArticle.getArticleTitle(),
                 cArticle.getConferenceSeriesName(),
                 cArticle.getConferenceLocation(),
                 cArticle.getConferenceYear());
     }
     
-    private static String authorListIEE(final Collection<AuthorNames> authors) {
+    private static String authorListIEEE(final Collection<AuthorNames> authors) {
         //TODO implement
         return null;
     }

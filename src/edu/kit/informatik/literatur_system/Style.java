@@ -8,7 +8,7 @@ public enum Style {
     /**
      * TODO add doc
      */
-    IEEE("iee"),
+    IEEE("ieee"),
     /**
      * TODO add doc
      */
