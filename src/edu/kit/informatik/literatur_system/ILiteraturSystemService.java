@@ -9,6 +9,11 @@ import java.util.Optional;
  * @version %I%, %G%
  */
 public interface ILiteraturSystemService {
+    //TODO reorder functions
+    //TODO declare C11
+    //TODO declare C13
+    //TODO declare c16
+    
     /**
      * TODO add doc
      * C4
