@@ -253,7 +253,8 @@ public class LiteraturSystemService implements ILiteraturSystemService {
         Collection<String> union = Utilities.unifyNoRepetition(firstGroupWords, secondGroupWords);
         if (union.size() == 0)
             return 1;
-        Collection<String> intersection = Utilities.intersectArgs(firstGroupWords, secondGroupWords);
+        //TODO refactor to improved intersect
+        Collection<String> intersection = Utilities.intersectMultipleRetain(firstGroupWords, secondGroupWords);
         return ((float) intersection.size()) / union.size();
     }
 
@@ -281,5 +282,10 @@ public class LiteraturSystemService implements ILiteraturSystemService {
         return null;
     }
 
-    
+    @Override
+    public Collection<Publication> foreignCitationsOf(final String firstName, final String lastName) {
+        //TODO validate fields
+        Author author = getAuthor(firstName, lastName);
+        return author.getForeignPublications();
+    }
 }

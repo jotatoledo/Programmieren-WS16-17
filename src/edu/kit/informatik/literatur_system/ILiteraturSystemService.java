@@ -234,4 +234,13 @@ public interface ILiteraturSystemService {
      * @return TODO add doc
      */
     Collection<Author> coAuthorsOf(String firstName, String lastName);
+    
+    /**
+     * TODO add doc
+     * C19
+     * @param firstName TODO add doc
+     * @param lastName TODO add doc
+     * @return TODO add doc
+     */
+    Collection<Publication> foreignCitationsOf(String firstName, String lastName);
 }

@@ -20,22 +20,22 @@ import java.util.stream.Stream;
  */
 public class Utilities {
     @SafeVarargs
-    public static <T> Collection<T> intersectArgsCustomCollector(Collection<T>... collections) {
+    public static <T> Collection<T> intersectCustomCollector(Collection<T>... collections) {
         return Arrays.stream(collections)
         .collect(intersecting());
     }
     
     private static <T, S extends Collection<T>> Collector<S, ?, Set<T>> intersecting() {
-        class Acc {
+         class Acc {
             Set<T> result;
 
-            void accept(S s) {
+            private void accept(S s) {
                 if (result == null)
                     result = new HashSet<>(s);
                 else result.retainAll(s);
             }
 
-            Acc combine(Acc other) {
+            private Acc combine(Acc other) {
                 if (result == null)
                     return other;
                 if (other.result != null)
@@ -55,7 +55,7 @@ public class Utilities {
      * @return TODO add doc
      */
     @SafeVarargs
-    public static <T> Collection<T> intersectArgs(Collection<T>... collections) {
+    public static <T> Collection<T> intersectMultipleRetain(Collection<T>... collections) {
         return Arrays.stream(collections)
                 .reduce((a, b) -> {
                     Set<T> c = new HashSet<>(a);
@@ -64,6 +64,12 @@ public class Utilities {
                 }).orElseGet(HashSet::new);
     }
     
+    /**
+     * TODO add doc
+     * @param <T> TODO add doc
+     * @param collections TODO add doc
+     * @return TODO add doc
+     */
     public static <T> Set<T> intersectCollection(Collection<? extends Collection<T>> collections) {
         if (collections.isEmpty())
             return Collections.emptySet();

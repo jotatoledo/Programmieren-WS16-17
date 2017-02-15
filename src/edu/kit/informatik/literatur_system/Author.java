@@ -1,8 +1,13 @@
 package edu.kit.informatik.literatur_system;
 
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 /**
  * TODO add doc
@@ -12,7 +17,7 @@ import java.util.TreeSet;
 public final class Author implements Comparable<Author> {
     private final String firstName;
     private final String lastName;
-    private final Set<Publication> publications;
+    private final Map<Publication,Publication> publications;
     
     /**
      * TODO add doc
@@ -25,7 +30,7 @@ public final class Author implements Comparable<Author> {
         this.firstName = firstName;
         this.lastName = lastName;
         //TODO change type of set
-        publications = new TreeSet<Publication>();
+        publications = new HashMap<Publication, Publication>();
     }
 
     @Override
@@ -67,9 +72,20 @@ public final class Author implements Comparable<Author> {
      * @return TODO add doc
      */
     public Author addPublication(final Publication publication) {
-        if (!publications.add(publication))
+        if (publications.putIfAbsent(publication, publication) != null)
           //TODO improve error message
             throw new IllegalArgumentException("this author is already associated to the given publication");
         return this;
+    }
+    
+    /**
+     * TODO add doc
+     * @return TODO add doc
+     */
+    public Collection<Publication> getForeignPublications() {
+        return publications.values().stream()
+                .map(x -> x.foreignReferencesWithoutAuthor(this))
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList());
     }
 }

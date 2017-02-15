@@ -1,8 +1,10 @@
 package edu.kit.informatik.literatur_system;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * TODO add doc
@@ -21,8 +23,6 @@ public abstract class Publication extends TagedElement {
     private final String id;
     private final String titel;
     private final short publicationYear;
-    
-
     private final Map<Author, Author> authors;
     private final Map<Publication, Publication> referenceToOther;
     private final Map<Publication, Publication> referenceToThis;
@@ -129,5 +129,25 @@ public abstract class Publication extends TagedElement {
      */
     public int numberAuthors() {
         return authors.size();
+    }
+    
+    /**
+     * Checks if the given author worked on this publication
+     * @param author the author to check
+     * @return {@code True} if the author worked on this. {@code False} otherwise
+     */
+    public boolean hasAuthor(final Author author) {
+        return authors.containsKey(author);
+    }
+    
+    /**
+     * Gets the publications that reference to this, where the given author didnt worked
+     * @param author the author to check
+     * @return TODO add doc
+     */
+    public Collection<Publication> foreignReferencesWithoutAuthor(final Author author) {
+        return referenceToThis.values().stream()
+                .filter(x->!x.hasAuthor(author))
+                .collect(Collectors.toList());
     }
 }

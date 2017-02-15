@@ -67,7 +67,7 @@ public class UtilitiesTest {
     @Test
     public void testIntersectArgs() throws InterruptedException {
         Thread.sleep(300L);
-        Collection<String> result = Utilities.intersectArgs(firstList, thirdList);
+        Collection<String> result = Utilities.intersectMultipleRetain(firstList, thirdList);
         
         assertTrue(result.size() == 4);
         assertTrue(result.contains("one"));
@@ -78,15 +78,15 @@ public class UtilitiesTest {
         assertTrue(result.contains("2") == false);
         
         //Intersect collections with no common elements
-        result = Utilities.intersectArgs(firstList, secondList);
+        result = Utilities.intersectMultipleRetain(firstList, secondList);
         assertTrue(result.size() == 0);
         
         //Intersect multiple collection with empty collection
-        result = Utilities.intersectArgs(firstList, secondList, fourthList);
+        result = Utilities.intersectMultipleRetain(firstList, secondList, fourthList);
         assertTrue(result.size() == 0);
         
         //Intersect empty collection with no other
-        result = Utilities.intersectArgs(fourthList);
+        result = Utilities.intersectMultipleRetain(fourthList);
         assertTrue(result.size() == 0);
     }
     
@@ -119,7 +119,7 @@ public class UtilitiesTest {
     @Test
     public void testIntersectArgsCustomCollector() throws InterruptedException {
         Thread.sleep(300L);
-        Collection<String> result = Utilities.intersectArgsCustomCollector(firstList, thirdList);
+        Collection<String> result = Utilities.intersectCustomCollector(firstList, thirdList);
         
         assertTrue(result.size() == 4);
         assertTrue(result.contains("one"));
@@ -130,15 +130,15 @@ public class UtilitiesTest {
         assertTrue(result.contains("2") == false);
         
         //Intersect collections with no common elements
-        result = Utilities.intersectArgsCustomCollector(firstList, secondList);
+        result = Utilities.intersectCustomCollector(firstList, secondList);
         assertTrue(result.size() == 0);
         
         //Intersect multiple collection with empty collection
-        result = Utilities.intersectArgsCustomCollector(firstList, secondList, fourthList);
+        result = Utilities.intersectCustomCollector(firstList, secondList, fourthList);
         assertTrue(result.size() == 0);
         
         //Intersect empty collection with no other
-        result = Utilities.intersectArgsCustomCollector(fourthList);
+        result = Utilities.intersectCustomCollector(fourthList);
         assertTrue(result.size() == 0);
     }
 }
