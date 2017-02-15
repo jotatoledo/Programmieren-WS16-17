@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import edu.kit.informatik.Utilities;
@@ -295,7 +295,7 @@ public class LiteraturSystemService implements ILiteraturSystemService {
     }
 
     @Override
-    public Collection<Bibliography> getBibliography(
+    public Set<Bibliography> getBibliography(
             final String style, final Collection<String> publicationIds) {
         // TODO Auto-generated method stub
         // TODO validate fields
