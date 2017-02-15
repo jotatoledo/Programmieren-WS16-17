@@ -11,6 +11,7 @@ import java.util.regex.Pattern;
  * @version %I%, %G%
  */
 public enum Command implements ICommand<ILiteraturSystemService> {
+    //TODO implement direct prints
     /**
      * TODO add doc
      * add author <first name>,<last name>

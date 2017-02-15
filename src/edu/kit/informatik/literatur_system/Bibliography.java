@@ -57,4 +57,9 @@ public abstract class Bibliography {
     public String getArticleId() {
         return articleId;
     }
+    
+    public String firstAuthorLastName() {
+        //TODO implement
+        return null;
+    }
 }

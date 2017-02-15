@@ -45,9 +45,4 @@ public final class JournalArticle extends Bibliography {
     public String getJournalTitle() {
         return journalTitle;
     }
-    
-    public String firstAuthorLastName() {
-        //TODO implement
-        return null;
-    }
 }
