@@ -1,4 +1,4 @@
-package edu.kit.informatik.literatur_system;
+package edu.kit.informatik;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -9,6 +9,10 @@ import java.util.Set;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import edu.kit.informatik.literatur_system.AuthorNames;
+import edu.kit.informatik.literatur_system.ConferenceArticle;
+import edu.kit.informatik.literatur_system.JournalArticle;
 
 /**
  * Various utility functions
@@ -147,5 +151,35 @@ public class Utilities {
         //TODO improve message
         return new IllegalArgumentException(Stream.of(args).map(String::valueOf)
                 .collect(Collectors.joining(", ", "exist already " + type.getSimpleName() + ": ", "")));
+    }
+    
+    public static String formatIEE(final int index, final JournalArticle jArticle) {
+        //TODO implement
+        return null;
+    }
+    
+    public static String formatIEE(final int index, final ConferenceArticle cArticle) {
+        //TODO implement
+        return null;
+    }
+    
+    private static String authorListIEE(final Collection<AuthorNames> authors) {
+        //TODO implement
+        return null;
+    }
+    
+    public static String formatChicago(final JournalArticle jArticle){
+        //TODO implement
+        return null;
+    }
+    
+    public static String formatChicago(final ConferenceArticle cArticle){
+        //TODO implement
+        return null;
+    }
+    
+    private static String authorListChicago(final Collection<AuthorNames> authors) {
+        //TODO implement
+        return null;
     }
 }

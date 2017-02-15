@@ -2,6 +2,8 @@ package edu.kit.informatik.literatur_system;
 
 import java.util.Arrays;
 
+import edu.kit.informatik.Utilities;
+
 public enum Style {
     /**
      * TODO add doc

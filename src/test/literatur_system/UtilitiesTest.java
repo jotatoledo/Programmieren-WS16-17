@@ -10,7 +10,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import edu.kit.informatik.literatur_system.Utilities;
+import edu.kit.informatik.Utilities;
 
 /**
  * TODO add doc

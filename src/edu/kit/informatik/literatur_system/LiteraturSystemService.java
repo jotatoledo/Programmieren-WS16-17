@@ -7,6 +7,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import edu.kit.informatik.Utilities;
+
 /**
  * Implementation of the literature system service
  * @author JoseNote
@@ -293,31 +295,11 @@ public class LiteraturSystemService implements ILiteraturSystemService {
     }
 
     @Override
-    public Bibliography directPrintConference(
-            final String style, final Optional<AuthorNames> firstAuthor,
-            final Optional<AuthorNames> secondAuthor, final Optional<AuthorNames> thirdAuthor, 
-            final String articleTitle, final String conferenceSeriesName, 
-            final String location, final short publicationYear) {
-        // TODO Auto-generated method stub
-        // TODO validate fields
-        return null;
-    }
-
-    @Override
-    public Bibliography directPrintJournal(
-            final String style, final Optional<AuthorNames> firstAuthor,
-            final Optional<AuthorNames> secondAuthor, final Optional<AuthorNames> thirdAuthor, 
-            final String articleTitle, final String journalName, final short publicationYear) {
-        // TODO Auto-generated method stub
-        // TODO validate fields
-        return null;
-    }
-
-    @Override
-    public Collection<Bibliography> printBibliography(
+    public Collection<Bibliography> getBibliography(
             final String style, final Collection<String> publicationIds) {
         // TODO Auto-generated method stub
         // TODO validate fields
+        //TODO carefull on order
         return null;
     }
 }

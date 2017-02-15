@@ -19,7 +19,4 @@ public abstract class Bibliography {
         this.articleTitle = articleTitle;
         this.authors = authors;
     }
-    
-    @Override
-    public abstract String toString();
 }

@@ -252,44 +252,10 @@ public interface ILiteraturSystemService {
     
     /**
      * TODO add doc
-     * C20
-     * @param style TODO add doc
-     * @param firstAuthor TODO add doc
-     * @param secondAuthor TODO add doc
-     * @param thirdAuthor TODO add doc
-     * @param articleTitle TODO add doc
-     * @param conferenceSeriesName TODO add doc
-     * @param location TODO add doc
-     * @param publicationYear TODO add doc
-     * @return TODO add doc
-     */
-    Bibliography directPrintConference(
-            String style, Optional<AuthorNames> firstAuthor, Optional<AuthorNames> secondAuthor, 
-            Optional<AuthorNames> thirdAuthor, String articleTitle, String conferenceSeriesName, 
-            String location, short publicationYear);
-    
-    /**
-     * TODO add doc
-     * C21
-     * @param style TODO add doc
-     * @param firstAuthor TODO add doc
-     * @param secondAuthor TODO add doc
-     * @param thirdAuthor TODO add doc
-     * @param articleTitle TODO add doc
-     * @param journalName TODO add doc
-     * @param publicationYear TODO add doc
-     * @return TODO add doc
-     */
-    Bibliography directPrintJournal(
-            String style, Optional<AuthorNames> firstAuthor, Optional<AuthorNames> secondAuthor, 
-            Optional<AuthorNames> thirdAuthor, String articleTitle, String journalName, short publicationYear);
-    
-    /**
-     * TODO add doc
      * C22
      * @param style TODO add doc
      * @param publicationIds TODO add doc
      * @return TODO add doc
      */
-    Collection<Bibliography> printBibliography(String style, Collection<String> publicationIds);
+    Collection<Bibliography> getBibliography(String style, Collection<String> publicationIds);
 }
