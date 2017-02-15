@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -283,9 +284,40 @@ public class LiteraturSystemService implements ILiteraturSystemService {
     }
 
     @Override
-    public Collection<Publication> foreignCitationsOf(final String firstName, final String lastName) {
+    public Collection<String> foreignCitationsOf(final String firstName, final String lastName) {
         //TODO validate fields
         Author author = getAuthor(firstName, lastName);
-        return author.getForeignPublications();
+        return author.getForeignPublications().stream()
+                .map(Publication::getId)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Bibliography directPrintConference(
+            final String style, final Optional<AuthorNames> firstAuthor,
+            final Optional<AuthorNames> secondAuthor, final Optional<AuthorNames> thirdAuthor, 
+            final String articleTitle, final String conferenceSeriesName, 
+            final String location, final short publicationYear) {
+        // TODO Auto-generated method stub
+        // TODO validate fields
+        return null;
+    }
+
+    @Override
+    public Bibliography directPrintJournal(
+            final String style, final Optional<AuthorNames> firstAuthor,
+            final Optional<AuthorNames> secondAuthor, final Optional<AuthorNames> thirdAuthor, 
+            final String articleTitle, final String journalName, final short publicationYear) {
+        // TODO Auto-generated method stub
+        // TODO validate fields
+        return null;
+    }
+
+    @Override
+    public Collection<Bibliography> printBibliography(
+            final String style, final Collection<String> publicationIds) {
+        // TODO Auto-generated method stub
+        // TODO validate fields
+        return null;
     }
 }
