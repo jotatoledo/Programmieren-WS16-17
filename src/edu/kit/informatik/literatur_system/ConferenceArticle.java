@@ -16,11 +16,13 @@ public final class ConferenceArticle extends Bibliography {
      * @param authors TODO add doc
      * @param publicationYear TODO add doc
      * @param articleTitle TODO add doc
+     * @param articleId TODO add doc
      */
     public ConferenceArticle(
             final String conferenceSeriesName, final String conferenceLocation, final short conferenceYear,
-            final Collection<AuthorNames> authors, final short publicationYear, final String articleTitle) {
-        super(authors, publicationYear, articleTitle);
+            final Collection<AuthorNames> authors, final short publicationYear, final String articleTitle,
+            final String articleId) {
+        super(authors, publicationYear, articleTitle, articleId);
         //TODO validate fields
         this.conferenceLocation = conferenceLocation;
         this.conferenceSeriesName = conferenceSeriesName;
@@ -34,15 +36,38 @@ public final class ConferenceArticle extends Bibliography {
      * @param conferenceYear TODO add doc
      * @param publicationYear TODO add doc
      * @param articleTitle TODO add doc
+     * @param articleId TODO add doc
      * @param authors TODO add doc
      */
     public ConferenceArticle(
             final String conferenceSeriesName, final String conferenceLocation, final short conferenceYear,
-            final short publicationYear, final String articleTitle, final AuthorNames... authors) {
-        super(Arrays.asList(authors), publicationYear, articleTitle);
+            final short publicationYear, final String articleTitle, final String articleId,
+            final AuthorNames... authors) {
+        super(Arrays.asList(authors), publicationYear, articleTitle, articleId);
         //TODO validate fields
         this.conferenceLocation = conferenceLocation;
         this.conferenceSeriesName = conferenceSeriesName;
         this.conferenceYear = conferenceYear;
+    }
+
+    /**
+     * @return the conferenceSeriesName
+     */
+    public String getConferenceSeriesName() {
+        return conferenceSeriesName;
+    }
+
+    /**
+     * @return the conferenceLocation
+     */
+    public String getConferenceLocation() {
+        return conferenceLocation;
+    }
+
+    /**
+     * @return the conferenceYear
+     */
+    public short getConferenceYear() {
+        return conferenceYear;
     }
 }
