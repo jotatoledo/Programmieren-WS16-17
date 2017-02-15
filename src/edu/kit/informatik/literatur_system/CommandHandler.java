@@ -24,6 +24,14 @@ public final class CommandHandler<T, C extends ICommand<T>> {
         this.commands = commands;
     }
     
+    /**
+     * TODO add doc
+     * @param <T> TODO add doc
+     * @param <C> TODO add doc
+     * @param target TODO add doc
+     * @param commands TODO add doc
+     * @return TODO add doc
+     */
     @SafeVarargs
     public static <T, C extends ICommand<T>> CommandHandler<T, ICommand<T>> createFor(
             final T target, 

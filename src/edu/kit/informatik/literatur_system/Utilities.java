@@ -19,6 +19,12 @@ import java.util.stream.Stream;
  * @version %I%, %G%
  */
 public class Utilities {
+    /**
+     * TODO add doc
+     * @param <T> TODO add doc
+     * @param collections TODO add doc
+     * @return TODO add doc
+     */
     @SafeVarargs
     public static <T> Collection<T> intersectCustomCollector(Collection<T>... collections) {
         return Arrays.stream(collections)

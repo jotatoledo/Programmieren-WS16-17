@@ -131,6 +131,11 @@ public final class Module extends Course implements ICanEqual {
         return Collections.unmodifiableCollection(lectures);
     }
     
+    /**
+     * TODO add doc
+     * @param student TODO add doc
+     * @return TODO add doc
+     */
     public double getWeightedLecturesAverage(final Student student) {
         return 0.0;
 //        return lectures.stream()

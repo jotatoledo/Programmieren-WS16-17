@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 public final class Author implements Comparable<Author> {
     private final String firstName;
     private final String lastName;
-    private final Map<Publication,Publication> publications;
+    private final Map<Publication, Publication> publications;
     
     /**
      * TODO add doc
