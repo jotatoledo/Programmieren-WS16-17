@@ -13,7 +13,6 @@ import java.util.stream.Stream;
 import edu.kit.informatik.literatur_system.AuthorNames;
 import edu.kit.informatik.literatur_system.ConferenceArticle;
 import edu.kit.informatik.literatur_system.JournalArticle;
-import sun.tools.jar.resources.jar;
 
 /**
  * Various utility functions
@@ -156,7 +155,7 @@ public class Utilities {
     
     public static String formatToIEEESimplified(final int index, final JournalArticle jArticle) {
         return String.format(
-                "[%1$] %2$, \"%3$,\" %4$, %5$", 
+                "[%1$] %2$, \"%3$,\" %4$, %5$.", 
                 index, 
                 formatToIEEESimplified(jArticle.getAuthors()),
                 jArticle.getArticleTitle(), 
@@ -166,7 +165,7 @@ public class Utilities {
     
     public static String formatToIEEESimplified(final int index, final ConferenceArticle cArticle) {
         return String.format(
-                "[%1$] %2$, \"%3$,\" in Proceedings of %4$, %5$, %6$", 
+                "[%1$] %2$, \"%3$,\" in Proceedings of %4$, %5$, %6$.", 
                 index,
                 formatToIEEESimplified(cArticle.getAuthors()),
                 cArticle.getArticleTitle(),
