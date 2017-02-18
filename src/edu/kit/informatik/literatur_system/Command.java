@@ -93,7 +93,7 @@ public enum Command implements ICommand<ILiteraturSystemService> {
      * Implementation of the {@code add article to journal} command as described in the task.
      */
     //add article to journal <name>:<id>,<year>,<title>
-    ADD_ARTICLE_TO_JOURNAL("add article to journal ([a-zA-Z]+):([a-z0-9]+),((?!0)\\d{4}),([a-zA-Z]+)", true){
+    ADD_ARTICLE_TO_JOURNAL("add article to journal ([a-zA-Z]+):([a-z0-9]+),((?!0)\\d{4}),([a-zA-Z]+)", true) {
         @Override
         public void execute(final ILiteraturSystemService service, 
                             final String input) {
@@ -106,9 +106,9 @@ public enum Command implements ICommand<ILiteraturSystemService> {
         }
     },
     /**
-     * FIXME add doc
-     * add keywords to <entity>:<list of keywords>
+     * Implementation of the {@code add keywords to journal} command as described in the task.
      */
+    //add keywords to journal <name>:<list of keywords>
     ADD_KEYWORDS_TO_JOURNAL("add keywords to journal ([a-zA-Z]+):([a-z]+)(;[a-z]+)*", true) {
         @Override
         public void execute(final ILiteraturSystemService service, 
@@ -120,8 +120,9 @@ public enum Command implements ICommand<ILiteraturSystemService> {
         }
     },
     /**
-     * FIXME add doc
+     * Implementation of the {@code add keywords to conference} command as described in the task.
      */
+    //add keywords to conference <name>,<year>:<list of keywords>
     ADD_KEYWORDS_TO_CONFERENCE("add keywords to conference ([a-zA-Z]+),((?!0)\\d{4}):([a-z]+)(;[a-z]+)*", true) {
         @Override
         public void execute(final ILiteraturSystemService service, 
@@ -135,9 +136,10 @@ public enum Command implements ICommand<ILiteraturSystemService> {
         }
     },
     /**
-     * FIXME add doc
+     * Implementation of the {@code add keywords to series} command as described in the task.
      */
-    ADD_KEYWORDS_TO_CONFERENCE_SERIES("add keywords to series ([a-zA-Z]+):([a-z]+)(;[a-z]+)*", true) {
+    //add keywords to series <name>:<list of keywords>
+    ADD_KEYWORDS_TO_CONFERNCE_SERIES("add keywords to series ([a-zA-Z]+):([a-z]+)(;[a-z]+)*", true) {
         @Override
         public void execute(final ILiteraturSystemService service, 
                             final String input) {
@@ -149,8 +151,9 @@ public enum Command implements ICommand<ILiteraturSystemService> {
         }
     },
     /**
-     * FIXME add doc
+     * Implementation of the {@code add keywords to publication} command as described in the task.
      */
+    //add keywords to pub <id>:<list of keywords>
     ADD_KEYWORDS_TO_PUBLICATION("add keywords to pub ([a-z0-9]+):([a-z]+)(;[a-z]+)*", true) {
         @Override
         public void execute(final ILiteraturSystemService service, 
