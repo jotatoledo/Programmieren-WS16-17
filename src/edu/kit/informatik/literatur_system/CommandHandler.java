@@ -2,7 +2,6 @@ package edu.kit.informatik.literatur_system;
 
 import java.util.Objects;
 import java.util.Optional;
-import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 /**
@@ -16,9 +15,9 @@ public final class CommandHandler<T, C extends ICommand<T>> {
     private final T target;
     private final ICommand<T>[] commands;
     
-    private CommandHandler(final T target, final C[] commands) {
+    private CommandHandler(final T target, final ICommand<T>[] commands) {
         //TODO remove dead code
-//        for (final C c : commands)
+//        for (final ICommand c : commands)
 //            c.getClass();
         this.target = target;
         this.commands = commands;
@@ -43,19 +42,16 @@ public final class CommandHandler<T, C extends ICommand<T>> {
     /**
      * Tries to execute the command line.
      * Executes the callback function if the command has no matches
-     * @param string TODO add doc
-     * @param callback TODO add doc
+     * @param input TODO add doc
      * @return TODO add doc
      */
-    public ICommand<T> accept(final String string, final Consumer<? super String> callback) {
-        Objects.requireNonNull(string);
-        Objects.requireNonNull(callback);
-        final Optional<ICommand<T>> cmd = find(string);
-        if (cmd.isPresent())
-            cmd.get().execute(target, string);
-        else
-            callback.accept(string);
-        return cmd.orElse(null);
+    public ICommand<T> accept(final String input) {
+        Objects.requireNonNull(input);
+        final Optional<ICommand<T>> cmd = find(input);
+        if (!cmd.isPresent())
+            throw new IllegalArgumentException("no such command: '" + input + "'");            
+        cmd.get().execute(target, input);
+        return cmd.get();
     }
     
     /**
