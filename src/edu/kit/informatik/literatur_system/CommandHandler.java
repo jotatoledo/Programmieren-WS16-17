@@ -5,7 +5,7 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 /**
- * TODO add doc
+ * FIXME add doc
  * @author JoseNote
  * @version %I%, %G%
  * @param <T> TODO add doc
@@ -21,12 +21,12 @@ public final class CommandHandler<T, C extends ICommand<T>> {
     }
     
     /**
-     * TODO add doc
-     * @param <T> TODO add doc
-     * @param <C> TODO add doc
-     * @param target TODO add doc
-     * @param commands TODO add doc
-     * @return TODO add doc
+     * FIXME add doc
+     * @param <T> FIXME add doc
+     * @param <C> FIXME add doc
+     * @param target FIXME add doc
+     * @param commands FIXME add doc
+     * @return FIXME add doc
      */
     @SafeVarargs
     public static <T, C extends ICommand<T>> CommandHandler<T, ICommand<T>> createFor(
@@ -39,8 +39,8 @@ public final class CommandHandler<T, C extends ICommand<T>> {
     /**
      * Tries to execute the command line.
      * Executes the callback function if the command has no matches
-     * @param input TODO add doc
-     * @return TODO add doc
+     * @param input FIXME add doc
+     * @return FIXME add doc
      */
     public ICommand<T> accept(final String input) {
         Objects.requireNonNull(input);
@@ -54,8 +54,8 @@ public final class CommandHandler<T, C extends ICommand<T>> {
     /**
      * Finds the command associated to the input.
      * Throws exception if there is ambiguity
-     * @param string TODO add doc
-     * @return TODO add doc
+     * @param string FIXME add doc
+     * @return FIXME add doc
      */
     private Optional<ICommand<T>> find(final String string) {
         return commands()
@@ -63,7 +63,7 @@ public final class CommandHandler<T, C extends ICommand<T>> {
                 .reduce((l, r) -> { 
                     throw new IllegalStateException("ambiguous: '" + string + "'"); 
                 });
-        //TODO refactor into a single() extension method. 
+        //FIXME refactor into a single() extension method. 
         //The reduce API wasn't created for the used purpose
     }
     
