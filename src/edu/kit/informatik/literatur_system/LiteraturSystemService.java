@@ -236,25 +236,7 @@ public class LiteraturSystemService implements ILiteraturSystemService {
         return entity;
     }
 
-    @Override
-    public Publication addKeywordsToPublication(
-            final String publicationId, final Collection<String> keywords) {
-        Objects.requireNonNull(publicationId);
-        Objects.requireNonNull(keywords);
-        // FIXME implement
-        Publication pub = getPublication(publicationId);
-        return pub;
-    }
-
-    @Override
-    public ConferenceSeries addKeywordsToConferenceSeries(
-            final String seriesName, final Collection<String> keywords) {
-        Objects.requireNonNull(seriesName);
-        Objects.requireNonNull(keywords);
-        // FIXME implement
-        ConferenceSeries serie = getConferenceSeries(seriesName);
-        return serie;
-    }
+    
 
     @Override
     public Collection<Publication> inProceedings(final String seriesName, final short year) {
@@ -335,4 +317,41 @@ public class LiteraturSystemService implements ILiteraturSystemService {
         // FIXME validate that the publication associated to the id is valid ( has an author)
         return null;
     }
+
+    @Override
+    public Publication addKeywordsToPublication(
+            final String publicationId, Collection<String> keywords) {
+        Objects.requireNonNull(publicationId);
+        Objects.requireNonNull(keywords);
+        // FIXME implement
+        Publication pub = getPublication(publicationId);
+        return pub;
+    }
+    
+    @Override
+    public ConferenceSeries addKeywordsToConferenceSeries(
+            final String seriesName, Collection<String> keywords) {
+        Objects.requireNonNull(seriesName);
+        Objects.requireNonNull(keywords);
+        // FIXME implement
+        // FIXME filter repeated words
+        ConferenceSeries serie = getConferenceSeries(seriesName);
+        return serie;
+    }
+    
+    @Override
+    public Journal addKeywordsToJournal(final String name, Collection<String> keywords) {
+        // FIXME implement
+        // FIXME validate fields
+        // FIXME filter repeated words
+        return null;
+    }
+
+    @Override
+    public Conference addKeywordsToConference(final String seriesName, final short year, Collection<String> keywords) {
+        // FIXME implement
+        // FIXME validate fields
+        // FIXME filter repeated words
+        return null;
+    } 
 }

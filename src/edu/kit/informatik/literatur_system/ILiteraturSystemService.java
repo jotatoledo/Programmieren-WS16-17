@@ -9,10 +9,11 @@ import java.util.Set;
  * @version %I%, %G%
  */
 public interface ILiteraturSystemService {
-    //TODO reorder functions
-    //TODO declare C11
-    //TODO declare C13
-    //TODO declare c16
+    //FIXME reorder functions
+    // FIXME declare C8
+    //FIXME declare C11
+    //FIXME declare C13
+    //FIXME declare c16
     
     /**
      * TODO add doc
@@ -190,12 +191,31 @@ public interface ILiteraturSystemService {
     /**
      * TODO add doc
      * Part of C8
+     * @param name TODO add doc
+     * @param keywords TODO add doc
+     * @return TODO add doc
+     */
+    Journal addKeywordsToJournal(String name, Collection<String> keywords);
+    
+    /**
+     * TODO add doc
+     * Part of C8
      * @param seriesName TODO add doc
      * @param keywords TODO add doc
      * @return TODO add doc
      */
     ConferenceSeries addKeywordsToConferenceSeries(String seriesName, Collection<String> keywords);
 
+    /**
+     * TODO add doc
+     * Part of C8
+     * @param seriesName TODO add doc
+     * @param year TODO add doc
+     * @param keywords TODO add doc
+     * @return TODO add doc
+     */
+    Conference addKeywordsToConference(String seriesName, short year, Collection<String> keywords);
+    
     /**
      * TODO add doc
      * C12
