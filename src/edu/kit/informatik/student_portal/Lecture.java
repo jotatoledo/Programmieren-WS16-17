@@ -124,7 +124,6 @@ public final class Lecture extends Course implements ICanEqual {
      * @return Add doc
      */
     public double numericAverage() {
-        //TODO round
         if (marks.size() == 0)
             return 0;
         return totalMarks() / marks.size();
