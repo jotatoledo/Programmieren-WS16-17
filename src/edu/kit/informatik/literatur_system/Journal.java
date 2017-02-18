@@ -1,7 +1,7 @@
 package edu.kit.informatik.literatur_system;
 
 /**
- * TODO add doc
+ * Class used to represent a journal entity
  * @author JoseNote
  * @version %I%, %G%
  */
@@ -11,8 +11,8 @@ public final class Journal extends Venue {
     
     /**
      * Creates a new instance
-     * @param name TODO add doc
-     * @param publisher TODO add doc
+     * @param name the name value
+     * @param publisher the publisher value
      */
     public Journal(final String name, final String publisher) {
         super();
@@ -21,8 +21,8 @@ public final class Journal extends Venue {
     }
 
     /**
-     * TODO add doc
-     * @param name TODO add doc
+     * Creates a new instance with no publisher
+     * @param name the name value
      */
     public Journal(final String name) {
         super();
