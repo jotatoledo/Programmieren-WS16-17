@@ -2,6 +2,7 @@ package edu.kit.informatik.literatur_system;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 public final class JournalArticle extends Bibliography {
     private final String journalTitle;
@@ -15,7 +16,7 @@ public final class JournalArticle extends Bibliography {
      * @param articleId TODO add doc
      */
     public JournalArticle(
-            final Collection<AuthorNames> authors, final short publicationYear, 
+            final List<AuthorNames> authors, final short publicationYear, 
             final String articleTitle, final String journalTitle, final String articleId) {
         super(authors, publicationYear, articleTitle, articleId);
         //TODO validate fields

@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
@@ -174,9 +175,19 @@ public class Utilities {
                 cArticle.getConferenceYear());
     }
     
-    private static String formatToIEEESimplified(final Collection<AuthorNames> authors) {
-        //TODO implement
-        return null;
+    private static String formatToIEEESimplified(final List<AuthorNames> authors) {
+        //TODO add case size 0
+        //TODO check if stream keeps order
+        if (authors.size() == 2)
+            return authors.stream()
+                    .map(x-> x.formatIEEE())
+                    .collect(Collectors.joining(" and "));
+        else {
+            AuthorNames first = authors.get(0);
+            if (authors.size() == 1)
+                return first.formatIEEE();
+            return first.formatIEEE() + " et al.";
+        }
     }
     
     public static String formatToChicagoSimplified(final JournalArticle jArticle){
@@ -202,8 +213,13 @@ public class Utilities {
                 cArticle.getConferenceLocation());
     }
     
-    private static String formatToChicagoSimplified(final Collection<AuthorNames> authors) {
-        //TODO implement
-        return null;
+    private static String formatToChicagoSimplified(final List<AuthorNames> authors) {
+        //TODO add case size 0
+        //TODO check if stream keeps order
+        Stream<String> str = authors.stream()
+                .map(x->x.formatChicago());
+        if (authors.size() == 2)
+            return str.collect(Collectors.joining(", and "));
+        return str.collect(Collectors.joining(", "));
     }
 }

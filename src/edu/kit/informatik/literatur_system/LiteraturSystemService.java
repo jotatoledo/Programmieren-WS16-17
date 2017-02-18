@@ -197,12 +197,12 @@ public class LiteraturSystemService implements ILiteraturSystemService {
         if (Publication.VALID == onlyValid)
             return publications.values()
                     .stream()
-                    .filter(p-> p.numberAuthors() > 0)
+                    .filter(p-> p.isValid() == true)
                     .collect(Collectors.toList());
         else 
             return publications.values()
                     .stream()
-                    .filter(p-> p.numberAuthors() == 0)
+                    .filter(p-> p.isValid() == false)
                     .collect(Collectors.toList());
     }
 
@@ -297,9 +297,17 @@ public class LiteraturSystemService implements ILiteraturSystemService {
     @Override
     public Set<Bibliography> getBibliography(
             final String style, final Collection<String> publicationIds) {
-        // TODO Auto-generated method stub
+        Collection<String> unique = publicationIds.stream()
+                .distinct()
+                .collect(Collectors.toList());
+        
+//        Collection<Publication> pubs = unique.stream()
+//                .map(x->getPublication(x))
+//                .forEach(x->);
+        // TODO implement
         // TODO validate fields
-        //TODO carefull on order
+        // TODO carefull on order
+        // TODO validate that the publication associated to the id is valid ( has an author)
         return null;
     }
 }

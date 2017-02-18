@@ -1,18 +1,18 @@
 package edu.kit.informatik.literatur_system;
 
-import java.util.Collection;
+import java.util.List;
 
 /**
  * TODO add doc
  * @author JoseNote
  * @version %I%, %G%
  */
-public abstract class Bibliography {
+public abstract class Bibliography implements Comparable<Bibliography> {
     private final String articleId;
     private final short publicationYear;
     private final String articleTitle;
     //TODO refactor to ordered set
-    private final Collection<AuthorNames> authors;
+    private final List<AuthorNames> authors;
     
     /**
      * TODO add doc
@@ -22,12 +22,18 @@ public abstract class Bibliography {
      * @param articleId TODO add doc
      */
     protected Bibliography(
-            final Collection<AuthorNames> authors, final short publicationYear, 
+            final List<AuthorNames> authors, final short publicationYear, 
             final String articleTitle, final String articleId) {
         this.publicationYear = publicationYear;
         this.articleTitle = articleTitle;
         this.authors = authors;
         this.articleId = articleId;
+    }
+    
+    @Override
+    public int compareTo(Bibliography obj) {
+        //TODO implement
+        return 0;
     }
 
     /**
@@ -47,7 +53,7 @@ public abstract class Bibliography {
     /**
      * @return the authors
      */
-    public Collection<AuthorNames> getAuthors() {
+    public List<AuthorNames> getAuthors() {
         return authors;
     }
 
@@ -59,7 +65,6 @@ public abstract class Bibliography {
     }
     
     public String firstAuthorLastName() {
-        //TODO implement
-        return null;
+        return authors.get(0).getLastName();
     }
 }

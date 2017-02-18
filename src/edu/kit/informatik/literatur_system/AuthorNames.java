@@ -18,4 +18,26 @@ public final class AuthorNames {
         this.firstName = firstName;
         this.lastName = lastName;
     }
+
+    /**
+     * @return the firstName
+     */
+    public String getFirstName() {
+        return firstName;
+    }
+
+    /**
+     * @return the lastName
+     */
+    public String getLastName() {
+        return lastName;
+    }
+    
+    public String formatIEEE(){
+        return getFirstName().toUpperCase().charAt(0) + ". " + getLastName();
+    }
+    
+    public String formatChicago(){
+        return getLastName() + "," + getFirstName();
+    }
 }

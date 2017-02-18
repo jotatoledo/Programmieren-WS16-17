@@ -2,6 +2,7 @@ package edu.kit.informatik.literatur_system;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 public final class ConferenceArticle extends Bibliography {
     private final String conferenceSeriesName;
@@ -20,7 +21,7 @@ public final class ConferenceArticle extends Bibliography {
      */
     public ConferenceArticle(
             final String conferenceSeriesName, final String conferenceLocation, final short conferenceYear,
-            final Collection<AuthorNames> authors, final short publicationYear, final String articleTitle,
+            final List<AuthorNames> authors, final short publicationYear, final String articleTitle,
             final String articleId) {
         super(authors, publicationYear, articleTitle, articleId);
         //TODO validate fields

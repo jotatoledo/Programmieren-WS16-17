@@ -132,6 +132,14 @@ public abstract class Publication extends TagedElement {
     }
     
     /**
+     * TODO add doc
+     * @return TODO add doc
+     */
+    public boolean isValid() {
+        return authors.size() > 0;
+    }
+    
+    /**
      * Checks if the given author worked on this publication
      * @param author the author to check
      * @return {@code True} if the author worked on this. {@code False} otherwise
