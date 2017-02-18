@@ -7,7 +7,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
- * TODO add doc
+ * Class used to represent an author entity
  * @author JoseNote
  * @version %I%, %G%
  */
@@ -17,9 +17,9 @@ public final class Author implements Comparable<Author> {
     private final Map<Publication, Publication> publications;
     
     /**
-     * TODO add doc
-     * @param firstName add doc
-     * @param lastName add doc
+     * Creates a new instance
+     * @param firstName the value for the first name member
+     * @param lastName the value for the last name member
      */
     public Author(
             final String firstName,
@@ -27,7 +27,6 @@ public final class Author implements Comparable<Author> {
         //TODO test name valid
         this.firstName = firstName;
         this.lastName = lastName;
-        //TODO change type of set
         publications = new HashMap<Publication, Publication>();
     }
 
@@ -65,20 +64,21 @@ public final class Author implements Comparable<Author> {
     }
     
     /**
-     * TODO add doc
-     * @param publication TODO add doc
-     * @return TODO add doc
+     * Associates a new publication to this author
+     * @param publication the publication in which this worked
+     * @return this
      */
     public Author addPublication(final Publication publication) {
         if (publications.putIfAbsent(publication, publication) != null)
-          //TODO improve error message
+            //TODO improve error message
             throw new IllegalArgumentException("this author is already associated to the given publication");
         return this;
     }
     
     /**
-     * TODO add doc
-     * @return TODO add doc
+     * Gets a set of publications in which this author didn't worked, that
+     * quote at least one of this author publications.
+     * @return a collection of publications
      */
     public Collection<Publication> getForeignPublications() {
         return publications.values().stream()
