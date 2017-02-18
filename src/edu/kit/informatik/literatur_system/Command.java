@@ -14,9 +14,9 @@ public enum Command implements ICommand<ILiteraturSystemService> {
     //FIXME implement direct prints
     //FIXME check if all functions are created
     /**
-     * TODO add doc
-     * add author <first name>,<last name>
+     * Implementation of the {@code add author} command as described in the task.
      */
+    //add author <first name>,<last name>
     ADD_AUTHOR("add author ([a-zA-Z]+),([a-zA-Z]+)", true) {
         @Override
         public void execute(final ILiteraturSystemService service, 
@@ -28,51 +28,71 @@ public enum Command implements ICommand<ILiteraturSystemService> {
         }
     },
     /**
-     * TODO add doc
-     * add journal <name>,<publisher>
+     * Implementation of the {@code add journal} command as described in the task.
      */
+    //add journal <name>,<publisher>
     ADD_JOURNAL("add journal ([a-zA-Z]+),([a-zA-Z]+)", true) {
         @Override
         public void execute(final ILiteraturSystemService service, 
                             final String input) {
-            // TODO Auto-generated method stub
+            final Matcher m = matcher(pattern(), input);
+            service.addJournal(
+                    input.substring(m.start(1), m.end(1)), 
+                    input.substring(m.start(2), m.end(2)));
             
         }
     },
     /**
-     * TODO add doc
-     * add conference series <name>
+     * Implementation of the {@code add conference series} command as described in the task.
      */
+    //add conference series <name>
     ADD_CONFERENCE_SERIES("add conference series ([a-zA-Z]+)", true) {
         @Override
         public void execute(final ILiteraturSystemService service, 
-                            final String string) {
-            // TODO Auto-generated method stub
-            
+                            final String input) {
+            final Matcher m = matcher(pattern(), input);
+            service.addConferenceSeries(input.substring(m.start(1), m.end(1)));
         }
     },
     /**
-     * TODO add doc
-     * add conference <series>,<year>,<location>
+     * Implementation of the {@code add conference} command as described in the task.
      */
+    //add conference <series>,<year>,<location>
     ADD_CONFERENCE("add conference ([a-zA-Z]+),((?!0)\\d{4}),([a-zA-Z]+)", true) {
         @Override
         public void execute(final ILiteraturSystemService service, 
-                            final String string) {
-            // TODO Auto-generated method stub
+                            final String input) {
+            final Matcher m = matcher(pattern(), input);
+            service.addConference(
+                    input.substring(m.start(1), m.end(1)),
+                    Short.parseShort(input.substring(m.start(2), m.end(2))),
+                    input.substring(m.start(3), m.end(3)));
             
         }
     },
     /**
-     * TODO add doc. Change id to accept numbers
-     * add article to <series/journal>:<id>,<year>,<title>
+     * Implementation of the {@code add article to} command as described in the task.
      */
-    ADD_ARTICLE("add article to ([a-zA-Z]+):([a-z0-9]+),((?!0)\\d{4}),([a-zA-Z]+)", true) {
+    //add article to <series/journal>:<id>,<year>,<title>
+    ADD_ARTICLE_TO("add article to (series|journal) ([a-zA-Z]+):([a-z0-9]+),((?!0)\\d{4}),([a-zA-Z]+)", true) {
         @Override
         public void execute(final ILiteraturSystemService service, 
-                            final String string) {
-            // TODO Auto-generated method stub
-            
+                            final String input) {
+            final Matcher m = matcher(pattern(), input);
+            final String option = input.substring(m.start(1), m.end(1));
+            //FIXME refactor
+            if (option.equals("series"))
+                service.addArticleToSeries(
+                        input.substring(m.start(2), m.end(2)), 
+                        input.substring(m.start(3), m.end(3)), 
+                        Short.parseShort(input.substring(m.start(4), m.end(4))), 
+                        input.substring(m.start(5), m.end(5)));
+            else if (option.equals("journal"))
+                service.addArticleToJournal(
+                        input.substring(m.start(2), m.end(2)), 
+                        input.substring(m.start(3), m.end(3)), 
+                        Short.parseShort(input.substring(m.start(4), m.end(4))), 
+                        input.substring(m.start(5), m.end(5)));
         }
     },
     /**

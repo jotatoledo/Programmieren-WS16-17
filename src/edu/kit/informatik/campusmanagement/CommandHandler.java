@@ -1,5 +1,5 @@
 
-package edu.kit.informatik;
+package edu.kit.informatik.campusmanagement;
 
 import java.util.Objects;
 import java.util.Optional;

@@ -1,4 +1,4 @@
-package edu.kit.informatik;
+package edu.kit.informatik.campusmanagement;
 
 import static java.util.regex.Pattern.compile;
 
@@ -7,12 +7,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import edu.kit.informatik.campusmanagement.CampusManagement;
-import edu.kit.informatik.campusmanagement.Grade;
-import edu.kit.informatik.campusmanagement.Lecture;
-import edu.kit.informatik.campusmanagement.Module;
-import edu.kit.informatik.campusmanagement.Professor;
-import edu.kit.informatik.campusmanagement.Student;
+import edu.kit.informatik.Terminal;
 
 /**
  * Command line implementation for the task.
