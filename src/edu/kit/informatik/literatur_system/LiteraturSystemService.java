@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -35,19 +36,21 @@ public class LiteraturSystemService implements ILiteraturSystemService {
 
     @Override
     public Author addAuthor(final String firstName, final String lastName) {
-        //TODO validate fields
+        Objects.requireNonNull(firstName);
+        Objects.requireNonNull(lastName);
         if (existAuthor(firstName, lastName))
             throw Utilities.alreadyExist(Author.class, firstName, lastName);
         Author entity = new Author(firstName, lastName);
         if (authors.putIfAbsent(entity, entity) != null)
-            //TODO remove double check
+            //FIXME remove double check
             throw new IllegalArgumentException("error by addition");
         return entity;
     }
     
     @Override
     public Author getAuthor(final String firstName, final String lastName) {
-        //TODO validate fields
+        Objects.requireNonNull(firstName);
+        Objects.requireNonNull(lastName);
         Author entity = authors.get(new Author(firstName, lastName));
         if (entity == null)
             throw Utilities.noSuch(Author.class, firstName, lastName);
@@ -56,39 +59,41 @@ public class LiteraturSystemService implements ILiteraturSystemService {
     
     @Override
     public Collection<Author> getAuthor(final Collection<AuthorNames> names) {
-        // TODO validate fields
-        // TODO implement
+        Objects.requireNonNull(names);
+        // FIXME implement
         return null;
     }
 
     @Override
     public boolean existAuthor(final String firstName, final String lastName) {
-        //TODO validate fields
+        Objects.requireNonNull(firstName);
+        Objects.requireNonNull(lastName);
         return authors.containsKey(new Author(firstName, lastName));
     }
 
     @Override
     public Journal addJournal(final String name, final String publisher) {
-        //TODO validate fields
+        Objects.requireNonNull(name);
+        Objects.requireNonNull(publisher);
         if (existJournal(name))
-            //TODO improve error message
+            //FIXME improve error message
             throw Utilities.alreadyExist(Journal.class, name);
         Journal entity = new Journal(name, publisher);
         if (journals.putIfAbsent(entity, entity) != null)
-            //TODO remove double check
+            //FIXME remove double check
             throw new IllegalArgumentException("error by addition");
         return entity;
     }
 
     @Override
     public boolean existJournal(final String name) {
-        //TODO validate fields
+        Objects.requireNonNull(name);
         return journals.containsKey(new Journal(name));
     }
     
     @Override
     public Journal getJournal(final String name) {
-        //TODO validate fields
+        Objects.requireNonNull(name);
         Journal entity = journals.get(new Journal(name));
         if (entity == null)
             throw Utilities.noSuch(Journal.class, name);
@@ -97,26 +102,26 @@ public class LiteraturSystemService implements ILiteraturSystemService {
 
     @Override
     public ConferenceSeries addConferenceSeries(final String name) {
-        // TODO validate fields
+        Objects.requireNonNull(name);
         if (existConferenceSeries(name))
-            //TODO improve error message
+            //FIXME improve error message
             throw Utilities.alreadyExist(ConferenceSeries.class, name);
         ConferenceSeries entity = new ConferenceSeries(name);
         if (conferenceSeries.putIfAbsent(entity, entity) != null)
-            //TODO remove double check
+            //FIXME remove double check
             throw new IllegalArgumentException("error by addition");
         return entity;
     }
 
     @Override
     public boolean existConferenceSeries(final String name) {
-        //TODO validate fields
+        Objects.requireNonNull(name);
         return conferenceSeries.containsKey(new ConferenceSeries(name));
     }
     
     @Override
     public ConferenceSeries getConferenceSeries(final String name) {
-        //TODO validate fields
+        Objects.requireNonNull(name);
         ConferenceSeries entity = conferenceSeries.get(new ConferenceSeries(name));
         if (entity == null)
             throw Utilities.noSuch(ConferenceSeries.class, name);
@@ -125,13 +130,14 @@ public class LiteraturSystemService implements ILiteraturSystemService {
     
     @Override
     public void writtenBy(final String publicationId, final Collection<AuthorNames> authors) {
-        // TODO validate fields
-        // TODO implement
+        Objects.requireNonNull(publicationId);
+        // FIXME implement
     }
 
     @Override
     public void cites(final String quoter, final String reference) {
-        //TODO check input
+        Objects.requireNonNull(quoter);
+        Objects.requireNonNull(reference);
         Publication pQuoter = getPublication(quoter);
         Publication pReference = getPublication(reference);
         if (pQuoter.getPublicationYear() <= pReference.getPublicationYear())
@@ -143,7 +149,9 @@ public class LiteraturSystemService implements ILiteraturSystemService {
     @Override
     public Conference addConference(
             final String seriesName, final short year, final String location) {
-        // TODO check input
+        Objects.requireNonNull(seriesName);
+        Objects.requireNonNull(location);
+        Objects.requireNonNull(year);
         ConferenceSeries series = getConferenceSeries(seriesName);
         if (series.getConferenceInYear(year) != null)
             //TODO improve message
@@ -156,7 +164,10 @@ public class LiteraturSystemService implements ILiteraturSystemService {
     public Article addArticleToSeries(
             final String seriesName, final String articleId, 
             final short articlePublicationYear, final String articleTitle) {
-        //TODO check input
+        Objects.requireNonNull(seriesName);
+        Objects.requireNonNull(articleId);
+        Objects.requireNonNull(articlePublicationYear);
+        Objects.requireNonNull(articleTitle);
         ConferenceSeries series = getConferenceSeries(seriesName);
         if (existPublication(articleId))
             throw Utilities.alreadyExist(Article.class, articleId);
@@ -172,7 +183,10 @@ public class LiteraturSystemService implements ILiteraturSystemService {
     public Article addArticleToJournal(
             final String journalName, final String articleId, 
             final short articlePublicationYear, final String articleTitle) {
-        //TODO validate fields
+        Objects.requireNonNull(journalName);
+        Objects.requireNonNull(articleId);
+        Objects.requireNonNull(articlePublicationYear);
+        Objects.requireNonNull(articleTitle);
         Journal journal = getJournal(journalName);
         if (existPublication(articleId))
             throw Utilities.alreadyExist(Article.class, articleId);
@@ -183,7 +197,7 @@ public class LiteraturSystemService implements ILiteraturSystemService {
 
     @Override
     public boolean existPublication(final String id) {
-        // TODO validate fields
+        Objects.requireNonNull(id);
         return publications.containsKey(new Article(id));
     }
     
@@ -208,14 +222,14 @@ public class LiteraturSystemService implements ILiteraturSystemService {
 
     @Override
     public Collection<Publication> getPublication(final Collection<AuthorNames> authors) {
-        // TODO validate fields
-        // TODO implement
+        Objects.requireNonNull(authors);
+        // FIXME implement
         return null;
     }
     
     @Override
     public Publication getPublication(final String id) {
-        //TODO validate fields
+        Objects.requireNonNull(id);
         Publication entity = publications.get(new Article(id));
         if (entity == null)
             throw Utilities.noSuch(Publication.class, id);
@@ -225,8 +239,9 @@ public class LiteraturSystemService implements ILiteraturSystemService {
     @Override
     public Publication addKeywordsToPublication(
             final String publicationId, final Collection<String> keywords) {
-        // TODO validate fields
-        // TODO implement
+        Objects.requireNonNull(publicationId);
+        Objects.requireNonNull(keywords);
+        // FIXME implement
         Publication pub = getPublication(publicationId);
         return pub;
     }
@@ -234,15 +249,17 @@ public class LiteraturSystemService implements ILiteraturSystemService {
     @Override
     public ConferenceSeries addKeywordsToConferenceSeries(
             final String seriesName, final Collection<String> keywords) {
-        // TODO validate fields
-        // TODO implement
+        Objects.requireNonNull(seriesName);
+        Objects.requireNonNull(keywords);
+        // FIXME implement
         ConferenceSeries serie = getConferenceSeries(seriesName);
         return serie;
     }
 
     @Override
     public Collection<Publication> inProceedings(final String seriesName, final short year) {
-        //TODO validate fields
+        Objects.requireNonNull(seriesName);
+        Objects.requireNonNull(year);
         ConferenceSeries series = getConferenceSeries(seriesName);
         Conference conf = series.getConferenceInYear(year);
         if (conf == null)
@@ -251,19 +268,22 @@ public class LiteraturSystemService implements ILiteraturSystemService {
     }
 
     @Override
-    public float jaccard(final Collection<String> firstGroupWords, final Collection<String> secondGroupWords) {
-        //TODO validate fields
+    public float jaccard(
+            final Collection<String> firstGroupWords, final Collection<String> secondGroupWords) {
+        Objects.requireNonNull(firstGroupWords);
+        Objects.requireNonNull(secondGroupWords);
         Collection<String> union = Utilities.unifyNoRepetition(firstGroupWords, secondGroupWords);
         if (union.size() == 0)
             return 1;
-        //TODO refactor to improved intersect
+        //FIXME refactor to improved intersect
         Collection<String> intersection = Utilities.intersectMultipleRetain(firstGroupWords, secondGroupWords);
         return ((float) intersection.size()) / union.size();
     }
 
     @Override
     public float similarity(final String firstPublicationId, final String secondPublicationId) {
-        //TODO validate fields
+        Objects.requireNonNull(firstPublicationId);
+        Objects.requireNonNull(secondPublicationId);
         return jaccard(
                 getPublication(firstPublicationId).getKeywordsValues(), 
                 getPublication(secondPublicationId).getKeywordsValues());
@@ -271,23 +291,26 @@ public class LiteraturSystemService implements ILiteraturSystemService {
 
     @Override
     public int hIndex(final String firstName, final String lastName) {
-        //TODO validate fields
-        //TODO implement
+        Objects.requireNonNull(firstName);
+        Objects.requireNonNull(lastName);
+        //FIXME implement
         Author entity = getAuthor(firstName, lastName);
         return 0;
     }
 
     @Override
     public Collection<Author> coAuthorsOf(final String firstName, final String lastName) {
-        //TODO validate fields
-        //TODO implement
+        Objects.requireNonNull(firstName);
+        Objects.requireNonNull(lastName);
+        //FIXME implement
         Author entity = getAuthor(firstName, lastName);
         return null;
     }
 
     @Override
     public Collection<String> foreignCitationsOf(final String firstName, final String lastName) {
-        //TODO validate fields
+        Objects.requireNonNull(firstName);
+        Objects.requireNonNull(lastName);
         Author author = getAuthor(firstName, lastName);
         return author.getForeignPublications().stream()
                 .map(Publication::getId)
@@ -297,6 +320,9 @@ public class LiteraturSystemService implements ILiteraturSystemService {
     @Override
     public Set<Bibliography> getBibliography(
             final String style, final Collection<String> publicationIds) {
+        Objects.requireNonNull(style);
+        Objects.requireNonNull(publicationIds);
+        
         Collection<String> unique = publicationIds.stream()
                 .distinct()
                 .collect(Collectors.toList());
@@ -304,10 +330,9 @@ public class LiteraturSystemService implements ILiteraturSystemService {
 //        Collection<Publication> pubs = unique.stream()
 //                .map(x->getPublication(x))
 //                .forEach(x->);
-        // TODO implement
-        // TODO validate fields
-        // TODO carefull on order
-        // TODO validate that the publication associated to the id is valid ( has an author)
+        // FIXME implement
+        // FIXME carefull on order
+        // FIXME validate that the publication associated to the id is valid ( has an author)
         return null;
     }
 }

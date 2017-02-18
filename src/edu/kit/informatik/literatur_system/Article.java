@@ -23,7 +23,7 @@ public final class Article extends Publication {
             final String id, final String titel, 
             final short year, final Venue venue) {
         super(id, titel, year);
-        // TODO test id
+        // TODO test fields
         this.venue = venue;
         venue.addPublication(this);
     }

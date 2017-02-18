@@ -33,11 +33,11 @@ public final class AuthorNames {
         return lastName;
     }
     
-    public String formatIEEE(){
+    public String formatIEEE() {
         return getFirstName().toUpperCase().charAt(0) + ". " + getLastName();
     }
     
-    public String formatChicago(){
+    public String formatChicago() {
         return getLastName() + "," + getFirstName();
     }
 }
