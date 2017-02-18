@@ -17,7 +17,13 @@ public class Console {
         final CommandHandler<?, ICommand<ILiteraturSystemService>> h = Command.handler();
         ICommand<?> c = null;
         do {
-            c = h.accept(Terminal.readLine(), s -> Terminal.printLine("Error, no such command: '" + s + "'"));
+            try {
+                c = h.accept(Terminal.readLine());
+                if (c.printOkMessage())
+                    Terminal.printLine("Ok");
+            } catch (IllegalStateException | IllegalArgumentException | NullPointerException e) {
+                Terminal.printError(e.getMessage());
+            }
         } while (c == null || !c.isQuit());
     }
 }
