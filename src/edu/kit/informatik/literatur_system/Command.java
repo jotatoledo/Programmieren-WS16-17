@@ -126,7 +126,11 @@ public enum Command implements ICommand<ILiteraturSystemService> {
         @Override
         public void execute(final ILiteraturSystemService service, 
                             final String input) {
-            // FIXME implement
+            final Matcher m = matcher(pattern(), input);
+            service.addKeywordsToConference(
+                    input.substring(m.start(1), m.end(1)), 
+                    Short.parseShort(input.substring(m.start(2), m.end(2))), 
+                    listKeywords(input, ";", m.start(3), m.end(4)));
             
         }
     },
@@ -137,7 +141,10 @@ public enum Command implements ICommand<ILiteraturSystemService> {
         @Override
         public void execute(final ILiteraturSystemService service, 
                             final String input) {
-            // FIXME implement
+            final Matcher m = matcher(pattern(), input);
+            service.addKeywordsToConferenceSeries(
+                    input.substring(m.start(1), m.end(1)), 
+                    listKeywords(input, ";", m.start(2), m.end(3)));
             
         }
     },
