@@ -16,9 +16,6 @@ public final class CommandHandler<T, C extends ICommand<T>> {
     private final ICommand<T>[] commands;
     
     private CommandHandler(final T target, final ICommand<T>[] commands) {
-        //TODO remove dead code
-//        for (final ICommand c : commands)
-//            c.getClass();
         this.target = target;
         this.commands = commands;
     }
