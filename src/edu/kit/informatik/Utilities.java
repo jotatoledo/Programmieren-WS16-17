@@ -190,7 +190,7 @@ public class Utilities {
         }
     }
     
-    public static String formatToChicagoSimplified(final JournalArticle jArticle){
+    public static String formatToChicagoSimplified(final JournalArticle jArticle) {
         return String.format(
                 "(%1$, %2$) %3$. \"%4$.\" %5$ (%6$).", 
                 jArticle.firstAuthorLastName(),
@@ -201,7 +201,7 @@ public class Utilities {
                 jArticle.getPublicationYear());
     }
     
-    public static String formatToChicagoSimplified(final ConferenceArticle cArticle){
+    public static String formatToChicagoSimplified(final ConferenceArticle cArticle) {
         return String.format(
                 "(%1$, %2$) %3$. \"%4$.\" Paper presented at %5$, %6$, %7$.", 
                 cArticle.firstAuthorLastName(),
