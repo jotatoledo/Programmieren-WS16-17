@@ -138,7 +138,7 @@ public class Utilities {
             final Class<?> type, final Object... args) {
         //TODO improve message
         return new IllegalArgumentException(Stream.of(args).map(String::valueOf)
-                .collect(Collectors.joining(", ", "No such " + type.getSimpleName() + ": ", "")));
+                .collect(Collectors.joining(", ", "no such " + type.getSimpleName() + ": ", "")));
     }
     
     /**

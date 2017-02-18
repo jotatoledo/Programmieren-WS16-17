@@ -12,9 +12,9 @@ public interface ICommand<T> {
     /**
      * Executes the command against the service
      * @param service FIXME add doc
-     * @param string FIXME add doc
+     * @param input FIXME add doc
      */
-    void execute(T service, String string);
+    void execute(T service, String input);
     
     /**
      * Gets the regex pattern associated to the command

@@ -3,17 +3,16 @@ package edu.kit.informatik.literatur_system;
 import edu.kit.informatik.Terminal;
 
 /**
- * TODO add doc
+ * FIXME add doc
  * @author JoseNote
  * @version %I%, %G%
  */
 public class Console {
     /**
-     * TODO add doc
-     * @param args TODO add doc
+     * FIXME add doc add doc
+     * @param args FIXME add doc add doc
      */
-    public static void main(
-            final String[] args) {
+    public static void main(final String[] args) {
         final CommandHandler<?, ICommand<ILiteraturSystemService>> h = Command.handler();
         ICommand<?> c = null;
         do {

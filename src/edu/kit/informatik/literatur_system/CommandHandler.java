@@ -38,7 +38,6 @@ public final class CommandHandler<T, C extends ICommand<T>> {
     
     /**
      * Tries to execute the command line.
-     * Executes the callback function if the command has no matches
      * @param input FIXME add doc
      * @return FIXME add doc
      */
