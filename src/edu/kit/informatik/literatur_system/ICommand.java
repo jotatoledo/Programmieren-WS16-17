@@ -3,7 +3,7 @@ package edu.kit.informatik.literatur_system;
 import java.util.regex.Pattern;
 
 /**
- * TODO add doc
+ * FIXME add doc
  * @author JoseNote
  * @version %I%, %G%
  * @param <T> TODO add doc
@@ -11,20 +11,26 @@ import java.util.regex.Pattern;
 public interface ICommand<T> {
     /**
      * Executes the command against the service
-     * @param service TODO add doc
-     * @param string TODO add doc
+     * @param service FIXME add doc
+     * @param string FIXME add doc
      */
     void execute(T service, String string);
     
     /**
      * Gets the regex pattern associated to the command
-     * @return TODO add doc
+     * @return FIXME add doc
      */
     Pattern pattern();
     
     /**
-     * TODO add doc
-     * @return TODO add doc
+     * FIXME add doc
+     * @return FIXME add doc
      */
     boolean isQuit();
+    
+    /**
+     * FIXME add doc
+     * @return FIXME add doc
+     */
+    boolean printOkMessage();
 }
