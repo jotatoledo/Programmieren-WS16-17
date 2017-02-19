@@ -127,10 +127,10 @@ public interface ILiteraturSystemService {
     /**
      * TODO add doc
      * C10
-     * @param onlyValid TODO add doc
+     * @param type either {@linkplain Publication#INVALID invalid} or {@linkplain Publication#VALID valid}
      * @return TODO add doc
      */
-    Collection<Publication> getPublication(boolean onlyValid);
+    Collection<Publication> getPublication(boolean type);
     
     /**
      * TODO add doc
@@ -242,6 +242,13 @@ public interface ILiteraturSystemService {
      * @return TODO add doc
      */
     float similarity(String firstPublicationId, String secondPublicationId);
+    
+    /**
+     * TODO add doc
+     * @param values TODO add doc
+     * @return TODO add doc
+     */
+    int directHIndex(Collection<Integer> values);
     
     /**
      * TODO add doc

@@ -131,6 +131,7 @@ public class LiteraturSystemService implements ILiteraturSystemService {
     @Override
     public void writtenBy(final String publicationId, final Collection<AuthorNames> authors) {
         Objects.requireNonNull(publicationId);
+        // FIXME filter repeated
         // FIXME implement
     }
 
@@ -224,6 +225,7 @@ public class LiteraturSystemService implements ILiteraturSystemService {
     public Collection<Publication> getPublication(final Collection<AuthorNames> authors) {
         Objects.requireNonNull(authors);
         // FIXME implement
+        // FIXME filter repeated results
         return null;
     }
     
@@ -271,6 +273,12 @@ public class LiteraturSystemService implements ILiteraturSystemService {
                 getPublication(secondPublicationId).getKeywordsValues());
     }
 
+    @Override
+    public int directHIndex(Collection<Integer> values) {
+        //FIXME implement
+        return 0;
+    } 
+    
     @Override
     public int hIndex(final String firstName, final String lastName) {
         Objects.requireNonNull(firstName);
@@ -353,5 +361,7 @@ public class LiteraturSystemService implements ILiteraturSystemService {
         // FIXME validate fields
         // FIXME filter repeated words
         return null;
-    } 
+    }
+
+    
 }

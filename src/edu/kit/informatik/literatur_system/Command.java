@@ -4,8 +4,12 @@ import static java.util.regex.Pattern.compile;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+
+import edu.kit.informatik.Terminal;
 
 /**
  * FIXME add doc
@@ -162,100 +166,200 @@ public enum Command implements ICommand<ILiteraturSystemService> {
             service.addKeywordsToPublication(
                     input.substring(m.start(1), m.end(1)), 
                     listKeywords(input, ";", m.start(2), m.end(3)));
-            
         }
     },
     /**
-     * Implementation of the {@code written by} command as described in the task.
+     * Implementation of the {@code written by} command as described in the task C6.
      */
     //written-by <publication>,<list of author names>
     WRITTEN_BY("written-by ([a-z0-9]+),([a-zA-Z]+ [a-zA-Z]+)(;[a-zA-Z]+ [a-zA-Z]+)", true) {
         @Override
         public void execute(final ILiteraturSystemService service, 
-                            final String string) {
-         // FIXME implement
-            
+                            final String input) {
+            final Matcher m = matcher(pattern(), input);
+            service.writtenBy(
+                    input.substring(m.start(1), m.end(1)), 
+                    listAuthorNames(input, ";", m.start(2), m.end(3)));
         }
     },
     /**
-     * FIXME add doc
+     * Implementation of the {@code cites} command as described in the task C7.
      */
     //cites <publication 1>,<publication 2>
     CITES("cites ([a-z0-9]+),([a-z0-9]+)", true) {
         @Override
         public void execute(final ILiteraturSystemService service, 
-                            final String string) {
-         // FIXME implement
-            
+                            final String input) {
+            final Matcher m = matcher(pattern(), input);
+            service.cites(
+                    input.substring(m.start(1), m.end(1)), 
+                    input.substring(m.start(2), m.end(2)));
         }
     },
     /**
-     * FIXME add doc
-     * all publications
+     * Implementation of the {@code list publications} command as described in the task C9.
      */
+    //all publications
     ALL_PUBLICATIONS("all publications", false) {
         @Override
         public void execute(final ILiteraturSystemService service, 
-                            final String string) {
-         // FIXME implement
-            
+                            final String input) {
+            Collection<Publication> result = service.getPublication();
+            result.stream()
+                .forEach(x -> Terminal.printLine(x.getId()));
         }
     },
     /**
-     * FIXME add doc
-     * list invalid publications
+     * Implementation of the {@code list invalid publications} command as described in the task C10.
      */
+    //list invalid publications
     LIST_INVALID_PUBLICATIONS("list invalid publications", false) {
         @Override
         public void execute(final ILiteraturSystemService service, 
-                            final String string) {
-         // FIXME implement
-            
+                            final String input) {
+             Collection<Publication> result = service.getPublication(Publication.INVALID);
+             result.stream()
+                 .forEach(x -> Terminal.printLine(x.getId()));
         }
     },
     /**
-     * FIXME add doc. List expression
-     * publications by <list of authors>
+     * Implementation of the {@code publications by} command as described in the task C11.
      */
-    PUBLICATIONS_BY("publications by ()", false) {
+    //publications by <list of authors>
+    PUBLICATIONS_BY("publications by ([a-zA-Z]+ [a-zA-Z]+)(;[a-zA-Z]+ [a-zA-Z]+)", false) {
         @Override
         public void execute(final ILiteraturSystemService service, 
-                            final String string) {
-         // FIXME implement
-            
+                            final String input) {
+            final Matcher m = matcher(pattern(), input);
+            Collection<Publication> result = service.getPublication(
+                    listAuthorNames(input, ";", m.start(1), m.end(2)));
+            result.stream()
+                .forEach(x -> Terminal.printLine(x.getId()));
         }
     },
     /**
-     * FIXME add doc
-     * in proceedings <series>,<year>
+     * Implementation of the {@code in proceedings} command as described in the task C12.
      */
+    //in proceedings <series>,<year>
     IN_PROCEEDINGS("in proceedings ([a-zA-Z]+),((?!0)\\d{4})", false) {
         @Override
         public void execute(final ILiteraturSystemService service, 
-                            final String string) {
-            // TODO Auto-generated method stub
-            
+                            final String input) {
+            final Matcher m = matcher(pattern(), input);
+            Collection<Publication> result = service.inProceedings(
+                    input.substring(m.start(1), m.end(1)), 
+                    Short.parseShort(input.substring(m.start(2), m.end(2))));
+            result.forEach(x -> Terminal.printLine(x.getId()));
+                
         }
     },
     /**
-     * FIXME add doc
+     * Implementation of the {@code find keywords} command as described in the task C13.
      */
+    //find keywords <list of keywords>
+    FIND_KEYWORDS("find keywords ([a-z]+)(;[a-z]+)*", false) {
+        @Override
+        public void execute(final ILiteraturSystemService service, 
+                            final String input) {
+            //FIXME implement
+        }
+    },
+    /**
+     * Implementation of the {@code jaccard} command as described in the task C14.
+     */
+    //jaccard <list of words 1> <list of words 2>
+    JACCARD("jaccard ([a-z]+)(;[a-z]+)* ([a-z]+)(;[a-z]+)*", false) {
+        @Override
+        public void execute(final ILiteraturSystemService service, 
+                            final String input) {
+            final Matcher m = matcher(pattern(), input);
+            float result = service.jaccard(
+                    listKeywords(input, ";", m.start(1), m.end(2)), 
+                    listKeywords(input, ";", m.start(3), m.end(4)));
+            //FIXME format and print
+        }
+    },
+    /**
+     * Implementation of the {@code similarity} command as described in the task C15.
+     */
+    //similarity <publication 1>,<publication 2>
+    SIMILARITY("similarity ([a-z0-9]+),([a-z0-9]+)", false) {
+        @Override
+        public void execute(final ILiteraturSystemService service, 
+                            final String input) {
+            final Matcher m = matcher(pattern(), input);
+            float result = service.similarity(
+                    input.substring(m.start(1), m.end(1)), 
+                    input.substring(m.start(2), m.end(2)));
+            //FIXME format and print
+        }
+    },
+    /**
+     * Implementation of the {@code direct h-index} command as described in the task C16.
+     */
+    //direct h-index <list of citation counts>
+    //FIXME check regex ("[1-9]\\d*")
+    DIRECT_H_INDEX("direct h-index ((?!0)\\d+);((?!0)\\d+)", false) {
+        @Override
+        public void execute(final ILiteraturSystemService service, 
+                            final String input) {
+            //FIXME implement
+        }
+    },
+    /**
+     * Implementation of the {@code h-index} command as described in the task C17.
+     */
+    //h-index <first name> <last name>
+    H_INDEX("h-index ([a-zA-Z]+) ([a-zA-Z]+)", false) {
+        @Override
+        public void execute(final ILiteraturSystemService service, 
+                            final String input) {
+            //FIXME implement
+        }
+    },
+    /**
+     * Implementation of the {@code coauthors of} command as described in the task C18.
+     */
+    //coauthors of <firstname> <lastname>
+    COAUTHORS_OF("coauthors of ([a-zA-Z]+) ([a-zA-Z]+)", false) {
+        @Override
+        public void execute(final ILiteraturSystemService service, 
+                            final String input) {
+            //FIXME implement
+        }
+    },
+    /**
+     * Implementation of the {@code foreign citations of} command as described in the task C19.
+     */
+    //foreign citations of <firstname> <lastname>
+    FOREIGN_CITATIONS_OF("foreign citations of ([a-zA-Z]+) ([a-zA-Z]+)", false) {
+        @Override
+        public void execute(final ILiteraturSystemService service, 
+                            final String input) {
+            final Matcher m = matcher(pattern(), input);
+            Collection<String> result = service.foreignCitationsOf(
+                    input.substring(m.start(1), m.end(1)), 
+                    input.substring(m.start(2), m.end(2)));
+            result.forEach(x->Terminal.printLine(x));
+            //FIXME implement
+        }
+    },
+    /**
+     * Implementation of the {@code quit} command as described in the task C0.
+     */
+    //quit
     QUIT("quit", true) {
         @Override
         public void execute(final ILiteraturSystemService service, 
-                            final String string) {
+                            final String input) {
             return;
         }
     };
-    
-    private final String stringrep;
     private final Pattern pattern;
     private final boolean okMessage;
     
-    
     private Command(
             final String format, final boolean okMessaage) {
-        stringrep = format;
         pattern = compile(format);
         this.okMessage = okMessaage;
     }
@@ -266,16 +370,15 @@ public enum Command implements ICommand<ILiteraturSystemService> {
     }
     
     @Override
-    public boolean printOkMessage() {
+    public boolean okMessage() {
         return okMessage;
     }
 
     /**
-     * TODO add doc
-     * @return TODO add doc
+     * FIXME add doc
+     * @return FIXME add doc
      */
     public static CommandHandler<ILiteraturSystemService, ICommand<ILiteraturSystemService>> handler() {
-        ////
         return CommandHandler.createFor(new LiteraturSystemService(), values());
     }
 
@@ -285,10 +388,10 @@ public enum Command implements ICommand<ILiteraturSystemService> {
     }
     
     /**
-     * TODO add doc
-     * @param pattern TODO add doc
-     * @param input TODO add doc
-     * @return TODO add doc
+     * FIXME add doc
+     * @param pattern FIXME add doc
+     * @param input FIXME add doc
+     * @return FIXME add doc
      */
     private static Matcher matcher(final Pattern pattern, final String input) {
         final Matcher m = pattern.matcher(input);
@@ -297,6 +400,31 @@ public enum Command implements ICommand<ILiteraturSystemService> {
         return m;
     }
     
+    /**
+     * FIXME add doc
+     * @param input FIXME add doc
+     * @param delimiter FIXME add doc
+     * @param start FIXME add doc
+     * @param end FIXME add doc
+     * @return FIXME add doc
+     */
+    private static List<AuthorNames> listAuthorNames(
+            final String input, final String delimiter,
+            final int start, final int end) {
+        return Arrays.stream(input.substring(start, end).split(delimiter))
+                .map(x -> x.split(" "))
+                .map(x -> new AuthorNames(x[0], x[1]))
+                .collect(Collectors.toList());
+    }
+    
+    /**
+     * FIXME add doc
+     * @param input FIXME add doc
+     * @param delimiter FIXME add doc
+     * @param start FIXME add doc
+     * @param end FIXME add doc
+     * @return FIXME add doc
+     */
     private static Collection<String> listKeywords(
             final String input, final String delimiter, 
             final int start, final int end) {

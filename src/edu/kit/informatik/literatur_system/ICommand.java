@@ -32,5 +32,5 @@ public interface ICommand<T> {
      * FIXME add doc
      * @return FIXME add doc
      */
-    boolean printOkMessage();
+    boolean okMessage();
 }

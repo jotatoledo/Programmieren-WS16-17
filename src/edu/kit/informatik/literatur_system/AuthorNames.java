@@ -19,6 +19,13 @@ public final class AuthorNames {
         this.lastName = lastName;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof AuthorNames
+                && ((AuthorNames) obj).getFirstName() == getFirstName()
+                && ((AuthorNames) obj).getLastName() == getLastName();
+    }
+    
     /**
      * @return the firstName
      */

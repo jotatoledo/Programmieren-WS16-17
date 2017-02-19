@@ -18,7 +18,7 @@ public class Console {
         do {
             try {
                 c = h.accept(Terminal.readLine());
-                if (c.printOkMessage())
+                if (c.okMessage())
                     Terminal.printLine("Ok");
             } catch (IllegalStateException | IllegalArgumentException | NullPointerException e) {
                 Terminal.printError(e.getMessage());
