@@ -7,6 +7,8 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -221,5 +223,22 @@ public class Utilities {
         if (authors.size() == 2)
             return str.collect(Collectors.joining(", and "));
         return str.collect(Collectors.joining(", "));
+    }
+    
+    /**
+     * FIXME add doc
+     * @param pattern FIXME add doc
+     * @param input FIXME add doc
+     * @return FIXME add doc
+     */
+    public static Matcher matcher(final Pattern pattern, final String input) {
+        final Matcher m = pattern.matcher(input);
+        if (!m.matches())
+            throw new IllegalStateException("no match available");
+        return m;
+    }
+    
+    public static double roundDown3(double d) {
+        return (long) (d * 1e3) / 1e3;
     }
 }
