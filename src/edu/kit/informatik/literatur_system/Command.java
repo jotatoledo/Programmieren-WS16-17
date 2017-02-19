@@ -1,15 +1,15 @@
 package edu.kit.informatik.literatur_system;
 
 import static java.util.regex.Pattern.compile;
-
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-
 import edu.kit.informatik.Terminal;
+import edu.kit.informatik.Utilities;
 
 /**
  * FIXME add doc
@@ -18,17 +18,17 @@ import edu.kit.informatik.Terminal;
  * @version %I%, %G%
  */
 public enum Command implements ICommand<ILiteraturSystemService> {
-    //FIXME implement direct prints
-    //FIXME check if all functions are created
+    // FIXME implement direct prints
+    // FIXME check if all functions are created
+    // FIXME check whitespaces and shit on the regular expressions
     /**
      * Implementation of the {@code add author} command as described in the task.
      */
     //add author <first name>,<last name>
     ADD_AUTHOR("add author ([a-zA-Z]+),([a-zA-Z]+)", true) {
         @Override
-        public void execute(final ILiteraturSystemService service, 
-                            final String input) {
-            final Matcher m = matcher(pattern(), input);
+        public void execute(final ILiteraturSystemService service, final String input) {
+            final Matcher m = Utilities.matcher(pattern(), input);
             service.addAuthor(
                     input.substring(m.start(1), m.end(1)), 
                     input.substring(m.start(2), m.end(2)));
@@ -40,9 +40,8 @@ public enum Command implements ICommand<ILiteraturSystemService> {
     //add journal <name>,<publisher>
     ADD_JOURNAL("add journal ([a-zA-Z]+),([a-zA-Z]+)", true) {
         @Override
-        public void execute(final ILiteraturSystemService service, 
-                            final String input) {
-            final Matcher m = matcher(pattern(), input);
+        public void execute(final ILiteraturSystemService service, final String input) {
+            final Matcher m = Utilities.matcher(pattern(), input);
             service.addJournal(
                     input.substring(m.start(1), m.end(1)), 
                     input.substring(m.start(2), m.end(2)));
@@ -55,9 +54,8 @@ public enum Command implements ICommand<ILiteraturSystemService> {
     //add conference series <name>
     ADD_CONFERENCE_SERIES("add conference series ([a-zA-Z]+)", true) {
         @Override
-        public void execute(final ILiteraturSystemService service, 
-                            final String input) {
-            final Matcher m = matcher(pattern(), input);
+        public void execute(final ILiteraturSystemService service, final String input) {
+            final Matcher m = Utilities.matcher(pattern(), input);
             service.addConferenceSeries(input.substring(m.start(1), m.end(1)));
         }
     },
@@ -67,9 +65,8 @@ public enum Command implements ICommand<ILiteraturSystemService> {
     //add conference <series>,<year>,<location>
     ADD_CONFERENCE("add conference ([a-zA-Z]+),((?!0)\\d{4}),([a-zA-Z]+)", true) {
         @Override
-        public void execute(final ILiteraturSystemService service, 
-                            final String input) {
-            final Matcher m = matcher(pattern(), input);
+        public void execute(final ILiteraturSystemService service, final String input) {
+            final Matcher m = Utilities.matcher(pattern(), input);
             service.addConference(
                     input.substring(m.start(1), m.end(1)),
                     Short.parseShort(input.substring(m.start(2), m.end(2))),
@@ -83,9 +80,8 @@ public enum Command implements ICommand<ILiteraturSystemService> {
     //add article to series <name>:<id>,<year>,<title>
     ADD_ARTICLE_TO_SERIES("add article to series ([a-zA-Z]+):([a-z0-9]+),((?!0)\\d{4}),([a-zA-Z]+)", true) {
         @Override
-        public void execute(final ILiteraturSystemService service, 
-                            final String input) {
-            final Matcher m = matcher(pattern(), input);
+        public void execute(final ILiteraturSystemService service, final String input) {
+            final Matcher m = Utilities.matcher(pattern(), input);
             service.addArticleToSeries(
                     input.substring(m.start(1), m.end(1)), 
                     input.substring(m.start(2), m.end(2)), 
@@ -99,9 +95,8 @@ public enum Command implements ICommand<ILiteraturSystemService> {
     //add article to journal <name>:<id>,<year>,<title>
     ADD_ARTICLE_TO_JOURNAL("add article to journal ([a-zA-Z]+):([a-z0-9]+),((?!0)\\d{4}),([a-zA-Z]+)", true) {
         @Override
-        public void execute(final ILiteraturSystemService service, 
-                            final String input) {
-            final Matcher m = matcher(pattern(), input);
+        public void execute(final ILiteraturSystemService service, final String input) {
+            final Matcher m = Utilities.matcher(pattern(), input);
             service.addArticleToJournal(
                     input.substring(m.start(1), m.end(1)), 
                     input.substring(m.start(2), m.end(2)), 
@@ -115,9 +110,8 @@ public enum Command implements ICommand<ILiteraturSystemService> {
     //add keywords to journal <name>:<list of keywords>
     ADD_KEYWORDS_TO_JOURNAL("add keywords to journal ([a-zA-Z]+):([a-z]+)(;[a-z]+)*", true) {
         @Override
-        public void execute(final ILiteraturSystemService service, 
-                            final String input) {
-            final Matcher m = matcher(pattern(), input);
+        public void execute(final ILiteraturSystemService service, final String input) {
+            final Matcher m = Utilities.matcher(pattern(), input);
             service.addKeywordsToJournal(
                     input.substring(m.start(1), m.end(1)), 
                     listKeywords(input, ";", m.start(2), m.end(3)));
@@ -129,9 +123,8 @@ public enum Command implements ICommand<ILiteraturSystemService> {
     //add keywords to conference <name>,<year>:<list of keywords>
     ADD_KEYWORDS_TO_CONFERENCE("add keywords to conference ([a-zA-Z]+),((?!0)\\d{4}):([a-z]+)(;[a-z]+)*", true) {
         @Override
-        public void execute(final ILiteraturSystemService service, 
-                            final String input) {
-            final Matcher m = matcher(pattern(), input);
+        public void execute(final ILiteraturSystemService service, final String input) {
+            final Matcher m = Utilities.matcher(pattern(), input);
             service.addKeywordsToConference(
                     input.substring(m.start(1), m.end(1)), 
                     Short.parseShort(input.substring(m.start(2), m.end(2))), 
@@ -145,9 +138,8 @@ public enum Command implements ICommand<ILiteraturSystemService> {
     //add keywords to series <name>:<list of keywords>
     ADD_KEYWORDS_TO_CONFERNCE_SERIES("add keywords to series ([a-zA-Z]+):([a-z]+)(;[a-z]+)*", true) {
         @Override
-        public void execute(final ILiteraturSystemService service, 
-                            final String input) {
-            final Matcher m = matcher(pattern(), input);
+        public void execute(final ILiteraturSystemService service, final String input) {
+            final Matcher m = Utilities.matcher(pattern(), input);
             service.addKeywordsToConferenceSeries(
                     input.substring(m.start(1), m.end(1)), 
                     listKeywords(input, ";", m.start(2), m.end(3)));
@@ -160,9 +152,8 @@ public enum Command implements ICommand<ILiteraturSystemService> {
     //add keywords to pub <id>:<list of keywords>
     ADD_KEYWORDS_TO_PUBLICATION("add keywords to pub ([a-z0-9]+):([a-z]+)(;[a-z]+)*", true) {
         @Override
-        public void execute(final ILiteraturSystemService service, 
-                            final String input) {
-            final Matcher m = matcher(pattern(), input);
+        public void execute(final ILiteraturSystemService service, final String input) {
+            final Matcher m = Utilities.matcher(pattern(), input);
             service.addKeywordsToPublication(
                     input.substring(m.start(1), m.end(1)), 
                     listKeywords(input, ";", m.start(2), m.end(3)));
@@ -174,9 +165,8 @@ public enum Command implements ICommand<ILiteraturSystemService> {
     //written-by <publication>,<list of author names>
     WRITTEN_BY("written-by ([a-z0-9]+),([a-zA-Z]+ [a-zA-Z]+)(;[a-zA-Z]+ [a-zA-Z]+)", true) {
         @Override
-        public void execute(final ILiteraturSystemService service, 
-                            final String input) {
-            final Matcher m = matcher(pattern(), input);
+        public void execute(final ILiteraturSystemService service, final String input) {
+            final Matcher m = Utilities.matcher(pattern(), input);
             service.writtenBy(
                     input.substring(m.start(1), m.end(1)), 
                     listAuthorNames(input, ";", m.start(2), m.end(3)));
@@ -190,7 +180,7 @@ public enum Command implements ICommand<ILiteraturSystemService> {
         @Override
         public void execute(final ILiteraturSystemService service, 
                             final String input) {
-            final Matcher m = matcher(pattern(), input);
+            final Matcher m = Utilities.matcher(pattern(), input);
             service.cites(
                     input.substring(m.start(1), m.end(1)), 
                     input.substring(m.start(2), m.end(2)));
@@ -202,8 +192,7 @@ public enum Command implements ICommand<ILiteraturSystemService> {
     //all publications
     ALL_PUBLICATIONS("all publications", false) {
         @Override
-        public void execute(final ILiteraturSystemService service, 
-                            final String input) {
+        public void execute(final ILiteraturSystemService service, final String input) {
             Collection<Publication> result = service.getPublication();
             result.stream()
                 .forEach(x -> Terminal.printLine(x.getId()));
@@ -215,8 +204,7 @@ public enum Command implements ICommand<ILiteraturSystemService> {
     //list invalid publications
     LIST_INVALID_PUBLICATIONS("list invalid publications", false) {
         @Override
-        public void execute(final ILiteraturSystemService service, 
-                            final String input) {
+        public void execute(final ILiteraturSystemService service, final String input) {
              Collection<Publication> result = service.getPublication(Publication.INVALID);
              result.stream()
                  .forEach(x -> Terminal.printLine(x.getId()));
@@ -228,9 +216,8 @@ public enum Command implements ICommand<ILiteraturSystemService> {
     //publications by <list of authors>
     PUBLICATIONS_BY("publications by ([a-zA-Z]+ [a-zA-Z]+)(;[a-zA-Z]+ [a-zA-Z]+)", false) {
         @Override
-        public void execute(final ILiteraturSystemService service, 
-                            final String input) {
-            final Matcher m = matcher(pattern(), input);
+        public void execute(final ILiteraturSystemService service, final String input) {
+            final Matcher m = Utilities.matcher(pattern(), input);
             Collection<Publication> result = service.getPublication(
                     listAuthorNames(input, ";", m.start(1), m.end(2)));
             result.stream()
@@ -243,9 +230,8 @@ public enum Command implements ICommand<ILiteraturSystemService> {
     //in proceedings <series>,<year>
     IN_PROCEEDINGS("in proceedings ([a-zA-Z]+),((?!0)\\d{4})", false) {
         @Override
-        public void execute(final ILiteraturSystemService service, 
-                            final String input) {
-            final Matcher m = matcher(pattern(), input);
+        public void execute(final ILiteraturSystemService service, final String input) {
+            final Matcher m = Utilities.matcher(pattern(), input);
             Collection<Publication> result = service.inProceedings(
                     input.substring(m.start(1), m.end(1)), 
                     Short.parseShort(input.substring(m.start(2), m.end(2))));
@@ -259,8 +245,7 @@ public enum Command implements ICommand<ILiteraturSystemService> {
     //find keywords <list of keywords>
     FIND_KEYWORDS("find keywords ([a-z]+)(;[a-z]+)*", false) {
         @Override
-        public void execute(final ILiteraturSystemService service, 
-                            final String input) {
+        public void execute(final ILiteraturSystemService service, final String input) {
             //FIXME implement
         }
     },
@@ -270,13 +255,12 @@ public enum Command implements ICommand<ILiteraturSystemService> {
     //jaccard <list of words 1> <list of words 2>
     JACCARD("jaccard ([a-z]+)(;[a-z]+)* ([a-z]+)(;[a-z]+)*", false) {
         @Override
-        public void execute(final ILiteraturSystemService service, 
-                            final String input) {
-            final Matcher m = matcher(pattern(), input);
+        public void execute(final ILiteraturSystemService service, final String input) {
+            final Matcher m = Utilities.matcher(pattern(), input);
             float result = service.jaccard(
                     listKeywords(input, ";", m.start(1), m.end(2)), 
                     listKeywords(input, ";", m.start(3), m.end(4)));
-            //FIXME format and print
+            Terminal.printLine(String.format(Locale.ROOT, "%.3f", Utilities.roundDown3(result)));
         }
     },
     /**
@@ -285,13 +269,12 @@ public enum Command implements ICommand<ILiteraturSystemService> {
     //similarity <publication 1>,<publication 2>
     SIMILARITY("similarity ([a-z0-9]+),([a-z0-9]+)", false) {
         @Override
-        public void execute(final ILiteraturSystemService service, 
-                            final String input) {
-            final Matcher m = matcher(pattern(), input);
+        public void execute(final ILiteraturSystemService service, final String input) {
+            final Matcher m = Utilities.matcher(pattern(), input);
             float result = service.similarity(
                     input.substring(m.start(1), m.end(1)), 
                     input.substring(m.start(2), m.end(2)));
-            //FIXME format and print
+            Terminal.printLine(String.format(Locale.ROOT, "%.3f", Utilities.roundDown3(result)));
         }
     },
     /**
@@ -301,8 +284,7 @@ public enum Command implements ICommand<ILiteraturSystemService> {
     //FIXME check regex ("[1-9]\\d*")
     DIRECT_H_INDEX("direct h-index ((?!0)\\d+);((?!0)\\d+)", false) {
         @Override
-        public void execute(final ILiteraturSystemService service, 
-                            final String input) {
+        public void execute(final ILiteraturSystemService service, final String input) {
             //FIXME implement
         }
     },
@@ -312,8 +294,7 @@ public enum Command implements ICommand<ILiteraturSystemService> {
     //h-index <first name> <last name>
     H_INDEX("h-index ([a-zA-Z]+) ([a-zA-Z]+)", false) {
         @Override
-        public void execute(final ILiteraturSystemService service, 
-                            final String input) {
+        public void execute(final ILiteraturSystemService service, final String input) {
             //FIXME implement
         }
     },
@@ -323,8 +304,7 @@ public enum Command implements ICommand<ILiteraturSystemService> {
     //coauthors of <firstname> <lastname>
     COAUTHORS_OF("coauthors of ([a-zA-Z]+) ([a-zA-Z]+)", false) {
         @Override
-        public void execute(final ILiteraturSystemService service, 
-                            final String input) {
+        public void execute(final ILiteraturSystemService service, final String input) {
             //FIXME implement
         }
     },
@@ -334,13 +314,59 @@ public enum Command implements ICommand<ILiteraturSystemService> {
     //foreign citations of <firstname> <lastname>
     FOREIGN_CITATIONS_OF("foreign citations of ([a-zA-Z]+) ([a-zA-Z]+)", false) {
         @Override
-        public void execute(final ILiteraturSystemService service, 
-                            final String input) {
-            final Matcher m = matcher(pattern(), input);
+        public void execute(final ILiteraturSystemService service, final String input) {
+            final Matcher m = Utilities.matcher(pattern(), input);
             Collection<String> result = service.foreignCitationsOf(
                     input.substring(m.start(1), m.end(1)), 
                     input.substring(m.start(2), m.end(2)));
             result.forEach(x->Terminal.printLine(x));
+            //FIXME implement
+        }
+    },
+    /**
+     * Implementation of the {@code direct print conference} command as described in the task C20.
+     */
+    // direct print conference <style>:
+    // <author 1>,<author 2>,<author 3>,
+    // <title>,<conference series name>,
+    // <location>,<year>
+    DIRECT_PRINT_CONFERENCE(
+            "direct print conference (ieee|chicago):"
+            + "([a-zA-Z]+ [a-zA-Z]+),([a-zA-Z]+ [a-zA-Z]+)?,([a-zA-Z]+ [a-zA-Z]+)?"
+            + "([a-zA-Z\\s]+),([a-zA-Z]+)"
+            + "([a-zA-Z\\s]+),((?!0)\\d{4})", 
+            false) {
+        @Override
+        public void execute(final ILiteraturSystemService service, final String input) {
+            final Matcher m = Utilities.matcher(pattern(), input);
+            //FIXME implement
+        }
+    },
+    /**
+     * Implementation of the {@code direct print journal} command as described in the task C21.
+     */
+    // direct print conference <style>:
+    // <author 1>,<author 2>,<author 3>,
+    // <title>,<journal title>,<year>
+    DIRECT_PRINT_JOURNAL(
+            "direct print journal (ieee|chicago):"
+            + "([a-zA-Z]+ [a-zA-Z]+),([a-zA-Z]+ [a-zA-Z]+)?,([a-zA-Z]+ [a-zA-Z]+)?"
+            + "([a-zA-Z\\s]+),([a-zA-Z]+),((?!0)\\d{4})",
+            false) {
+        @Override
+        public void execute(final ILiteraturSystemService service, final String input) {
+            final Matcher m = Utilities.matcher(pattern(), input);
+            //FIXME implement
+        }
+    },
+    /**
+     * Implementation of the {@code print bibliography} command as described in the task C22.
+     */
+    //print bibliography <style>:<list publication ids>
+    PRINT_BIBLIOGRAPHY("print bibliography (ieee|chicago):([a-z0-9]+)(;[a-z0-9]+)*", false) {
+        @Override
+        public void execute(final ILiteraturSystemService service, final String input) {
+            final Matcher m = Utilities.matcher(pattern(), input);
             //FIXME implement
         }
     },
@@ -350,10 +376,7 @@ public enum Command implements ICommand<ILiteraturSystemService> {
     //quit
     QUIT("quit", true) {
         @Override
-        public void execute(final ILiteraturSystemService service, 
-                            final String input) {
-            return;
-        }
+        public void execute(final ILiteraturSystemService service, final String input) { }
     };
     private final Pattern pattern;
     private final boolean okMessage;
@@ -385,19 +408,6 @@ public enum Command implements ICommand<ILiteraturSystemService> {
     @Override
     public Pattern pattern() {
         return pattern;
-    }
-    
-    /**
-     * FIXME add doc
-     * @param pattern FIXME add doc
-     * @param input FIXME add doc
-     * @return FIXME add doc
-     */
-    private static Matcher matcher(final Pattern pattern, final String input) {
-        final Matcher m = pattern.matcher(input);
-        if (!m.matches())
-            throw new IllegalStateException("no match available");
-        return m;
     }
     
     /**
