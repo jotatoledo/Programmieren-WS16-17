@@ -54,12 +54,27 @@ public final class BibliographyConferenceArticle extends Bibliography {
 
     @Override
     public String formatToSimplifiedIEEE(int index) {
-        return Utilities.formatToIEEESimplified(index, this);
+        return String.format(
+                "[%1$] %2$, \"%3$,\" in Proceedings of %4$, %5$, %6$.", 
+                index,
+                formatAuthorsToSimplifiedIEEE(),
+                getArticleTitle(),
+                getConferenceSeriesName(),
+                getConferenceLocation(),
+                getConferenceYear());
     }
 
     @Override
     public String formatToSimplifiedChicago() {
-        return Utilities.formatToChicagoSimplified(this);
+        return String.format(
+                "(%1$, %2$) %3$. \"%4$.\" Paper presented at %5$, %6$, %7$.", 
+                firstAuthorLastName(),
+                getPublicationYear(),
+                formatAuthorsToSimplifiedChicago(),
+                getArticleTitle(),
+                getConferenceSeriesName(),
+                getConferenceYear(),
+                getConferenceLocation());
     }
     
     /**

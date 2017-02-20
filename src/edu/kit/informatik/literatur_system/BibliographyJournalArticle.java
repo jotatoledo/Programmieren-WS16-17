@@ -43,12 +43,25 @@ public final class BibliographyJournalArticle extends Bibliography {
 
     @Override
     public String formatToSimplifiedIEEE(int index) {
-        return Utilities.formatToIEEESimplified(index, this);
+        return String.format(
+                "[%1$] %2$, \"%3$,\" %4$, %5$.", 
+                index, 
+                formatAuthorsToSimplifiedIEEE(),
+                getArticleTitle(), 
+                getJournalTitle(),
+                getPublicationYear());
     }
 
     @Override
     public String formatToSimplifiedChicago() {
-        return Utilities.formatToChicagoSimplified(this);
+        return String.format(
+                "(%1$, %2$) %3$. \"%4$.\" %5$ (%6$).", 
+                firstAuthorLastName(),
+                getPublicationYear(),
+                formatAuthorsToSimplifiedChicago(),
+                getArticleTitle(),
+                getJournalTitle(),
+                getPublicationYear());
     }
     
     /**

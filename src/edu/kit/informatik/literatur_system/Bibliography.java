@@ -1,6 +1,8 @@
 package edu.kit.informatik.literatur_system;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * TODO add doc
@@ -71,4 +73,29 @@ public abstract class Bibliography implements Comparable<Bibliography> {
     public abstract String formatToSimplifiedIEEE(int index);
     
     public abstract String formatToSimplifiedChicago();
+    
+    protected String formatAuthorsToSimplifiedChicago() {
+        //TODO add case size 0
+        //TODO check if stream keeps order
+        Stream<String> str = authors.stream()
+                .map(x->x.formatChicago());
+        if (authors.size() == 2)
+            return str.collect(Collectors.joining(", and "));
+        return str.collect(Collectors.joining(", "));
+    }
+    
+    protected String formatAuthorsToSimplifiedIEEE() {
+        //TODO add case size 0
+        //TODO check if stream keeps order
+        if (authors.size() == 2)
+            return authors.stream()
+                    .map(x-> x.formatIEEE())
+                    .collect(Collectors.joining(" and "));
+        else {
+            AuthorNames first = authors.get(0);
+            if (authors.size() == 1)
+                return first.formatIEEE();
+            return first.formatIEEE() + " et al.";
+        }
+    }
 }

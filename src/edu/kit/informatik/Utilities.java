@@ -157,75 +157,6 @@ public class Utilities {
                 .collect(Collectors.joining(", ", "exist already " + type.getSimpleName() + ": ", "")));
     }
     
-    public static String formatToIEEESimplified(final int index, final BibliographyJournalArticle jArticle) {
-        return String.format(
-                "[%1$] %2$, \"%3$,\" %4$, %5$.", 
-                index, 
-                formatToIEEESimplified(jArticle.getAuthors()),
-                jArticle.getArticleTitle(), 
-                jArticle.getJournalTitle(),
-                jArticle.getPublicationYear());
-    }
-    
-    public static String formatToIEEESimplified(final int index, final BibliographyConferenceArticle cArticle) {
-        return String.format(
-                "[%1$] %2$, \"%3$,\" in Proceedings of %4$, %5$, %6$.", 
-                index,
-                formatToIEEESimplified(cArticle.getAuthors()),
-                cArticle.getArticleTitle(),
-                cArticle.getConferenceSeriesName(),
-                cArticle.getConferenceLocation(),
-                cArticle.getConferenceYear());
-    }
-    
-    private static String formatToIEEESimplified(final List<AuthorNames> authors) {
-        //TODO add case size 0
-        //TODO check if stream keeps order
-        if (authors.size() == 2)
-            return authors.stream()
-                    .map(x-> x.formatIEEE())
-                    .collect(Collectors.joining(" and "));
-        else {
-            AuthorNames first = authors.get(0);
-            if (authors.size() == 1)
-                return first.formatIEEE();
-            return first.formatIEEE() + " et al.";
-        }
-    }
-    
-    public static String formatToChicagoSimplified(final BibliographyJournalArticle jArticle) {
-        return String.format(
-                "(%1$, %2$) %3$. \"%4$.\" %5$ (%6$).", 
-                jArticle.firstAuthorLastName(),
-                jArticle.getPublicationYear(),
-                formatToChicagoSimplified(jArticle.getAuthors()),
-                jArticle.getArticleTitle(),
-                jArticle.getJournalTitle(),
-                jArticle.getPublicationYear());
-    }
-    
-    public static String formatToChicagoSimplified(final BibliographyConferenceArticle cArticle) {
-        return String.format(
-                "(%1$, %2$) %3$. \"%4$.\" Paper presented at %5$, %6$, %7$.", 
-                cArticle.firstAuthorLastName(),
-                cArticle.getPublicationYear(),
-                formatToChicagoSimplified(cArticle.getAuthors()),
-                cArticle.getArticleTitle(),
-                cArticle.getConferenceSeriesName(),
-                cArticle.getConferenceYear(),
-                cArticle.getConferenceLocation());
-    }
-    
-    private static String formatToChicagoSimplified(final List<AuthorNames> authors) {
-        //TODO add case size 0
-        //TODO check if stream keeps order
-        Stream<String> str = authors.stream()
-                .map(x->x.formatChicago());
-        if (authors.size() == 2)
-            return str.collect(Collectors.joining(", and "));
-        return str.collect(Collectors.joining(", "));
-    }
-    
     /**
      * FIXME add doc
      * @param pattern FIXME add doc
@@ -265,5 +196,16 @@ public class Utilities {
         //FIXME refactor to improved intersect
         Collection<String> intersection = Utilities.intersectMultipleRetain(firstGroupWords, secondGroupWords);
         return ((float) intersection.size()) / union.size();
+    }
+    
+    /**
+     * FIXME add doc
+     * C16
+     * @param values FIXME add doc
+     * @return FIXME add doc
+     */
+    public static int directHIndex(final Collection<Integer> values) {
+        //FIXME implement
+        return 0;
     }
 }

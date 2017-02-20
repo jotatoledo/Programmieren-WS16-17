@@ -18,8 +18,6 @@ import edu.kit.informatik.Utilities;
  * @version %I%, %G%
  */
 public enum Command implements ICommand<ILiteraturSystemService> {
-    // FIXME implement direct prints
-    // FIXME check if all functions are created
     /**
      * Implementation of the {@code add author} command as described in the task.
      */
@@ -280,10 +278,14 @@ public enum Command implements ICommand<ILiteraturSystemService> {
      */
     //direct h-index <list of citation counts>
     //FIXME check regex ("[1-9]\\d*")
-    DIRECT_H_INDEX("direct h-index ((?!0)\\d+);((?!0)\\d+)*", false) {
+    DIRECT_H_INDEX("direct h-index ((?!0)\\d+)(;(?!0)\\d+)*", false) {
         @Override
         public void execute(final ILiteraturSystemService service, final String input) {
-            //FIXME implement
+            final Matcher m = Utilities.matcher(pattern(), input);
+            final Collection<Integer> values = listElements(input, ";", m.start(1), m.end(2)).stream()
+                    .map(x -> Integer.parseInt(x))
+                    .collect(Collectors.toList());
+            Terminal.printLine(Utilities.directHIndex(values));
         }
     },
     /**
@@ -344,6 +346,7 @@ public enum Command implements ICommand<ILiteraturSystemService> {
         @Override
         public void execute(final ILiteraturSystemService service, final String input) {
             final Matcher m = Utilities.matcher(pattern(), input);
+            final Style st = Style.getStyle(input.substring(m.start(1), m.end(1)));
             //FIXME implement
         }
     },
@@ -361,6 +364,7 @@ public enum Command implements ICommand<ILiteraturSystemService> {
         @Override
         public void execute(final ILiteraturSystemService service, final String input) {
             final Matcher m = Utilities.matcher(pattern(), input);
+            final Style st = Style.getStyle(input.substring(m.start(1), m.end(1)));
             //FIXME implement
         }
     },
@@ -373,8 +377,7 @@ public enum Command implements ICommand<ILiteraturSystemService> {
         public void execute(final ILiteraturSystemService service, final String input) {
             final Matcher m = Utilities.matcher(pattern(), input);
             final Style st = Style.getStyle(input.substring(m.start(1), m.end(1)));
-            final List<Bibliography> result = service.getBibliography(
-                    listElements(input, ";", m.start(2), m.end(3)));
+            final List<Bibliography> result = service.getBibliography(listElements(input, ";", m.start(2), m.end(3)));
             for (int i = 0; i < result.size(); i++) {
                 if (st == Style.IEEE)
                     Terminal.printLine(result.get(i).formatToSimplifiedIEEE(i));
