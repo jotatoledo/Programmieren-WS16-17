@@ -3,8 +3,6 @@ package edu.kit.informatik.literatur_system;
 import java.util.Arrays;
 import java.util.List;
 
-import edu.kit.informatik.Utilities;
-
 public final class ConferenceArticleBibliography extends ArticleBibliography {
     private final String conferenceSeriesName;
     private final String conferenceLocation;
@@ -31,31 +29,31 @@ public final class ConferenceArticleBibliography extends ArticleBibliography {
         this.conferenceYear = conferenceYear;
     }
     
-    /**
-     * TODO add doc
-     * @param conferenceSeriesName TODO add doc
-     * @param conferenceLocation TODO add doc
-     * @param conferenceYear TODO add doc
-     * @param publicationYear TODO add doc
-     * @param articleTitle TODO add doc
-     * @param articleId TODO add doc
-     * @param authors TODO add doc
-     */
-    public ConferenceArticleBibliography(
-            final String conferenceSeriesName, final String conferenceLocation, final short conferenceYear,
-            final short publicationYear, final String articleTitle, final String articleId,
-            final AuthorNames... authors) {
-        super(Arrays.asList(authors), publicationYear, articleTitle, articleId);
-        //TODO validate fields
-        this.conferenceLocation = conferenceLocation;
-        this.conferenceSeriesName = conferenceSeriesName;
-        this.conferenceYear = conferenceYear;
-    }
+//    /**
+//     * TODO add doc
+//     * @param conferenceSeriesName TODO add doc
+//     * @param conferenceLocation TODO add doc
+//     * @param conferenceYear TODO add doc
+//     * @param publicationYear TODO add doc
+//     * @param articleTitle TODO add doc
+//     * @param articleId TODO add doc
+//     * @param authors TODO add doc
+//     */
+//    public ConferenceArticleBibliography(
+//            final String conferenceSeriesName, final String conferenceLocation, final short conferenceYear,
+//            final short publicationYear, final String articleTitle, final String articleId,
+//            final AuthorNames... authors) {
+//        super(Arrays.asList(authors), publicationYear, articleTitle, articleId);
+//        //TODO validate fields
+//        this.conferenceLocation = conferenceLocation;
+//        this.conferenceSeriesName = conferenceSeriesName;
+//        this.conferenceYear = conferenceYear;
+//    }
 
     @Override
     public String formatToSimplifiedIEEE(int index) {
         return String.format(
-                "[%1$] %2$, \"%3$,\" in Proceedings of %4$, %5$, %6$.", 
+                "[%1$d] %2$s, \"%3$s,\" in Proceedings of %4$s, %5$s, %6$d.", 
                 index,
                 formatAuthorsToSimplifiedIEEE(),
                 getArticleTitle(),
@@ -67,7 +65,7 @@ public final class ConferenceArticleBibliography extends ArticleBibliography {
     @Override
     public String formatToSimplifiedChicago() {
         return String.format(
-                "(%1$, %2$) %3$. \"%4$.\" Paper presented at %5$, %6$, %7$.", 
+                "(%1$s, %2$d) %3$s. \"%4$s.\" Paper presented at %5$s, %6$d, %7$s.", 
                 firstAuthorLastName(),
                 getPublicationYear(),
                 formatAuthorsToSimplifiedChicago(),

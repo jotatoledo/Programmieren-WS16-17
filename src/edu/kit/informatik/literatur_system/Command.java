@@ -12,7 +12,7 @@ import edu.kit.informatik.Terminal;
 import edu.kit.informatik.Utilities;
 
 /**
- * FIXME add doc
+ * Command line implementation for the task.
  * @see http://www.ocpsoft.org/tutorials/regular-expressions/java-visual-regex-tester/
  * @author JoseNote
  * @version %I%, %G%
@@ -111,7 +111,7 @@ public enum Command implements ICommand<ILiteraturSystemService> {
             final Matcher m = Utilities.matcher(pattern(), input);
             service.addKeywordsToJournal(
                     input.substring(m.start(1), m.end(1)), 
-                    listElements(input, ";", m.start(2), m.end(3)));
+                    Utilities.listElements(input, ";", m.start(2), m.end(3)));
         }
     },
     /**
@@ -125,7 +125,7 @@ public enum Command implements ICommand<ILiteraturSystemService> {
             service.addKeywordsToConference(
                     input.substring(m.start(1), m.end(1)), 
                     Short.parseShort(input.substring(m.start(2), m.end(2))), 
-                    listElements(input, ";", m.start(3), m.end(4)));
+                    Utilities.listElements(input, ";", m.start(3), m.end(4)));
             
         }
     },
@@ -139,7 +139,7 @@ public enum Command implements ICommand<ILiteraturSystemService> {
             final Matcher m = Utilities.matcher(pattern(), input);
             service.addKeywordsToConferenceSeries(
                     input.substring(m.start(1), m.end(1)), 
-                    listElements(input, ";", m.start(2), m.end(3)));
+                    Utilities.listElements(input, ";", m.start(2), m.end(3)));
             
         }
     },
@@ -153,7 +153,7 @@ public enum Command implements ICommand<ILiteraturSystemService> {
             final Matcher m = Utilities.matcher(pattern(), input);
             service.addKeywordsToPublication(
                     input.substring(m.start(1), m.end(1)), 
-                    listElements(input, ";", m.start(2), m.end(3)));
+                    Utilities.listElements(input, ";", m.start(2), m.end(3)));
         }
     },
     /**
@@ -241,7 +241,7 @@ public enum Command implements ICommand<ILiteraturSystemService> {
         public void execute(final ILiteraturSystemService service, final String input) {
             final Matcher m = Utilities.matcher(pattern(), input);
             final Collection<Publication> result = service.findKeywords(
-                    listElements(input, ";", m.start(1), m.end(2)));
+                    Utilities.listElements(input, ";", m.start(1), m.end(2)));
             result.forEach(x -> Terminal.printLine(x.getId()));
         }
     },
@@ -254,8 +254,8 @@ public enum Command implements ICommand<ILiteraturSystemService> {
         public void execute(final ILiteraturSystemService service, final String input) {
             final Matcher m = Utilities.matcher(pattern(), input);
             final float result = Utilities.jaccard(
-                    listElements(input, ";", m.start(1), m.end(2)), 
-                    listElements(input, ";", m.start(3), m.end(4)));
+                    Utilities.listElements(input, ";", m.start(1), m.end(2)), 
+                    Utilities.listElements(input, ";", m.start(3), m.end(4)));
             Terminal.printLine(String.format(Locale.ROOT, "%.3f", Utilities.roundDown3(result)));
         }
     },
@@ -282,7 +282,7 @@ public enum Command implements ICommand<ILiteraturSystemService> {
         @Override
         public void execute(final ILiteraturSystemService service, final String input) {
             final Matcher m = Utilities.matcher(pattern(), input);
-            final Collection<Integer> values = listElements(input, ";", m.start(1), m.end(2)).stream()
+            final Collection<Integer> values = Utilities.listElements(input, ";", m.start(1), m.end(2)).stream()
                     .map(x -> Integer.parseInt(x))
                     .collect(Collectors.toList());
             Terminal.printLine(Utilities.directHIndex(values));
@@ -333,39 +333,59 @@ public enum Command implements ICommand<ILiteraturSystemService> {
     /**
      * Implementation of the {@code direct print conference} command as described in the task C20.
      */
-    // direct print conference <style>:
-    // <author 1>,<author 2>,<author 3>,
-    // <title>,<conference series name>,
-    // <location>,<year>
+    // direct print conference <style>: 1
+    // <author 1>,<author 2>,<author 3>, 3
+    // <title>,<conference series name>, 2
+    // <location>,<year> 2
     DIRECT_PRINT_CONFERENCE(
             "direct print conference (ieee|chicago):"
-            + "([a-zA-Z]+ [a-zA-Z]+),([a-zA-Z]+ [a-zA-Z]+)?,([a-zA-Z]+ [a-zA-Z]+)?"
-            + "([^,;]+),([^,;]+)"
+            + "([a-zA-Z]+ [a-zA-Z]+),([a-zA-Z]+ [a-zA-Z]+)?,([a-zA-Z]+ [a-zA-Z]+)?,"
+            + "([^,;]+),([^,;]+),"
             + "([^,;]+),((?!0)\\d{4})", 
             false) {
         @Override
         public void execute(final ILiteraturSystemService service, final String input) {
             final Matcher m = Utilities.matcher(pattern(), input);
             final Style st = Style.getStyle(input.substring(m.start(1), m.end(1)));
-            //FIXME implement
+            ConferenceArticleBibliography element = new ConferenceArticleBibliography(
+                    input.substring(m.start(6), m.end(6)), 
+                    input.substring(m.start(7), m.end(7)), 
+                    Short.parseShort(input.substring(m.start(8), m.end(8))), 
+                    listAuthorNames(input, ",", m.start(2), m.start(5)), 
+                    Short.parseShort(input.substring(m.start(8), m.end(8))), 
+                    input.substring(m.start(5), m.end(5)), 
+                    "");
+            if (st == Style.IEEE)
+                Terminal.printLine(element.formatToSimplifiedIEEE(1));
+            else
+                Terminal.printLine(element.formatToSimplifiedChicago());
         }
     },
     /**
      * Implementation of the {@code direct print journal} command as described in the task C21.
      */
-    // direct print conference <style>:
+    // direct print journal <style>:
     // <author 1>,<author 2>,<author 3>,
     // <title>,<journal title>,<year>
     DIRECT_PRINT_JOURNAL(
             "direct print journal (ieee|chicago):"
-            + "([a-zA-Z]+ [a-zA-Z]+),([a-zA-Z]+ [a-zA-Z]+)?,([a-zA-Z]+ [a-zA-Z]+)?"
+            + "([a-zA-Z]+ [a-zA-Z]+),([a-zA-Z]+ [a-zA-Z]+)?,([a-zA-Z]+ [a-zA-Z]+)?,"
             + "([^,;]+),([^,;]+),((?!0)\\d{4})",
             false) {
         @Override
         public void execute(final ILiteraturSystemService service, final String input) {
             final Matcher m = Utilities.matcher(pattern(), input);
             final Style st = Style.getStyle(input.substring(m.start(1), m.end(1)));
-            //FIXME implement
+            JournalArticleBibliography element = new JournalArticleBibliography(
+                    listAuthorNames(input, ",", m.start(2), m.start(5)), 
+                    Short.parseShort(input.substring(m.start(7), m.end(7))), 
+                    input.substring(m.start(5), m.end(5)), 
+                    input.substring(m.start(6), m.end(6)), 
+                    "");
+            if (st == Style.IEEE)
+                Terminal.printLine(element.formatToSimplifiedIEEE(1));
+            else
+                Terminal.printLine(element.formatToSimplifiedChicago());
         }
     },
     /**
@@ -377,7 +397,8 @@ public enum Command implements ICommand<ILiteraturSystemService> {
         public void execute(final ILiteraturSystemService service, final String input) {
             final Matcher m = Utilities.matcher(pattern(), input);
             final Style st = Style.getStyle(input.substring(m.start(1), m.end(1)));
-            final List<ArticleBibliography> result = service.getBibliography(listElements(input, ";", m.start(2), m.end(3)));
+            final List<ArticleBibliography> result = service
+                    .getBibliography(Utilities.listElements(input, ";", m.start(2), m.end(3)));
             for (int i = 0; i < result.size(); i++) {
                 if (st == Style.IEEE)
                     Terminal.printLine(result.get(i).formatToSimplifiedIEEE(i));
@@ -438,22 +459,9 @@ public enum Command implements ICommand<ILiteraturSystemService> {
             final String input, final String delimiter,
             final int start, final int end) {
         return Arrays.stream(input.substring(start, end).split(delimiter))
+                .filter(x -> !x.isEmpty())
                 .map(x -> x.split(" "))
                 .map(x -> new AuthorNames(x[0], x[1]))
                 .collect(Collectors.toList());
-    }
-    
-    /**
-     * FIXME add doc
-     * @param input FIXME add doc
-     * @param delimiter FIXME add doc
-     * @param start FIXME add doc
-     * @param end FIXME add doc
-     * @return FIXME add doc
-     */
-    private static Collection<String> listElements(
-            final String input, final String delimiter, 
-            final int start, final int end) {
-        return Arrays.asList(input.substring(start, end).split(delimiter));
     }
 }
