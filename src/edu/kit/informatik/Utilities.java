@@ -208,4 +208,18 @@ public class Utilities {
         //FIXME implement
         return 0;
     }
+    
+    /**
+     * FIXME add doc
+     * @param input FIXME add doc
+     * @param delimiter FIXME add doc
+     * @param start FIXME add doc
+     * @param end FIXME add doc
+     * @return FIXME add doc
+     */
+    public static Collection<String> listElements(
+            final String input, final String delimiter, 
+            final int start, final int end) {
+        return Arrays.asList(input.substring(start, end).split(delimiter));
+    }
 }
