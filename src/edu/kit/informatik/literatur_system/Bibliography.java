@@ -67,4 +67,8 @@ public abstract class Bibliography implements Comparable<Bibliography> {
     public String firstAuthorLastName() {
         return authors.get(0).getLastName();
     }
+    
+    public abstract String formatToSimplifiedIEEE(int index);
+    
+    public abstract String formatToSimplifiedChicago();
 }

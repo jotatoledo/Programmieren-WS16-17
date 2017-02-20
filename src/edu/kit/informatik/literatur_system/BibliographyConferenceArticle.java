@@ -3,7 +3,9 @@ package edu.kit.informatik.literatur_system;
 import java.util.Arrays;
 import java.util.List;
 
-public final class ConferenceArticle extends Bibliography {
+import edu.kit.informatik.Utilities;
+
+public final class BibliographyConferenceArticle extends Bibliography {
     private final String conferenceSeriesName;
     private final String conferenceLocation;
     private final short conferenceYear;
@@ -18,7 +20,7 @@ public final class ConferenceArticle extends Bibliography {
      * @param articleTitle TODO add doc
      * @param articleId TODO add doc
      */
-    public ConferenceArticle(
+    public BibliographyConferenceArticle(
             final String conferenceSeriesName, final String conferenceLocation, final short conferenceYear,
             final List<AuthorNames> authors, final short publicationYear, final String articleTitle,
             final String articleId) {
@@ -39,7 +41,7 @@ public final class ConferenceArticle extends Bibliography {
      * @param articleId TODO add doc
      * @param authors TODO add doc
      */
-    public ConferenceArticle(
+    public BibliographyConferenceArticle(
             final String conferenceSeriesName, final String conferenceLocation, final short conferenceYear,
             final short publicationYear, final String articleTitle, final String articleId,
             final AuthorNames... authors) {
@@ -50,6 +52,16 @@ public final class ConferenceArticle extends Bibliography {
         this.conferenceYear = conferenceYear;
     }
 
+    @Override
+    public String formatToSimplifiedIEEE(int index) {
+        return Utilities.formatToIEEESimplified(index, this);
+    }
+
+    @Override
+    public String formatToSimplifiedChicago() {
+        return Utilities.formatToChicagoSimplified(this);
+    }
+    
     /**
      * @return the conferenceSeriesName
      */
