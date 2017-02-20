@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import edu.kit.informatik.Utilities;
@@ -259,13 +258,7 @@ public class LiteraturSystemService implements ILiteraturSystemService {
         return Utilities.jaccard(
                 getPublication(firstPublicationId).getKeywordsValues(), 
                 getPublication(secondPublicationId).getKeywordsValues());
-    }
-
-    @Override
-    public int directHIndex(Collection<Integer> values) {
-        //FIXME implement
-        return 0;
-    } 
+    }     
     
     @Override
     public int hIndex(final String firstName, final String lastName) {
@@ -296,7 +289,7 @@ public class LiteraturSystemService implements ILiteraturSystemService {
     }
 
     @Override
-    public List<Bibliography> getBibliography(final Collection<String> publicationIds) {
+    public List<ArticleBibliography> getBibliography(final Collection<String> publicationIds) {
         Objects.requireNonNull(publicationIds);
         
         Collection<String> unique = publicationIds.stream()

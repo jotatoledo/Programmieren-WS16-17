@@ -15,8 +15,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import edu.kit.informatik.literatur_system.AuthorNames;
-import edu.kit.informatik.literatur_system.BibliographyConferenceArticle;
-import edu.kit.informatik.literatur_system.BibliographyJournalArticle;
+import edu.kit.informatik.literatur_system.ConferenceArticleBibliography;
+import edu.kit.informatik.literatur_system.JournalArticleBibliography;
 
 /**
  * Various utility functions

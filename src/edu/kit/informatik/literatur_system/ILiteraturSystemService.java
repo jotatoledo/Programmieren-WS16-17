@@ -2,7 +2,6 @@ package edu.kit.informatik.literatur_system;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Contract for the literature system service
@@ -245,13 +244,6 @@ public interface ILiteraturSystemService {
     
     /**
      * TODO add doc
-     * @param values TODO add doc
-     * @return TODO add doc
-     */
-    int directHIndex(Collection<Integer> values);
-    
-    /**
-     * TODO add doc
      * C17
      * @param firstName TODO add doc
      * @param lastName TODO add doc
@@ -283,5 +275,5 @@ public interface ILiteraturSystemService {
      * @param publicationIds TODO add doc
      * @return TODO add doc
      */
-    List<Bibliography> getBibliography(Collection<String> publicationIds);
+    List<ArticleBibliography> getBibliography(Collection<String> publicationIds);
 }

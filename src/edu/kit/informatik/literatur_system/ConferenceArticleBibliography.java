@@ -5,7 +5,7 @@ import java.util.List;
 
 import edu.kit.informatik.Utilities;
 
-public final class BibliographyConferenceArticle extends Bibliography {
+public final class ConferenceArticleBibliography extends ArticleBibliography {
     private final String conferenceSeriesName;
     private final String conferenceLocation;
     private final short conferenceYear;
@@ -20,7 +20,7 @@ public final class BibliographyConferenceArticle extends Bibliography {
      * @param articleTitle TODO add doc
      * @param articleId TODO add doc
      */
-    public BibliographyConferenceArticle(
+    public ConferenceArticleBibliography(
             final String conferenceSeriesName, final String conferenceLocation, final short conferenceYear,
             final List<AuthorNames> authors, final short publicationYear, final String articleTitle,
             final String articleId) {
@@ -41,7 +41,7 @@ public final class BibliographyConferenceArticle extends Bibliography {
      * @param articleId TODO add doc
      * @param authors TODO add doc
      */
-    public BibliographyConferenceArticle(
+    public ConferenceArticleBibliography(
             final String conferenceSeriesName, final String conferenceLocation, final short conferenceYear,
             final short publicationYear, final String articleTitle, final String articleId,
             final AuthorNames... authors) {

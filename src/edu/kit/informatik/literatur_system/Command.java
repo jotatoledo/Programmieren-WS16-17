@@ -377,7 +377,7 @@ public enum Command implements ICommand<ILiteraturSystemService> {
         public void execute(final ILiteraturSystemService service, final String input) {
             final Matcher m = Utilities.matcher(pattern(), input);
             final Style st = Style.getStyle(input.substring(m.start(1), m.end(1)));
-            final List<Bibliography> result = service.getBibliography(listElements(input, ";", m.start(2), m.end(3)));
+            final List<ArticleBibliography> result = service.getBibliography(listElements(input, ";", m.start(2), m.end(3)));
             for (int i = 0; i < result.size(); i++) {
                 if (st == Style.IEEE)
                     Terminal.printLine(result.get(i).formatToSimplifiedIEEE(i));

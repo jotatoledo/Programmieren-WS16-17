@@ -9,7 +9,7 @@ import java.util.stream.Stream;
  * @author JoseNote
  * @version %I%, %G%
  */
-public abstract class Bibliography implements Comparable<Bibliography> {
+public abstract class ArticleBibliography implements Comparable<ArticleBibliography> {
     private final String articleId;
     private final short publicationYear;
     private final String articleTitle;
@@ -23,7 +23,7 @@ public abstract class Bibliography implements Comparable<Bibliography> {
      * @param articleTitle TODO add doc
      * @param articleId TODO add doc
      */
-    protected Bibliography(
+    protected ArticleBibliography(
             final List<AuthorNames> authors, final short publicationYear, 
             final String articleTitle, final String articleId) {
         this.publicationYear = publicationYear;
@@ -33,7 +33,7 @@ public abstract class Bibliography implements Comparable<Bibliography> {
     }
     
     @Override
-    public int compareTo(Bibliography obj) {
+    public int compareTo(ArticleBibliography obj) {
         //TODO implement
         return 0;
     }

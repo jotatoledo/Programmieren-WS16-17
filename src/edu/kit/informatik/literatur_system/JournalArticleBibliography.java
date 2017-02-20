@@ -5,7 +5,7 @@ import java.util.List;
 
 import edu.kit.informatik.Utilities;
 
-public final class BibliographyJournalArticle extends Bibliography {
+public final class JournalArticleBibliography extends ArticleBibliography {
     private final String journalTitle;
     
     /**
@@ -16,7 +16,7 @@ public final class BibliographyJournalArticle extends Bibliography {
      * @param journalTitle TODO add doc
      * @param articleId TODO add doc
      */
-    public BibliographyJournalArticle(
+    public JournalArticleBibliography(
             final List<AuthorNames> authors, final short publicationYear, 
             final String articleTitle, final String journalTitle, final String articleId) {
         super(authors, publicationYear, articleTitle, articleId);
@@ -32,7 +32,7 @@ public final class BibliographyJournalArticle extends Bibliography {
      * @param articleId TODO add doc
      * @param authors TODO add doc
      */
-    public BibliographyJournalArticle(
+    public JournalArticleBibliography(
             final short publicationYear, final String articleTitle, 
             final String journalTitle, final String articleId,
             final AuthorNames... authors) {
