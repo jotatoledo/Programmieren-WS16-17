@@ -3,6 +3,7 @@ package edu.kit.informatik.literatur_system;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -252,23 +253,10 @@ public class LiteraturSystemService implements ILiteraturSystemService {
     }
 
     @Override
-    public float jaccard(
-            final Collection<String> firstGroupWords, final Collection<String> secondGroupWords) {
-        Objects.requireNonNull(firstGroupWords);
-        Objects.requireNonNull(secondGroupWords);
-        Collection<String> union = Utilities.unifyNoRepetition(firstGroupWords, secondGroupWords);
-        if (union.size() == 0)
-            return 1;
-        //FIXME refactor to improved intersect
-        Collection<String> intersection = Utilities.intersectMultipleRetain(firstGroupWords, secondGroupWords);
-        return ((float) intersection.size()) / union.size();
-    }
-
-    @Override
     public float similarity(final String firstPublicationId, final String secondPublicationId) {
         Objects.requireNonNull(firstPublicationId);
         Objects.requireNonNull(secondPublicationId);
-        return jaccard(
+        return Utilities.jaccard(
                 getPublication(firstPublicationId).getKeywordsValues(), 
                 getPublication(secondPublicationId).getKeywordsValues());
     }
@@ -308,9 +296,7 @@ public class LiteraturSystemService implements ILiteraturSystemService {
     }
 
     @Override
-    public Set<Bibliography> getBibliography(
-            final String style, final Collection<String> publicationIds) {
-        Objects.requireNonNull(style);
+    public List<Bibliography> getBibliography(final Collection<String> publicationIds) {
         Objects.requireNonNull(publicationIds);
         
         Collection<String> unique = publicationIds.stream()
@@ -321,7 +307,7 @@ public class LiteraturSystemService implements ILiteraturSystemService {
 //                .map(x->getPublication(x))
 //                .forEach(x->);
         // FIXME implement
-        // FIXME carefull on order
+        // FIXME carefull in order
         // FIXME validate that the publication associated to the id is valid ( has an author)
         return null;
     }
@@ -363,5 +349,9 @@ public class LiteraturSystemService implements ILiteraturSystemService {
         return null;
     }
 
-    
+    @Override
+    public Collection<Publication> findKeywords(Collection<String> keywords) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

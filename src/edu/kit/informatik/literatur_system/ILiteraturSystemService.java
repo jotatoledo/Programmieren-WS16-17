@@ -1,6 +1,7 @@
 package edu.kit.informatik.literatur_system;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -227,12 +228,11 @@ public interface ILiteraturSystemService {
     
     /**
      * TODO add doc
-     * C14
-     * @param firstGroupWords TODO add doc
-     * @param secondGroupWords TODO add doc
+     * C13
+     * @param keywords TODO add doc
      * @return TODO add doc
      */
-    float jaccard(Collection<String> firstGroupWords, Collection<String> secondGroupWords);
+    Collection<Publication> findKeywords(Collection<String> keywords);
     
     /**
      * TODO add doc
@@ -280,9 +280,8 @@ public interface ILiteraturSystemService {
     /**
      * TODO add doc
      * C22
-     * @param style TODO add doc
      * @param publicationIds TODO add doc
      * @return TODO add doc
      */
-    Set<Bibliography> getBibliography(String style, Collection<String> publicationIds);
+    List<Bibliography> getBibliography(Collection<String> publicationIds);
 }
