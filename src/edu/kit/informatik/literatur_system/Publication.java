@@ -13,15 +13,16 @@ import java.util.stream.Collectors;
  */
 public abstract class Publication extends TagedElement {
     /**
-     * TODO add doc
+     * Valid publication: has at least one author
      */
     public static final boolean VALID = true;
     /**
-     * TODO add doc
+     * Invalid publication: has no authors
      */
     public static final boolean INVALID = false;
+    
     private final String id;
-    private final String titel;
+    private final String title;
     private final short publicationYear;
     private final Map<Author, Author> authors;
     private final Map<Publication, Publication> referenceToOther;
@@ -38,7 +39,7 @@ public abstract class Publication extends TagedElement {
         // TODO test id
         super();
         this.id = id;
-        this.titel = titel;
+        this.title = titel;
         this.publicationYear = publicationYear;
         authors = new LinkedHashMap<Author, Author>();
         referenceToOther = new HashMap<Publication, Publication>();
@@ -52,7 +53,7 @@ public abstract class Publication extends TagedElement {
     public Publication(final String id) {
         super();
         this.id = id;
-        this.titel = null;
+        this.title = null;
         this.publicationYear = 1000;
         authors = new LinkedHashMap<Author, Author>();
         referenceToOther = new HashMap<Publication, Publication>();
@@ -124,6 +125,13 @@ public abstract class Publication extends TagedElement {
     }
     
     /**
+     * @return the title
+     */
+    public String getTitle() {
+        return title;
+    }
+    
+    /**
      * TODO add doc
      * @return TODO add doc
      */
@@ -157,5 +165,20 @@ public abstract class Publication extends TagedElement {
         return referenceToThis.values().stream()
                 .filter(x->!x.hasAuthor(author))
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * @return the authors
+     */
+    public Map<Author, Author> getAuthors() {
+        return authors;
+    }
+    
+    /**
+     * FIXME add doc
+     * @return FIXME add doc
+     */
+    public int numberReferencesToThis() {
+        return referenceToThis.size();
     }
 }
