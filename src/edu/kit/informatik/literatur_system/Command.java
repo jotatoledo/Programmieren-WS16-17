@@ -301,7 +301,7 @@ public enum Command implements ICommand<ILiteraturSystemService> {
     /**
      * Implementation of the {@code coauthors of} command as described in the task C18.
      */
-    //coauthors of <firstname> <lastname>
+    //coauthors of <first name> <last name>
     COAUTHORS_OF("coauthors of ([a-zA-Z]+) ([a-zA-Z]+)", false) {
         @Override
         public void execute(final ILiteraturSystemService service, final String input) {
@@ -315,7 +315,7 @@ public enum Command implements ICommand<ILiteraturSystemService> {
     /**
      * Implementation of the {@code foreign citations of} command as described in the task C19.
      */
-    //foreign citations of <firstname> <lastname>
+    //foreign citations of <first name> <last name>
     FOREIGN_CITATIONS_OF("foreign citations of ([a-zA-Z]+) ([a-zA-Z]+)", false) {
         @Override
         public void execute(final ILiteraturSystemService service, final String input) {
