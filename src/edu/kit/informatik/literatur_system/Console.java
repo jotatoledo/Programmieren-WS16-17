@@ -1,16 +1,18 @@
 package edu.kit.informatik.literatur_system;
 
+import edu.kit.informatik.EntityAlreadyExistsException;
+import edu.kit.informatik.NoSuchEntityException;
 import edu.kit.informatik.Terminal;
 
 /**
- * FIXME add doc
+ * Console class used for the user - system interaction
  * @author JoseNote
  * @version %I%, %G%
  */
 public class Console {
     /**
-     * FIXME add doc add doc
-     * @param args FIXME add doc add doc
+     * Main method
+     * @param args generic console input
      */
     public static void main(final String[] args) {
         final CommandHandler<?, ICommand<ILiteraturSystemService>> h = Command.handler();
@@ -20,7 +22,8 @@ public class Console {
                 c = h.accept(Terminal.readLine());
                 if (c.okMessage())
                     Terminal.printLine("Ok");
-            } catch (IllegalStateException | IllegalArgumentException | NullPointerException e) {
+            } catch (IllegalStateException | NoSuchEntityException
+                    | EntityAlreadyExistsException | NullPointerException e) {
                 Terminal.printError(e.getMessage());
             }
         } while (c == null || !c.isQuit());
