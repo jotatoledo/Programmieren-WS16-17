@@ -103,67 +103,66 @@ public enum Command implements ICommand<ILiteraturSystemService> {
      * Implementation of the {@code add keywords to journal} command as described in the task.
      */
     //add keywords to journal <name>:<list of keywords>
-    ADD_KEYWORDS_TO_JOURNAL("add keywords to journal ([^,;]+):([a-z]+)(;[a-z]+)*", true) {
+    ADD_KEYWORDS_TO_JOURNAL("add keywords to journal ([^,;]+):([a-z]+(;[a-z]+)*)", true) {
         @Override
         public void execute(final ILiteraturSystemService service, final String input) {
             final Matcher m = Utilities.matcher(pattern(), input);
             service.addKeywordsToJournal(
                     input.substring(m.start(1), m.end(1)), 
-                    Utilities.listElements(input, ";", m.start(2), m.end(3)));
+                    Utilities.listElements(input, ";", m.start(2), m.end(2)));
         }
     },
     /**
      * Implementation of the {@code add keywords to conference} command as described in the task.
      */
     //add keywords to conference <series name>,<year>:<list of keywords>
-    ADD_KEYWORDS_TO_CONFERENCE("add keywords to conference ([^,;]+),((?!0)\\d{4}):([a-z]+)(;[a-z]+)*", true) {
+    ADD_KEYWORDS_TO_CONFERENCE("add keywords to conference ([^,;]+),((?!0)\\d{4}):([a-z]+(;[a-z]+)*)", true) {
         @Override
         public void execute(final ILiteraturSystemService service, final String input) {
             final Matcher m = Utilities.matcher(pattern(), input);
             service.addKeywordsToConference(
                     input.substring(m.start(1), m.end(1)), 
                     Short.parseShort(input.substring(m.start(2), m.end(2))), 
-                    Utilities.listElements(input, ";", m.start(3), m.end(4)));
+                    Utilities.listElements(input, ";", m.start(3), m.end(3)));
         }
     },
     /**
      * Implementation of the {@code add keywords to series} command as described in the task.
      */
     //add keywords to series <name>:<list of keywords>
-    ADD_KEYWORDS_TO_CONFERNCE_SERIES("add keywords to series ([^,;]+):([a-z]+)(;[a-z]+)*", true) {
+    ADD_KEYWORDS_TO_CONFERNCE_SERIES("add keywords to series ([^,;]+):([a-z]+(;[a-z]+)*)", true) {
         @Override
         public void execute(final ILiteraturSystemService service, final String input) {
             final Matcher m = Utilities.matcher(pattern(), input);
             service.addKeywordsToConferenceSeries(
                     input.substring(m.start(1), m.end(1)), 
-                    Utilities.listElements(input, ";", m.start(2), m.end(3)));
+                    Utilities.listElements(input, ";", m.start(2), m.end(2)));
         }
     },
     /**
      * Implementation of the {@code add keywords to publication} command as described in the task.
      */
     //add keywords to pub <id>:<list of keywords>
-    ADD_KEYWORDS_TO_PUBLICATION("add keywords to pub ([a-z0-9]+):([a-z]+)(;[a-z]+)*", true) {
+    ADD_KEYWORDS_TO_PUBLICATION("add keywords to pub ([a-z0-9]+):([a-z]+(;[a-z]+)*)", true) {
         @Override
         public void execute(final ILiteraturSystemService service, final String input) {
             final Matcher m = Utilities.matcher(pattern(), input);
             service.addKeywordsToPublication(
                     input.substring(m.start(1), m.end(1)), 
-                    Utilities.listElements(input, ";", m.start(2), m.end(3)));
+                    Utilities.listElements(input, ";", m.start(2), m.end(2)));
         }
     },
     /**
      * Implementation of the {@code written by} command as described in the task C6.
      */
     //written-by <publication>,<list of author names>
-    // FIXME rework listing: if the 3rd capture group doenst exist the end(3) is negative
-    WRITTEN_BY("written-by ([a-z0-9]+),([a-zA-Z]+ [a-zA-Z]+)(;[a-zA-Z]+ [a-zA-Z]+)*", true) {
+    WRITTEN_BY("written-by ([a-z0-9]+),([a-zA-Z]+ [a-zA-Z]+(;[a-zA-Z]+ [a-zA-Z]+)*)", true) {
         @Override
         public void execute(final ILiteraturSystemService service, final String input) {
             final Matcher m = Utilities.matcher(pattern(), input);
             service.writtenBy(
                     input.substring(m.start(1), m.end(1)), 
-                    listAuthorNames(input, ";", m.start(2), m.end(3)));
+                    listAuthorNames(input, ";", m.start(2), m.end(2)));
         }
     },
     /**
@@ -206,12 +205,12 @@ public enum Command implements ICommand<ILiteraturSystemService> {
      * Implementation of the {@code publications by} command as described in the task C11.
      */
     //publications by <list of authors>
-    PUBLICATIONS_BY("publications by ([a-zA-Z]+ [a-zA-Z]+)(;[a-zA-Z]+ [a-zA-Z]+)", false) {
+    PUBLICATIONS_BY("publications by ([a-zA-Z]+ [a-zA-Z]+(;[a-zA-Z]+ [a-zA-Z]+)*)", false) {
         @Override
         public void execute(final ILiteraturSystemService service, final String input) {
             final Matcher m = Utilities.matcher(pattern(), input);
             final Collection<Publication> result = service.getPublication(
-                    listAuthorNames(input, ";", m.start(1), m.end(2)));
+                    listAuthorNames(input, ";", m.start(1), m.end(1)));
             result.forEach(x -> Terminal.printLine(x.getId()));
         }
     },
@@ -233,12 +232,12 @@ public enum Command implements ICommand<ILiteraturSystemService> {
      * Implementation of the {@code find keywords} command as described in the task C13.
      */
     //find keywords <list of keywords>
-    FIND_KEYWORDS("find keywords ([a-z]+)(;[a-z]+)*", false) {
+    FIND_KEYWORDS("find keywords ([a-z]+(;[a-z]+)*)", false) {
         @Override
         public void execute(final ILiteraturSystemService service, final String input) {
             final Matcher m = Utilities.matcher(pattern(), input);
             final Collection<Publication> result = service.findKeywords(
-                    Utilities.listElements(input, ";", m.start(1), m.end(2)));
+                    Utilities.listElements(input, ";", m.start(1), m.end(1)));
             result.forEach(x -> Terminal.printLine(x.getId()));
         }
     },
@@ -246,13 +245,13 @@ public enum Command implements ICommand<ILiteraturSystemService> {
      * Implementation of the {@code jaccard} command as described in the task C14.
      */
     //jaccard <list of words 1> <list of words 2>
-    JACCARD("jaccard ([a-z]+)(;[a-z]+)* ([a-z]+)(;[a-z]+)*", false) {
+    JACCARD("jaccard ([a-z]+(;[a-z]+)*) ([a-z]+(;[a-z]+)*)", false) {
         @Override
         public void execute(final ILiteraturSystemService service, final String input) {
             final Matcher m = Utilities.matcher(pattern(), input);
             final float result = Utilities.jaccard(
-                    Utilities.listElements(input, ";", m.start(1), m.end(2)), 
-                    Utilities.listElements(input, ";", m.start(3), m.end(4)));
+                    Utilities.listElements(input, ";", m.start(1), m.end(1)), 
+                    Utilities.listElements(input, ";", m.start(3), m.end(3)));
             Terminal.printLine(String.format(Locale.ROOT, "%.3f", Utilities.roundDown3(result)));
         }
     },
@@ -275,11 +274,11 @@ public enum Command implements ICommand<ILiteraturSystemService> {
      */
     //direct h-index <list of citation counts>
     //FIXME check regex ("[1-9]\\d*")
-    DIRECT_H_INDEX("direct h-index ((?!0)\\d+)(;(?!0)\\d+)*", false) {
+    DIRECT_H_INDEX("direct h-index ((?!0)\\d+(;(?!0)\\d+)*)", false) {
         @Override
         public void execute(final ILiteraturSystemService service, final String input) {
             final Matcher m = Utilities.matcher(pattern(), input);
-            final Collection<Integer> values = Utilities.listElements(input, ";", m.start(1), m.end(2)).stream()
+            final Collection<Integer> values = Utilities.listElements(input, ";", m.start(1), m.end(1)).stream()
                     .map(x -> Integer.parseInt(x))
                     .collect(Collectors.toList());
             Terminal.printLine(Utilities.directHIndex(values));
@@ -389,13 +388,13 @@ public enum Command implements ICommand<ILiteraturSystemService> {
      * Implementation of the {@code print bibliography} command as described in the task C22.
      */
     //print bibliography <style>:<list publication ids>
-    PRINT_BIBLIOGRAPHY("print bibliography (ieee|chicago):([a-z0-9]+)(;[a-z0-9]+)*", false) {
+    PRINT_BIBLIOGRAPHY("print bibliography (ieee|chicago):([a-z0-9]+(;[a-z0-9]+)*)", false) {
         @Override
         public void execute(final ILiteraturSystemService service, final String input) {
             final Matcher m = Utilities.matcher(pattern(), input);
             final Style st = Style.getStyle(input.substring(m.start(1), m.end(1)));
             final List<ArticleBibliography> result = service
-                    .getBibliography(Utilities.listElements(input, ";", m.start(2), m.end(3)));
+                    .getBibliography(Utilities.listElements(input, ";", m.start(2), m.end(2)));
             for (int i = 0; i < result.size(); i++) {
                 if (st == Style.IEEE)
                     Terminal.printLine(result.get(i).formatToSimplifiedIEEE(i));
