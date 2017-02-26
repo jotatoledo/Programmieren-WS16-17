@@ -1,7 +1,5 @@
 package edu.kit.informatik.literatur_system;
 
-import edu.kit.informatik.EntityAlreadyExistsException;
-import edu.kit.informatik.NoSuchEntityException;
 import edu.kit.informatik.Terminal;
 
 /**
@@ -22,8 +20,7 @@ public class Console {
                 c = h.accept(Terminal.readLine());
                 if (c.okMessage())
                     Terminal.printLine("Ok");
-            } catch (IllegalStateException | NoSuchEntityException
-                    | EntityAlreadyExistsException | NullPointerException e) {
+            } catch (IllegalStateException | IllegalArgumentException | NullPointerException  e) {
                 Terminal.printError(e.getMessage());
             }
         } while (c == null || !c.isQuit());
