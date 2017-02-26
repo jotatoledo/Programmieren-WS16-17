@@ -55,4 +55,9 @@ public final class AuthorNames {
     public String formatChicago() {
         return getLastName() + "," + getFirstName();
     }
+    
+    @Override
+    public String toString(){
+        return getLastName() + " " + getFirstName();
+    }
 }
