@@ -1,18 +1,22 @@
 package edu.kit.informatik.literatur_system;
 
-import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Class used to represent the bibliography of a journal article
+ * @author JoseNote
+ * @version %I%, %G%
+ */
 public final class JournalArticleBibliography extends ArticleBibliography {
     private final String journalTitle;
     
     /**
-     * TODO add doc
-     * @param authors TODO add doc
-     * @param publicationYear TODO add doc
-     * @param articleTitle TODO add doc
-     * @param journalTitle TODO add doc
-     * @param articleId TODO add doc
+     * Creates a new instance
+     * @param authors the authors
+     * @param publicationYear the publication´s year
+     * @param articleTitle the article title
+     * @param journalTitle the journal title
+     * @param articleId the article id
      */
     public JournalArticleBibliography(
             final List<AuthorNames> authors, final short publicationYear, 
@@ -21,23 +25,6 @@ public final class JournalArticleBibliography extends ArticleBibliography {
         //TODO validate fields
         this.journalTitle = journalTitle;
     }
-    
-//    /**
-//     * TODO add doc
-//     * @param publicationYear TODO add doc
-//     * @param articleTitle TODO add doc
-//     * @param journalTitle TODO add doc
-//     * @param articleId TODO add doc
-//     * @param authors TODO add doc
-//     */
-//    public JournalArticleBibliography(
-//            final short publicationYear, final String articleTitle, 
-//            final String journalTitle, final String articleId,
-//            final AuthorNames... authors) {
-//        super(Arrays.asList(authors), publicationYear, articleTitle, articleId);
-//        //TODO validate fields
-//        this.journalTitle = journalTitle;
-//    }
 
     @Override
     public String formatToSimplifiedIEEE(int index) {
@@ -46,7 +33,7 @@ public final class JournalArticleBibliography extends ArticleBibliography {
                 index, 
                 formatAuthorsToSimplifiedIEEE(),
                 getArticleTitle(), 
-                getJournalTitle(),
+                journalTitle,
                 getPublicationYear());
     }
 
@@ -58,14 +45,7 @@ public final class JournalArticleBibliography extends ArticleBibliography {
                 getPublicationYear(),
                 formatAuthorsToSimplifiedChicago(),
                 getArticleTitle(),
-                getJournalTitle(),
+                journalTitle,
                 getPublicationYear());
-    }
-    
-    /**
-     * @return the journalTitle
-     */
-    public String getJournalTitle() {
-        return journalTitle;
     }
 }
