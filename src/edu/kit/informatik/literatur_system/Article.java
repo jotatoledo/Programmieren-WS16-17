@@ -39,7 +39,7 @@ public final class Article extends Publication {
     }
 
     @Override
-    public Collection<Keyword> getKeywords() {
+    public Collection<String> getKeywords() {
         //TODO filter repeated?
         return Utilities.unify(venue.getKeywords(), getKeywords());
     }

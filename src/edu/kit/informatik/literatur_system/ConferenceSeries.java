@@ -58,6 +58,7 @@ public final class ConferenceSeries extends TagedElement {
      * @return TODO add doc
      */
     public Conference getConferenceInYear(final short year) {
+        //FIXME consistent get -> add throw if null
         return conferences.get(year);
     }
 }
