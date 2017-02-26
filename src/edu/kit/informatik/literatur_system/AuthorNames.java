@@ -1,7 +1,7 @@
 package edu.kit.informatik.literatur_system;
 
 /**
- * TODO add doc
+ * FIXME add doc
  * @author JoseNote
  * @version %I%, %G%
  */
@@ -10,9 +10,9 @@ public final class AuthorNames {
     private final String lastName;
     
     /**
-     * TODO add doc
-     * @param firstName TODO add doc
-     * @param lastName TODO add doc
+     * FIXME add doc
+     * @param firstName FIXME add doc
+     * @param lastName FIXME add doc
      */
     public AuthorNames(final String firstName, final String lastName) {
         this.firstName = firstName;
@@ -40,10 +40,18 @@ public final class AuthorNames {
         return lastName;
     }
     
+    /**
+     * FIXME add doc
+     * @return FIXME add doc
+     */
     public String formatIEEE() {
         return getFirstName().toUpperCase().charAt(0) + ". " + getLastName();
     }
     
+    /**
+     * FIXME add doc
+     * @return FIXME add doc
+     */
     public String formatChicago() {
         return getLastName() + "," + getFirstName();
     }
