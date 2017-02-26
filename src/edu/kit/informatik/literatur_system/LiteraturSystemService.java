@@ -1,5 +1,6 @@
 package edu.kit.informatik.literatur_system;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -8,6 +9,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import edu.kit.informatik.InvalidRelationException;
 import edu.kit.informatik.Utilities;
 
 /**
@@ -16,11 +18,12 @@ import edu.kit.informatik.Utilities;
  * @version %I%, %G%
  */
 public class LiteraturSystemService implements ILiteraturSystemService {
+    //FIXME rework get methods?
+    
     private final Map<Author, Author> authors;
     private final Map<Publication, Publication> publications;
     private final Map<ConferenceSeries, ConferenceSeries> conferenceSeries;
     private final Map<Journal, Journal> journals;
-    private final Map<Keyword, Keyword> keywords;
     
     /**
      * Creates a new instance of the service.
@@ -31,27 +34,25 @@ public class LiteraturSystemService implements ILiteraturSystemService {
         publications = new HashMap<Publication, Publication>();
         conferenceSeries = new HashMap<ConferenceSeries, ConferenceSeries>();
         journals = new HashMap<Journal, Journal>();
-        keywords = new HashMap<Keyword, Keyword>();
     }
 
     @Override
-    public Author addAuthor(final String firstName, final String lastName) {
+    public void addAuthor(final String firstName, final String lastName) {
         Objects.requireNonNull(firstName);
         Objects.requireNonNull(lastName);
         if (existAuthor(firstName, lastName))
             throw Utilities.alreadyExist(Author.class, firstName, lastName);
-        Author entity = new Author(firstName, lastName);
+        final Author entity = new Author(firstName, lastName);
         if (authors.putIfAbsent(entity, entity) != null)
             //FIXME remove double check
             throw new IllegalArgumentException("error by addition");
-        return entity;
     }
     
     @Override
     public Author getAuthor(final String firstName, final String lastName) {
         Objects.requireNonNull(firstName);
         Objects.requireNonNull(lastName);
-        Author entity = authors.get(new Author(firstName, lastName));
+        final Author entity = authors.get(new Author(firstName, lastName));
         if (entity == null)
             throw Utilities.noSuch(Author.class, firstName, lastName);
         return entity;
@@ -60,8 +61,9 @@ public class LiteraturSystemService implements ILiteraturSystemService {
     @Override
     public Collection<Author> getAuthor(final Collection<AuthorNames> names) {
         Objects.requireNonNull(names);
-        // FIXME implement
-        return null;
+        final Collection<Author> authorEntities = new ArrayList<Author>();
+        names.forEach(x -> authorEntities.add(getAuthor(x.getFirstName(), x.getLastName())));
+        return authorEntities;
     }
 
     @Override
@@ -72,17 +74,15 @@ public class LiteraturSystemService implements ILiteraturSystemService {
     }
 
     @Override
-    public Journal addJournal(final String name, final String publisher) {
+    public void addJournal(final String name, final String publisher) {
         Objects.requireNonNull(name);
         Objects.requireNonNull(publisher);
         if (existJournal(name))
-            //FIXME improve error message
             throw Utilities.alreadyExist(Journal.class, name);
-        Journal entity = new Journal(name, publisher);
+        final Journal entity = new Journal(name, publisher);
         if (journals.putIfAbsent(entity, entity) != null)
             //FIXME remove double check
             throw new IllegalArgumentException("error by addition");
-        return entity;
     }
 
     @Override
@@ -94,23 +94,21 @@ public class LiteraturSystemService implements ILiteraturSystemService {
     @Override
     public Journal getJournal(final String name) {
         Objects.requireNonNull(name);
-        Journal entity = journals.get(new Journal(name));
+        final Journal entity = journals.get(new Journal(name));
         if (entity == null)
             throw Utilities.noSuch(Journal.class, name);
         return entity;
     }
 
     @Override
-    public ConferenceSeries addConferenceSeries(final String name) {
+    public void addConferenceSeries(final String name) {
         Objects.requireNonNull(name);
         if (existConferenceSeries(name))
-            //FIXME improve error message
             throw Utilities.alreadyExist(ConferenceSeries.class, name);
-        ConferenceSeries entity = new ConferenceSeries(name);
+        final ConferenceSeries entity = new ConferenceSeries(name);
         if (conferenceSeries.putIfAbsent(entity, entity) != null)
             //FIXME remove double check
             throw new IllegalArgumentException("error by addition");
-        return entity;
     }
 
     @Override
@@ -122,7 +120,7 @@ public class LiteraturSystemService implements ILiteraturSystemService {
     @Override
     public ConferenceSeries getConferenceSeries(final String name) {
         Objects.requireNonNull(name);
-        ConferenceSeries entity = conferenceSeries.get(new ConferenceSeries(name));
+        final ConferenceSeries entity = conferenceSeries.get(new ConferenceSeries(name));
         if (entity == null)
             throw Utilities.noSuch(ConferenceSeries.class, name);
         return entity;
@@ -131,69 +129,85 @@ public class LiteraturSystemService implements ILiteraturSystemService {
     @Override
     public void writtenBy(final String publicationId, final Collection<AuthorNames> authors) {
         Objects.requireNonNull(publicationId);
-        // FIXME filter repeated
-        // FIXME implement
+        Objects.requireNonNull(authors);
+        
+        final Publication publication = getPublication(publicationId);
+        // Filter repeated names
+        final Collection<AuthorNames> filteredNames = filterRepeated(authors);
+        // Gets the associated authors. Note: Exception in no-match for any of the names
+        final Collection<Author> authorEntities = getAuthor(filteredNames);
+        // Checks existence of relation author-publication
+        authorEntities.forEach(a -> {
+            if (publication.hasAuthor(a))
+                // FIXME re factor into Utilities.invalidRelation();
+                // FIXME improve error message
+                throw new InvalidRelationException("the publication has already a relation to an author");
+        });
+        authorEntities.forEach(a -> {
+            publication.addAuthor(a);
+            a.addPublication(publication);
+        });
+        // FIXME keep insertion order
     }
 
     @Override
-    public void cites(final String quoter, final String reference) {
-        Objects.requireNonNull(quoter);
-        Objects.requireNonNull(reference);
-        Publication pQuoter = getPublication(quoter);
-        Publication pReference = getPublication(reference);
+    public void cites(final String quoterPublicationId, final String referencePublicationId) {
+        Objects.requireNonNull(quoterPublicationId);
+        Objects.requireNonNull(referencePublicationId);
+        final Publication pQuoter = getPublication(quoterPublicationId);
+        final Publication pReference = getPublication(referencePublicationId);
         if (pQuoter.getPublicationYear() <= pReference.getPublicationYear())
-            throw new IllegalArgumentException("the referenced publication wasnt published before the one quoting it");
+            // FIXME re factor 
+            throw new InvalidRelationException("the referenced publication wasnt published before the one quoting it");
         pQuoter.addReferenceToOther(pReference);
         pReference.addReferenceToThis(pQuoter);
     }
 
     @Override
-    public Conference addConference(
+    public void addConference(
             final String seriesName, final short year, final String location) {
         Objects.requireNonNull(seriesName);
         Objects.requireNonNull(location);
         Objects.requireNonNull(year);
-        ConferenceSeries series = getConferenceSeries(seriesName);
+        final ConferenceSeries series = getConferenceSeries(seriesName);
+        // FIXME consistent get -> throw inside function
         if (series.getConferenceInYear(year) != null)
-            //TODO improve message
-            throw Utilities.alreadyExist(Conference.class, year);
-        Conference newConference = new Conference(location, year, series);
-        return newConference;
+            throw Utilities.alreadyExist(Conference.class, seriesName, year);
+        series.addConference(new Conference(location, year, series));
     }
     
     @Override
-    public Article addArticleToSeries(
+    public void addArticleToSeries(
             final String seriesName, final String articleId, 
             final short articlePublicationYear, final String articleTitle) {
         Objects.requireNonNull(seriesName);
         Objects.requireNonNull(articleId);
         Objects.requireNonNull(articlePublicationYear);
         Objects.requireNonNull(articleTitle);
-        ConferenceSeries series = getConferenceSeries(seriesName);
+        final ConferenceSeries series = getConferenceSeries(seriesName);
         if (existPublication(articleId))
             throw Utilities.alreadyExist(Article.class, articleId);
-        Conference conference = series.getConferenceInYear(articlePublicationYear);
+        final Conference conference = series.getConferenceInYear(articlePublicationYear);
+        // FIXME consistent get -> throw inside function
         if (conference == null)
             throw Utilities.noSuch(Conference.class, articlePublicationYear);
-        Article newArticle = new Article(articleId, articleTitle, articlePublicationYear, conference);
+        final Article newArticle = new Article(articleId, articleTitle, articlePublicationYear, conference);
         publications.put(newArticle, newArticle);
-        return newArticle;
     }
 
     @Override
-    public Article addArticleToJournal(
+    public void addArticleToJournal(
             final String journalName, final String articleId, 
             final short articlePublicationYear, final String articleTitle) {
         Objects.requireNonNull(journalName);
         Objects.requireNonNull(articleId);
         Objects.requireNonNull(articlePublicationYear);
         Objects.requireNonNull(articleTitle);
-        Journal journal = getJournal(journalName);
+        final Journal journal = getJournal(journalName);
         if (existPublication(articleId))
             throw Utilities.alreadyExist(Article.class, articleId);
-        Article newArticle = new Article(articleId, articleTitle, articlePublicationYear, journal);
+        final Article newArticle = new Article(articleId, articleTitle, articlePublicationYear, journal);
         publications.put(newArticle, newArticle);
-        return newArticle;
     }
 
     @Override
@@ -208,8 +222,8 @@ public class LiteraturSystemService implements ILiteraturSystemService {
     }
     
     @Override
-    public Collection<Publication> getPublication(final boolean onlyValid) {
-        if (Publication.VALID == onlyValid)
+    public Collection<Publication> getPublication(final boolean type) {
+        if (Publication.VALID == type)
             return publications.values()
                     .stream()
                     .filter(p-> p.isValid() == true)
@@ -224,28 +238,30 @@ public class LiteraturSystemService implements ILiteraturSystemService {
     @Override
     public Collection<Publication> getPublication(final Collection<AuthorNames> authors) {
         Objects.requireNonNull(authors);
-        // FIXME implement
-        // FIXME filter repeated results
-        return null;
+        // Gets the author associated author entities. Note: Exception for any no match case
+        final Collection<Author> authorEntities = getAuthor(authors);
+        return authorEntities.stream()
+                .map(a -> a.getPublications().values())
+                .flatMap(p -> p.stream())
+                .distinct()
+                .collect(Collectors.toList());
     }
     
     @Override
     public Publication getPublication(final String id) {
         Objects.requireNonNull(id);
-        Publication entity = publications.get(new Article(id));
+        final Publication entity = publications.get(new Article(id));
         if (entity == null)
             throw Utilities.noSuch(Publication.class, id);
         return entity;
     }
-
     
-
     @Override
     public Collection<Publication> inProceedings(final String seriesName, final short year) {
         Objects.requireNonNull(seriesName);
         Objects.requireNonNull(year);
-        ConferenceSeries series = getConferenceSeries(seriesName);
-        Conference conf = series.getConferenceInYear(year);
+        final ConferenceSeries series = getConferenceSeries(seriesName);
+        final Conference conf = series.getConferenceInYear(year);
         if (conf == null)
             throw Utilities.noSuch(Conference.class, year);
         return conf.getPublications();
@@ -256,8 +272,8 @@ public class LiteraturSystemService implements ILiteraturSystemService {
         Objects.requireNonNull(firstPublicationId);
         Objects.requireNonNull(secondPublicationId);
         return Utilities.jaccard(
-                getPublication(firstPublicationId).getKeywordsValues(), 
-                getPublication(secondPublicationId).getKeywordsValues());
+                getPublication(firstPublicationId).getKeywords(), 
+                getPublication(secondPublicationId).getKeywords());
     }     
     
     @Override
@@ -265,24 +281,34 @@ public class LiteraturSystemService implements ILiteraturSystemService {
         Objects.requireNonNull(firstName);
         Objects.requireNonNull(lastName);
         //FIXME implement
-        Author entity = getAuthor(firstName, lastName);
-        return 0;
+        final Author author = getAuthor(firstName, lastName);
+        final Collection<Publication> authorPublications = author.getPublications().values();
+        // FIXME case author with no publications?
+        return Utilities.directHIndex(authorPublications.stream()
+                .map(p->p.numberReferencesToThis())
+                .collect(Collectors.toList()));
     }
 
     @Override
     public Collection<Author> coAuthorsOf(final String firstName, final String lastName) {
         Objects.requireNonNull(firstName);
-        Objects.requireNonNull(lastName);
-        //FIXME implement
-        Author entity = getAuthor(firstName, lastName);
-        return null;
+        Objects.requireNonNull(lastName);        
+        final Author author = getAuthor(firstName, lastName);
+        final Collection<Publication> authorPublications = author.getPublications().values();
+
+        return authorPublications.stream()
+                .map(p -> p.getAuthors().values())
+                .flatMap(as -> as.stream())
+                .distinct()
+                .filter(a -> !a.equals(author))
+                .collect(Collectors.toList());
     }
 
     @Override
     public Collection<String> foreignCitationsOf(final String firstName, final String lastName) {
         Objects.requireNonNull(firstName);
         Objects.requireNonNull(lastName);
-        Author author = getAuthor(firstName, lastName);
+        final Author author = getAuthor(firstName, lastName);
         return author.getForeignPublications().stream()
                 .map(Publication::getId)
                 .collect(Collectors.toList());
@@ -292,9 +318,7 @@ public class LiteraturSystemService implements ILiteraturSystemService {
     public List<ArticleBibliography> getBibliography(final Collection<String> publicationIds) {
         Objects.requireNonNull(publicationIds);
         
-        Collection<String> unique = publicationIds.stream()
-                .distinct()
-                .collect(Collectors.toList());
+        final Collection<String> filteredIds = filterRepeated(publicationIds);
         
 //        Collection<Publication> pubs = unique.stream()
 //                .map(x->getPublication(x))
@@ -306,45 +330,60 @@ public class LiteraturSystemService implements ILiteraturSystemService {
     }
 
     @Override
-    public Publication addKeywordsToPublication(
+    public void addKeywordsToPublication(
             final String publicationId, Collection<String> keywords) {
         Objects.requireNonNull(publicationId);
         Objects.requireNonNull(keywords);
-        // FIXME implement
-        Publication pub = getPublication(publicationId);
-        return pub;
+        final Publication publication = getPublication(publicationId);
+        publication.addKeyword(filterRepeated(keywords));
     }
     
     @Override
-    public ConferenceSeries addKeywordsToConferenceSeries(
+    public void addKeywordsToConferenceSeries(
             final String seriesName, Collection<String> keywords) {
         Objects.requireNonNull(seriesName);
         Objects.requireNonNull(keywords);
-        // FIXME implement
-        // FIXME filter repeated words
-        ConferenceSeries serie = getConferenceSeries(seriesName);
-        return serie;
+        final ConferenceSeries serie = getConferenceSeries(seriesName);
+        serie.addKeyword(filterRepeated(keywords));
     }
     
     @Override
-    public Journal addKeywordsToJournal(final String name, Collection<String> keywords) {
-        // FIXME implement
-        // FIXME validate fields
-        // FIXME filter repeated words
-        return null;
+    public void addKeywordsToJournal(final String name, final Collection<String> keywords) {
+        Objects.requireNonNull(name);
+        Objects.requireNonNull(keywords);
+        final Journal journal = getJournal(name);
+        journal.addKeyword(filterRepeated(keywords));
     }
 
     @Override
-    public Conference addKeywordsToConference(final String seriesName, final short year, Collection<String> keywords) {
-        // FIXME implement
-        // FIXME validate fields
-        // FIXME filter repeated words
-        return null;
+    public void addKeywordsToConference(final String seriesName, final short year, final Collection<String> keywords) {
+        Objects.requireNonNull(seriesName);
+        Objects.requireNonNull(year);
+        Objects.requireNonNull(keywords);
+        final Conference conference = getConferenceSeries(seriesName).getConferenceInYear(year);
+        // FIXME consistent get -> throw inside function
+        if (conference == null)
+            throw Utilities.noSuch(Conference.class, seriesName, year);
+        conference.addKeyword(filterRepeated(keywords));
     }
 
     @Override
-    public Collection<Publication> findKeywords(Collection<String> keywords) {
-        // TODO Auto-generated method stub
-        return null;
+    public Collection<Publication> findKeywords(final Collection<String> keywords) {
+        Objects.requireNonNull(keywords);
+        final Collection<String> filtered = filterRepeated(keywords);
+        return publications.values().stream()
+                .filter(pub -> pub.isTagedWith(filtered, ITagged.FULL_MATCH))
+                .collect(Collectors.toList());
+    }
+    
+    /**
+     * Support method to filter repeated elements in collections
+     * @param collection an object collection
+     * @return a new collection without repeated items
+     */
+    private <T> Collection<T> filterRepeated(final Collection<T> collection) {
+        return collection.stream()
+                .distinct()
+                .collect(Collectors.toList());
     }
 }

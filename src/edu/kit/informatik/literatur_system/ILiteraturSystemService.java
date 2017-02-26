@@ -3,38 +3,35 @@ package edu.kit.informatik.literatur_system;
 import java.util.Collection;
 import java.util.List;
 
-import edu.kit.informatik.EntityAlreadyExistsException;
-import edu.kit.informatik.NoSuchEntityException;
-
 /**
  * Contract for the literature system service
  * @author JoseNote
  * @version %I%, %G%
  */
-public interface ILiteraturSystemService {    
+public interface ILiteraturSystemService {   
+    // FIXME improve doc: add types of collections (with/without repeated elements)
     /**
      * Adds a new conference to the system.
      * @param seriesName the name of the conference series in which the new conference will be added
      * @param year the year value for the new entity
      * @param location the location value for the new entity
-     * @return the new entity
      * @throws EntityAlreadyExistsException if there is already an entity in the system with the given values
      */
-    Conference addConference(String seriesName, short year, String location);
+    void addConference(String seriesName, short year, String location);
     
     /**
      * Adds a new author to the system.
      * @param firstName the first name value for the new entity
      * @param lastName the last name value for the new entity
-     * @return the new entity
      * @throws EntityAlreadyExistsException if there is already an entity in the system with the given values
      */
-    Author addAuthor(String firstName, String lastName);
+    void addAuthor(String firstName, String lastName);
     
     /**
      * Gets a list of authors which names matches the given names.
      * @param names the author names to match
      * @return a list of the authors that match the given names
+     * @throws NoSuchEntityException if there is no matching author entity for any of the given names
      */
     Collection<Author> getAuthor(Collection<AuthorNames> names);
     
@@ -59,10 +56,9 @@ public interface ILiteraturSystemService {
      * Adds a new journal to the system.
      * @param name the name value for the new entity
      * @param publisher the publisher value for the new entity
-     * @return the new entity
      * @throws EntityAlreadyExistsException if there is already an entity in the system with the given values
      */
-    Journal addJournal(String name, String publisher);
+    void addJournal(String name, String publisher);
     
     /**
      * Checks for the existence of a journal entity with the given parameters in the system
@@ -82,10 +78,9 @@ public interface ILiteraturSystemService {
     /**
      * Adds a new conference series to the system.
      * @param name the name value for the new entity
-     * @return the new entity
      * @throws EntityAlreadyExistsException if there is already an entity in the system with the given values
      */
-    ConferenceSeries addConferenceSeries(String name);
+    void addConferenceSeries(String name);
     
     /**
      * Checks for the existence of a conference series entity with the given parameters in the system
@@ -133,10 +128,9 @@ public interface ILiteraturSystemService {
     Collection<Publication> getPublication(boolean type);
     
     /**
-     * FIXME add doc
-     * C9
-     * @param authors FIXME add doc
-     * @return FIXME add doc
+     * Gets the publications in which at least one author from a given set worked in
+     * @param authors a collection of names with possible repeated elements
+     * @return a collection of publications with no repeated elements
      */
     Collection<Publication> getPublication(Collection<AuthorNames> authors);
     
