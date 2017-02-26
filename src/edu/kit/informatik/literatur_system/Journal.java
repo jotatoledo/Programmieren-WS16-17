@@ -40,4 +40,18 @@ public final class Journal extends Venue {
         return obj instanceof Journal
                 && ((Journal) obj).name.compareTo(name) == 0;
     }
+
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @return the publisher
+     */
+    public String getPublisher() {
+        return publisher;
+    }
 }
