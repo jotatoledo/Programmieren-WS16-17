@@ -1,54 +1,37 @@
 package edu.kit.informatik.literatur_system;
 
-import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Class used to represent the bibliography of a conference article
+ * @author JoseNote
+ * @version %I%, %G%
+ */
 public final class ConferenceArticleBibliography extends ArticleBibliography {
     private final String conferenceSeriesName;
     private final String conferenceLocation;
     private final short conferenceYear;
     
     /**
-     * TODO add doc
-     * @param conferenceSeriesName TODO add doc
-     * @param conferenceLocation TODO add doc
-     * @param conferenceYear TODO add doc
-     * @param authors TODO add doc
-     * @param publicationYear TODO add doc
-     * @param articleTitle TODO add doc
-     * @param articleId TODO add doc
+     * Creates a new instance
+     * @param conferenceSeriesName the conference series name
+     * @param conferenceLocation the conference location
+     * @param conferenceYear the conference year
+     * @param authors the authors of the article
+     * @param publicationYear the publication year of the article
+     * @param articleTitle the title of the article
+     * @param articleId the article ID
      */
     public ConferenceArticleBibliography(
             final String conferenceSeriesName, final String conferenceLocation, final short conferenceYear,
             final List<AuthorNames> authors, final short publicationYear, final String articleTitle,
             final String articleId) {
         super(authors, publicationYear, articleTitle, articleId);
-        //TODO validate fields
+        // FIXME validate fields
         this.conferenceLocation = conferenceLocation;
         this.conferenceSeriesName = conferenceSeriesName;
         this.conferenceYear = conferenceYear;
     }
-    
-//    /**
-//     * TODO add doc
-//     * @param conferenceSeriesName TODO add doc
-//     * @param conferenceLocation TODO add doc
-//     * @param conferenceYear TODO add doc
-//     * @param publicationYear TODO add doc
-//     * @param articleTitle TODO add doc
-//     * @param articleId TODO add doc
-//     * @param authors TODO add doc
-//     */
-//    public ConferenceArticleBibliography(
-//            final String conferenceSeriesName, final String conferenceLocation, final short conferenceYear,
-//            final short publicationYear, final String articleTitle, final String articleId,
-//            final AuthorNames... authors) {
-//        super(Arrays.asList(authors), publicationYear, articleTitle, articleId);
-//        //TODO validate fields
-//        this.conferenceLocation = conferenceLocation;
-//        this.conferenceSeriesName = conferenceSeriesName;
-//        this.conferenceYear = conferenceYear;
-//    }
 
     @Override
     public String formatToSimplifiedIEEE(int index) {
@@ -57,9 +40,9 @@ public final class ConferenceArticleBibliography extends ArticleBibliography {
                 index,
                 formatAuthorsToSimplifiedIEEE(),
                 getArticleTitle(),
-                getConferenceSeriesName(),
-                getConferenceLocation(),
-                getConferenceYear());
+                conferenceSeriesName,
+                conferenceLocation,
+                conferenceYear);
     }
 
     @Override
@@ -70,29 +53,8 @@ public final class ConferenceArticleBibliography extends ArticleBibliography {
                 getPublicationYear(),
                 formatAuthorsToSimplifiedChicago(),
                 getArticleTitle(),
-                getConferenceSeriesName(),
-                getConferenceYear(),
-                getConferenceLocation());
-    }
-    
-    /**
-     * @return the conferenceSeriesName
-     */
-    public String getConferenceSeriesName() {
-        return conferenceSeriesName;
-    }
-
-    /**
-     * @return the conferenceLocation
-     */
-    public String getConferenceLocation() {
-        return conferenceLocation;
-    }
-
-    /**
-     * @return the conferenceYear
-     */
-    public short getConferenceYear() {
-        return conferenceYear;
+                conferenceSeriesName,
+                conferenceYear,
+                conferenceLocation);
     }
 }
