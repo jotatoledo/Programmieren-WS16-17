@@ -14,10 +14,6 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import edu.kit.informatik.literatur_system.AuthorNames;
-import edu.kit.informatik.literatur_system.ConferenceArticleBibliography;
-import edu.kit.informatik.literatur_system.JournalArticleBibliography;
-
 /**
  * Various utility functions
  * @author JoseNote
@@ -25,10 +21,10 @@ import edu.kit.informatik.literatur_system.JournalArticleBibliography;
  */
 public class Utilities {
     /**
-     * TODO add doc
-     * @param <T> TODO add doc
-     * @param collections TODO add doc
-     * @return TODO add doc
+     * FIXME add doc
+     * @param <T> FIXME add doc
+     * @param collections FIXME add doc
+     * @return FIXME add doc
      */
     @SafeVarargs
     public static <T> Collection<T> intersectCustomCollector(Collection<T>... collections) {
@@ -60,10 +56,10 @@ public class Utilities {
     }
     
     /**
-     * TODO add doc
-     * @param <T> TODO add doc
-     * @param collections TODO add doc
-     * @return TODO add doc
+     * FIXME add doc
+     * @param <T> FIXME add doc
+     * @param collections FIXME add doc
+     * @return FIXME add doc
      */
     @SafeVarargs
     public static <T> Collection<T> intersectMultipleRetain(Collection<T>... collections) {
@@ -76,10 +72,10 @@ public class Utilities {
     }
     
     /**
-     * TODO add doc
-     * @param <T> TODO add doc
-     * @param collections TODO add doc
-     * @return TODO add doc
+     * FIXME add doc
+     * @param <T> FIXME add doc
+     * @param collections FIXME add doc
+     * @return FIXME add doc
      */
     public static <T> Set<T> intersectCollection(Collection<? extends Collection<T>> collections) {
         if (collections.isEmpty())
@@ -94,9 +90,9 @@ public class Utilities {
     /**
      * Concatenates multiple generic collections into one list.
      * Doesn't remove repeated elements.
-     * @param <T> TODO add doc
-     * @param collections TODO add doc
-     * @return TODO add doc
+     * @param <T> FIXME add doc
+     * @param collections FIXME add doc
+     * @return FIXME add doc
      */
     @SafeVarargs
     public static <T> Collection<T> unify(
@@ -107,10 +103,10 @@ public class Utilities {
     }
     
     /** 
-     * TODO add doc
-     * @param <T> TODO add doc
-     * @param collections TODO add doc
-     * @return TODO add doc
+     * FIXME add doc
+     * @param <T> FIXME add doc
+     * @param collections FIXME add doc
+     * @return FIXME add doc
      */
     @SafeVarargs
     public static <T> Collection<T> unifyNoRepetition(
@@ -123,8 +119,8 @@ public class Utilities {
     
     /**
      * Joins multiple primitive type objects into a space separated string
-     * @param values TODO add doc
-     * @return TODO add doc
+     * @param values FIXME add doc
+     * @return FIXME add doc
      */
     public static String listing(
             final Object... values) {
@@ -132,28 +128,28 @@ public class Utilities {
     }
     
     /**
-     * TODO add doc
-     * @param type TODO add doc
-     * @param args TODO add doc
-     * @return TODO add doc
+     * FIXME add doc
+     * @param type FIXME add doc
+     * @param args FIXME add doc
+     * @return FIXME add doc
      */
-    public static IllegalArgumentException noSuch(
+    public static NoSuchEntityException noSuch(
             final Class<?> type, final Object... args) {
         //TODO improve message
-        return new IllegalArgumentException(Stream.of(args).map(String::valueOf)
+        return new NoSuchEntityException(Stream.of(args).map(String::valueOf)
                 .collect(Collectors.joining(", ", "no such " + type.getSimpleName() + ": ", "")));
     }
     
     /**
-     * TODO add doc
-     * @param type TODO add doc
-     * @param args TODO add doc
-     * @return TODO add doc
+     * FIXME add doc
+     * @param type FIXME add doc
+     * @param args FIXME add doc
+     * @return FIXME add doc
      */
-    public static IllegalArgumentException alreadyExist(
+    public static EntityAlreadyExistsException alreadyExist(
             final Class<?> type, final Object... args) {
         //TODO improve message
-        return new IllegalArgumentException(Stream.of(args).map(String::valueOf)
+        return new EntityAlreadyExistsException(Stream.of(args).map(String::valueOf)
                 .collect(Collectors.joining(", ", "exist already " + type.getSimpleName() + ": ", "")));
     }
     
@@ -190,10 +186,11 @@ public class Utilities {
             final Collection<String> firstGroupWords, final Collection<String> secondGroupWords) {
         Objects.requireNonNull(firstGroupWords);
         Objects.requireNonNull(secondGroupWords);
+        // FIXME filter repeated in collections before calculations
         Collection<String> union = Utilities.unifyNoRepetition(firstGroupWords, secondGroupWords);
         if (union.size() == 0)
             return 1;
-        //FIXME refactor to improved intersect
+        // FIXME refactor to improved intersect
         Collection<String> intersection = Utilities.intersectMultipleRetain(firstGroupWords, secondGroupWords);
         return ((float) intersection.size()) / union.size();
     }
@@ -205,8 +202,17 @@ public class Utilities {
      * @return FIXME add doc
      */
     public static int directHIndex(final Collection<Integer> values) {
-        //FIXME implement
-        return 0;
+        int hIndex = 0;
+        final List<Integer> sortedValues = values.stream()
+            .sorted((v1, v2) -> Integer.compare(v2, v1))
+            .collect(Collectors.toList());
+        for (int i = 0; i < sortedValues.size(); i++) {
+            if (sortedValues.get(i) < i + 1) {
+                hIndex = i;
+                break;
+            }  
+        }
+        return hIndex;
     }
     
     /**
