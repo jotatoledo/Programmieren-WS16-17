@@ -156,7 +156,8 @@ public enum Command implements ICommand<ILiteraturSystemService> {
      * Implementation of the {@code written by} command as described in the task C6.
      */
     //written-by <publication>,<list of author names>
-    WRITTEN_BY("written-by ([a-z0-9]+),([a-zA-Z]+ [a-zA-Z]+)(;[a-zA-Z]+ [a-zA-Z]+)", true) {
+    // FIXME rework listing: if the 3rd capture group doenst exist the end(3) is negative
+    WRITTEN_BY("written-by ([a-z0-9]+),([a-zA-Z]+ [a-zA-Z]+)(;[a-zA-Z]+ [a-zA-Z]+)*", true) {
         @Override
         public void execute(final ILiteraturSystemService service, final String input) {
             final Matcher m = Utilities.matcher(pattern(), input);
