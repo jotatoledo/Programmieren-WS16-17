@@ -3,277 +3,278 @@ package edu.kit.informatik.literatur_system;
 import java.util.Collection;
 import java.util.List;
 
+import edu.kit.informatik.EntityAlreadyExistsException;
+import edu.kit.informatik.NoSuchEntityException;
+
 /**
  * Contract for the literature system service
  * @author JoseNote
  * @version %I%, %G%
  */
-public interface ILiteraturSystemService {
-    //FIXME reorder functions
-    // FIXME declare C8
-    //FIXME declare C11
-    //FIXME declare C13
-    //FIXME declare c16
-    
+public interface ILiteraturSystemService {    
     /**
-     * TODO add doc
-     * C4
-     * @param seriesName TODO add doc
-     * @param year TODO add doc
-     * @param location TODO add doc
-     * @return TODO add doc
+     * Adds a new conference to the system.
+     * @param seriesName the name of the conference series in which the new conference will be added
+     * @param year the year value for the new entity
+     * @param location the location value for the new entity
+     * @return the new entity
+     * @throws EntityAlreadyExistsException if there is already an entity in the system with the given values
      */
     Conference addConference(String seriesName, short year, String location);
     
     /**
-     * Creates a new author entity and persists it in the service
-     * C1
+     * Adds a new author to the system.
      * @param firstName the first name value for the new entity
      * @param lastName the last name value for the new entity
      * @return the new entity
+     * @throws EntityAlreadyExistsException if there is already an entity in the system with the given values
      */
     Author addAuthor(String firstName, String lastName);
     
     /**
-     * TODO add doc
-     * @param names TODO add doc
-     * @return TODO add doc
+     * Gets a list of authors which names matches the given names.
+     * @param names the author names to match
+     * @return a list of the authors that match the given names
      */
     Collection<Author> getAuthor(Collection<AuthorNames> names);
     
     /**
-     * TODO add doc
-     * @param firstName TODO add doc
-     * @param lastName TODO add doc
-     * @return TODO add doc
+     * Gets the author entity in the system that matches the given parameters.
+     * @param firstName the first name value to match
+     * @param lastName the last name value to match
+     * @return the matching entity
+     * @throws NoSuchEntityException if there is no matching entity in the system
      */
     Author getAuthor(String firstName, String lastName);
     
     /**
-     * Checks for the existence of an author entity
-     * @param firstName the first name value to match against
-     * @param lastName the last name value to match against
-     * @return {@code True} if there is an author entity with the given parameters. {@code False} otherwise
+     * Checks for the existence of an author entity with the given parameters in the system
+     * @param firstName the first name value to match
+     * @param lastName the last name value to match
+     * @return {@code True} if there is a matching entity. {@code False} otherwise
      */
     boolean existAuthor(String firstName, String lastName);
     
     /**
-     * Creates a new journal entity and persists it in the service
-     * C2
+     * Adds a new journal to the system.
      * @param name the name value for the new entity
      * @param publisher the publisher value for the new entity
      * @return the new entity
+     * @throws EntityAlreadyExistsException if there is already an entity in the system with the given values
      */
     Journal addJournal(String name, String publisher);
     
     /**
-     * Checks for the existence of a journal entity
+     * Checks for the existence of a journal entity with the given parameters in the system
      * @param name the name value to match against
-     * @return {@code True} if there is a journal entity with the given parameters. {@code False} otherwise
+     * @return {@code True} if there is a matching entity. {@code False} otherwise
      */
     boolean existJournal(String name);
     
     /**
-     * TODO add doc
-     * @param name TODO add doc
-     * @return TODO add doc
+     * Gets the journal entity in the system that matches the given parameters.
+     * @param name the name value to match
+     * @return the matching entity 
+     * @throws NoSuchEntityException if there is no matching entity in the system
      */
     Journal getJournal(String name);
     
     /**
-     * Creates a new conference series entity and persists it in the service
-     * C3
+     * Adds a new conference series to the system.
      * @param name the name value for the new entity
      * @return the new entity
+     * @throws EntityAlreadyExistsException if there is already an entity in the system with the given values
      */
     ConferenceSeries addConferenceSeries(String name);
     
     /**
-     * TODO add doc
-     * @param name TODO add doc
-     * @return TODO add doc
+     * Checks for the existence of a conference series entity with the given parameters in the system
+     * @param name the name value to match
+     * @return {@code True} if there is a matching entity. {@code False} otherwise
      */
     boolean existConferenceSeries(String name);
     
     /**
-     * TODO add doc
-     * @param name TODO add doc
-     * @return TODO add doc
+     * Gets the conference series entity in the system that matches the given parameters.
+     * @param name the name value to match
+     * @return the matching entity
+     * @throws NoSuchEntityException if there is no matching entity in the system
      */
     ConferenceSeries getConferenceSeries(String name);
     
     /**
-     * TODO add doc
-     * C6
-     * @param publicationId TODO add doc
-     * @param authors TODO add doc
+     * Adds new writers to the given publication.
+     * @param publicationId the publication id to match
+     * @param authors the author names to match
+     * @throws NoSuchEntityException if there is no matching publication entity
+     * or at least no match for one of the given names
      */
     void writtenBy(String publicationId, Collection<AuthorNames> authors);
     
     /**
-     * TODO add doc
-     * @param id TODO add doc
-     * @return TODO add doc
+     * Gets the publication entity in the system that matches the given parameters.
+     * @param id the id value to match
+     * @return the matching entity
+     * @throws NoSuchEntityException if there is no matching entity in the system
      */
     Publication getPublication(String id);
     
     /**
-     * Gets all the publication entities
-     * C9
-     * @return the publication entities in the context
+     * Gets all the publication entities in the system
+     * @return a collection of publication entities
      */
     Collection<Publication> getPublication();
     
     /**
-     * TODO add doc
-     * C10
+     * Gets all the valid or invalid publication entities in the system
      * @param type either {@linkplain Publication#INVALID invalid} or {@linkplain Publication#VALID valid}
-     * @return TODO add doc
+     * @return a collection of publication entities
      */
     Collection<Publication> getPublication(boolean type);
     
     /**
-     * TODO add doc
+     * FIXME add doc
      * C9
-     * @param authors TODO add doc
-     * @return TODO add doc
+     * @param authors FIXME add doc
+     * @return FIXME add doc
      */
     Collection<Publication> getPublication(Collection<AuthorNames> authors);
     
     /**
-     * TODO add doc
-     * C7
-     * @param quoter TODO add doc
-     * @param reference TODO add doc
+     * Adds a quote relation between two publications in the system.
+     * @param quoterPublicationId the id of the publication that makes the quote
+     * @param referencePublicationId the id of the publication that is quoted
+     * @throws InvalidRelationException if the referenced publication wasn't published before the quoter
+     * or if the relation already existed
+     * @throws NoSuchEntityException if either there is no matching entity for 
+     * the quoter publication or the referenced publication
      */
-    void cites(String quoter, String reference);
+    void cites(String quoterPublicationId, String referencePublicationId);
     
     /**
-     * TODO add doc
-     * Part of C5
-     * @param seriesName TODO add doc
-     * @param articleId TODO add doc
-     * @param articlePublicationYear TODO add doc
-     * @param articleTitle TODO add doc
-     * @return TODO add doc
+     * Adds a new article to a conference series in the system
+     * @param seriesName the id of the conference series
+     * @param articleId the id  of the new article
+     * @param articlePublicationYear the publication year of the new article
+     * @param articleTitle the title of the new article
+     * @throws NoSuchEntityException if there is no matching {@linkplain ConferenceSeries} in the system
+     * @throws EntityAlreadyExistsException if there is already an entity in the system with the given values
      */
-    Article addArticleToSeries(String seriesName, String articleId, short articlePublicationYear, String articleTitle);
+    void addArticleToSeries(String seriesName, String articleId, short articlePublicationYear, String articleTitle);
     
     /**
-     * TODO add doc
-     * Part of C5
-     * @param journalName TODO add doc
-     * @param articleId TODO add doc
-     * @param articlePublicationYear TODO add doc
-     * @param articleTitle TODO add doc
-     * @return TODO add doc
+     * Adds a new article to a journal in the system
+     * @param journalName the name of the journal
+     * @param articleId the id  of the new article
+     * @param articlePublicationYear the publication year of the new article
+     * @param articleTitle the title of the new article
+     * @throws NoSuchEntityException if there is no matching journal in the system
+     * @throws EntityAlreadyExistsException if there is already an entity in the system with the given values
      */
-    Article addArticleToJournal(
+    void addArticleToJournal(
             String journalName, String articleId, 
             short articlePublicationYear, String articleTitle);
     
     /**
-     * TODO add doc
-     * @param id TODO add doc
-     * @return TODO add doc
+     * Checks for the existence of a publication entity with the given parameters in the system
+     * @param id the id value to match
+     * @return {@code True} if there is a matching entity. {@code False} otherwise
      */
     boolean existPublication(String id);
     
     /**
-     * TODO add doc
-     * Part of C8
-     * @param publicationId TODO add doc
-     * @param keywords TODO add doc
-     * @return TODO add doc
+     * Adds a set of keywords to a publication entity in the system
+     * @param publicationId the id of the publication entity to match
+     * @param keywords the keywords to add
+     * @throws NoSuchEntityException if there is no matching publication in the system
      */
-    Publication addKeywordsToPublication(String publicationId, Collection<String> keywords);
+    void addKeywordsToPublication(String publicationId, Collection<String> keywords);
     
     /**
-     * TODO add doc
-     * Part of C8
-     * @param name TODO add doc
-     * @param keywords TODO add doc
-     * @return TODO add doc
+     * Adds a set of keywords to a journal entity in the system
+     * @param name the name of the journal to match
+     * @param keywords the keywords to add
+     * @throws NoSuchEntityException if there is no matching journal entity in the system
      */
-    Journal addKeywordsToJournal(String name, Collection<String> keywords);
+    void addKeywordsToJournal(String name, Collection<String> keywords);
     
     /**
-     * TODO add doc
-     * Part of C8
-     * @param seriesName TODO add doc
-     * @param keywords TODO add doc
-     * @return TODO add doc
+     * Adds a set of keywords to a conference series entity in the system
+     * @param seriesName the name of the conference series to match
+     * @param keywords the keywords to add
+     * @throws NoSuchEntityException if there is no matching conference series entity in the system
      */
-    ConferenceSeries addKeywordsToConferenceSeries(String seriesName, Collection<String> keywords);
+    void addKeywordsToConferenceSeries(String seriesName, Collection<String> keywords);
 
     /**
-     * TODO add doc
-     * Part of C8
-     * @param seriesName TODO add doc
-     * @param year TODO add doc
-     * @param keywords TODO add doc
-     * @return TODO add doc
+     * Adds a set of keywords to a conference entity in the system
+     * @param seriesName the name of the conference to match
+     * @param year the year of the conference to match
+     * @param keywords the keywords to add
+     * @throws NoSuchEntityException if there is no matching conference entity in the system
      */
-    Conference addKeywordsToConference(String seriesName, short year, Collection<String> keywords);
+    void addKeywordsToConference(String seriesName, short year, Collection<String> keywords);
     
     /**
-     * TODO add doc
-     * C12
-     * @param seriesName TODO add doc
-     * @param year TODO add doc
-     * @return TODO add doc
+     * Gets the publications published in the given conference series in the given year
+     * @param seriesName the conference series name to match
+     * @param year the year in the conference series to match
+     * @return a collection of publications
+     * @throws NoSuchEntityException if there is no matching conference series 
+     * or no matching conference for the given conference series in the given year
      */
     Collection<Publication> inProceedings(String seriesName, short year);
     
     /**
-     * TODO add doc
-     * C13
-     * @param keywords TODO add doc
-     * @return TODO add doc
+     * Gets all the publications marked with the given set of keywords
+     * @param keywords a set of keywords to match against
+     * @return a collection of publications
      */
     Collection<Publication> findKeywords(Collection<String> keywords);
     
     /**
-     * TODO add doc
-     * C15
-     * @param firstPublicationId TODO add doc
-     * @param secondPublicationId TODO add doc
-     * @return TODO add doc
+     * Calculates the similarity coefficient of two publications in the system
+     * @param firstPublicationId the id of a publication
+     * @param secondPublicationId the id of a publication
+     * @return the similarity coefficient
+     * @throws NoSuchEntityException if there is no matching publication entity for at least one of the given ids
      */
     float similarity(String firstPublicationId, String secondPublicationId);
     
     /**
-     * TODO add doc
-     * C17
-     * @param firstName TODO add doc
-     * @param lastName TODO add doc
-     * @return TODO add doc
+     * Calculates the H-Index coefficient of an author in the system 
+     * @param firstName the first name of the author to match
+     * @param lastName the last name of the author to match
+     * @return the h-index coefficient for the matched author
+     * @throws NoSuchEntityException if there is no matching author entity
      */
     int hIndex(String firstName, String lastName);
     
     /**
-     * TODO add doc
-     * C18
-     * @param firstName TODO add doc
-     * @param lastName TODO add doc
-     * @return TODO add doc
+     * Gets the coauthors of an author in the system
+     * @param firstName the first name of the author to match
+     * @param lastName the last name of the author to match
+     * @return the coauthors of the matched author
+     * @throws NoSuchEntityException if there is no matching author entity
      */
     Collection<Author> coAuthorsOf(String firstName, String lastName);
     
     /**
-     * TODO add doc
-     * C19
-     * @param firstName TODO add doc
-     * @param lastName TODO add doc
-     * @return TODO add doc
+     * Gets the foreign citations of an author in the system
+     * @param firstName the first name of the author to match
+     * @param lastName the last name of the author to match
+     * @return a string collection with the IDs of the publications which have 
+     * foreign citations of the matched author
+     * @throws NoSuchEntityException if there is no matching author entity
      */
     Collection<String> foreignCitationsOf(String firstName, String lastName);
     
     /**
-     * TODO add doc
-     * C22
-     * @param publicationIds TODO add doc
-     * @return TODO add doc
+     * Gets the bibliographies for a set of publications in the system
+     * @param publicationIds a set of publication IDs
+     * @return a collection of bibliographies for the matching publications
+     * @throws NoSuchEntityException if there is no matching publication entity
+     * for at least one of the given IDs
      */
     List<ArticleBibliography> getBibliography(Collection<String> publicationIds);
 }

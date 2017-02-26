@@ -42,7 +42,6 @@ public enum Command implements ICommand<ILiteraturSystemService> {
             service.addJournal(
                     input.substring(m.start(1), m.end(1)), 
                     input.substring(m.start(2), m.end(2)));
-            
         }
     },
     /**
@@ -68,7 +67,6 @@ public enum Command implements ICommand<ILiteraturSystemService> {
                     input.substring(m.start(1), m.end(1)),
                     Short.parseShort(input.substring(m.start(2), m.end(2))),
                     input.substring(m.start(3), m.end(3)));
-            
         }
     },
     /**
@@ -126,7 +124,6 @@ public enum Command implements ICommand<ILiteraturSystemService> {
                     input.substring(m.start(1), m.end(1)), 
                     Short.parseShort(input.substring(m.start(2), m.end(2))), 
                     Utilities.listElements(input, ";", m.start(3), m.end(4)));
-            
         }
     },
     /**
@@ -140,7 +137,6 @@ public enum Command implements ICommand<ILiteraturSystemService> {
             service.addKeywordsToConferenceSeries(
                     input.substring(m.start(1), m.end(1)), 
                     Utilities.listElements(input, ";", m.start(2), m.end(3)));
-            
         }
     },
     /**
@@ -435,8 +431,9 @@ public enum Command implements ICommand<ILiteraturSystemService> {
     }
 
     /**
-     * FIXME add doc
-     * @return FIXME add doc
+     * Creates a CommandHandler instance related to this set of commands and 
+     * a new instance of the literature service
+     * @return a CommandHandler
      */
     public static CommandHandler<ILiteraturSystemService, ICommand<ILiteraturSystemService>> handler() {
         return CommandHandler.createFor(new LiteraturSystemService(), values());
@@ -448,12 +445,12 @@ public enum Command implements ICommand<ILiteraturSystemService> {
     }
     
     /**
-     * FIXME add doc
-     * @param input FIXME add doc
-     * @param delimiter FIXME add doc
-     * @param start FIXME add doc
-     * @param end FIXME add doc
-     * @return FIXME add doc
+     * Generates a list of {@linkplain AuthorNames} from a string input.
+     * @param input the string input
+     * @param delimiter the separator character between the names
+     * @param start the position in the input string, where the list of names begin
+     * @param end the position in the input string, where the list of names end
+     * @return a list of {@linkplain AuthorNames}
      */
     private static List<AuthorNames> listAuthorNames(
             final String input, final String delimiter,
