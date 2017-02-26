@@ -48,22 +48,6 @@ public final class Author implements Comparable<Author> {
     }
     
     /**
-     * Gets the value of the first name member
-     * @return the value of fist name
-     */
-    public String getFirstName() {
-        return firstName;
-    }
-
-    /**
-     * Gets the value of the last name member
-     * @return the value of last name
-     */
-    public String getLastName() {
-        return lastName;
-    }
-    
-    /**
      * Associates a new publication to this author
      * @param publication the publication in which this worked
      * @return this
@@ -85,5 +69,26 @@ public final class Author implements Comparable<Author> {
                 .map(x -> x.foreignReferencesWithoutAuthor(this))
                 .flatMap(Collection::stream)
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * @return the publications
+     */
+    public Map<Publication, Publication> getPublications() {
+        return publications;
+    }
+
+    /**
+     * @return the firstName
+     */
+    public String getFirstName() {
+        return firstName;
+    }
+
+    /**
+     * @return the lastName
+     */
+    public String getLastName() {
+        return lastName;
     }
 }
