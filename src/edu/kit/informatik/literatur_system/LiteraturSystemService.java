@@ -18,8 +18,8 @@ import edu.kit.informatik.Utilities;
  * @version %I%, %G%
  */
 public class LiteraturSystemService implements ILiteraturSystemService {
-    //FIXME rework get methods?
-    
+    // FIXME rework get methods?
+    // FIXME improve comments in methods
     private final Map<Author, Author> authors;
     private final Map<Publication, Publication> publications;
     private final Map<ConferenceSeries, ConferenceSeries> conferenceSeries;
