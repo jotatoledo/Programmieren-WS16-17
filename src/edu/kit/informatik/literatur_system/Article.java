@@ -41,7 +41,7 @@ public final class Article extends Publication {
     @Override
     public Collection<String> getKeywords() {
         // FIXME filter repeated?
-        return Utilities.unify(venue.getKeywords(), getKeywords());
+        return Utilities.unify(venue.getKeywords(), super.getKeywords());
     }
     
     @Override

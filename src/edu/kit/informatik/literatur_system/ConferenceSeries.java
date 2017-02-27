@@ -33,11 +33,6 @@ public final class ConferenceSeries extends TagedElement {
         return obj instanceof ConferenceSeries
                 && ((ConferenceSeries) obj).name.compareTo(name) == 0;
     }
-
-//    @Override
-//    public int compareTo(ConferenceSeries o) {
-//        return name.compareTo(o.name);
-//    }
     
     /**
      * TODO add doc

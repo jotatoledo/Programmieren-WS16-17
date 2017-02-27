@@ -45,7 +45,7 @@ public final class Conference extends Venue {
     @Override
     public Collection<String> getKeywords() {
         // FIXME filter repeated?
-        return Utilities.unify(getKeywords(), serie.getKeywords());
+        return Utilities.unify(super.getKeywords(), serie.getKeywords());
     }
     
     /**
