@@ -1,5 +1,7 @@
 package edu.kit.informatik.literatur_system;
 
+import java.util.Objects;
+
 /**
  * FIXME add doc
  * @author JoseNote
@@ -19,6 +21,11 @@ public final class AuthorNames implements Comparable<AuthorNames> {
         this.lastName = lastName;
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(lastName, firstName);
+    }
+    
     @Override
     public boolean equals(Object obj) {
         return obj instanceof AuthorNames
