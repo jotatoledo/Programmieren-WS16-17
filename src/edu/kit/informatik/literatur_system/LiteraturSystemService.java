@@ -61,6 +61,7 @@ public class LiteraturSystemService implements ILiteraturSystemService {
     @Override
     public Collection<Author> getAuthor(final Collection<AuthorNames> names) {
         Objects.requireNonNull(names);
+        // FIXME rework to lambda/stream expression
         final Collection<Author> authorEntities = new ArrayList<Author>();
         names.forEach(x -> authorEntities.add(getAuthor(x.getFirstName(), x.getLastName())));
         return authorEntities;
@@ -147,7 +148,6 @@ public class LiteraturSystemService implements ILiteraturSystemService {
             publication.addAuthor(a);
             a.addPublication(publication);
         });
-        // FIXME keep insertion order
     }
 
     @Override
@@ -157,7 +157,8 @@ public class LiteraturSystemService implements ILiteraturSystemService {
         final Publication pQuoter = getPublication(quoterPublicationId);
         final Publication pReference = getPublication(referencePublicationId);
         if (pQuoter.getPublicationYear() <= pReference.getPublicationYear())
-            // FIXME re factor 
+            // FIXME re factor into Utilities.invalidRelation();
+            // FIXME improve error message
             throw new InvalidRelationException("the referenced publication wasnt published before the one quoting it");
         pQuoter.addReferenceToOther(pReference);
         pReference.addReferenceToThis(pQuoter);
@@ -248,6 +249,15 @@ public class LiteraturSystemService implements ILiteraturSystemService {
     }
     
     @Override
+    public Collection<Publication> getPublicationsById(Collection<String> ids) {
+        Objects.requireNonNull(ids);
+        // FIXME rework to lambda/stream expression
+        final Collection<Publication> publicationEntities = new ArrayList<Publication>();
+        ids.forEach(x -> publicationEntities.add(getPublication(x)));
+        return publicationEntities;
+    }
+    
+    @Override
     public Publication getPublication(final String id) {
         Objects.requireNonNull(id);
         final Publication entity = publications.get(new Article(id));
@@ -280,7 +290,6 @@ public class LiteraturSystemService implements ILiteraturSystemService {
     public int hIndex(final String firstName, final String lastName) {
         Objects.requireNonNull(firstName);
         Objects.requireNonNull(lastName);
-        //FIXME implement
         final Author author = getAuthor(firstName, lastName);
         final Collection<Publication> authorPublications = author.getPublications().values();
         // FIXME case author with no publications?
@@ -317,16 +326,20 @@ public class LiteraturSystemService implements ILiteraturSystemService {
     @Override
     public List<ArticleBibliography> getBibliography(final Collection<String> publicationIds) {
         Objects.requireNonNull(publicationIds);
-        
+        // Filter repeated IDs
         final Collection<String> filteredIds = filterRepeated(publicationIds);
-        
-//        Collection<Publication> pubs = unique.stream()
-//                .map(x->getPublication(x))
-//                .forEach(x->);
-        // FIXME implement
-        // FIXME carefull in order
-        // FIXME validate that the publication associated to the id is valid ( has an author)
-        return null;
+        // Gets the associated publication entities. Note: exception in first no match case
+        final Collection<Publication> publications = getPublicationsById(filteredIds);
+        // Test that all the publications are valid
+        publications.forEach(p -> {
+            if (!p.isValid())
+                // FIXME improve message
+                throw new IllegalArgumentException("the publication " + p.getId() + " isnt valid");
+        });
+        return publications.stream()
+                .map(x-> x.toBibliography())
+                .sorted()
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -376,6 +389,7 @@ public class LiteraturSystemService implements ILiteraturSystemService {
                 .collect(Collectors.toList());
     }
     
+    // FIXME move to utilities
     /**
      * Support method to filter repeated elements in collections
      * @param collection an object collection
@@ -386,4 +400,6 @@ public class LiteraturSystemService implements ILiteraturSystemService {
                 .distinct()
                 .collect(Collectors.toList());
     }
+
+    
 }

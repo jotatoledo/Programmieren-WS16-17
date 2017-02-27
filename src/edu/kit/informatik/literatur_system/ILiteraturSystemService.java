@@ -135,6 +135,13 @@ public interface ILiteraturSystemService {
     Collection<Publication> getPublication(Collection<AuthorNames> authors);
     
     /**
+     * Gets the publications which ID matches at least one of the given collection
+     * @param id a set of Ids with possible repeated elements
+     * @return a collection of publications with no repeated elements
+     */
+    Collection<Publication> getPublicationsById(Collection<String> id);
+    
+    /**
      * Adds a quote relation between two publications in the system.
      * @param quoterPublicationId the id of the publication that makes the quote
      * @param referencePublicationId the id of the publication that is quoted

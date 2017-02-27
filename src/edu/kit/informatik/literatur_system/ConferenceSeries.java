@@ -61,4 +61,11 @@ public final class ConferenceSeries extends TagedElement {
         //FIXME consistent get -> add throw if null
         return conferences.get(year);
     }
+
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
 }

@@ -309,7 +309,7 @@ public enum Command implements ICommand<ILiteraturSystemService> {
             final Collection<Author> result = service.coAuthorsOf(
                     input.substring(m.start(1), m.end(1)), 
                     input.substring(m.start(2), m.end(2)));
-            result.forEach(x -> Terminal.printLine(String.format("%1$ %2$", x.getFirstName(), x.getLastName())));
+            result.forEach(x -> Terminal.printLine(String.format("%1$s %2$s", x.getFirstName(), x.getLastName())));
         }
     },
     /**
@@ -343,7 +343,7 @@ public enum Command implements ICommand<ILiteraturSystemService> {
         public void execute(final ILiteraturSystemService service, final String input) {
             final Matcher m = Utilities.matcher(pattern(), input);
             final Style st = Style.getStyle(input.substring(m.start(1), m.end(1)));
-            ConferenceArticleBibliography element = new ConferenceArticleBibliography(
+            final ConferenceArticleBibliography element = new ConferenceArticleBibliography(
                     input.substring(m.start(6), m.end(6)), 
                     input.substring(m.start(7), m.end(7)), 
                     Short.parseShort(input.substring(m.start(8), m.end(8))), 
@@ -372,7 +372,7 @@ public enum Command implements ICommand<ILiteraturSystemService> {
         public void execute(final ILiteraturSystemService service, final String input) {
             final Matcher m = Utilities.matcher(pattern(), input);
             final Style st = Style.getStyle(input.substring(m.start(1), m.end(1)));
-            JournalArticleBibliography element = new JournalArticleBibliography(
+            final JournalArticleBibliography element = new JournalArticleBibliography(
                     listAuthorNames(input, ",", m.start(2), m.start(5)), 
                     Short.parseShort(input.substring(m.start(7), m.end(7))), 
                     input.substring(m.start(5), m.end(5)), 

@@ -91,4 +91,12 @@ public final class Author implements Comparable<Author> {
     public String getLastName() {
         return lastName;
     }
+    
+    /**
+     * FIXME add doc
+     * @return FIXME add doc
+     */
+    public AuthorNames toAuthorNames() {
+        return new AuthorNames(firstName, lastName);
+    }
 }

@@ -5,7 +5,7 @@ package edu.kit.informatik.literatur_system;
  * @author JoseNote
  * @version %I%, %G%
  */
-public final class AuthorNames {
+public final class AuthorNames implements Comparable<AuthorNames> {
     private final String firstName;
     private final String lastName;
     
@@ -22,8 +22,13 @@ public final class AuthorNames {
     @Override
     public boolean equals(Object obj) {
         return obj instanceof AuthorNames
-                && ((AuthorNames) obj).getFirstName() == getFirstName()
-                && ((AuthorNames) obj).getLastName() == getLastName();
+                && compareTo((AuthorNames) obj) == 0;
+    }
+    
+    @Override
+    public int compareTo(AuthorNames o) {
+        return lastName.compareTo(o.lastName) == 0 
+                ? firstName.compareTo(o.firstName) : lastName.compareTo(o.lastName);
     }
     
     /**
@@ -57,7 +62,9 @@ public final class AuthorNames {
     }
     
     @Override
-    public String toString(){
+    public String toString() {
         return getLastName() + " " + getFirstName();
     }
+
+   
 }
