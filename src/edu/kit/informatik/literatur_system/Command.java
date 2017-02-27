@@ -397,7 +397,7 @@ public enum Command implements ICommand<ILiteraturSystemService> {
                     .getBibliography(Utilities.listElements(input, ";", m.start(2), m.end(2)));
             for (int i = 0; i < result.size(); i++) {
                 if (st == Style.IEEE)
-                    Terminal.printLine(result.get(i).formatToSimplifiedIEEE(i));
+                    Terminal.printLine(result.get(i).formatToSimplifiedIEEE(i + 1));
                 else
                     Terminal.printLine(result.get(i).formatToSimplifiedChicago());
             }
