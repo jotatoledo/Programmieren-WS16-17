@@ -5,11 +5,11 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 /**
- * FIXME add doc
+ * A bridge class between the system service and the CLI
  * @author JoseNote
  * @version %I%, %G%
- * @param <T> TODO add doc
- * @param <C> TODO add doc
+ * @param <T> the type of the service
+ * @param <C> the type of the command enumeration
  */
 public final class CommandHandler<T, C extends ICommand<T>> {
     private final T target;
@@ -21,12 +21,13 @@ public final class CommandHandler<T, C extends ICommand<T>> {
     }
     
     /**
-     * FIXME add doc
-     * @param <T> FIXME add doc
-     * @param <C> FIXME add doc
-     * @param target FIXME add doc
-     * @param commands FIXME add doc
-     * @return FIXME add doc
+     * Factory method to create a new instance for the given service instance and the given collection
+     * of commands
+     * @param <T> the type of the service
+     * @param <C> the type of the command enumeration
+     * @param target the service instance
+     * @param commands the collection of commands
+     * @return a new handler instance
      */
     @SafeVarargs
     public static <T, C extends ICommand<T>> CommandHandler<T, ICommand<T>> createFor(
@@ -38,8 +39,9 @@ public final class CommandHandler<T, C extends ICommand<T>> {
     
     /**
      * Tries to execute the command line.
-     * @param input FIXME add doc
-     * @return FIXME add doc
+     * @param input the CLI input
+     * @return the command associated to the input in the CLI
+     * @throws IllegalArgumentException if the given command isn't valid
      */
     public ICommand<T> accept(final String input) {
         Objects.requireNonNull(input);
@@ -53,8 +55,9 @@ public final class CommandHandler<T, C extends ICommand<T>> {
     /**
      * Finds the command associated to the input.
      * Throws exception if there is ambiguity
-     * @param string FIXME add doc
-     * @return FIXME add doc
+     * @param string the CLI input
+     * @return a possible match for the command typed in the CLI
+     * @throws IllegalStateException if the given command is ambiguous to other
      */
     private Optional<ICommand<T>> find(final String string) {
         return commands()
@@ -66,6 +69,11 @@ public final class CommandHandler<T, C extends ICommand<T>> {
         //The reduce API wasn't created for the used purpose
     }
     
+    /**
+     * Transform the command collection into a stream.
+     * Support method for {@linkplain #find(String)}.
+     * @return a stream with the commands
+     */
     private Stream<ICommand<T>> commands() {
         return Stream.of(commands);
     }
