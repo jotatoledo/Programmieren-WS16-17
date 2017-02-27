@@ -6,14 +6,13 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import edu.kit.informatik.literatur_system.AuthorNames;
-import edu.kit.informatik.literatur_system.ConferenceArticle;
-import edu.kit.informatik.literatur_system.JournalArticle;
 
 /**
  * Various utility functions
@@ -22,10 +21,10 @@ import edu.kit.informatik.literatur_system.JournalArticle;
  */
 public class Utilities {
     /**
-     * TODO add doc
-     * @param <T> TODO add doc
-     * @param collections TODO add doc
-     * @return TODO add doc
+     * FIXME add doc
+     * @param <T> FIXME add doc
+     * @param collections FIXME add doc
+     * @return FIXME add doc
      */
     @SafeVarargs
     public static <T> Collection<T> intersectCustomCollector(Collection<T>... collections) {
@@ -57,10 +56,10 @@ public class Utilities {
     }
     
     /**
-     * TODO add doc
-     * @param <T> TODO add doc
-     * @param collections TODO add doc
-     * @return TODO add doc
+     * FIXME add doc
+     * @param <T> FIXME add doc
+     * @param collections FIXME add doc
+     * @return FIXME add doc
      */
     @SafeVarargs
     public static <T> Collection<T> intersectMultipleRetain(Collection<T>... collections) {
@@ -73,10 +72,10 @@ public class Utilities {
     }
     
     /**
-     * TODO add doc
-     * @param <T> TODO add doc
-     * @param collections TODO add doc
-     * @return TODO add doc
+     * FIXME add doc
+     * @param <T> FIXME add doc
+     * @param collections FIXME add doc
+     * @return FIXME add doc
      */
     public static <T> Set<T> intersectCollection(Collection<? extends Collection<T>> collections) {
         if (collections.isEmpty())
@@ -91,9 +90,9 @@ public class Utilities {
     /**
      * Concatenates multiple generic collections into one list.
      * Doesn't remove repeated elements.
-     * @param <T> TODO add doc
-     * @param collections TODO add doc
-     * @return TODO add doc
+     * @param <T> FIXME add doc
+     * @param collections FIXME add doc
+     * @return FIXME add doc
      */
     @SafeVarargs
     public static <T> Collection<T> unify(
@@ -104,10 +103,10 @@ public class Utilities {
     }
     
     /** 
-     * TODO add doc
-     * @param <T> TODO add doc
-     * @param collections TODO add doc
-     * @return TODO add doc
+     * FIXME add doc
+     * @param <T> FIXME add doc
+     * @param collections FIXME add doc
+     * @return FIXME add doc
      */
     @SafeVarargs
     public static <T> Collection<T> unifyNoRepetition(
@@ -120,8 +119,8 @@ public class Utilities {
     
     /**
      * Joins multiple primitive type objects into a space separated string
-     * @param values TODO add doc
-     * @return TODO add doc
+     * @param values FIXME add doc
+     * @return FIXME add doc
      */
     public static String listing(
             final Object... values) {
@@ -129,97 +128,104 @@ public class Utilities {
     }
     
     /**
-     * TODO add doc
-     * @param type TODO add doc
-     * @param args TODO add doc
-     * @return TODO add doc
+     * FIXME add doc
+     * @param type FIXME add doc
+     * @param args FIXME add doc
+     * @return FIXME add doc
      */
-    public static IllegalArgumentException noSuch(
+    public static NoSuchEntityException noSuch(
             final Class<?> type, final Object... args) {
         //TODO improve message
-        return new IllegalArgumentException(Stream.of(args).map(String::valueOf)
+        return new NoSuchEntityException(Stream.of(args).map(String::valueOf)
                 .collect(Collectors.joining(", ", "no such " + type.getSimpleName() + ": ", "")));
     }
     
     /**
-     * TODO add doc
-     * @param type TODO add doc
-     * @param args TODO add doc
-     * @return TODO add doc
+     * FIXME add doc
+     * @param type FIXME add doc
+     * @param args FIXME add doc
+     * @return FIXME add doc
      */
-    public static IllegalArgumentException alreadyExist(
+    public static EntityAlreadyExistsException alreadyExist(
             final Class<?> type, final Object... args) {
         //TODO improve message
-        return new IllegalArgumentException(Stream.of(args).map(String::valueOf)
+        return new EntityAlreadyExistsException(Stream.of(args).map(String::valueOf)
                 .collect(Collectors.joining(", ", "exist already " + type.getSimpleName() + ": ", "")));
     }
     
-    public static String formatToIEEESimplified(final int index, final JournalArticle jArticle) {
-        return String.format(
-                "[%1$] %2$, \"%3$,\" %4$, %5$.", 
-                index, 
-                formatToIEEESimplified(jArticle.getAuthors()),
-                jArticle.getArticleTitle(), 
-                jArticle.getJournalTitle(),
-                jArticle.getPublicationYear());
+    /**
+     * FIXME add doc
+     * @param pattern FIXME add doc
+     * @param input FIXME add doc
+     * @return FIXME add doc
+     */
+    public static Matcher matcher(final Pattern pattern, final String input) {
+        final Matcher m = pattern.matcher(input);
+        if (!m.matches())
+            throw new IllegalStateException("no match available");
+        return m;
     }
     
-    public static String formatToIEEESimplified(final int index, final ConferenceArticle cArticle) {
-        return String.format(
-                "[%1$] %2$, \"%3$,\" in Proceedings of %4$, %5$, %6$.", 
-                index,
-                formatToIEEESimplified(cArticle.getAuthors()),
-                cArticle.getArticleTitle(),
-                cArticle.getConferenceSeriesName(),
-                cArticle.getConferenceLocation(),
-                cArticle.getConferenceYear());
+    /**
+     * FIXME add doc 
+     * @param d FIXME add doc
+     * @return FIXME add doc
+     */
+    public static double roundDown3(double d) {
+        return (long) (d * 1e3) / 1e3;
     }
     
-    private static String formatToIEEESimplified(final List<AuthorNames> authors) {
-        //TODO add case size 0
-        //TODO check if stream keeps order
-        if (authors.size() == 2)
-            return authors.stream()
-                    .map(x-> x.formatIEEE())
-                    .collect(Collectors.joining(" and "));
-        else {
-            AuthorNames first = authors.get(0);
-            if (authors.size() == 1)
-                return first.formatIEEE();
-            return first.formatIEEE() + " et al.";
+    /**
+     * FIXME add doc
+     * C14
+     * @param firstGroupWords FIXME add doc
+     * @param secondGroupWords FIXME add doc
+     * @return FIXME add doc
+     */
+    public static float jaccard(
+            final Collection<String> firstGroupWords, final Collection<String> secondGroupWords) {
+        Objects.requireNonNull(firstGroupWords);
+        Objects.requireNonNull(secondGroupWords);
+        // FIXME filter repeated in collections before calculations
+        Collection<String> union = Utilities.unifyNoRepetition(firstGroupWords, secondGroupWords);
+        if (union.size() == 0)
+            return 1;
+        // FIXME refactor to improved intersect
+        Collection<String> intersection = Utilities.intersectMultipleRetain(firstGroupWords, secondGroupWords);
+        return ((float) intersection.size()) / union.size();
+    }
+    
+    /**
+     * FIXME add doc
+     * C16
+     * @param values FIXME add doc
+     * @return FIXME add doc
+     */
+    public static int directHIndex(final Collection<Integer> values) {
+        int hIndex = 0;
+        final List<Integer> sortedValues = values.stream()
+            .sorted((v1, v2) -> Integer.compare(v2, v1))
+            .collect(Collectors.toList());
+        for (int i = 0; i < sortedValues.size(); i++) {
+            if (sortedValues.get(i) < i + 1) {
+                hIndex = i;
+                break;
+            }  
         }
+        return hIndex;
     }
     
-    public static String formatToChicagoSimplified(final JournalArticle jArticle) {
-        return String.format(
-                "(%1$, %2$) %3$. \"%4$.\" %5$ (%6$).", 
-                jArticle.firstAuthorLastName(),
-                jArticle.getPublicationYear(),
-                formatToChicagoSimplified(jArticle.getAuthors()),
-                jArticle.getArticleTitle(),
-                jArticle.getJournalTitle(),
-                jArticle.getPublicationYear());
-    }
-    
-    public static String formatToChicagoSimplified(final ConferenceArticle cArticle) {
-        return String.format(
-                "(%1$, %2$) %3$. \"%4$.\" Paper presented at %5$, %6$, %7$.", 
-                cArticle.firstAuthorLastName(),
-                cArticle.getPublicationYear(),
-                formatToChicagoSimplified(cArticle.getAuthors()),
-                cArticle.getArticleTitle(),
-                cArticle.getConferenceSeriesName(),
-                cArticle.getConferenceYear(),
-                cArticle.getConferenceLocation());
-    }
-    
-    private static String formatToChicagoSimplified(final List<AuthorNames> authors) {
-        //TODO add case size 0
-        //TODO check if stream keeps order
-        Stream<String> str = authors.stream()
-                .map(x->x.formatChicago());
-        if (authors.size() == 2)
-            return str.collect(Collectors.joining(", and "));
-        return str.collect(Collectors.joining(", "));
+    /**
+     * FIXME add doc
+     * @param input FIXME add doc
+     * @param delimiter FIXME add doc
+     * @param start FIXME add doc
+     * @param end FIXME add doc
+     * @return FIXME add doc
+     */
+    public static Collection<String> listElements(
+            final String input, final String delimiter, 
+            final int start, final int end) {
+        return Arrays.asList(input.substring(start, end).split(delimiter));
     }
 }

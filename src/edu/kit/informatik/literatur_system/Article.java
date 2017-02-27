@@ -5,7 +5,7 @@ import java.util.Collection;
 import edu.kit.informatik.Utilities;
 
 /**
- * TODO add doc
+ * FIXME add doc
  * @author JoseNote
  * @version %I%, %G%
  */
@@ -13,24 +13,24 @@ public final class Article extends Publication {
     private final Venue venue;
     
     /**
-     * TODO add doc
-     * @param id TODO add doc
-     * @param titel TODO add doc
-     * @param year TODO add doc
-     * @param venue TODO add doc
+     * FIXME add doc
+     * @param id FIXME add doc
+     * @param titel FIXME add doc
+     * @param year FIXME add doc
+     * @param venue FIXME add doc
      */
     public Article(
             final String id, final String titel, 
             final short year, final Venue venue) {
         super(id, titel, year);
-        // TODO test fields
+        // FIXME test fields
         this.venue = venue;
         venue.addPublication(this);
     }
     
     /**
-     * TODO add doc
-     * @param id TODO add doc
+     * FIXME add doc
+     * @param id FIXME add doc
      */
     public Article(final String id) {
         super(id);
@@ -39,8 +39,28 @@ public final class Article extends Publication {
     }
 
     @Override
-    public Collection<Keyword> getKeywords() {
-        //TODO filter repeated?
+    public Collection<String> getKeywords() {
+        // FIXME filter repeated?
         return Utilities.unify(venue.getKeywords(), getKeywords());
+    }
+    
+    @Override
+    public ArticleBibliography toBibliography() {
+        if (venue instanceof Journal)
+            return new JournalArticleBibliography(
+                    getAuthorNames(), 
+                    getPublicationYear(), 
+                    getTitle(), 
+                    ((Journal) venue).getName(), 
+                    getId());
+        else
+            return new ConferenceArticleBibliography(
+                    ((Conference) venue).getConferenceSeriesName(), 
+                    ((Conference) venue).getLocation(), 
+                    getPublicationYear(), 
+                    getAuthorNames(), 
+                    getPublicationYear(), 
+                    getTitle(), 
+                    getId());
     }
 }
