@@ -1,6 +1,7 @@
 package edu.kit.informatik.literatur_system;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -33,9 +34,37 @@ public abstract class ArticleBibliography implements Comparable<ArticleBibliogra
     }
     
     @Override
+    public int hashCode() {
+        return Objects.hash(authors, articleTitle, publicationYear, articleId);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof ArticleBibliography
+                && compareTo((ArticleBibliography) obj) == 0;
+    }
+
+    @Override
     public int compareTo(ArticleBibliography obj) {
-        // FIXME implement
-        return 0;
+        int comp;
+        for (int i = 0; i < Math.max(authors.size(), obj.authors.size()); i++) {
+            comp = authors.get(i).getLastName().compareTo(obj.authors.get(i).getLastName());
+            if ( comp != 0)
+                return comp;
+            comp = authors.get(i).getFirstName().compareTo(obj.authors.get(i).getFirstName());
+            if (comp != 0)
+                return comp;
+        }
+        if (authors.size() != obj.authors.size())
+            // FIXME check
+            return authors.size() - obj.authors.size();
+        comp = articleTitle.compareTo(obj.articleTitle);
+        if (comp != 0)
+            return comp;
+        comp = Short.compare(publicationYear, obj.publicationYear);
+        if (comp != 0)
+            return comp;
+        return articleId.compareTo(obj.articleId);
     }
 
     /**
@@ -113,7 +142,7 @@ public abstract class ArticleBibliography implements Comparable<ArticleBibliogra
                     .map(x-> x.formatIEEE())
                     .collect(Collectors.joining(" and "));
         else {
-            AuthorNames first = authors.get(0);
+            final AuthorNames first = authors.get(0);
             if (authors.size() == 1)
                 return first.formatIEEE();
             return first.formatIEEE() + " et al.";
