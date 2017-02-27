@@ -56,7 +56,6 @@ public abstract class ArticleBibliography implements Comparable<ArticleBibliogra
                 return comp;
         }
         if (authors.size() != obj.authors.size())
-            // FIXME check
             return authors.size() - obj.authors.size();
         comp = articleTitle.compareTo(obj.articleTitle);
         if (comp != 0)
