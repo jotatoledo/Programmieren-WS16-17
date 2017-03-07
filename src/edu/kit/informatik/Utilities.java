@@ -89,10 +89,9 @@ public class Utilities {
     
     /**
      * Concatenates multiple generic collections into one list.
-     * Doesn't remove repeated elements.
-     * @param <T> FIXME add doc
-     * @param collections FIXME add doc
-     * @return FIXME add doc
+     * @param <T> the type of the elements in the given collections
+     * @param collections a collection of element collections
+     * @return the collection resulting from the unification of the given collections, with possible repeated elements
      */
     @SafeVarargs
     public static <T> Collection<T> unify(
@@ -103,10 +102,10 @@ public class Utilities {
     }
     
     /** 
-     * FIXME add doc
-     * @param <T> FIXME add doc
-     * @param collections FIXME add doc
-     * @return FIXME add doc
+     * Concatenates multiple generic collections into one list.
+     * @param <T> the type of the elements in the given collections
+     * @param collections a collection of element collections
+     * @return the collection resulting from the unification of the given collections, with no repeated elements
      */
     @SafeVarargs
     public static <T> Collection<T> unifyNoRepetition(
@@ -141,10 +140,10 @@ public class Utilities {
     }
     
     /**
-     * FIXME add doc
-     * @param type FIXME add doc
-     * @param args FIXME add doc
-     * @return FIXME add doc
+     * Instantiates a new {@linkplain EntityAlreadyExistsException}
+     * @param type the type corresponding to the already existing object
+     * @param args extra parameters for the error message
+     * @return a new exception instance
      */
     public static EntityAlreadyExistsException alreadyExist(
             final Class<?> type, final Object... args) {
@@ -154,33 +153,48 @@ public class Utilities {
     }
     
     /**
-     * FIXME add doc
-     * @param pattern FIXME add doc
-     * @param input FIXME add doc
-     * @return FIXME add doc
+     * Instantiates a new {@linkplain InvalidRelationException}.
+     * It signalizes an invalid relation between 2 types.
+     * @param firstType one of the types in the invalid relation
+     * @param secondType the other type in the invalid relation
+     * @return a new exception instance
+     */
+    public static InvalidRelationException invalidRelation(
+            final Class<?> firstType, final Class<?> secondType) {
+        return new InvalidRelationException("invalid relation between the given " + firstType.getSimpleName()
+        + " and " + secondType.getSimpleName());
+    }
+    
+    /**
+     * Generates a matcher from a given pattern and string input
+     * @param pattern the pattern to test against the input
+     * @param input the input string
+     * @return a matcher instance associated to the given pattern evaluated against the given input
+     * @throws IllegalArgumentException if the input doesn't match the pattern
      */
     public static Matcher matcher(final Pattern pattern, final String input) {
         final Matcher m = pattern.matcher(input);
         if (!m.matches())
-            throw new IllegalStateException("no match available");
+            throw new IllegalArgumentException("no match available");
         return m;
     }
     
     /**
-     * FIXME add doc 
-     * @param d FIXME add doc
-     * @return FIXME add doc
+     * Rounds a decimal number to 3 decimal positions.
+     * @param value the value to round
+     * @return the rounded value
      */
-    public static double roundDown3(double d) {
-        return (long) (d * 1e3) / 1e3;
+    public static double roundDown3(double value) {
+        // What is just happening here? Go and ask stack overflow!
+        return (long) (value * 1e3) / 1e3;
     }
     
     /**
-     * FIXME add doc
-     * C14
-     * @param firstGroupWords FIXME add doc
-     * @param secondGroupWords FIXME add doc
-     * @return FIXME add doc
+     * Calculates the jaccard factor of two collections of words.
+     * The calculation method is describe in the first final assignment, command C14
+     * @param firstGroupWords a collection of words
+     * @param secondGroupWords another collection of words
+     * @return the jaccard factor of the two given collections
      */
     public static float jaccard(
             final Collection<String> firstGroupWords, final Collection<String> secondGroupWords) {
@@ -188,18 +202,19 @@ public class Utilities {
         Objects.requireNonNull(secondGroupWords);
         // FIXME filter repeated in collections before calculations
         Collection<String> union = Utilities.unifyNoRepetition(firstGroupWords, secondGroupWords);
+        // If the unified collections have no elements
         if (union.size() == 0)
             return 1;
-        // FIXME refactor to improved intersect
+        // FIXME re factor to improved intersect
         Collection<String> intersection = Utilities.intersectMultipleRetain(firstGroupWords, secondGroupWords);
         return ((float) intersection.size()) / union.size();
     }
     
     /**
-     * FIXME add doc
-     * C16
-     * @param values FIXME add doc
-     * @return FIXME add doc
+     * Calculates the h-index factor for a collection of citation counts.
+     * The calculation method is described in detail in the first final assignment, command C16
+     * @param values a collection of citation numbers
+     * @return the h-index factor for the given collection
      */
     public static int directHIndex(final Collection<Integer> values) {
         int hIndex = 0;
@@ -216,12 +231,12 @@ public class Utilities {
     }
     
     /**
-     * FIXME add doc
-     * @param input FIXME add doc
-     * @param delimiter FIXME add doc
-     * @param start FIXME add doc
-     * @param end FIXME add doc
-     * @return FIXME add doc
+     * Generates a collection of string elements separated by a delimiter in a given string
+     * @param input the string that contains the elements
+     * @param delimiter the delimiter between elements in the input string
+     * @param start a starting index in the input string
+     * @param end an ending index in the input string
+     * @return a collection made of the separated elements
      */
     public static Collection<String> listElements(
             final String input, final String delimiter, 
