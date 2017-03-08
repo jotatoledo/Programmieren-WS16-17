@@ -212,7 +212,7 @@ public class Utilities {
             final Collection<String> firstGroupWords, final Collection<String> secondGroupWords) {
         Objects.requireNonNull(firstGroupWords);
         Objects.requireNonNull(secondGroupWords);
-        // FIXME filter repeated in collections before calculations
+        // FIXME filter repeated in collections before calculations?
         Collection<String> union = Utilities.unifyNoRepetition(firstGroupWords, secondGroupWords);
         // If the unified collections have no elements
         if (union.size() == 0)

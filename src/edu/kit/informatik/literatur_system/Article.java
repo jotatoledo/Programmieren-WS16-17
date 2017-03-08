@@ -1,6 +1,7 @@
 package edu.kit.informatik.literatur_system;
 
 import java.util.Collection;
+import java.util.Objects;
 
 import edu.kit.informatik.Utilities;
 
@@ -17,13 +18,14 @@ public final class Article extends Publication {
      * @param id the id value
      * @param title the title
      * @param publicationYear the publication year value
-     * @param venue a vanue entity, which represents the venue where the new entity was published
+     * @param venue a venue entity, which represents the venue where the new entity was published
+     * @throws NullPointerException if any of the passed parameters is {@code null}
      */
     public Article(
             final String id, final String title, 
             final short publicationYear, final Venue venue) {
         super(id, title, publicationYear);
-        // FIXME test fields
+        Objects.requireNonNull(venue, "null venue");
         this.venue = venue;
         venue.addPublication(this);
     }
@@ -41,7 +43,7 @@ public final class Article extends Publication {
 
     @Override
     public Collection<String> getKeywords() {
-        return Utilities.unify(venue.getKeywords(), super.getKeywords());
+        return Utilities.unifyNoRepetition(venue.getKeywords(), super.getKeywords());
     }
     
     @Override

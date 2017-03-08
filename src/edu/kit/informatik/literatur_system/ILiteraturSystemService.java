@@ -8,8 +8,7 @@ import java.util.List;
  * @author JoseNote
  * @version %I%, %G%
  */
-public interface ILiteraturSystemService {   
-    // FIXME improve doc: add types of collections (with/without repeated elements)
+public interface ILiteraturSystemService {
     /**
      * Adds a new conference to the system.
      * @param seriesName the name of the conference series in which the new conference will be added

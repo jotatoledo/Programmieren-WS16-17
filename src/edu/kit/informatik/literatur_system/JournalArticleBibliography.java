@@ -22,7 +22,7 @@ public final class JournalArticleBibliography extends ArticleBibliography {
             final List<AuthorNames> authors, final short publicationYear, 
             final String articleTitle, final String journalTitle, final String articleId) {
         super(authors, publicationYear, articleTitle, articleId);
-        //TODO validate fields
+        // FIXME validate fields
         this.journalTitle = journalTitle;
     }
 
