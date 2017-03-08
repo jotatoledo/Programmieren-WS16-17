@@ -273,7 +273,6 @@ public enum Command implements ICommand<ILiteraturSystemService> {
      * Implementation of the {@code direct h-index} command as described in the task C16.
      */
     //direct h-index <list of citation counts>
-    //FIXME check regex ("[1-9]\\d*")
     DIRECT_H_INDEX("direct h-index ((?!0)\\d+(;(?!0)\\d+)*)", false) {
         @Override
         public void execute(final ILiteraturSystemService service, final String input) {
@@ -299,9 +298,9 @@ public enum Command implements ICommand<ILiteraturSystemService> {
         }
     },
     /**
-     * Implementation of the {@code coauthors of} command as described in the task C18.
+     * Implementation of the {@code co authors of} command as described in the task C18.
      */
-    //coauthors of <first name> <last name>
+    //co authors of <first name> <last name>
     COAUTHORS_OF("coauthors of ([a-zA-Z]+) ([a-zA-Z]+)", false) {
         @Override
         public void execute(final ILiteraturSystemService service, final String input) {

@@ -65,7 +65,7 @@ public final class CommandHandler<T, C extends ICommand<T>> {
                 .reduce((l, r) -> { 
                     throw new IllegalStateException("ambiguous: '" + string + "'"); 
                 });
-        // TODO refactor into a single() extension method. 
+        // FIXME re factor into a single() extension method. 
         // The reduce API wasn't created for the used purpose
     }
     

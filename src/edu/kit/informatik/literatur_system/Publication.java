@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import edu.kit.informatik.InvalidRelationException;
@@ -40,8 +41,10 @@ public abstract class Publication extends TagedElement {
      */
     public Publication(
             final String id, final String title, final short publicationYear) {
-        // FIXME test id
         super();
+        Objects.requireNonNull(id, "null id");
+        Objects.requireNonNull(title, "null title");
+        // FIXME test year
         this.id = id;
         this.title = title;
         this.publicationYear = publicationYear;
@@ -51,11 +54,11 @@ public abstract class Publication extends TagedElement {
     }
     
     /**
-     * Instantiates a partially complete object.
-     * This is just a hot fix for the direct print methods on the first final assignment
-     * TODO re factor/deprecate method
+     * Instantiates a partially complete object
      * @param id the id value
      */
+    // FIXME This is just a hot fix for the direct print methods on the first final assignment
+    // re factor/deprecate method
     public Publication(final String id) {
         super();
         this.id = id;
@@ -144,7 +147,7 @@ public abstract class Publication extends TagedElement {
      * @return {@linkplain #VALID} or {@linkplain #INVALID}
      */
     public boolean isValid() {
-        return authors.size() > 0 ? VALID : INVALID;
+        return authors.size() > 0;
     }
     
     /**

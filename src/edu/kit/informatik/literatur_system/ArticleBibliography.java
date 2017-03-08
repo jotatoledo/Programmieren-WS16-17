@@ -46,7 +46,7 @@ public abstract class ArticleBibliography implements Comparable<ArticleBibliogra
     @Override
     public int compareTo(ArticleBibliography obj) {
         int comp;
-        
+        // FIXME comment
         for (int i = 0; i < Math.max(authors.size(), obj.authors.size()); i++) {
             comp = authors.get(i).getLastName().compareTo(obj.authors.get(i).getLastName());
             if ( comp != 0)
@@ -120,8 +120,6 @@ public abstract class ArticleBibliography implements Comparable<ArticleBibliogra
      * @return the string representation of the articles authors
      */
     protected String formatAuthorsToSimplifiedChicago() {
-        // FIXME add case size 0
-        // FIXME check if stream keeps order
         Stream<String> str = authors.stream()
                 .map(x->x.formatChicago());
         if (authors.size() == 2)
@@ -134,8 +132,6 @@ public abstract class ArticleBibliography implements Comparable<ArticleBibliogra
      * @return the string representation of the articles authors
      */
     protected String formatAuthorsToSimplifiedIEEE() {
-        // FIXME add case size 0
-        // FIXME check if stream keeps order
         if (authors.size() == 2)
             return authors.stream()
                     .map(x-> x.formatIEEE())

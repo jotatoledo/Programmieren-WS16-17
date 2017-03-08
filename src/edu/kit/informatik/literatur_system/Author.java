@@ -24,7 +24,8 @@ public final class Author implements Comparable<Author> {
     public Author(
             final String firstName,
             final String lastName) {
-        // FIXME test name valid
+        Objects.requireNonNull(firstName, "null first name");
+        Objects.requireNonNull(lastName, "null last name");
         this.firstName = firstName;
         this.lastName = lastName;
         publications = new HashMap<Publication, Publication>();
@@ -50,13 +51,11 @@ public final class Author implements Comparable<Author> {
     /**
      * Associates a new publication to this author
      * @param publication the publication in which this worked
-     * @return this
      */
-    public Author addPublication(final Publication publication) {
+    public void addPublication(final Publication publication) {
         if (publications.putIfAbsent(publication, publication) != null)
-            //TODO improve error message
+            // FIXME improve error message
             throw new IllegalArgumentException("this author is already associated to the given publication");
-        return this;
     }
     
     /**
@@ -93,8 +92,7 @@ public final class Author implements Comparable<Author> {
     }
     
     /**
-     * FIXME add doc
-     * @return FIXME add doc
+     * @return a new instance of {@linkplain AuthorNames} using the information of this
      */
     public AuthorNames toAuthorNames() {
         return new AuthorNames(firstName, lastName);
