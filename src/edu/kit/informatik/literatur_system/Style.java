@@ -4,13 +4,18 @@ import java.util.Arrays;
 
 import edu.kit.informatik.Utilities;
 
+/**
+ * An enumeration of the possible formating styles available in the literature system
+ * @author JoseNote
+ * @version %I%, %G%
+ */
 public enum Style {
     /**
-     * TODO add doc
+     * Simplified IEEE format
      */
     IEEE("ieee"),
     /**
-     * TODO add doc
+     * Simplified chicago format
      */
     CHICAGO("chicago");
     
@@ -21,9 +26,9 @@ public enum Style {
     }
     
     /**
-     * TODO add doc
-     * @param strRep TODO add doc
-     * @return TODO add doc
+     * Gets a enumeration element whose string representation matches a given string
+     * @param strRep the string representation of one enumeration element
+     * @return the matching enumeration element
      * @throws IllegalStateException string ambiguity
      * @throws IllegalArgumentException no style with the given string representation
      */
