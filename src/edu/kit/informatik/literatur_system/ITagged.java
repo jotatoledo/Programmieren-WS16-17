@@ -3,35 +3,36 @@ package edu.kit.informatik.literatur_system;
 import java.util.Collection;
 
 /**
- * FIXME add doc
+ * Contract for entities that can be marked with keywords
  * @author JoseNote
  * @version %I%, %G%
  */
 public interface ITagged {
     /**
-     * FIXME add doc
+     * All the given keywords
      */
     boolean FULL_MATCH = true;
     /**
-     * FIXME add doc
+     * At least one of the given keywords
      */
     boolean PARTIAL_MATCH = false; 
     
     /**
-     * FIXME add doc
-     * @return FIXME add doc
+     * Gets the keywords of this
+     * @return the keywords
      */
     Collection<String> getKeywords();
     
     /**
-     * FIXME add doc
-     * @param kw FIXME add doc
+     * Marks this with a new keyword. If this is already marked with the given keyword, nothing happens.
+     * @param kw the keyword to mark this with
      */
     void addKeyword(String kw);
     
     /**
-     * FIXME add doc
-     * @param kws FIXME add doc
+     * Marks this with the given collection of keywords. 
+     * If this is already marked with one of the given keyword, the word is ignored.
+     * @param kws the keywords to mark this with
      */
     void addKeyword(Collection<String> kws);
     
