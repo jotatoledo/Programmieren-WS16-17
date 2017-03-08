@@ -21,6 +21,18 @@ import java.util.stream.Stream;
  */
 public class Utilities {
     /**
+     * Support method to filter repeated elements in collections
+     * @param <T> the type of the elements in the collection
+     * @param collection an object collection
+     * @return a new collection without repeated items
+     */
+    public static <T> Collection<T> filterRepeated(final Collection<T> collection) {
+        return collection.stream()
+                .distinct()
+                .collect(Collectors.toList());
+    }
+    
+    /**
      * FIXME add doc
      * @param <T> FIXME add doc
      * @param collections FIXME add doc
