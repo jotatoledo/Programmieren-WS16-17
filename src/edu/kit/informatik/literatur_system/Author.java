@@ -24,7 +24,7 @@ public final class Author implements Comparable<Author> {
     public Author(
             final String firstName,
             final String lastName) {
-        //TODO test name valid
+        // FIXME test name valid
         this.firstName = firstName;
         this.lastName = lastName;
         publications = new HashMap<Publication, Publication>();

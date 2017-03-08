@@ -318,8 +318,7 @@ public class LiteraturSystemService implements ILiteraturSystemService {
         // Test that all the publications are valid
         publications.forEach(p -> {
             if (!p.isValid())
-                // FIXME improve message
-                throw new IllegalArgumentException("the publication " + p.getId() + " isnt valid");
+                throw new IllegalStateException("the publication " + p.getId() + " isnt valid");
         });
         return publications.stream()
                 .map(x-> x.toBibliography())

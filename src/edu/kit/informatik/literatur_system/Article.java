@@ -5,7 +5,7 @@ import java.util.Collection;
 import edu.kit.informatik.Utilities;
 
 /**
- * FIXME add doc
+ * Represents an article entity in the system
  * @author JoseNote
  * @version %I%, %G%
  */
@@ -13,34 +13,34 @@ public final class Article extends Publication {
     private final Venue venue;
     
     /**
-     * FIXME add doc
-     * @param id FIXME add doc
-     * @param titel FIXME add doc
-     * @param year FIXME add doc
-     * @param venue FIXME add doc
+     * Instantiates a new entity
+     * @param id the id value
+     * @param title the title
+     * @param publicationYear the publication year value
+     * @param venue a vanue entity, which represents the venue where the new entity was published
      */
     public Article(
-            final String id, final String titel, 
-            final short year, final Venue venue) {
-        super(id, titel, year);
+            final String id, final String title, 
+            final short publicationYear, final Venue venue) {
+        super(id, title, publicationYear);
         // FIXME test fields
         this.venue = venue;
         venue.addPublication(this);
     }
     
     /**
-     * FIXME add doc
-     * @param id FIXME add doc
+     * Instantiates a new entity, partially complete.
+     * Hot fix method for direct print methods in first final assignment
+     * FIXME deprecate/remove
+     * @param id the id value
      */
     public Article(final String id) {
         super(id);
         venue = null;
-        // TODO Auto-generated constructor stub
     }
 
     @Override
     public Collection<String> getKeywords() {
-        // FIXME filter repeated?
         return Utilities.unify(venue.getKeywords(), super.getKeywords());
     }
     

@@ -159,7 +159,7 @@ public abstract class Publication extends TagedElement {
     /**
      * Gets the publications that reference to this, where the given author didn't worked
      * @param author the author to check
-     * @return FIXME add doc
+     * @return the collection of foreign references for this, in which the given author didn't worked
      */
     public Collection<Publication> foreignReferencesWithoutAuthor(final Author author) {
         return referenceToThis.values().stream()

@@ -14,7 +14,6 @@ public abstract class ArticleBibliography implements Comparable<ArticleBibliogra
     private final String articleId;
     private final short publicationYear;
     private final String articleTitle;
-    // FIXME rework to ordered set
     private final List<AuthorNames> authors;
     
     /**
@@ -47,6 +46,7 @@ public abstract class ArticleBibliography implements Comparable<ArticleBibliogra
     @Override
     public int compareTo(ArticleBibliography obj) {
         int comp;
+        
         for (int i = 0; i < Math.max(authors.size(), obj.authors.size()); i++) {
             comp = authors.get(i).getLastName().compareTo(obj.authors.get(i).getLastName());
             if ( comp != 0)
