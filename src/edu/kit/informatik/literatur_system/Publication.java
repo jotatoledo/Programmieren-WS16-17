@@ -5,10 +5,14 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
+import edu.kit.informatik.InvalidRelationException;
+import edu.kit.informatik.Utilities;
+
 /**
- * FIXME add doc
+ * Class used to represent a publication entity
  * @author JoseNote
  * @version %I%, %G%
  */
@@ -30,17 +34,19 @@ public abstract class Publication extends TagedElement {
     private final Map<Publication, Publication> referenceToThis;
     
     /**
-     * FIXME add doc
-     * @param id FIXME add doc
-     * @param titel FIXME add doc
-     * @param publicationYear FIXME add doc
+     * Instantiates a new object
+     * @param id the id value
+     * @param title the title value
+     * @param publicationYear the publication year value
      */
     public Publication(
-            final String id, final String titel, final short publicationYear) {
-        // FIXME test id
+            final String id, final String title, final short publicationYear) {
         super();
+        Objects.requireNonNull(id, "null id");
+        Objects.requireNonNull(title, "null title");
+        // FIXME test year
         this.id = id;
-        this.title = titel;
+        this.title = title;
         this.publicationYear = publicationYear;
         authors = new LinkedHashMap<Author, Author>();
         referenceToOther = new HashMap<Publication, Publication>();
@@ -48,9 +54,11 @@ public abstract class Publication extends TagedElement {
     }
     
     /**
-     * FIXME add doc
-     * @param id FIXME add doc
+     * Instantiates a partially complete object
+     * @param id the id value
      */
+    // FIXME This is just a hot fix for the direct print methods on the first final assignment
+    // re factor/deprecate method
     public Publication(final String id) {
         super();
         this.id = id;
@@ -73,53 +81,47 @@ public abstract class Publication extends TagedElement {
     }
     
     /**
-     * FIXME add doc
-     * @param author FIXME add doc
-     * @return FIXME add doc
+     * Associates a new author to this
+     * @param author the author to associate to this
      */
-    public Publication addAuthor(final Author author) {
+    public void addAuthor(final Author author) {
         if (authors.containsKey(author))
             //TODO improve error message
             throw new IllegalArgumentException("this publication is already associated to the given author");
         authors.put(author, author);
-        return this;
     }
     
     /**
-     * FIXME add doc
-     * @return FIXME add doc
+     * @return the id
      */
     public String getId() {
         return id;
     }
     
     /**
-     * FIXME add doc
-     * @param p FIXME add doc
-     * @return FIXME add doc
+     * Adds a reference to other publication
+     * @param p the entity being quoted by this
+     * @throws InvalidRelationException if the given entity was already quoted by this
      */
-    public Publication addReferenceToOther(final Publication p) {
+    public void addReferenceToOther(final Publication p) {
         if (referenceToOther.containsKey(p))
-            throw new IllegalArgumentException("p is already quoted by this");
+            throw Utilities.invalidRelation(this.getClass(), p.getClass());
         referenceToOther.put(p, p);
-        return this;
     }
     
     /**
-     * FIXME add doc
-     * @param p FIXME add doc
-     * @return FIXME add doc
+     * Adds a reference to this
+     * @param p the entity that quotes this
+     * @throws InvalidRelationException if the entity already quoted this
      */
-    public Publication addReferenceToThis(final Publication p) {
+    public void addReferenceToThis(final Publication p) {
         if (referenceToThis.containsKey(p))
-            throw new IllegalArgumentException("this is already referenced by p");
+            throw Utilities.invalidRelation(this.getClass(), p.getClass());
         referenceToThis.put(p, p);
-        return this;
     }
     
     /**
-     * FIXME add doc
-     * @return FIXME add doc
+     * @return the publication year
      */
     public short getPublicationYear() {
         return publicationYear;
@@ -133,16 +135,16 @@ public abstract class Publication extends TagedElement {
     }
     
     /**
-     * FIXME add doc
-     * @return FIXME add doc
+     * Gets the number of authors of this
+     * @return the number of authors
      */
     public int numberAuthors() {
         return authors.size();
     }
     
     /**
-     * FIXME add doc
-     * @return FIXME add doc
+     * Checks if this is a valid publication
+     * @return {@linkplain #VALID} or {@linkplain #INVALID}
      */
     public boolean isValid() {
         return authors.size() > 0;
@@ -158,9 +160,9 @@ public abstract class Publication extends TagedElement {
     }
     
     /**
-     * Gets the publications that reference to this, where the given author didnt worked
+     * Gets the publications that reference to this, where the given author didn't worked
      * @param author the author to check
-     * @return FIXME add doc
+     * @return the collection of foreign references for this, in which the given author didn't worked
      */
     public Collection<Publication> foreignReferencesWithoutAuthor(final Author author) {
         return referenceToThis.values().stream()
@@ -176,22 +178,22 @@ public abstract class Publication extends TagedElement {
     }
     
     /**
-     * FIXME add doc
-     * @return FIXME add doc
+     * Gets the number of publications that quotes this
+     * @return the number of references to this
      */
     public int numberReferencesToThis() {
         return referenceToThis.size();
     }
     
     /**
-     * FIXME add doc
-     * @return FIXME add doc
+     * Generates an instance of {@linkplain ArticleBibliography} for this
+     * @return an instance of {@linkplain ArticleBibliography] with the information of this
      */
     public abstract ArticleBibliography toBibliography();
     
     /**
-     * FIXME add doc
-     * @return FIXME add doc
+     * Gets information from the authors of this
+     * @return a collection with information of the authors of this
      */
     protected List<AuthorNames> getAuthorNames() {
         return authors.values().stream()

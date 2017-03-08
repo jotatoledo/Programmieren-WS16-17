@@ -6,7 +6,7 @@ import java.util.Objects;
 import edu.kit.informatik.Utilities;
 
 /**
- * FIXME add doc
+ * Represents a conference in the system
  * @author JoseNote
  * @version %I%, %G%
  */
@@ -16,15 +16,17 @@ public final class Conference extends Venue {
     private final ConferenceSeries serie;
     
     /**
-     * FIXME add doc
+     * Instantiates a new entity
      * @param location the location value for the new instance
      * @param year the year value for the new instance
-     * @param serie FIXME add doc
+     * @param serie the conference series entity to which this conference is associated
      */
     public Conference(
             final String location, final short year, final ConferenceSeries serie) {
         super();
-        // FIXME check input
+        Objects.requireNonNull(location);
+        Objects.requireNonNull(serie);
+        // FIXME test valid year
         this.location = location;
         this.year = year;
         this.serie = serie;
@@ -44,29 +46,25 @@ public final class Conference extends Venue {
 
     @Override
     public Collection<String> getKeywords() {
-        // FIXME filter repeated?
-        return Utilities.unify(getKeywords(), serie.getKeywords());
+        return Utilities.unifyNoRepetition(super.getKeywords(), serie.getKeywords());
     }
     
     /**
-     * FIXME add doc
-     * @return FIXME add doc
+     * @return the location
      */
     public String getLocation() {
         return location;
     }
 
     /**
-     * FIXME add doc
-     * @return FIXME add doc
+     * @return the year
      */
     public short getYear() {
         return year;
     }
     
     /**
-     * FIXME add doc
-     * @return FIXME add doc
+     * @return the name of the conference series
      */
     public String getConferenceSeriesName() {
         return serie.getName();

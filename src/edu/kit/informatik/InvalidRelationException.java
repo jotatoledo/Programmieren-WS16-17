@@ -1,7 +1,7 @@
 package edu.kit.informatik;
 
 /**
- * FIXME add doc
+ * An exception triggered when a new invalid relation between 2 or more entities is persisted
  * @author JoseNote
  * @version %I%, %G%
  */

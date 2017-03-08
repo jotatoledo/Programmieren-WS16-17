@@ -18,8 +18,7 @@ import edu.kit.informatik.Utilities;
  * @version %I%, %G%
  */
 public class LiteraturSystemService implements ILiteraturSystemService {
-    //FIXME rework get methods?
-    
+    // FIXME rework get methods?
     private final Map<Author, Author> authors;
     private final Map<Publication, Publication> publications;
     private final Map<ConferenceSeries, ConferenceSeries> conferenceSeries;
@@ -40,12 +39,9 @@ public class LiteraturSystemService implements ILiteraturSystemService {
     public void addAuthor(final String firstName, final String lastName) {
         Objects.requireNonNull(firstName);
         Objects.requireNonNull(lastName);
-        if (existAuthor(firstName, lastName))
-            throw Utilities.alreadyExist(Author.class, firstName, lastName);
         final Author entity = new Author(firstName, lastName);
-        if (authors.putIfAbsent(entity, entity) != null)
-            //FIXME remove double check
-            throw new IllegalArgumentException("error by addition");
+        if (authors.put(entity, entity) != null)
+            throw Utilities.alreadyExist(Author.class, firstName, lastName);
     }
     
     @Override
@@ -61,7 +57,6 @@ public class LiteraturSystemService implements ILiteraturSystemService {
     @Override
     public Collection<Author> getAuthor(final Collection<AuthorNames> names) {
         Objects.requireNonNull(names);
-        // FIXME rework to lambda/stream expression
         final Collection<Author> authorEntities = new ArrayList<Author>();
         names.forEach(x -> authorEntities.add(getAuthor(x.getFirstName(), x.getLastName())));
         return authorEntities;
@@ -78,12 +73,9 @@ public class LiteraturSystemService implements ILiteraturSystemService {
     public void addJournal(final String name, final String publisher) {
         Objects.requireNonNull(name);
         Objects.requireNonNull(publisher);
-        if (existJournal(name))
-            throw Utilities.alreadyExist(Journal.class, name);
         final Journal entity = new Journal(name, publisher);
         if (journals.putIfAbsent(entity, entity) != null)
-            //FIXME remove double check
-            throw new IllegalArgumentException("error by addition");
+            throw Utilities.alreadyExist(Journal.class, name);
     }
 
     @Override
@@ -104,12 +96,9 @@ public class LiteraturSystemService implements ILiteraturSystemService {
     @Override
     public void addConferenceSeries(final String name) {
         Objects.requireNonNull(name);
-        if (existConferenceSeries(name))
-            throw Utilities.alreadyExist(ConferenceSeries.class, name);
         final ConferenceSeries entity = new ConferenceSeries(name);
         if (conferenceSeries.putIfAbsent(entity, entity) != null)
-            //FIXME remove double check
-            throw new IllegalArgumentException("error by addition");
+            throw Utilities.alreadyExist(ConferenceSeries.class, name);
     }
 
     @Override
@@ -158,7 +147,6 @@ public class LiteraturSystemService implements ILiteraturSystemService {
         final Publication pReference = getPublication(referencePublicationId);
         if (pQuoter.getPublicationYear() <= pReference.getPublicationYear())
             // FIXME re factor into Utilities.invalidRelation();
-            // FIXME improve error message
             throw new InvalidRelationException("the referenced publication wasnt published before the one quoting it");
         pQuoter.addReferenceToOther(pReference);
         pReference.addReferenceToThis(pQuoter);
@@ -251,7 +239,6 @@ public class LiteraturSystemService implements ILiteraturSystemService {
     @Override
     public Collection<Publication> getPublicationsById(Collection<String> ids) {
         Objects.requireNonNull(ids);
-        // FIXME rework to lambda/stream expression
         final Collection<Publication> publicationEntities = new ArrayList<Publication>();
         ids.forEach(x -> publicationEntities.add(getPublication(x)));
         return publicationEntities;
@@ -292,7 +279,6 @@ public class LiteraturSystemService implements ILiteraturSystemService {
         Objects.requireNonNull(lastName);
         final Author author = getAuthor(firstName, lastName);
         final Collection<Publication> authorPublications = author.getPublications().values();
-        // FIXME case author with no publications?
         return Utilities.directHIndex(authorPublications.stream()
                 .map(p->p.numberReferencesToThis())
                 .collect(Collectors.toList()));
@@ -304,7 +290,6 @@ public class LiteraturSystemService implements ILiteraturSystemService {
         Objects.requireNonNull(lastName);        
         final Author author = getAuthor(firstName, lastName);
         final Collection<Publication> authorPublications = author.getPublications().values();
-
         return authorPublications.stream()
                 .map(p -> p.getAuthors().values())
                 .flatMap(as -> as.stream())
@@ -333,8 +318,7 @@ public class LiteraturSystemService implements ILiteraturSystemService {
         // Test that all the publications are valid
         publications.forEach(p -> {
             if (!p.isValid())
-                // FIXME improve message
-                throw new IllegalArgumentException("the publication " + p.getId() + " isnt valid");
+                throw new IllegalStateException("the publication " + p.getId() + " isnt valid");
         });
         return publications.stream()
                 .map(x-> x.toBibliography())
@@ -389,17 +373,7 @@ public class LiteraturSystemService implements ILiteraturSystemService {
                 .collect(Collectors.toList());
     }
     
-    // FIXME move to utilities
-    /**
-     * Support method to filter repeated elements in collections
-     * @param collection an object collection
-     * @return a new collection without repeated items
-     */
-    private <T> Collection<T> filterRepeated(final Collection<T> collection) {
-        return collection.stream()
-                .distinct()
-                .collect(Collectors.toList());
+    private <T> Collection<T> filterRepeated(final Collection<T> elements) {
+        return Utilities.filterRepeated(elements);
     }
-
-    
 }

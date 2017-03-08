@@ -1,7 +1,9 @@
 package edu.kit.informatik.literatur_system;
 
+import java.util.Objects;
+
 /**
- * FIXME add doc
+ * Used to store the names of an author
  * @author JoseNote
  * @version %I%, %G%
  */
@@ -10,15 +12,23 @@ public final class AuthorNames implements Comparable<AuthorNames> {
     private final String lastName;
     
     /**
-     * FIXME add doc
-     * @param firstName FIXME add doc
-     * @param lastName FIXME add doc
+     * Instantiates a new object 
+     * @param firstName the first name value
+     * @param lastName the last name value
+     * @throws NullPointerException if any of the parameters is {@code null}
      */
     public AuthorNames(final String firstName, final String lastName) {
+        Objects.requireNonNull(firstName);
+        Objects.requireNonNull(lastName);
         this.firstName = firstName;
         this.lastName = lastName;
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(lastName, firstName);
+    }
+    
     @Override
     public boolean equals(Object obj) {
         return obj instanceof AuthorNames
@@ -46,16 +56,16 @@ public final class AuthorNames implements Comparable<AuthorNames> {
     }
     
     /**
-     * FIXME add doc
-     * @return FIXME add doc
+     * Gets the representation of this in simplified IEEE format
+     * @return the simplified IEEE representation of this
      */
     public String formatIEEE() {
         return getFirstName().toUpperCase().charAt(0) + ". " + getLastName();
     }
     
     /**
-     * FIXME add doc
-     * @return FIXME add doc
+     * Gets the representation of this in simplified chicago format
+     * @return the simplified chicago representation of this
      */
     public String formatChicago() {
         return getLastName() + "," + getFirstName();

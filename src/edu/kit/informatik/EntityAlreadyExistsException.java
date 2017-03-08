@@ -1,7 +1,8 @@
 package edu.kit.informatik;
 
 /**
- * FIXME add doc
+ * An exception class used when a new entity with the primary key values of 
+ * an entity already stored in the system is added
  * @author JoseNote
  * @version %I%, %G%
  */

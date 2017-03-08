@@ -1,7 +1,7 @@
 package edu.kit.informatik;
 
 /**
- * FIXME add doc
+ * An exception triggered an entity that doesn't exist is "retrieved" by primary key
  * @author JoseNote
  * @version %I%, %G%
  */

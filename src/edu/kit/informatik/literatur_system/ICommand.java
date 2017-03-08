@@ -3,34 +3,34 @@ package edu.kit.informatik.literatur_system;
 import java.util.regex.Pattern;
 
 /**
- * FIXME add doc
+ * Contract for commands
  * @author JoseNote
  * @version %I%, %G%
- * @param <T> TODO add doc
+ * @param <T> the type of the service against which the command will be executed
  */
 public interface ICommand<T> {
     /**
-     * Executes the command against the service
-     * @param service FIXME add doc
-     * @param input FIXME add doc
+     * Executes the command against a service
+     * @param service the service to use for the command execution
+     * @param input a CLI input
      */
     void execute(T service, String input);
     
     /**
-     * Gets the regex pattern associated to the command
-     * @return FIXME add doc
+     * Gets the REGEX pattern associated to the command
+     * @return the pattern
      */
     Pattern pattern();
     
     /**
-     * FIXME add doc
-     * @return FIXME add doc
+     * Checks if the program execution should be terminated when the command is invoked
+     * @return {@code True} if program execution has to stop. {@code False} otherwise
      */
     boolean isQuit();
     
     /**
-     * FIXME add doc
-     * @return FIXME add doc
+     * Checks if after the command execution an extra "ok" message should be displayed in console
+     * @return {@code True} if the message is required. {@code False} otherwise
      */
     boolean okMessage();
 }
