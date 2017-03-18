@@ -12,31 +12,34 @@ public class MoveFactoryImplementation implements MoveFactory {
      * 
      */
     public MoveFactoryImplementation() {
+    	// FIXME implement
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public Move flipRight(Position position) {
-        throw new UnsupportedOperationException();
+    public Move flipRight(final Position position) {
+        return new FlipRight(position);
     }
 
     @Override
-    public Move flipDown(Position position) {
-        throw new UnsupportedOperationException();
+    public Move flipDown(final Position position) {
+    	return new FlipDown(position);
     }
 
     @Override
-    public Move rotateSquareClockwise(Position position) {
-        throw new UnsupportedOperationException();
+    public Move rotateSquareClockwise(final Position position) {
+    	return new RotateSquareClockwise(position);
     }
 
     @Override
     public Move rotateColumnDown(int columnIndex) {
+    	// FIXME implement
         throw new UnsupportedOperationException();
     }
 
     @Override
     public Move rotateRowRight(int rowIndex) {
+    	// FIXME implement
         throw new UnsupportedOperationException();
     }
 

@@ -49,6 +49,7 @@ public class MatchThreeBoard implements Board {
      * @param tokenString
      */
     public MatchThreeBoard(final Set<Token> tokens, final String tokenString) {
+    	// FIXME add regex check?
     	// Check valid number of tokens
     	if(tokens.size() < 2) throw new IllegalArgumentException("invalid amount of tokens");
     	this.tokens = tokens;
@@ -175,7 +176,7 @@ public class MatchThreeBoard implements Board {
     public String toTokenString() {
     	// FIXME check
     	return Arrays.stream(this.board)
-    			.map(x -> Arrays.stream(x).map(t -> t.toString()).collect(Collectors.joining()))
+    			.map(x -> Arrays.stream(x).map(t -> t == null ? " " : t.toString()).collect(Collectors.joining()))
     			.collect(Collectors.joining(";"));
     }
     
