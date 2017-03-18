@@ -6,24 +6,14 @@ import edu.kit.informatik.matchthree.framework.Position;
 import edu.kit.informatik.matchthree.framework.interfaces.Board;
 import edu.kit.informatik.matchthree.framework.interfaces.Move;
 
-public class FlipUp implements Move {
-	private final Position startPosition;
-	private final Position positionAbove;
-	
-	public FlipUp(final Position startPosition){
-		this.startPosition = startPosition;
-		this.positionAbove = new Position(startPosition.x,startPosition.y + 1);
+public final class FlipUp extends AtomicBinaryMove {
+	public FlipUp(final Position startPosition) {
+		super(startPosition);
 	}
 	
 	@Override
-	public boolean canBeApplied(final Board board) {
-		return board.containsPosition(startPosition) && board.containsPosition(positionAbove);
-	}
-
-	@Override
-	public void apply(Board board) {
-		// FIXME Auto-generated method stub
-		
+	protected Position getAffectedPosition() {
+		return new Position(startPosition.x,startPosition.y + 1);
 	}
 
 	@Override

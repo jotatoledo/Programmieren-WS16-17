@@ -6,24 +6,14 @@ import edu.kit.informatik.matchthree.framework.Position;
 import edu.kit.informatik.matchthree.framework.interfaces.Board;
 import edu.kit.informatik.matchthree.framework.interfaces.Move;
 
-public class FlipLeft implements Move{
-	private final Position startPosition;
-	private final Position positionToTheLeft;
-	
-	public FlipLeft(final Position startPosition){
-		this.startPosition = startPosition;
-		this.positionToTheLeft = new Position(startPosition.x - 1, startPosition.y);
+public final class FlipLeft extends AtomicBinaryMove {	
+	public FlipLeft(final Position startPosition) {
+		super(startPosition);
 	}
 	
 	@Override
-	public boolean canBeApplied(final Board board) {
-		return board.containsPosition(startPosition) && board.containsPosition(positionToTheLeft);
-	}
-
-	@Override
-	public void apply(Board board) {
-		// TODO Auto-generated method stub
-		
+	protected Position getAffectedPosition() {
+		return new Position(startPosition.x - 1, startPosition.y);
 	}
 
 	@Override

@@ -6,9 +6,8 @@ import edu.kit.informatik.matchthree.framework.Position;
 import edu.kit.informatik.matchthree.framework.interfaces.Board;
 import edu.kit.informatik.matchthree.framework.interfaces.Move;
 
-public class RotateColumnDown extends MoveImplementation {
+public class RotateColumnDown implements Move {
 	public RotateColumnDown(final Position startPosition) {
-		super(startPosition);
 		// FIXME implement
 	}
 	

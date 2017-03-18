@@ -7,11 +7,10 @@ import edu.kit.informatik.matchthree.framework.interfaces.Board;
 import edu.kit.informatik.matchthree.framework.interfaces.Move;
 
 public class RotateSquareClockwise implements Move {
-	
-	public RotateSquareClockwise(final Position startPosition){
-		// FIXME implement
+	public RotateSquareClockwise(final Position startPosition) {
+		// FIXME Auto-generated constructor stub
 	}
-	
+
 	@Override
 	public boolean canBeApplied(Board board) {
 		// TODO Auto-generated method stub

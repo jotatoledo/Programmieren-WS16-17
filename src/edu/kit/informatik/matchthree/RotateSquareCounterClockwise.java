@@ -6,10 +6,9 @@ import edu.kit.informatik.matchthree.framework.Position;
 import edu.kit.informatik.matchthree.framework.interfaces.Board;
 import edu.kit.informatik.matchthree.framework.interfaces.Move;
 
-public class RotateSquareCounterClockwise extends MoveImplementation {
+public class RotateSquareCounterClockwise implements Move {
 	
-	protected RotateSquareCounterClockwise(final Position startPosition) {
-		super(startPosition);
+	public RotateSquareCounterClockwise(final Position startPosition) {
 		// TODO Auto-generated constructor stub
 	}
 
