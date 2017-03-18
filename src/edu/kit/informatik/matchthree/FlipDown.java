@@ -12,14 +12,13 @@ public final class FlipDown extends AtomicBinaryMove {
 	}
 	
 	@Override
-	protected Position getAffectedPosition() {
-		return new Position(startPosition.x, startPosition.y - 1);
+	protected Position getObjectivePosition() {
+		return new Position(selectedPosition.x, selectedPosition.y - 1);
 	}
 
 	@Override
 	public Move reverse() {
-		// FIXME Auto-generated method stub
-		return null;
+		return new FlipUp(selectedPosition);
 	}
 
 	@Override

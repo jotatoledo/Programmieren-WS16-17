@@ -12,13 +12,13 @@ public final class FlipRight extends AtomicBinaryMove {
 	}
 	
 	@Override
-	protected Position getAffectedPosition() {
-		return new Position(startPosition.x + 1, startPosition.y);
+	protected Position getObjectivePosition() {
+		return new Position(selectedPosition.x + 1, selectedPosition.y);
 	}
 
 	@Override
 	public Move reverse() {
-		return new FlipLeft(startPosition);
+		return new FlipLeft(selectedPosition);
 	}
 
 	@Override

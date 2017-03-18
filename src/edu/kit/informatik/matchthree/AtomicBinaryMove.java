@@ -6,24 +6,24 @@ import edu.kit.informatik.matchthree.framework.interfaces.Board;
 import edu.kit.informatik.matchthree.framework.interfaces.Move;
 
 public abstract class AtomicBinaryMove implements Move {
-	protected final Position startPosition;
-	protected final Position affectedPosition;
+	protected final Position selectedPosition;
+	protected final Position objectivePosition;
 	
 	protected AtomicBinaryMove(final Position startPosition){
-		this.startPosition = startPosition;
-		this.affectedPosition = this.getAffectedPosition();
+		this.selectedPosition = startPosition;
+		this.objectivePosition = this.getObjectivePosition();
 	}
 	
 	@Override
 	public boolean canBeApplied(final Board board) {
-		return board.containsPosition(startPosition) && board.containsPosition(affectedPosition);
+		return board.containsPosition(selectedPosition) && board.containsPosition(objectivePosition);
 	}
 	
 	@Override
 	public void apply(final Board board) {
 		if(!canBeApplied(board)) throw new BoardDimensionException("the move cant be applied");
-		board.swapTokens(startPosition, affectedPosition);
+		board.swapTokens(selectedPosition, objectivePosition);
 	}
 	
-	abstract protected Position getAffectedPosition();
+	abstract protected Position getObjectivePosition();
 }

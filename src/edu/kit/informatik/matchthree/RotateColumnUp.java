@@ -6,24 +6,29 @@ import edu.kit.informatik.matchthree.framework.Position;
 import edu.kit.informatik.matchthree.framework.interfaces.Board;
 import edu.kit.informatik.matchthree.framework.interfaces.Move;
 
-public final class FlipUp extends AtomicBinaryMove {
-	public FlipUp(final Position startPosition) {
-		super(startPosition);
-	}
-	
+public class RotateColumnUp implements Move {
+
 	@Override
-	protected Position getObjectivePosition() {
-		return new Position(selectedPosition.x,selectedPosition.y + 1);
+	public boolean canBeApplied(Board board) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void apply(Board board) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public Move reverse() {
-		return new FlipDown(selectedPosition);
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public Set<Position> getAffectedPositions(Board board) {
-		// FIXME Auto-generated method stub
+		// TODO Auto-generated method stub
 		return null;
 	}
 
