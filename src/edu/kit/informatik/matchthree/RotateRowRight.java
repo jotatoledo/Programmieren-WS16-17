@@ -9,24 +9,25 @@ import edu.kit.informatik.matchthree.framework.Position;
 import edu.kit.informatik.matchthree.framework.interfaces.Board;
 import edu.kit.informatik.matchthree.framework.interfaces.Move;
 
-public class RotateColumnDown implements Move {
-    private final int columnIndex;
+public class RotateRowRight implements Move {
+    private final int rowIndex;
     
     /**
-     * FIXME add doc
-     * @param columnIndex FIXME add doc
+     * 
+     * @param rowIndex
      */
-    public RotateColumnDown(final int columnIndex) {
-        this.columnIndex = columnIndex;
+    public RotateRowRight(final int rowIndex) {
+        this.rowIndex = rowIndex;
     }
-
+    
     @Override
     public boolean canBeApplied(final Board board) {
-        return columnIndex >= 0 && columnIndex <= board.getColumnCount() - 1;
+        return rowIndex >= 0 && rowIndex <= board.getRowCount() - 1;
     }
 
     @Override
     public void apply(final Board board) {
+        // FIXME check first
         for (Replace r: getReplaceMoves(board)) {
             r.apply(board);
         }
@@ -34,29 +35,29 @@ public class RotateColumnDown implements Move {
 
     @Override
     public Move reverse() {
-        return new RotateColumnUp(columnIndex);
+        return new RotateRowLeft(rowIndex);
     }
 
     @Override
     public Set<Position> getAffectedPositions(final Board board) {
-        Set<Position> affected = new HashSet<Position>();
+        final Set<Position> affected = new HashSet<Position>();
 
-        for (int rowIndex = 0; rowIndex < board.getRowCount(); rowIndex++) {
-            affected.add(Position.at(columnIndex, rowIndex));
+        for (int colIndex = 0; colIndex < board.getColumnCount(); colIndex++) {
+            affected.add(Position.at(colIndex, rowIndex));
         }
         return affected;
     }
-
+    
     private List<Replace> getReplaceMoves(final Board board) {
         final List<Replace> moves = new ArrayList<Replace>();
         Position p;
-
-        // FIXME check valid column
-        p = Position.at(columnIndex, 0);
-        moves.add(new Replace(p, board.getTokenAt(p.plus(0, board.getRowCount() - 1))));
-        for (int rowIndex = 1; rowIndex < board.getRowCount(); rowIndex++) {
-            p = Position.at(columnIndex, rowIndex);
-            moves.add(new Replace(p, board.getTokenAt(p.plus(0, -1))));
+        
+        // FIXME check valid
+        p = Position.at(0, rowIndex);
+        moves.add(new Replace(p, board.getTokenAt(Position.at(board.getColumnCount() - 1, rowIndex))));
+        for (int colIndex = 1; colIndex < board.getColumnCount(); colIndex++) {
+            p = Position.at(colIndex, rowIndex);
+            moves.add(new Replace(p, board.getTokenAt(p.plus(-1, 0))));
         }
         return moves;
     }
