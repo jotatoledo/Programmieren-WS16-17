@@ -13,8 +13,8 @@ public class RotateRowRight implements Move {
     private final int rowIndex;
     
     /**
-     * 
-     * @param rowIndex
+     * Creates a new instance
+     * @param rowIndex the selected row index
      */
     public RotateRowRight(final int rowIndex) {
         this.rowIndex = rowIndex;

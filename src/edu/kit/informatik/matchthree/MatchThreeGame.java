@@ -48,7 +48,6 @@ public class MatchThreeGame implements Game {
             throw new BoardDimensionException("the move cant be applied on the board");
         final Set<Position> affected = move.getAffectedPositions(board);
         handleMatches(affected, 1);
-        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -68,7 +67,7 @@ public class MatchThreeGame implements Game {
                 .distinct()
                 .filter(s -> s.size() >= 3)
                 .collect(Collectors.toSet());
-        final Set<Set<Position>> filteredSubsets = new HashSet<Set<Position>>();
+        final Set<Set<Position>> filteredMatches = new HashSet<Set<Position>>();
         for (Set<Position> s1 : matches) {
             Boolean isSubset = false;
             for (Set<Position> s2 : matches) {
@@ -83,16 +82,16 @@ public class MatchThreeGame implements Game {
             }
             if (!isSubset)
                 // true: s1 isn't a subset
-                filteredSubsets.add(s1);
+                filteredMatches.add(s1);
         }
         // Calculate this round score
-        final int score = filteredSubsets.stream()
+        final int score = filteredMatches.stream()
                 .mapToInt(s -> (3 + (s.size() - 3) * 2))
                 .sum();
         // Add the roun score to the total score
-        this.score += score * factor;
+        this.score += score * factor * filteredMatches.size();
         // Remove the matches from the board
-        filteredSubsets.forEach(s -> board.removeTokensAt(s));
+        filteredMatches.forEach(s -> board.removeTokensAt(s));
         final Set<Position> affectedByPushBottom = board.moveTokensToBottom();
         board.fillWithTokens();
         handleMatches(affectedByPushBottom, factor + 1);

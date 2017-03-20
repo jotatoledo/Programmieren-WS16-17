@@ -36,7 +36,7 @@ public abstract class RotateSquare implements Move {
     }
     
     @Override
-    public Set<Position> getAffectedPositions(Board board) {
+    public Set<Position> getAffectedPositions(final Board board) {
         final Set<Position> affected = new HashSet<Position>();
         
         affected.add(selectedPosition);
@@ -54,5 +54,10 @@ public abstract class RotateSquare implements Move {
         return true;
     }
     
-    public abstract List<Replace> generateChainedReplaces(final Board board);
+    /**
+     * Generates a list of replacement moves
+     * @param board the board to apply the replacements on
+     * @return a list of replacement moves
+     */
+    public abstract List<Replace> generateChainedReplaces(Board board);
 }

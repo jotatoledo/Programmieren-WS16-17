@@ -31,6 +31,8 @@ public class MatchThreeBoard implements Board {
      * @param tokens FIXME add doc
      * @param columnCount FIXME add doc
      * @param rowCount FIXME add doc
+     * @throws BoardDimensionException if the number of rows or columns is < 2
+     * @throws IllegalArgumentException if the number of tokens is < 2
      */
     public MatchThreeBoard(final Set<Token> tokens, final int columnCount, final int rowCount) {
         if (rowCount < 2) throw new BoardDimensionException("invalid row count");
@@ -52,6 +54,10 @@ public class MatchThreeBoard implements Board {
      * FIXME add doc
      * @param tokens FIXME add doc
      * @param tokenString FIXME add doc
+     * @throws BoardDimensionException if the number of rows or columns is < 2
+     * @throws IllegalArgumentException if the number of tokens is < 2
+     * @throws TokenStringParseException if the given token string have a different amount of columns per row
+     * or one of the tokens in it is invalid
      */
     public MatchThreeBoard(final Set<Token> tokens, final String tokenString) {
         // FIXME add regex check?
@@ -65,6 +71,8 @@ public class MatchThreeBoard implements Board {
         if (Arrays.stream(split).mapToInt(x->x.length()).distinct().count() != 1)
             throw new TokenStringParseException("different number of elements per row");
         // matrix creation
+        if (split.length < 2) throw new BoardDimensionException("invalid row count");
+        if (split[0].length() < 2) throw new BoardDimensionException("invalid column count");
         this.rowCount = split.length;
         this.columnCount = split[0].length();
         this.board = new Token[rowCount][columnCount];
