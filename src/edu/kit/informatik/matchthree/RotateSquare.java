@@ -9,9 +9,16 @@ import edu.kit.informatik.matchthree.framework.interfaces.Board;
 import edu.kit.informatik.matchthree.framework.interfaces.Move;
 
 public abstract class RotateSquare implements Move {
+    /**
+     * The selected position to apply this move
+     */
     protected final Position selectedPosition;
 
-    protected RotateSquare(final Position selectedPosition){
+    /**
+     * Creates a new instance
+     * @param selectedPosition the selected position to apply this
+     */
+    protected RotateSquare(final Position selectedPosition) {
         this.selectedPosition = selectedPosition;
     }
 

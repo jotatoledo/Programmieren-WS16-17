@@ -19,7 +19,7 @@ import edu.kit.informatik.matchthree.framework.interfaces.Board;
  * 
  */
 public class MatchThreeBoard implements Board {
-    private final int columncount;
+    private final int columnCount;
     private final int rowCount;
     private final Set<Token> tokens;
     private final Token[][] board;
@@ -37,7 +37,7 @@ public class MatchThreeBoard implements Board {
         if (columnCount < 2) throw new BoardDimensionException("invalid column count");
         if (tokens.size() < 2) throw new IllegalArgumentException("invalid amount of tokens");
         this.rowCount = rowCount;
-        this.columncount = columnCount;
+        this.columnCount = columnCount;
         this.tokens = tokens;
         this.board = new Token[rowCount][columnCount];
         this.strategy = null;
@@ -60,15 +60,14 @@ public class MatchThreeBoard implements Board {
             throw new IllegalArgumentException("invalid amount of tokens");
         this.tokens = tokens;
         // Split tokenString by ;
-        String[] split = tokenString.split(";");
+        final String[] split = tokenString.split(";");
         // check that the splited rows have the same length
-        long count = Arrays.stream(split).mapToInt(x->x.length()).distinct().count();
-        if (count != 1)
+        if (Arrays.stream(split).mapToInt(x->x.length()).distinct().count() != 1)
             throw new TokenStringParseException("different number of elements per row");
         // matrix creation
         this.rowCount = split.length;
-        this.columncount = split[0].length();
-        this.board = new Token[rowCount][columncount];
+        this.columnCount = split[0].length();
+        this.board = new Token[rowCount][columnCount];
         // Iterate the tokenString
         for (int rowIndex = 0; rowIndex < split.length; rowIndex++) {
             String rowString = split[rowIndex];
@@ -77,7 +76,7 @@ public class MatchThreeBoard implements Board {
                 if (c == ' ')// the token is empty
                     this.board[rowIndex][columnIndex] = null;
                 else {
-                    Token token = new Token(rowString.charAt(columnIndex));
+                    Token token = new Token(c);
                     // Check if the token exist in th accepted token set
                     if (!tokens.contains(token))
                         throw new TokenStringParseException("unknown token in the token string");
@@ -95,7 +94,7 @@ public class MatchThreeBoard implements Board {
 
     @Override
     public int getColumnCount() {
-        return this.columncount;
+        return this.columnCount;
     }
 
     @Override
@@ -118,17 +117,18 @@ public class MatchThreeBoard implements Board {
         if (newToken == null)
             this.board[position.y][position.x] = null;
         else {
-            // the token doesnt belong to the set of accepted tokens
+            // the token doesn't belong to the set of accepted tokens
             if (!this.tokens.contains(newToken))
                 throw new IllegalTokenException("invalid token");
             // set the new token
-            this.board[position.y][position.x] = new Token(newToken.toString());
+            this.board[position.y][position.x] = newToken;
         }
     }
 
     @Override
     public boolean containsPosition(final Position position) {
-        return position.x >= 0 && position.x <= this.columncount - 1 
+        Objects.requireNonNull(position, "null position");
+        return position.x >= 0 && position.x <= this.columnCount - 1 
                 && position.y >= 0 && position.y <= this.rowCount - 1;
     }
 
@@ -136,25 +136,49 @@ public class MatchThreeBoard implements Board {
     public Set<Position> moveTokensToBottom() {
         Position p;
         Position overP;
-        final Set<Position> affected = new HashSet<Position>();
+        
+        final MatchThreeBoard copy = copy();
         // start from last row
-        for (int counter = 0; counter < this.rowCount - 1; counter++) {
-            for (int row = this.rowCount - 1; row >= 0 + counter; row--) {
-                for (int column = 0; column < this.columncount - 1; column++) {
-                    p = new Position(row, column);
+        for (int counter = 0; counter < this.rowCount; counter++) {
+            for (int rowIndex = this.rowCount - 1; rowIndex > counter; rowIndex--) {
+                for (int columnIndex = 0; columnIndex < this.columnCount; columnIndex++) {
+                    p = Position.at(columnIndex, rowIndex);
                     if (this.getTokenAt(p) == null) {
-                        overP = new Position(row - 1, column);
-                        // if the position over p has a, swap the tokens in the positions
+                        // true: a position is free
+                        overP = p.plus(0, -1);
                         if (this.getTokenAt(overP) != null) {
+                            // true: there is a token above an empty position
                             this.swapTokens(p, overP);
-                            affected.add(p);
-                            affected.add(overP);
                         } 
                     }
                 }
             }
         }
+        return changed(copy);
+    }
+
+    private Set<Position> changed(final MatchThreeBoard copy) {
+        final Set<Position> affected = new HashSet<Position>();
+        for (int row = 0; row < rowCount; row++) {
+            for (int col = 0; col < columnCount; col++) {
+                Position p = Position.at(col, row);
+                if (getTokenAt(p) != copy.getTokenAt(p))
+                    affected.add(p);
+            }
+        }
         return affected;
+    }
+
+    
+    private MatchThreeBoard copy() {
+        final MatchThreeBoard copy = new MatchThreeBoard(getAllValidTokens(), getColumnCount(), getRowCount());
+        for (int row = 0; row < rowCount; row++) {
+            for (int col = 0; col < columnCount; col++) {
+                Position p = Position.at(col, row);
+                copy.setTokenAt(p, getTokenAt(p));
+            }
+        }
+        return copy;
     }
 
     @Override
@@ -180,7 +204,7 @@ public class MatchThreeBoard implements Board {
 
     @Override
     public void setFillingStrategy(final FillingStrategy strategy) {
-        Objects.requireNonNull(strategy, "the filling strategy cant be null");
+        Objects.requireNonNull(strategy, "setFillingStrategy -> the filling strategy cant be null");
         this.strategy = strategy;
     }
 
@@ -205,7 +229,8 @@ public class MatchThreeBoard implements Board {
      * @throws BoardDimensionException if the position isn't valid in the board (the coordinates are out of bounds)
      */
     private void checkValidPosition(final Position p) throws BoardDimensionException {
-        if (p.x < 0 || p.x > this.columncount - 1)
+        Objects.requireNonNull(p, "null position");
+        if (p.x < 0 || p.x > this.columnCount - 1)
             throw new BoardDimensionException("the position has an invalid x coordinate");
         if (p.y < 0 || p.y > this.rowCount - 1)
             throw new BoardDimensionException("the position has an invalid y coordinate");
