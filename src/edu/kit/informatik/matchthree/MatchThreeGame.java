@@ -88,7 +88,7 @@ public class MatchThreeGame implements Game {
         final int score = filteredMatches.stream()
                 .mapToInt(s -> (3 + (s.size() - 3) * 2))
                 .sum();
-        // Add the roun score to the total score
+        // Add the round score to the total score
         this.score += score * factor * filteredMatches.size();
         // Remove the matches from the board
         filteredMatches.forEach(s -> board.removeTokensAt(s));
