@@ -36,6 +36,8 @@ public class Swap implements Move  {
     
     @Override
     public Set<Position> getAffectedPositions(Board board) {
+        if (!canBeApplied(board))
+            throw new BoardDimensionException("invalid move");
         final Set<Position> affected = new HashSet<Position>();
         
         affected.add(selectedPosition);
