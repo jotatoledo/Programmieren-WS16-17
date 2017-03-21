@@ -5,11 +5,11 @@ import edu.kit.informatik.matchthree.framework.interfaces.Move;
 import edu.kit.informatik.matchthree.framework.interfaces.MoveFactory;
 
 /**
- *
+ * The implementation of a movement factory
  */
 public class MoveFactoryImplementation implements MoveFactory {
     /**
-     * 
+     * Creates a new instance
      */
     public MoveFactoryImplementation() {
     }
@@ -30,13 +30,12 @@ public class MoveFactoryImplementation implements MoveFactory {
     }
 
     @Override
-    public Move rotateColumnDown(int columnIndex) {
+    public Move rotateColumnDown(final int columnIndex) {
         return new RotateColumnDown(columnIndex);
     }
 
     @Override
-    public Move rotateRowRight(int rowIndex) {
+    public Move rotateRowRight(final int rowIndex) {
         return new RotateRowRight(rowIndex);
     }
-
 }
