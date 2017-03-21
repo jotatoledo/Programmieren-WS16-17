@@ -3,12 +3,18 @@ package edu.kit.informatik.matchthree;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import edu.kit.informatik.matchthree.framework.Position;
+import edu.kit.informatik.matchthree.framework.exceptions.BoardDimensionException;
 import edu.kit.informatik.matchthree.framework.interfaces.Board;
 import edu.kit.informatik.matchthree.framework.interfaces.Move;
 
 public abstract class RotateSquare implements Move {
+    /**
+     * The square formed by the given position that represents the left top corner
+     */
+    protected final Set<Position> square;
     /**
      * The selected position to apply this move
      */
@@ -20,38 +26,37 @@ public abstract class RotateSquare implements Move {
      */
     protected RotateSquare(final Position selectedPosition) {
         this.selectedPosition = selectedPosition;
+        final Set<Position> square = new HashSet<Position>();
+        this.square = square;
+        square.add(selectedPosition);
+        square.add(selectedPosition.plus(1, 0));
+        square.add(selectedPosition.plus(1, 1));
+        square.add(selectedPosition.plus(0, 1));
     }
 
     @Override
     public boolean canBeApplied(final Board board) {
-        return board.containsPosition(selectedPosition) && validMoves(board);
+        for (Position p: square) {
+            if (!board.containsPosition(p))
+                return false;
+        }
+        return true;
     }
 
     @Override
     public void apply(final Board board) {
-        // FIXME check first
-        for (Replace replace: generateChainedReplaces(board)) {
+        if (!canBeApplied(board))
+            throw new BoardDimensionException("invalid move");
+        for (Replace replace: getReplaceMoves(board)) {
             replace.apply(board);
         }
     }
     
     @Override
     public Set<Position> getAffectedPositions(final Board board) {
-        final Set<Position> affected = new HashSet<Position>();
-        
-        affected.add(selectedPosition);
-        affected.add(selectedPosition.plus(1, 0));
-        affected.add(selectedPosition.plus(1, 1));
-        affected.add(selectedPosition.plus(0, 1));
-        return affected;
-    }
-    
-    private boolean validMoves(final Board board) {
-        for (Replace replace: generateChainedReplaces(board)) {
-            if (!replace.canBeApplied(board))
-                return false;
-        }
-        return true;
+        if (!canBeApplied(board))
+            throw new BoardDimensionException("invalid move");
+        return square.stream().collect(Collectors.toSet());
     }
     
     /**
@@ -59,5 +64,5 @@ public abstract class RotateSquare implements Move {
      * @param board the board to apply the replacements on
      * @return a list of replacement moves
      */
-    public abstract List<Replace> generateChainedReplaces(Board board);
+    public abstract List<Replace> getReplaceMoves(Board board);
 }
