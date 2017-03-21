@@ -1,35 +1,24 @@
 package edu.kit.informatik.matchthree;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-
 import edu.kit.informatik.matchthree.framework.Position;
+import edu.kit.informatik.matchthree.framework.exceptions.BoardDimensionException;
 import edu.kit.informatik.matchthree.framework.interfaces.Board;
 import edu.kit.informatik.matchthree.framework.interfaces.Move;
 
-public class RotateColumnDown implements Move {
-    private final int columnIndex;
-    
+/**
+ * Encapsulates the logic for a rotate column down movement
+ * @author JoseNote
+ *
+ */
+public class RotateColumnDown extends RotateColumn {    
     /**
-     * FIXME add doc
-     * @param columnIndex FIXME add doc
+     * Creates a new instance
+     * @param columnIndex the selected column index
      */
     public RotateColumnDown(final int columnIndex) {
-        this.columnIndex = columnIndex;
-    }
-
-    @Override
-    public boolean canBeApplied(final Board board) {
-        return columnIndex >= 0 && columnIndex <= board.getColumnCount() - 1;
-    }
-
-    @Override
-    public void apply(final Board board) {
-        for (Replace r: getReplaceMoves(board)) {
-            r.apply(board);
-        }
+        super(columnIndex);
     }
 
     @Override
@@ -38,25 +27,20 @@ public class RotateColumnDown implements Move {
     }
 
     @Override
-    public Set<Position> getAffectedPositions(final Board board) {
-        Set<Position> affected = new HashSet<Position>();
-
-        for (int rowIndex = 0; rowIndex < board.getRowCount(); rowIndex++) {
-            affected.add(Position.at(columnIndex, rowIndex));
-        }
-        return affected;
-    }
-
-    private List<Replace> getReplaceMoves(final Board board) {
+    protected List<Replace> getReplaceMoves(final Board board) {
+        if (!canBeApplied(board))
+            throw new BoardDimensionException("invalid move");
         final List<Replace> moves = new ArrayList<Replace>();
-        Position p;
-
-        // FIXME check valid column
-        p = Position.at(columnIndex, 0);
-        moves.add(new Replace(p, board.getTokenAt(p.plus(0, board.getRowCount() - 1))));
+        Position into;
+        Position from;
+        
+        into = Position.at(columnIndex, 0);
+        from = into.plus(0, board.getRowCount() - 1);
+        moves.add(new Replace(into, board.getTokenAt(from)));
         for (int rowIndex = 1; rowIndex < board.getRowCount(); rowIndex++) {
-            p = Position.at(columnIndex, rowIndex);
-            moves.add(new Replace(p, board.getTokenAt(p.plus(0, -1))));
+            into = Position.at(columnIndex, rowIndex);
+            from = into.plus(0, -1);
+            moves.add(new Replace(into, board.getTokenAt(from)));
         }
         return moves;
     }
