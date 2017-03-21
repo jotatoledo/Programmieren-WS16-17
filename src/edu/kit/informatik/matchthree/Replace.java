@@ -1,42 +1,41 @@
 package edu.kit.informatik.matchthree;
 
+import java.util.Objects;
+
 import edu.kit.informatik.matchthree.framework.Position;
 import edu.kit.informatik.matchthree.framework.Token;
+import edu.kit.informatik.matchthree.framework.exceptions.BoardDimensionException;
 import edu.kit.informatik.matchthree.framework.interfaces.Board;
 
 /**
- * FIXME add doc
+ * Encapsulates the logic of a replacement movement
  * @author JoseNote
  *
  */
 public class Replace {
-    private final Position selectedPosition;
-    private final Token newToken;
+    private final Position position;
+    private final Token token;
     
     /**
-     * FIXME add doc
-     * @param selectedPosition FIXME add doc
-     * @param newToken FIXME add doc
+     * Creates a new instance
+     * @param position a position in which a new token will be inserted
+     * @param token the token to insert in the given position
+     * @throws NullPointerException if the given position if {@code null}
      */
-    public Replace(final Position selectedPosition, final Token newToken) {
-        this.selectedPosition = selectedPosition;
-        this.newToken = newToken;
-    }
-    
-    /**
-     * Checks if this can be applied to the given board
-     * @param board a board
-     * @return {@code True} if the this can be executed on the board. {@code False} otherwise
-     */
-    public boolean canBeApplied(final Board board) {
-        return board.containsPosition(selectedPosition);
+    public Replace(final Position position, final Token token) {
+        Objects.requireNonNull(position, "position in null");
+        this.position = position;
+        this.token = token;
     }
     
     /**
      * Applies this to the given board
      * @param board a board
+     * @throws BoardDimensionException if the position isn't contained in the given board
      */
     public void apply(final Board board) {
-        board.setTokenAt(selectedPosition, newToken);
+        if (!board.containsPosition(position))
+            throw new BoardDimensionException("invalid position");
+        board.setTokenAt(position, token);
     }  
 }
