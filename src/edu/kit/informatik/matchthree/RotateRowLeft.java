@@ -1,10 +1,7 @@
 package edu.kit.informatik.matchthree;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-
 import edu.kit.informatik.matchthree.framework.Position;
 import edu.kit.informatik.matchthree.framework.exceptions.BoardDimensionException;
 import edu.kit.informatik.matchthree.framework.interfaces.Board;

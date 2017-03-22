@@ -121,12 +121,12 @@ public class MatchThreeBoard implements Board {
             throws BoardDimensionException, IllegalTokenException {
         // check if the position is inside the board boundaries
         checkValidPosition(position);
-        // if token = null -> remove token from board at the given position
         if (newToken == null)
+            // true: the given token is null -> set null in given position
             this.board[position.y][position.x] = null;
         else {
-            // the token doesn't belong to the set of accepted tokens
             if (!this.tokens.contains(newToken))
+                // true: the token doesn't belong to the set of accepted tokens
                 throw new IllegalTokenException("invalid token");
             // set the new token
             this.board[position.y][position.x] = newToken;

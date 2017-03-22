@@ -2,6 +2,7 @@ package edu.kit.informatik.matchthree;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -23,8 +24,10 @@ public abstract class RotateSquare implements Move {
     /**
      * Creates a new instance
      * @param selectedPosition the selected position to apply this
+     * @throws NullPointerException if the given position is null
      */
     protected RotateSquare(final Position selectedPosition) {
+        Objects.requireNonNull(selectedPosition, "selected position is null");
         this.selectedPosition = selectedPosition;
         final Set<Position> square = new HashSet<Position>();
         this.square = square;
@@ -36,6 +39,7 @@ public abstract class RotateSquare implements Move {
 
     @Override
     public boolean canBeApplied(final Board board) {
+        Objects.requireNonNull(board, "the board cant be null");
         for (Position p: square) {
             if (!board.containsPosition(p))
                 return false;
@@ -45,6 +49,7 @@ public abstract class RotateSquare implements Move {
 
     @Override
     public void apply(final Board board) {
+        Objects.requireNonNull(board, "the board cant be null");
         if (!canBeApplied(board))
             throw new BoardDimensionException("invalid move");
         for (Replace replace: getReplaceMoves(board)) {
@@ -54,6 +59,7 @@ public abstract class RotateSquare implements Move {
     
     @Override
     public Set<Position> getAffectedPositions(final Board board) {
+        Objects.requireNonNull(board, "the board cant be null");
         if (!canBeApplied(board))
             throw new BoardDimensionException("invalid move");
         return square.stream().collect(Collectors.toSet());

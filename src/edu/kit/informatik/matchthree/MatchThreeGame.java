@@ -37,17 +37,18 @@ public class MatchThreeGame implements Game {
 
     @Override
     public void initializeBoardAndStart() {
-        final Set<Position> affected = board.moveTokensToBottom();
+        board.moveTokensToBottom();
         board.fillWithTokens();
-        handleMatches(affected, 1);
+        handleMatches(boardPositions(), 1);
     }
 
     @Override
     public void acceptMove(final Move move) {
         if (!move.canBeApplied(board))
             throw new BoardDimensionException("the move cant be applied on the board");
-        final Set<Position> affected = move.getAffectedPositions(board);
-        handleMatches(affected, 1);
+        final Set<Position> moved = move.getAffectedPositions(board);
+        move.apply(board);
+        handleMatches(moved, 1);
     }
 
     @Override
@@ -59,6 +60,16 @@ public class MatchThreeGame implements Game {
     public void setMatcher(final Matcher matcher) {
         Objects.requireNonNull(matcher, "the matcher is null");
         this.matcher = matcher;
+    }
+    
+    private Set<Position> boardPositions() {
+        final Set<Position> positions = new HashSet<Position>();
+        for (int row = 0; row < board.getRowCount(); row++) {
+            for (int col = 0; col < board.getColumnCount(); col++) {
+                positions.add(Position.at(col, row));
+            }
+        }
+        return positions;
     }
     
     private void handleMatches(final Set<Position> positions, int factor) {
@@ -84,16 +95,18 @@ public class MatchThreeGame implements Game {
                 // true: s1 isn't a subset
                 filteredMatches.add(s1);
         }
+        if (filteredMatches.size() == 0)
+            return;
         // Calculate this round score
         final int score = filteredMatches.stream()
-                .mapToInt(s -> (3 + (s.size() - 3) * 2))
+                .mapToInt(s -> 3 + (s.size() - 3) * 2)
                 .sum();
         // Add the round score to the total score
         this.score += score * factor * filteredMatches.size();
         // Remove the matches from the board
         filteredMatches.forEach(s -> board.removeTokensAt(s));
-        final Set<Position> affectedByPushBottom = board.moveTokensToBottom();
+        board.moveTokensToBottom();
         board.fillWithTokens();
-        handleMatches(affectedByPushBottom, factor + 1);
+        handleMatches(boardPositions(), factor + 1);
     }
 }
