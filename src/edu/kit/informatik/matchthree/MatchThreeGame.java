@@ -13,7 +13,7 @@ import edu.kit.informatik.matchthree.framework.interfaces.Matcher;
 import edu.kit.informatik.matchthree.framework.interfaces.Move;
 
 /**
- * FIXME add doc
+ * Encapsulates the logic for a match tree game
  * @author JoseNote
  *
  */

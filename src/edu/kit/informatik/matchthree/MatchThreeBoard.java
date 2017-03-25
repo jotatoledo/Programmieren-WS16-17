@@ -16,7 +16,9 @@ import edu.kit.informatik.matchthree.framework.exceptions.TokenStringParseExcept
 import edu.kit.informatik.matchthree.framework.interfaces.Board;
 
 /**
- * 
+ * Encapsulates the logic for a match tree board
+ * @author JoseNote
+ *
  */
 public class MatchThreeBoard implements Board {
     private final int columnCount;
@@ -24,17 +26,17 @@ public class MatchThreeBoard implements Board {
     private final Set<Token> tokens;
     private final Token[][] board;
     private FillingStrategy strategy;
-    // FIXME check valid function parameters (require not null)
 
     /**
-     * FIXME add doc
-     * @param tokens FIXME add doc
-     * @param columnCount FIXME add doc
-     * @param rowCount FIXME add doc
+     * Creates a new instance with the given col/row parameters
+     * @param tokens the set of accepted tokens
+     * @param columnCount the number of columns
+     * @param rowCount the number of rows
      * @throws BoardDimensionException if the number of rows or columns is < 2
      * @throws IllegalArgumentException if the number of tokens is < 2
      */
     public MatchThreeBoard(final Set<Token> tokens, final int columnCount, final int rowCount) {
+        Objects.requireNonNull(tokens, "the tokens set is null");
         if (rowCount < 2) throw new BoardDimensionException("invalid row count");
         if (columnCount < 2) throw new BoardDimensionException("invalid column count");
         if (tokens.size() < 2) throw new IllegalArgumentException("invalid amount of tokens");
@@ -51,9 +53,9 @@ public class MatchThreeBoard implements Board {
     }
 
     /**
-     * FIXME add doc
-     * @param tokens FIXME add doc
-     * @param tokenString FIXME add doc
+     * Creates a new instance from the string representation of the table
+     * @param tokens the set of accepted tokens
+     * @param tokenString the string representation of a board with tokens
      * @throws BoardDimensionException if the number of rows or columns is < 2
      * @throws IllegalArgumentException if the number of tokens is < 2
      * @throws TokenStringParseException if the given token string have a different amount of columns per row
@@ -61,6 +63,8 @@ public class MatchThreeBoard implements Board {
      */
     public MatchThreeBoard(final Set<Token> tokens, final String tokenString) {
         // FIXME add regex check?
+        Objects.requireNonNull(tokens, "the tokens set is null");
+        Objects.requireNonNull(tokenString, "the token string is null");
         // Check valid number of tokens
         if (tokens.size() < 2)
             throw new IllegalArgumentException("invalid amount of tokens");
@@ -191,7 +195,6 @@ public class MatchThreeBoard implements Board {
 
     @Override
     public void swapTokens(final Position positionA, final Position positionB) throws BoardDimensionException {
-        // FIXME remove double chekc
         checkValidPosition(positionA);
         checkValidPosition(positionB);
         if (!positionA.equals(positionB)) {
@@ -225,15 +228,14 @@ public class MatchThreeBoard implements Board {
 
     @Override
     public String toTokenString() {
-        // FIXME check
         return Arrays.stream(this.board)
                 .map(x -> Arrays.stream(x).map(t -> t == null ? " " : t.toString()).collect(Collectors.joining()))
                 .collect(Collectors.joining(";"));
     }
 
     /**
-     * FIXME add doc
-     * @param p FIXME add doc
+     * Convenience method to check if a position is valid
+     * @param p a position to check
      * @throws BoardDimensionException if the position isn't valid in the board (the coordinates are out of bounds)
      */
     private void checkValidPosition(final Position p) throws BoardDimensionException {

@@ -10,7 +10,7 @@ import edu.kit.informatik.matchthree.framework.interfaces.Board;
 import edu.kit.informatik.matchthree.framework.interfaces.Move;
 
 /**
- * FIXME add doc
+ * Encapsulates common logic for a rotate column move
  * @author JoseNote
  *
  */
